@@ -90,11 +90,13 @@ def batch_audit(
     if not batch_table:
         raise ValueError("batch table must not be empty")
     stats_rows = []
+    channel_rows = []
     for batch in batch_table:
         if len(batch) < 2 or len(set(batch)) != len(batch):
             raise ValueError(f"invalid batch: {batch}")
         submatrix = soft[np.ix_(batch, batch)]
         stats_rows.append(weight_statistics(submatrix))
+        channel_rows.append(three_channel_statistics(submatrix))
     first = stats_rows[0]
     aggregate = {
         key: {
@@ -104,10 +106,20 @@ def batch_audit(
         }
         for key in first
     }
+    channel_aggregate = {
+        key: {
+            "mean": float(np.mean([row[key] for row in channel_rows])),
+            "min": float(np.min([row[key] for row in channel_rows])),
+            "max": float(np.max([row[key] for row in channel_rows])),
+        }
+        for key in channel_rows[0]
+        if key != "candidate_count"
+    }
     return {
         "batch_count": len(batch_table),
         "batch_size": len(batch_table[0]),
         "aggregate": aggregate,
+        "three_channel_aggregate": channel_aggregate,
         "first_batch_toy_losses": toy_losses(
             soft[np.ix_(batch_table[0], batch_table[0])]
         ),
@@ -123,6 +135,7 @@ def matrix_audit(
     result: dict[str, object] = {
         "shape": list(soft.shape),
         "weights": stats,
+        "three_channel": three_channel_statistics(soft),
         "toy_losses": losses,
         "row_normalization_changes_loss": not math.isclose(
             losses["loss_raw"],
@@ -140,6 +153,40 @@ def matrix_audit(
     if batch_table is not None:
         result["batch_audit"] = batch_audit(soft, batch_table)
     return result
+
+
+def three_channel_statistics(soft: np.ndarray) -> dict[str, float]:
+    values = np.asarray(soft, dtype=np.float64)
+    masses = []
+    pis = []
+    entropies = []
+    kls = []
+    for row in range(len(values)):
+        off = np.delete(values[row], row)
+        # The official duplicate matrix uses two copies of each off-diagonal
+        # weight for one anchor.
+        mass = 2.0 * float(off.sum())
+        total = 1.0 + mass
+        pi = mass / total
+        q = np.concatenate([off, off]) / mass if mass > 0 else None
+        k = len(q) if q is not None else 0
+        masses.append(total)
+        pis.append(pi)
+        if q is not None:
+            uniform = np.full(k, 1.0 / k)
+            entropies.append(float(-(q * np.log(q)).sum()))
+            kls.append(float((q * np.log(q / uniform)).sum()))
+    return {
+        "W_mean": float(np.mean(masses)),
+        "W_min": float(np.min(masses)),
+        "W_max": float(np.max(masses)),
+        "pi_mean": float(np.mean(pis)),
+        "pi_min": float(np.min(pis)),
+        "pi_max": float(np.max(pis)),
+        "q_entropy_mean": float(np.mean(entropies)) if entropies else 0.0,
+        "q_kl_uniform_mean": float(np.mean(kls)) if kls else 0.0,
+        "candidate_count": int(2 * (len(values) - 1)),
+    }
 
 
 def main() -> None:

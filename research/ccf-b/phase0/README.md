@@ -29,6 +29,8 @@ A1-R0
 A1-Cov
 A1-Cov-A5a
 A1-Cov-uniform
+A1-Cov-rownorm
+A1-Cov-permq
 ```
 
 它从 `clue_lds/processed_final` 读取用户日数据、画像特征、A3/A5a/A5b 图和用户顺序，生成与 seed 绑定的共同覆盖批次表，并保存每个变体的模型、batch table、摘要和可选分数。
@@ -51,7 +53,8 @@ python dual_end_entry.py `
 
 每个 seed 的 A0-matched/A1-Cov 使用该 seed 实际生成并通过 80% 门禁的联合覆盖表；
 A0-A3batch 使用只含 A3 边的覆盖表；A1-Cov-A5a 使用只含 A5a 边的覆盖表；
-A1-Cov-uniform 使用与 A1-Cov 相同批次表但支撑集均匀权重；A1-R0 使用相同
+A1-Cov-uniform 使用与 A1-Cov 相同批次表但逐锚点均匀化 q；A1-Cov-rownorm
+保留 pi/q 并令 W=1；A1-Cov-permq 保留 W/pi 并置换 q；A1-R0 使用相同
 optimizer steps 的随机 shuffle 表；A0-official 使用未覆盖的随机表。
 
 ## 合成 smoke

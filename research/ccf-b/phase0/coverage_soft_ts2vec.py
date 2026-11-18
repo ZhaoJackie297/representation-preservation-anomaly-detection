@@ -25,6 +25,52 @@ from utils import (  # noqa: E402
 )
 
 
+def transform_soft_batch(
+    weights: np.ndarray,
+    mode: str | None,
+    rng: np.random.Generator | None = None,
+) -> np.ndarray:
+    """Apply three-channel controls to one batch submatrix.
+
+    ``rownorm`` sets the duplicated per-anchor mass to one while preserving
+    off-diagonal quality. ``uniform`` preserves the raw row's off-diagonal
+    mass but makes its distribution uniform. ``permuq`` preserves the same
+    mass and permutes the off-diagonal weights.
+    """
+
+    values = np.asarray(weights, dtype=np.float64).copy()
+    if values.ndim != 2 or values.shape[0] != values.shape[1]:
+        raise ValueError("soft weights must be square")
+    if mode in (None, "raw"):
+        return values.astype(np.float32)
+    if mode not in {"rownorm", "uniform", "permuq"}:
+        raise ValueError(f"unknown soft transform: {mode}")
+    if rng is None:
+        rng = np.random.default_rng(0)
+
+    diagonal = np.diag(values).copy()
+    off_diagonal = values.copy()
+    np.fill_diagonal(off_diagonal, 0.0)
+    if mode == "rownorm":
+        for row in range(len(values)):
+            mass = 2.0 * float(off_diagonal[row].sum())
+            denominator = 1.0 + mass
+            values[row, :] = off_diagonal[row] / denominator
+            values[row, row] = diagonal[row] / denominator
+    elif mode == "uniform":
+        for row in range(len(values)):
+            off_mass = float(off_diagonal[row].sum())
+            values[row, :] = off_mass / max(len(values) - 1, 1)
+            values[row, row] = diagonal[row]
+    else:
+        for row in range(len(values)):
+            candidate_indices = [index for index in range(len(values)) if index != row]
+            shuffled = off_diagonal[row, candidate_indices].copy()
+            rng.shuffle(shuffled)
+            values[row, candidate_indices] = shuffled
+    return values.astype(np.float32)
+
+
 class CoverageSoftTS2Vec:
     """SoftTS2Vec that trains from an explicit shared user-batch table."""
 
@@ -75,6 +121,8 @@ class CoverageSoftTS2Vec:
         batch_table: Iterable[Iterable[int]],
         n_epochs: int = 1,
         verbose: bool = False,
+        soft_transform: str | None = None,
+        soft_seed: int = 0,
     ) -> list[dict[str, float | int]]:
         if train_data.ndim != 3:
             raise ValueError("train_data must be user x time x feature")
@@ -107,6 +155,7 @@ class CoverageSoftTS2Vec:
                 raise ValueError(f"batch index outside user range: {batch}")
 
         optimizer = torch.optim.AdamW(self._net.parameters(), lr=self.lr)
+        transform_rng = np.random.default_rng(soft_seed)
         batch_logs: list[dict[str, float | int]] = []
         for _ in range(n_epochs):
             cumulative_loss = 0.0
@@ -121,6 +170,11 @@ class CoverageSoftTS2Vec:
                     soft_labels_batch = soft_labels[
                         np.ix_(batch_indices, batch_indices)
                     ]
+                    soft_labels_batch = transform_soft_batch(
+                        soft_labels_batch,
+                        soft_transform,
+                        transform_rng,
+                    )
 
                 ts_l = x.size(1)
                 crop_l = np.random.randint(

@@ -8,6 +8,7 @@ import unittest
 
 import numpy as np
 
+from coverage_soft_ts2vec import transform_soft_batch
 from dual_end_entry import (
     average_precision,
     choose_batch_table,
@@ -104,6 +105,42 @@ class DualEndEntryTest(unittest.TestCase):
         weights = densify(values, tau=1.0, alpha=0.5)
         np.testing.assert_allclose(np.diag(weights), 1.0)
 
+    def test_three_weight_controls_preserve_distinct_channels(self) -> None:
+        raw = np.asarray(
+            [
+                [1.0, 0.1, 0.3, 0.2],
+                [0.1, 1.0, 0.4, 0.2],
+                [0.3, 0.4, 1.0, 0.1],
+                [0.2, 0.2, 0.1, 1.0],
+            ],
+            dtype=np.float32,
+        )
+        rownorm = transform_soft_batch(raw, "rownorm")
+        for row in range(len(raw)):
+            duplicated_mass = (
+                rownorm[row, row]
+                + 2.0 * (rownorm[row].sum() - rownorm[row, row])
+            )
+            self.assertAlmostEqual(float(duplicated_mass), 1.0, places=5)
+
+        uniform = transform_soft_batch(raw, "uniform")
+        for row in range(len(raw)):
+            off = np.delete(uniform[row], row)
+            np.testing.assert_allclose(off, off[0])
+            self.assertAlmostEqual(
+                float(uniform[row].sum() - uniform[row, row]),
+                float(raw[row].sum() - raw[row, row]),
+                places=5,
+            )
+
+        permuted = transform_soft_batch(raw, "permuq", np.random.default_rng(3))
+        for row in range(len(raw)):
+            self.assertAlmostEqual(permuted[row, row], raw[row, row])
+            np.testing.assert_allclose(
+                np.sort(np.delete(permuted[row], row)),
+                np.sort(np.delete(raw[row], row)),
+            )
+
     def test_metrics_match_known_ranking(self) -> None:
         labels = np.asarray([1, 0, 1, 0])
         scores = np.asarray([0.9, 0.8, 0.7, 0.1])
@@ -193,6 +230,8 @@ class DualEndEntryTest(unittest.TestCase):
                     "A0-A3batch",
                     "A1-Cov-A5a",
                     "A1-Cov-uniform",
+                    "A1-Cov-rownorm",
+                    "A1-Cov-permq",
                 ],
                 batch_size=16,
                 epochs=1,
@@ -206,7 +245,13 @@ class DualEndEntryTest(unittest.TestCase):
             model_summary = summary["variants"]["7"]["models"]["A1-Cov"]
             self.assertEqual(model_summary["optimizer_steps"], 1)
             self.assertTrue(model_summary["soft_instance"])
-            for variant in ("A0-A3batch", "A1-Cov-A5a", "A1-Cov-uniform"):
+            for variant in (
+                "A0-A3batch",
+                "A1-Cov-A5a",
+                "A1-Cov-uniform",
+                "A1-Cov-rownorm",
+                "A1-Cov-permq",
+            ):
                 self.assertIn(
                     variant,
                     summary["variants"]["7"]["models"],

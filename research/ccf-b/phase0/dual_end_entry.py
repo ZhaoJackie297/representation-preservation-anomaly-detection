@@ -26,6 +26,8 @@ VARIANTS = (
     "A1-Cov",
     "A1-Cov-A5a",
     "A1-Cov-uniform",
+    "A1-Cov-rownorm",
+    "A1-Cov-permq",
 )
 
 
@@ -254,6 +256,8 @@ def choose_batch_table(
         "A1-Cov",
         "A1-Cov-A5a",
         "A1-Cov-uniform",
+        "A1-Cov-rownorm",
+        "A1-Cov-permq",
     ):
         return coverage.training_batches
     return random_batch_table(
@@ -283,20 +287,27 @@ def train_variant(
     device: str,
     batch_size: int,
     tau_temp: float,
-    uniform_labels: np.ndarray | None = None,
 ) -> dict[str, object]:
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
-    if variant == "A1-Cov-uniform":
-        selected_soft_labels = uniform_labels
-    elif variant in ("A1-R0", "A1-Cov", "A1-Cov-A5a"):
+    if variant in ("A1-R0", "A1-Cov", "A1-Cov-A5a", "A1-Cov-uniform", "A1-Cov-rownorm", "A1-Cov-permq"):
         selected_soft_labels = soft_labels
     else:
         selected_soft_labels = None
-    if variant in ("A1-Cov-uniform", "A1-Cov-A5a") and selected_soft_labels is None:
+    if variant in (
+        "A1-Cov-uniform",
+        "A1-Cov-A5a",
+        "A1-Cov-rownorm",
+        "A1-Cov-permq",
+    ) and selected_soft_labels is None:
         raise ValueError(f"{variant} requires soft labels")
+    soft_transform = {
+        "A1-Cov-uniform": "uniform",
+        "A1-Cov-rownorm": "rownorm",
+        "A1-Cov-permq": "permuq",
+    }.get(variant)
     model = CoverageSoftTS2Vec(
         input_dims=train_values.shape[-1],
         output_dims=64,
@@ -316,6 +327,8 @@ def train_variant(
         batch_table=batch_table,
         n_epochs=1,
         verbose=False,
+        soft_transform=soft_transform,
+        soft_seed=seed,
     )
     model.save(str(output_dir / "model.pth"))
     return {
@@ -400,10 +413,6 @@ def run(args: argparse.Namespace) -> dict[str, object]:
     graph_users, targets = load_graph_edges(graph_path)
     if graph_users != user_count:
         raise ValueError("graph user count does not match dataset users")
-    uniform_labels = np.eye(user_count, dtype=np.float32)
-    for left, right in targets["A3"]:
-        uniform_labels[left, right] = 1.0
-        uniform_labels[right, left] = 1.0
 
     device = args.device
     if device == "auto":
@@ -497,7 +506,6 @@ def run(args: argparse.Namespace) -> dict[str, object]:
                 device=device,
                 batch_size=args.batch_size,
                 tau_temp=args.tau_temp,
-                uniform_labels=uniform_labels,
             )
             train_summary["coverage_summary"] = variant_coverage.to_summary()
             variant_summaries[variant] = train_summary
@@ -519,6 +527,8 @@ def run(args: argparse.Namespace) -> dict[str, object]:
                         "A1-Cov",
                         "A1-Cov-A5a",
                         "A1-Cov-uniform",
+                        "A1-Cov-rownorm",
+                        "A1-Cov-permq",
                     ),
                     soft_temporal=False,
                 )

@@ -1,36 +1,112 @@
 {
   "target": "CCF-B",
-  "plan_version": "1.1",
-  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.1.md",
+  "plan_version": "1.2",
+  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.md",
   "r0_frozen_manuscript": "paper/manuscript.docx",
   "primary_method_candidate": "AdaGraph-SoftCLT",
-  "seeds": [20261116, 20261117, 20261118, 20261119, 20261120, 20261121, 20261122, 20261123, 20261124, 20261125],
+  "status": "candidate_method_pending_implementation_and_external_data_gates",
+  "seeds": [
+    20261116,
+    20261117,
+    20261118,
+    20261119,
+    20261120,
+    20261121,
+    20261122,
+    20261123,
+    20261124,
+    20261125
+  ],
   "training": {
     "epochs": 10,
     "batch_size": 16,
     "output_dims": 64,
     "hidden_dims": 64,
-    "depth": 5
+    "depth": 5,
+    "base_steps": {
+      "CERT r4.2": 620,
+      "CERT r5.2": 1250,
+      "CERT r6.2": 2500
+    }
+  },
+  "dataset_roles": {
+    "CERT r4.2": "development_pilot_and_directional_diagnosis",
+    "CERT r5.2": "locked_parameter_replication_seen_data_not_blind",
+    "CERT r6.2": "five_event_pressure_audit_only",
+    "CERT r1": "unlabeled_engineering_diagnosis_only_no_confirmatory_metrics",
+    "SPEDIA": "session_level_auxiliary_stress_test_only",
+    "TWOS": "small_external_stress_test_only",
+    "ChimeraLog": "pending_access_license_label_and_user_day_audit",
+    "LANL": "pending_dataset_audit",
+    "OpTC": "pending_dataset_audit",
+    "SMD": "scoring_side_and_detection_baselines_only_training_backbone_A0",
+    "PSM/SMAP/MSL": "scoring_side_external_validation_only"
+  },
+  "external_confirmation": {
+    "status": "pending_data_gate",
+    "dataset": null,
+    "require_non_cert_generator_family": true,
+    "minimum_users": 100,
+    "minimum_events": 20,
+    "minimum_clean_training_days": 30,
+    "require_license_and_mapping_audit": true,
+    "freeze_hash_and_protocol_before_results": true,
+    "if_event_count_below_20": "report_effect_and_interval_only_no_confirmatory_p_value"
   },
   "evaluation": {
-    "k_grid": [5, 10, 20],
+    "k_grid": [
+      5,
+      10,
+      20
+    ],
     "cooldown_days": 7,
     "correction": "Holm",
-    "primary_endpoints": ["pr_auc", "event_recall_at_k10"],
-    "direction_rule": "seed_averaged_effect_then_at_least_8_of_10_seeds_positive",
+    "primary_endpoints": [
+      "pr_auc",
+      "event_recall_at_k10"
+    ],
     "bootstrap_repetitions": 10000,
-    "bootstrap_primary_unit": "user_cluster",
-    "bootstrap_sensitivity_unit": "event",
-    "primary_inference": "average_paired_effect_over_ten_seeds_then_user_cluster_bootstrap",
-    "confirmatory_dataset": "CERT r1_after_label_audit",
+    "bootstrap_primary_unit": "user_or_event_cluster",
+    "primary_estimand": "pairwise_effect_conditional_on_ten_trained_models",
+    "primary_inference": "average_paired_effect_over_ten_seeds_then_user_event_cluster_bootstrap",
+    "secondary_sensitivity": "hierarchical_seed_then_user_event_cluster_bootstrap",
     "alpha_one_sided": 0.025,
     "superiority_p_value": "1_plus_count_nonpositive_bootstrap_deltas_over_B_plus_1",
-    "noninferiority_margin_relative": 0.05,
-    "k10_bootstrap": "fixed_daily_topk_then_resample_user_event_clusters",
+    "noninferiority_p_value": "1_plus_count_delta_at_or_below_absolute_margin_over_B_plus_1",
+    "noninferiority_margin": {
+      "pr_auc_absolute": -0.0005,
+      "event_recall_k10_absolute_formula": "-max(0.02, 2 / N_events)",
+      "relative_percent_margin": false
+    },
+    "r5_2_event_step": 0.010101010101010102,
+    "k10_bootstrap": "fixed_daily_topk_before_resampling",
     "mechanism_non_inferiority": {
       "neighborhood_overlap_ci_lower": -0.02,
       "effective_rank_ratio_ci_lower": 0.9
     }
+  },
+  "batch_realization": {
+    "protocol": "research/ccf-b/BATCH_REALIZATION_PROTOCOL_v1.2.md",
+    "unit": "one_user_sequence",
+    "official_batch_size": 16,
+    "shared_coverage_schedule_for_matched_variants": true,
+    "a0_official_random_reference": true,
+    "a0_matched_control": true,
+    "support_edge_coverage_minimum": 0.8,
+    "zero_realized_edge_users_maximum": 0,
+    "median_user_edge_exposures_minimum": 1,
+    "stage_budget": "max(base_steps, required_coverage_batches)",
+    "failure_status": "IMPLEMENTATION_BLOCKED",
+    "logged_metrics": [
+      "intended_support_edges",
+      "realized_support_edges",
+      "support_edge_coverage",
+      "active_pair_mass",
+      "median_user_edge_exposures",
+      "min_user_edge_exposures",
+      "fraction_users_with_zero_realized_edge",
+      "teacher_student_cosine_distance"
+    ]
   },
   "adagraph": {
     "max_rounds": 2,
@@ -43,36 +119,84 @@
     "ema_initialization": "copy_student_at_stage_start",
     "ema_user_representation": "normalized_mean_of_normalized_active_day_representations",
     "ema_distance": "one_minus_cosine",
-    "ema_decay_grid": [0.99, 0.995],
+    "ema_decay_grid": [
+      0.99,
+      0.995
+    ],
     "support_selection": "top_m_of_profile_prior_times_exp_negative_raw_distance_over_tau",
     "support_prior_renormalization": true,
-    "trust_region_kl_max_grid": [0, 0.001, 0.01, 0.05, 0.1, 0.2, 0.5, "infinity"],
-    "tau_grid": [0.05, 0.1, 0.2, 0.5, 1.0],
+    "trust_region_kl_max_grid": [
+      0,
+      0.001,
+      0.01,
+      0.05,
+      0.1,
+      0.2,
+      0.5,
+      "infinity"
+    ],
+    "tau_grid": [
+      0.05,
+      0.1,
+      0.2,
+      0.5,
+      1.0
+    ],
     "beta_solution": "beta=lambda/(tau+lambda), bisection on KL constraint",
     "weight_formula": "P_m^beta * exp(-(1-beta)*d_tilde/tau), normalized",
-    "softclt_weight_mapping": "self_weight_1; positive_pair_weight_W_beta; no_m_scaling",
+    "softclt_weight_mapping": "self_weight_1; off_diagonal_weight_rho_times_W_beta; rho_primary_1.0",
     "beta_bisection_tolerance": 1e-06,
     "beta_bisection_max_iterations": 64,
     "row_median_distance_floor": 1e-06,
     "entropy_role": "objective_regularizer_only",
-    "graph_top_m_grid": [10, 20, 50],
+    "graph_top_m_primary_grid": [
+      5,
+      10
+    ],
+    "graph_top_m_sensitivity_grid": [
+      20,
+      50
+    ],
+    "neighbor_mass_primary": 1.0,
+    "neighbor_mass_sensitivity_grid": [
+      0.25,
+      0.5,
+      1.0
+    ],
+    "a1_sparse_ema": {
+      "support": "same_as_adagraph_mixed_support",
+      "weights": "P_m",
+      "role": "true_epsilon_zero_endpoint"
+    },
+    "a3_hard": {
+      "support": "same_as_A3",
+      "off_diagonal_weight": "rho_m",
+      "self_weight": 1.0
+    },
+    "epsilon_zero_equals": "A1_sparse_EMA",
+    "epsilon_infinity_equals": "pure_representation_weights_on_fixed_mixed_support_not_A3_noAnchor",
+    "a3_no_anchor": "support_and_weights_use_representation_distance_only",
     "controls": [
-      "profile_only",
-      "profile_only_topm_renormalized",
-      "profile_only_equal_budget",
-      "representation_only",
-      "one_step_trust_region",
-      "two_round_trust_region",
-      "no_anchor_ablation",
-      "no_ema_ablation",
-      "alternative_product_fusion",
-      "hard_neighbor_ablation",
-      "profile_permutation_graph",
-      "fixed_graph_restart_control",
-      "nnclr_nearest_neighbor",
-      "incremental_false_negative_detection",
-      "false_negative_cancellation",
-      "degree_preserving_random"
+      "A0_official",
+      "A0_matched",
+      "A1",
+      "A1_sparse",
+      "A1_sparse_EMA",
+      "A1_plus",
+      "A2",
+      "A3",
+      "A4",
+      "A3_noAnchor",
+      "A3_noEMA",
+      "A3_product",
+      "A3_hard",
+      "A5a_degree_preserving_random",
+      "A5b_profile_permutation",
+      "A6_median_profile",
+      "A7_nnclr",
+      "A8a_incremental_false_negative_detection",
+      "A8b_false_negative_cancellation",
+      "A9_fixed_graph_restart"
     ],
     "collapse_early_stop": {
       "effective_rank_drop_fraction": 0.2,
@@ -89,17 +213,37 @@
       "secondary_reference": "same_department",
       "metric": "top10_reference_agreement",
       "profile_excludes_ldap_fields": true,
-      "compared_models": ["A1", "A2", "A3", "A4", "A5a", "A5b", "A7"]
+      "compared_models": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5a",
+        "A5b",
+        "A7"
+      ]
     }
   },
   "hypothesis_selection": {
     "inner_validation": "last_part_of_training_period_before_first_real_malicious_event",
-    "synthetic_anomalies": ["amplitude_spike", "multi_channel_burst", "low_and_slow"],
+    "synthetic_anomalies": [
+      "amplitude_spike",
+      "multi_channel_burst",
+      "low_and_slow"
+    ],
     "severity_levels": 3,
     "selection_metric": "mean_synthetic_pr_auc_using_fixed_s2",
-    "tie_break": ["higher_rankme_effective_rank", "lower_graph_drift"],
+    "candidate_generation": "frozen_table_before_runs",
+    "candidate_count": 12,
+    "tie_break": [
+      "higher_rankme_effective_rank",
+      "lower_graph_drift"
+    ],
     "max_tuning_runs_per_method_family": 20,
-    "successive_halving": "12_candidates_one_seed_then_top4_each_two_additional_seeds"
+    "successive_halving": "12_candidates_one_seed_then_top4_each_two_additional_seeds",
+    "report_all_candidate_scores": true,
+    "relaxed_budget_sensitivity_max_runs": 40,
+    "posthoc_j_real_pr_spearman": "selection_protocol_diagnostic_only"
   },
   "required_baselines": [
     "TS2Vec",
@@ -113,54 +257,88 @@
     "FalseNegativeCancellation",
     "iForest"
   ],
-  "security_experiments": [
-    "threat_model",
-    "low_and_slow",
-    "amplitude_direction_perturbation",
-    "operational_budget",
-    "incident_case_study"
-  ],
-  "dataset_roles": {
-    "CERT r4.2": "development and directional replication; no final confirmatory p-values",
-    "CERT r5.2": "seen-data engineering replication; not blind",
-    "CERT r1": "planned independent confirmation after label, account mapping, split, and preprocessing audit",
-    "CERT r6.2": "five-event pressure audit only",
-    "SMD": "scoring-side and detection baselines only; training backbone fixed A0",
-    "PSM/SMAP/MSL": "scoring-side external validation and robustness only"
-  },
   "training_budget": {
     "unit": "optimizer_step",
     "base_budget": "B",
     "A3_budget": "2B",
     "A4_budget": "3B",
-    "equal_compute_control": "continuous fixed-profile training to matching B/2B/3B",
-    "equal_schedule_control": "A1plus uses a continuous schedule over matching total steps",
-    "restart_control": "three B rounds with weight continuation and optimizer resets; graph fixed",
+    "dynamic_stage_budget": "max(B_base, required_coverage_batches)",
+    "equal_compute_control": "continuous_fixed_profile_training_to_matching_B_or_2B_or_3B",
+    "restart_control": "three_weight_continuation_segments_with_optimizer_resets_and_fixed_graph",
     "stage_initialization": "weight_continuation_with_optimizer_reset",
-    "lr_schedule": "stagewise_warmup_cosine; A1plus uses matched continuous warmup_cosine"
+    "lr_schedule": "stagewise_warmup_cosine_A1plus_uses_matched_continuous_schedule"
   },
-  "confirmatory_comparisons": [
-    "A4_vs_A1",
-    "A4_vs_A1plus_3B",
-    "A4_vs_A7",
-    "A4_vs_A8b",
-    "A4_vs_A9"
-  ],
+  "comparison_families": {
+    "primary_candidates": [
+      "A4_vs_A1",
+      "A4_vs_A1plus_matched",
+      "A4_vs_A7",
+      "A4_vs_A8b",
+      "A4_vs_A9"
+    ],
+    "mechanism": [
+      "A3_vs_A3_noAnchor",
+      "A3_vs_A3_noEMA"
+    ],
+    "relationship_control": [
+      "A4_vs_A5a",
+      "A4_vs_A5b"
+    ],
+    "implementation_diagnostic": [
+      "A0_matched_vs_A0_official"
+    ],
+    "final_holm_scope": "frozen_after_D_ext_event_count_and_MDE_gate"
+  },
   "execution_batches": {
-    "pilot": ["A1", "A1sparse", "A1plus", "A3", "A5a", "A5b", "A7"],
-    "second": ["A2", "A4", "A8a", "A8b", "A9", "A3_noAnchor", "A3_noEMA", "A3_product", "A3_hard"],
-    "third": ["deep_baselines", "SxA_cross", "statistics", "security"]
+    "phase0": [
+      "coverage_sampler",
+      "coverage_smoke_run",
+      "A0_matched"
+    ],
+    "pilot": [
+      "A0_official",
+      "A0_matched",
+      "A1",
+      "A1_sparse",
+      "A1_sparse_EMA",
+      "A1_plus",
+      "A3",
+      "A5a",
+      "A5b",
+      "A7"
+    ],
+    "second": [
+      "A2",
+      "A4",
+      "A8a",
+      "A8b",
+      "A9",
+      "A3_noAnchor",
+      "A3_noEMA",
+      "A3_product",
+      "A3_hard"
+    ],
+    "locked_replication": "CERT_r5_2_after_hyperparameter_freeze",
+    "external_confirmation": "D_ext_only_after_data_gate",
+    "extension": [
+      "deep_baselines",
+      "SxA_cross",
+      "security",
+      "case_studies"
+    ]
   },
   "exclusions": {
-    "CERT r6.2": "pressure audit only; no significance tests",
-    "CERT r1": "do not run confirmation until label and preprocessing audit passes",
-    "SMD": "S series and detection baselines only"
+    "CERT r6.2": "pressure_audit_only_no_significance",
+    "CERT r1": "no_confirmation_due_to_missing_malicious_labels",
+    "SMD": "S_series_and_detection_baselines_only",
+    "SPEDIA": "not_primary_confirmation_due_to_17_users_25_days_and_day1_anomalies",
+    "TWOS": "not_primary_confirmation_due_to_five_day_competition",
+    "ChimeraLog": "do_not_use_until_access_license_user_day_and_event_audit_passes"
   },
   "label_isolation": {
     "graph_updates_use_labels": false,
-    "hyperparameter_selection_split": "training-internal validation",
+    "hyperparameter_selection_split": "training_internal_validation",
     "test_events_for_model_selection": false,
     "posthoc_label_metrics_cannot_early_stop": true
   }
 }
-

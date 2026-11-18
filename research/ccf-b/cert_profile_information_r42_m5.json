@@ -1,0 +1,39 @@
+{
+  "dataset": "E:\\MarketRisker\\work\\cert\\processed_r42\\r4.2_sequence_dataset.npz",
+  "feature_csv": "E:\\MarketRisker\\work\\cert\\processed_r42\\r4.2_user_day_features.csv",
+  "dataset_sha256": "B9F5BB2C39C6F2327BEFF1FF29671C84ED7A6E784709E58509F586A4699992D0",
+  "feature_csv_sha256": "2754630A8394EDEED2D1291B5F0D263253BBBD2CB5053BADB374EA91782FBF84",
+  "users": 1000,
+  "profile_dimensions": 47,
+  "train_end_index": 158,
+  "primary_bandwidth": 7.244160545052665,
+  "knn_k": 10,
+  "knn_bandwidth": 2.0130426878556937,
+  "primary": {
+    "user_count": 1000,
+    "top_m": 5,
+    "flat_ratio": 0.95,
+    "flat_threshold": 1.5289660168123953,
+    "mean_Hm": 1.6076195974934504,
+    "median_Hm": 1.6094222454798457,
+    "fraction_users_above_threshold": 0.997,
+    "majority_fraction": 0.8,
+    "triggered": true,
+    "status": "FLAT_PROFILE_PRIOR",
+    "mechanism_interpretation": "UNTESTABLE_NOT_A3_FAILURE"
+  },
+  "knn_alternative": {
+    "user_count": 1000,
+    "top_m": 5,
+    "flat_ratio": 0.95,
+    "flat_threshold": 1.5289660168123953,
+    "mean_Hm": 1.5464210032561558,
+    "median_Hm": 1.6067660724929897,
+    "fraction_users_above_threshold": 0.898,
+    "majority_fraction": 0.8,
+    "triggered": true,
+    "status": "FLAT_PROFILE_PRIOR",
+    "mechanism_interpretation": "UNTESTABLE_NOT_A3_FAILURE"
+  },
+  "status": "BOTH_PRIORS_FLAT"
+}

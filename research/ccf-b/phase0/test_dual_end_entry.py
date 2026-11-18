@@ -59,6 +59,30 @@ class DualEndEntryTest(unittest.TestCase):
             base_steps=2,
             coverage=coverage,
         )
+        uniform = choose_batch_table(
+            variant="A1-Cov-uniform",
+            user_count=8,
+            batch_size=4,
+            seed=3,
+            base_steps=2,
+            coverage=coverage,
+        )
+        a3_batch = choose_batch_table(
+            variant="A0-A3batch",
+            user_count=8,
+            batch_size=4,
+            seed=3,
+            base_steps=2,
+            coverage=coverage,
+        )
+        a5a_batch = choose_batch_table(
+            variant="A1-Cov-A5a",
+            user_count=8,
+            batch_size=4,
+            seed=3,
+            base_steps=2,
+            coverage=coverage,
+        )
         r0 = choose_batch_table(
             variant="A1-R0",
             user_count=8,
@@ -70,6 +94,9 @@ class DualEndEntryTest(unittest.TestCase):
         self.assertEqual(len(official), 2)
         self.assertIsInstance(official[0], tuple)
         self.assertEqual(matched, coverage.training_batches)
+        self.assertEqual(uniform, coverage.training_batches)
+        self.assertEqual(a3_batch, coverage.training_batches)
+        self.assertEqual(a5a_batch, coverage.training_batches)
         self.assertEqual(len(r0), 2)
 
     def test_densify_diagonal_is_one(self) -> None:
@@ -161,7 +188,12 @@ class DualEndEntryTest(unittest.TestCase):
                 data_dir=root,
                 output_dir=root / "output",
                 seeds=[7],
-                variants=["A1-Cov"],
+                variants=[
+                    "A1-Cov",
+                    "A0-A3batch",
+                    "A1-Cov-A5a",
+                    "A1-Cov-uniform",
+                ],
                 batch_size=16,
                 epochs=1,
                 base_steps=1,
@@ -174,6 +206,11 @@ class DualEndEntryTest(unittest.TestCase):
             model_summary = summary["variants"]["7"]["models"]["A1-Cov"]
             self.assertEqual(model_summary["optimizer_steps"], 1)
             self.assertTrue(model_summary["soft_instance"])
+            for variant in ("A0-A3batch", "A1-Cov-A5a", "A1-Cov-uniform"):
+                self.assertIn(
+                    variant,
+                    summary["variants"]["7"]["models"],
+                )
             self.assertTrue(
                 (root / "output" / "seed_7" / "A1-Cov" / "model.pth").is_file()
             )

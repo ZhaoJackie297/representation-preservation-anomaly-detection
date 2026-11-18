@@ -1,5 +1,10 @@
 # CCF-B 计划勘误 v1.2.5
 
+> 历史状态：本文件中的 `20261116 / 20 pairs / 40 events / 568 isolated users`
+> 是开发记录，已被 `PLAN_ERRATA_v1.2.6.md` 和 `PLAN_ERRATA_v1.2.7.md` 的 canonical
+> `20261101 / 24 pairs / 48 events / 565 isolated users` 覆盖。不要把本文件中的
+> 开发数字与当前 manifest 混用。
+
 日期：2026-11-18。
 
 本勘误记录 CLUE-LDS 数据门禁与真实图 Phase 0 的实测结果。

@@ -1,11 +1,21 @@
 {
   "target": "CCF-B",
-  "plan_version": "1.2.6",
-  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.6.md",
+  "plan_version": "1.2.7",
+  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.7.md",
   "r0_frozen_manuscript": "paper/manuscript.docx",
   "primary_method_candidate": "AdaGraph-SoftCLT",
-  "status": "candidate_method_phase0_passed_full_model_and_external_confirmation_pending",
-  "phase0_status": "clue_lds_real_graph_ten_seed_coverage_and_training_step_passed_full_training_integration_pending",
+  "status": "method_mechanism_not_supported_pending_full_model_external_confirmation",
+  "phase0_status": "clue_lds_canonical_data_and_dual_end_entry_smoke_passed_full_pilot_pending",
+  "status_taxonomy": [
+    "IMPLEMENTATION_BLOCKED",
+    "DATA_GATE_FAILED",
+    "METHOD_NOT_SUPPORTED",
+    "UNDERPOWERED",
+    "PENDING"
+  ],
+  "status_registry": "research/ccf-b/STATUS_REGISTRY.md",
+  "profile_prior_audit": "research/ccf-b/CERT_PROFILE_PRIOR_AUDIT.md",
+  "cert_gate_power_proxy": "research/ccf-b/CERT_GATE_POWER_PROXY.md",
   "seeds": [
     20261116,
     20261117,
@@ -28,6 +38,14 @@
       "CERT r4.2": 620,
       "CERT r5.2": 1250,
       "CERT r6.2": 2500
+    }
+  },
+  "theory": {
+    "pinsker_centroid_bound": {
+      "statement": "if KL(W_u || W*_u) <= delta and feature norms are bounded by B, then centroid error <= C*sqrt(delta/2)",
+      "trust_region_consequence": "O(sqrt(epsilon))",
+      "direction_guaranteed": false,
+      "substitute_for_downstream_evidence": false
     }
   },
   "dataset_roles": {
@@ -90,6 +108,13 @@
       "label_profile_independence_status": "PASS_DISTANCES_DISTINCT",
       "label_file_sha256": "2441744DED393381C9B42D3E1EFB53B11137810D8F94611FCF76BC0C67D248CA",
       "artifact_hashes": "research/ccf-b/clue_lds/artifact_hashes_20261118.json",
+      "historical_development": {
+        "label_seed": 20261116,
+        "pairs": 20,
+        "events": 40,
+        "isolated_users": 568,
+        "status": "STALE_CLUE_DEVELOPMENT_DATA"
+      },
       "user_filter": {
         "uid_type": "name",
         "retain_all_target_users": true,
@@ -105,7 +130,7 @@
         "median_Hm": 2.3025850924448723,
         "fraction_users_above_threshold": 0.8997613365155132,
         "triggered": true,
-        "mechanism_interpretation": "UNTESTABLE_NOT_A3_FAILURE"
+        "mechanism_interpretation": "METHOD_NOT_SUPPORTED_NOT_DATA_GATE_FAILED"
       },
       "power": {
         "cluster_unit": "injected_user_pair",
@@ -117,7 +142,23 @@
           22.97,
           29.53
         ],
-        "positioning": "LIMITED_POWER_EXTERNAL_EFFECT_REPLICATION"
+        "positioning": "UNDERPOWERED_LIMITED_POWER_EXTERNAL_EFFECT_REPLICATION"
+      },
+      "cert_profile_prior_audit": {
+        "r4_2_primary_flat": true,
+        "r4_2_knn_flat": true,
+        "r4_2_m5_primary_flat": true,
+        "r4_2_m5_knn_flat": true,
+        "r5_2_primary_flat": true,
+        "r5_2_knn_flat": true,
+        "r5_2_m5_primary_flat": true,
+        "r5_2_m5_knn_flat": true,
+        "report": "research/ccf-b/CERT_PROFILE_PRIOR_AUDIT.md"
+      },
+      "status": {
+        "data_gate": "PASS",
+        "external_power": "UNDERPOWERED",
+        "profile_mechanism": "METHOD_NOT_SUPPORTED"
       }
     },
     "lanl_gate": {
@@ -163,7 +204,8 @@
     "superiority_p_value": "1_plus_count_nonpositive_bootstrap_deltas_over_B_plus_1",
     "noninferiority_p_value": "1_plus_count_delta_at_or_below_absolute_margin_over_B_plus_1",
     "noninferiority_margin": {
-      "pr_auc_absolute": -0.0005,
+      "pr_auc_formula": "-min(0.0005, 0.05 * PR_A1plus)",
+      "pr_auc_absolute_cap": -0.0005,
       "pr_auc_scale_evidence": {
         "r4_2_A1_native_mask": 0.008922,
         "r4_2_A1_S2_euclidean": 0.014091,
@@ -173,11 +215,15 @@
           0.0660
         ]
       },
-      "event_recall_k10_absolute_formula": "-max(0.02, 2 / N_events)",
-      "business_acceptability": "accept_PR_loss_only_if_at_least_one_primary_endpoint_gains_and_K10_loss_is_at_most_two_events",
+      "event_recall_k10_absolute_formula": "-max(0.01, 1 / N_events)",
+      "business_acceptability": "accept_loss_only_if_at_least_one_primary_endpoint_gains_and_K10_loss_is_at_most_one_event_default",
+      "historical_pr_auc_absolute": -0.0005,
+      "historical_event_recall_formula": "-max(0.02, 2 / N_events)",
       "relative_percent_margin": false
     },
     "r5_2_event_step": 0.010101010101010102,
+    "r5_2_gate_status": "UNDERPOWERED_PENDING_EVENT_CLUSTER_POWER",
+    "r5_2_power_proxy": "research/ccf-b/CERT_GATE_POWER_PROXY.md",
     "k10_bootstrap": "fixed_daily_topk_before_resampling",
     "mechanism_non_inferiority": {
       "neighborhood_overlap_ci_lower": -0.02,
@@ -199,6 +245,9 @@
     ],
     "a0_official_random_reference": true,
     "a0_matched_control": true,
+    "a0_a3batch_control": true,
+    "a1_cov_a5a_control": true,
+    "a1_cov_uniform_control": true,
     "coverage_A3_minimum": 0.8,
     "coverage_A5a_minimum": 0.8,
     "coverage_A5b_minimum": 0.8,
@@ -207,7 +256,11 @@
     "batch_table_sha256_unique_across_seeds": true,
     "require_seed_dependent_user_pair_sets": true,
     "stage_budget": "max(base_steps, required_coverage_batches)",
+    "coverage_budget_semantics": "coverage_gate_applies_to_actual_training_table",
+    "a1_plus_refresh_coverage_each_stage": true,
+    "a9_refresh_coverage_each_stage": true,
     "failure_status": "IMPLEMENTATION_BLOCKED",
+    "budget_failure_status": "INVALID_COVERAGE_BUDGET",
     "logged_metrics": [
       "intended_support_edges",
       "realized_support_edges",
@@ -232,11 +285,22 @@
     "distance_normalization": "row_median",
     "profile_standardization": "training_user_median_iqr",
     "profile_bandwidth": "median_pairwise_profile_distance",
+    "profile_bandwidth_audit_alternative": "median_user_knn10_distance",
+    "profile_bandwidth_alternative_used_for_primary_results": false,
+    "flat_profile_prior_mechanism_status": "METHOD_NOT_SUPPORTED",
     "profile_kernel": "exp(-d^2/(2*h^2))",
     "profile_probability_floor": 1e-12,
     "ema_initialization": "copy_student_at_stage_start",
     "ema_user_representation": "normalized_mean_of_normalized_active_day_representations",
     "ema_distance": "one_minus_cosine",
+    "ema_distance_clip_max": 10,
+    "ema_distance_clip_fraction_max": 0.05,
+    "ema_distance_saturated_status": "EMA_DISTANCE_SATURATED",
+    "ema_teacher_quality": {
+      "nca10_ratio_min": 0.95,
+      "effective_rank_ratio_min": 0.9,
+      "failure_status": "EMA_TEACHER_NOT_QUALIFIED"
+    },
     "ema_decay_grid": [
       0.99,
       0.995
@@ -265,6 +329,9 @@
     "softclt_weight_mapping": "self_weight_1; off_diagonal_weight_rho_times_W_beta; rho_primary_1.0",
     "beta_bisection_tolerance": 1e-06,
     "beta_bisection_max_iterations": 64,
+    "beta_zero_branch": "exact_endpoint_no_bisection",
+    "beta_infeasible_status": "BETA_SOLVE_FAILED",
+    "beta_fallback": false,
     "row_median_distance_floor": 1e-06,
     "entropy_role": "objective_regularizer_only",
     "graph_top_m_primary_grid": [
@@ -279,7 +346,8 @@
     "neighbor_mass_sensitivity_grid": [
       0.25,
       0.5,
-      1.0
+      1.0,
+      2.0
     ],
     "a1_sparse_ema": {
       "support": "same_as_adagraph_mixed_support",
@@ -305,8 +373,11 @@
     "controls": [
       "A0_official",
       "A0_matched",
+      "A0_A3batch",
       "A1_R0",
       "A1_Cov",
+      "A1_Cov_A5a",
+      "A1_Cov_uniform",
       "A1_sparse",
       "A1_sparse_EMA",
       "A1_repSupport_P",
@@ -398,8 +469,8 @@
     "A3_budget": "2B",
     "A4_budget": "3B",
     "dynamic_stage_budget": "max(B_base, required_coverage_batches)",
-    "equal_compute_control": "continuous_fixed_profile_training_to_matching_B_or_2B_or_3B",
-    "restart_control": "three_weight_continuation_segments_with_optimizer_resets_and_fixed_graph",
+    "equal_compute_control": "continuous_fixed_profile_training_to_matching_total_steps_with_per_stage_coverage_refresh",
+    "restart_control": "three_weight_continuation_segments_with_optimizer_resets_fixed_graph_and_per_stage_coverage_refresh",
     "stage_initialization": "weight_continuation_with_optimizer_reset",
     "lr_schedule": "stagewise_warmup_cosine_A1plus_uses_matched_continuous_schedule"
   },
@@ -419,8 +490,15 @@
       "A4_vs_A5a",
       "A4_vs_A5b"
     ],
+    "decomposition_diagnostics": [
+      "A0_A3batch_vs_A0_matched",
+      "A1_Cov_vs_A1_Cov_uniform",
+      "A1_Cov_vs_A1_Cov_A5a",
+      "A1_sparse_vs_A1_sparse_EMA"
+    ],
     "implementation_diagnostic": [
-      "A0_matched_vs_A0_official"
+      "A0_matched_vs_A0_official",
+      "A0_A3batch_vs_A0_matched"
     ],
     "pilot_stop_rule": {
       "comparison": "A1_Cov_vs_A0_matched",

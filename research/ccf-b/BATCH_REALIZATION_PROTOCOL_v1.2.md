@@ -1,4 +1,4 @@
-# 图边落批协议 v1.2.2
+# 图边落批协议 v1.2.7
 
 日期：2026-11-18。
 
@@ -94,6 +94,8 @@ E_cov = E_A3 union E_A5a union E_A5b
 
 - A1-Cov、A1-sparse、A1-sparse-EMA、A1-repSupport-P、A1+、A2、A3、A4、A3-noAnchor、A3-noEMA、A3-epsInf、A3-product、A3-hard、A5a、A5b、A7、A8a、A8b、A9 在同一 seed/stage 下重放完全相同的用户批次表；
 - A1-R0 保留原始随机 shuffle，用于 R0 复现，不进入共同批次因果比较；
+- `A0-A3batch` 使用只由 A3 边选择的共同覆盖表，评估批次本身携带的画像关系；
+- `A1-Cov-A5a` 使用 A5a 边选择批次，`A1-Cov-uniform` 使用与 A1-Cov 同一批次表但支撑集内均匀权重；
 - 各变体只改变自己的权重、支撑集或训练目标；
 - 新增 `A0-matched`：相同覆盖批次表 + 原始硬实例对比，用于区分“批次覆盖”与“软图权重”；
 - 保留 `A0-official`：原版随机 shuffle，作为外部参照，不参与主因果对照；
@@ -112,8 +114,11 @@ B_stage = max(B_base, number_of_required_coverage_batches)
 其中：
 
 - `B_base` 是原 10 epochs 的优化步数；
+- `B_stage` 是实际进入训练的覆盖表长度，而不是名义 epoch 数；
+- A0-matched、A1-Cov、A1-Cov-A5a、A1-Cov-uniform 必须使用完整 `B_stage`；
+- A0-official 使用原版随机 shuffle 的 `B_base`；
 - A3 使用两阶段共同覆盖表，A4 使用三阶段；
-- A1+ 和 A9 重放相同阶段批次并按总步数匹配；
+- A1+ 和 A9 在每个 stage 重新生成同 seed/stage 的覆盖表，并按总步数匹配；
 - 若覆盖导致预算显著增加，先缩小 `m` 或减少重复轮数，不通过偷删目标边降低覆盖率。
 
 实际 `B_stage` 写入 `COMPUTE_BUDGET.md` 和 run registry 后才能正式开跑。
@@ -149,7 +154,8 @@ seed_pair_jaccard
 - 10 个正式 seed 的 `batch_table_sha256` 全部唯一；
 - seed 间用户对 Jaccard 不得全部为 1；
 - 所有权重总质量与 A1-Cov/A1+ 对照可核对；
-- 未达到时，状态为 `IMPLEMENTATION_BLOCKED`，不得解释为方法失败。
+- 未达到时，状态为 `IMPLEMENTATION_BLOCKED`，不得解释为方法失败；
+- 实际训练步数少于对应 stage 的覆盖表长度时，状态为 `INVALID_COVERAGE_BUDGET`。
 
 每次图更新后重新计算新支撑集覆盖；旧 stage 的覆盖率不能沿用到新 stage。A4 若在任一更新后的 stage 低于门禁，状态为 `STAGE_COVERAGE_BLOCKED`。
 
@@ -162,12 +168,12 @@ seed_pair_jaccard
 - `A0-official` 回答原版 TS2Vec 在其原始训练分布下的表现；
 - `A0-matched` 回答共同批次本身带来的变化；
 - 不能把 A0-matched 的下降直接解释为方法增益；图上相近 batch 会使硬负样本更难；
-- 预注册分解顺序为 `A0-official -> A0-matched -> A1-Cov -> A3/A4`，每一步单独报告；
+- 预注册分解顺序为 `A0-official -> A0-matched -> A0-A3batch -> A1-Cov-uniform / A1-Cov-A5a -> A1-Cov -> A3/A4`，每一步单独报告；
 - A4 相对 A1+、A9 仍为主算力/机制比较。
 
 ## 6. 与因果归因的关系
 
-共同批次表来自 A3/A5a/A5b 的联合目标边集合，不读取任何真实异常标签。它仍携带 A3 图和 A5 对照图的共现信息，因此它不是无偏采样器，实验估计的是：
+共同批次表来自 A3/A5a/A5b 的联合目标边集合，不读取任何真实异常标签。它仍携带 A3 图和 A5 对照图的共现信息，因此它不是无偏采样器；A0-A3batch 和 A1-Cov-uniform/A5a 是把该信息显式拆开的控制。实验估计的是：
 
 > 在相同用户对暴露机会下，不同关系权重与图更新规则是否产生差异。
 
@@ -181,7 +187,7 @@ seed_pair_jaccard
 
 ## 7. 当前状态
 
-本协议已写入 v1.2.5。独立采样器、10-seed 合成 smoke、CLUE-LDS 真实 10-seed 覆盖和 soft trainer 单步接线均已完成；完整 stage/EMA 训练入口尚未完成。
+本协议已更新到 v1.2.7。独立采样器、10-seed 合成 smoke、CLUE-LDS 真实 10-seed 覆盖和 soft trainer 单步接线均已完成；完整 stage/EMA 训练入口尚未完成。
 
 当前状态：
 
@@ -190,6 +196,7 @@ seed_pair_jaccard
 3. 10-seed synthetic smoke：已完成，见 `PHASE0_SMOKE_RESULTS.md`；
 4. CLUE-LDS 真实 A3/A5a/A5b 图覆盖：已完成；
 5. TS2Vec trainer 接线和 active pair mass：单步 smoke 已完成；
-6. 实际 `B_stage` 和 GPU 小时：未完成。
+6. A0-A3batch、A1-Cov-A5a、A1-Cov-uniform：未完成；
+7. 实际 `B_stage` 和 GPU 小时：未完成。
 
 只有真实图覆盖和 trainer 接线通过，才能把 A3/A4 从“候选实现”升级为“可进入主实验”。

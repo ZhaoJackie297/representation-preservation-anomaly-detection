@@ -1,0 +1,104 @@
+{
+  "status": "PROXY_ONLY_NOT_A_GATE_REPLACEMENT",
+  "r4_2": {
+    "comparison": "T4_full_soft_euclidean - T3_instance_soft_euclidean",
+    "pairs": [
+      {
+        "seed": 20261116.0,
+        "delta_pr_auc": -0.0015747776792982247,
+        "delta_event_recall": 0.041666666666666685,
+        "baseline_event_recall": 0.4583333333333333,
+        "baseline_event_hits": 11.0,
+        "events": 24.0
+      },
+      {
+        "seed": 20261117.0,
+        "delta_pr_auc": 0.00013183669020286337,
+        "delta_event_recall": 0.04166666666666663,
+        "baseline_event_recall": 0.5,
+        "baseline_event_hits": 12.0,
+        "events": 24.0
+      },
+      {
+        "seed": 20261118.0,
+        "delta_pr_auc": 0.0003672876068759254,
+        "delta_event_recall": 0.041666666666666685,
+        "baseline_event_recall": 0.4583333333333333,
+        "baseline_event_hits": 11.0,
+        "events": 24.0
+      }
+    ],
+    "pr_auc_seed_proxy": {
+      "observed_mean_delta": -0.0003585511274064787,
+      "observed_sd": 0.001059841758323105,
+      "projected_se_mde": 0.000938955184440941,
+      "projected_seeds": 10
+    },
+    "k10_seed_proxy": {
+      "observed_mean_delta": 0.041666666666666664,
+      "observed_sd": 3.204937810639273e-17,
+      "projected_se_mde": 2.83937951064684e-17,
+      "projected_seeds": 10
+    },
+    "baseline_event_recall": 0.4722222222222222,
+    "events": 24,
+    "binomial_k10_mde_independent": 0.40374947876378625,
+    "binomial_k10_mde_grid": {
+      "rho_0.0": 0.40374947876378625,
+      "rho_0.5": 0.2854939943344072,
+      "rho_0.8": 0.18056225607918672,
+      "rho_0.9": 0.12767679569993484
+    }
+  },
+  "r5_2": {
+    "comparison": "T4_bank_euclidean - T4_original (variance proxy)",
+    "pairs": [
+      {
+        "seed": 20261116.0,
+        "delta_pr_auc": 0.000810718205479611,
+        "delta_event_recall": 0.040404040404040414,
+        "baseline_event_recall": 0.1919191919191919,
+        "baseline_event_hits": 19.0,
+        "events": 99.0
+      },
+      {
+        "seed": 20261117.0,
+        "delta_pr_auc": 0.0015070761797853797,
+        "delta_event_recall": 0.07070707070707075,
+        "baseline_event_recall": 0.1919191919191919,
+        "baseline_event_hits": 19.0,
+        "events": 99.0
+      },
+      {
+        "seed": 20261118.0,
+        "delta_pr_auc": 0.0008815244963046396,
+        "delta_event_recall": 0.09090909090909088,
+        "baseline_event_recall": 0.13131313131313133,
+        "baseline_event_hits": 13.0,
+        "events": 99.0
+      }
+    ],
+    "pr_auc_seed_proxy": {
+      "observed_mean_delta": 0.0010664396271898768,
+      "observed_sd": 0.000383241192093878,
+      "projected_se_mde": 0.00033952833183061845,
+      "projected_seeds": 10
+    },
+    "k10_seed_proxy": {
+      "observed_mean_delta": 0.06734006734006735,
+      "observed_sd": 0.025420317963874565,
+      "projected_se_mde": 0.02252085196197809,
+      "projected_seeds": 10
+    },
+    "baseline_event_recall": 0.1717171717171717,
+    "events": 99,
+    "binomial_k10_mde_independent": 0.15017492720860112,
+    "binomial_k10_mde_grid": {
+      "rho_0.0": 0.15017492720860112,
+      "rho_0.5": 0.106189709393398,
+      "rho_0.8": 0.06716026915090297,
+      "rho_0.9": 0.04748948174291718
+    }
+  },
+  "interpretation": "These are projections from three historical seeds and a 99-event binomial approximation. They do not estimate A4-vs-A1+ and cannot replace the preregistered event/user-cluster power simulation."
+}

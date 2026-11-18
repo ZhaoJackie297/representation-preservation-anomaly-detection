@@ -1,6 +1,6 @@
 # CCF-B 实验矩阵
 
-版本：v1.2.6
+版本：v1.2.7
 
 日期：2026-11-18。
 
@@ -11,13 +11,16 @@
 | 代号 | 实例关系来源 | 预算 | 作用 |
 | --- | --- | ---: | --- |
 | A0-official | 官方随机 batch + 硬实例负样本 | B | 原版外部参照 |
-| A0-matched | 共同覆盖 batch + 硬实例负样本 | B | 排除批次暴露变化 |
+| A0-matched | 共同覆盖 batch + 硬实例负样本 | `B_stage` | 排除批次暴露变化 |
+| A0-A3batch | 仅 A3 边选择的共同覆盖 batch + 硬实例负样本 | `B_stage` | 分离批次携带的画像关系 |
 | A1-R0 | 原始随机 shuffle、稠密画像软权重 | B | R0 复现基线 |
-| A1-Cov | 47 维画像软权重、共同覆盖 batch | B | 主因果基线 |
+| A1-Cov | 训练期行为画像软权重、共同覆盖 batch | `B_stage` | 主因果基线 |
+| A1-Cov-A5a | 行为画像软权重、A5a 覆盖 batch | `B_stage` | 分离批次形状 |
+| A1-Cov-uniform | 与 A1-Cov 同批次、支撑集均匀权重 | `B_stage` | 分离关系权重形状 |
 | A1-sparse | 按 `P` 选 top-m，权重取 `P_m` | B | 画像稀疏化 |
 | A1-sparse-EMA | 按 `P*exp(-d/tau)` 选 top-m，权重取 `P_m` | B | `epsilon=0` 画像端点 |
 | A1-repSupport-P | 表示 top-m 支撑集、权重取归一化 `P_m` | 2B | 支撑无锚、权重有锚 |
-| A1+ | 固定画像图，匹配 A3/A4 | 2B/3B | 等算力对照 |
+| A1+ | 固定画像图，逐阶段重放覆盖表，匹配 A3/A4 | 2B/3B | 等算力/等覆盖对照 |
 | A2 | 无 EMA、无画像锚 | 2B | EMA×锚 no/no |
 | A3 | 画像锚 + EMA + KL | 2B | 单轮 AdaGraph |
 | A4 | AdaGraph 两轮更新 | 3B | 主候选 |
@@ -32,7 +35,7 @@
 | A7 | NNCLR 近邻正样本 | B | 近邻对比 |
 | A8a | Incremental False Negative Detection | B | 动态假负检测 |
 | A8b | False Negative Cancellation | B | 假负抵消 |
-| A9 | 固定图，三段续训和逐段优化器重置 | 3B | 算力/重启对照 |
+| A9 | 固定图，三段续训、逐段覆盖表和优化器重置 | 3B | 算力/重启/覆盖对照 |
 
 ### 端点与质量
 
@@ -52,6 +55,8 @@
 | 检查 | 目的 |
 | --- | --- |
 | A0-official vs A0-matched | 测量共同批次本身的影响 |
+| A0-A3batch vs A0-matched | 测量批次携带的 A3 关系信息 |
+| A1-Cov vs A1-Cov-uniform / A1-Cov-A5a | 分离软权重形状、批次形状和画像关系 |
 | A1-Cov vs A3 vs A4 | 在共同批次暴露下比较图更新 |
 | A3∪A5a∪A5b 联合覆盖 | 三类图都不能因未落批而假阴性 |
 | active_pair_mass_A3/A5a/A5b | 确认三类软权重确实进入 `inst_CL_soft` |
@@ -85,6 +90,9 @@ Delta_K10 >= +max(0.02, 1/N_events)
 ```
 
 若两个终点都未达到阈值，停止 AdaGraph，在 R0 论文披露批次覆盖局限。2 seed 时，同一 endpoint 必须两个 seed 均超过阈值。若只有一个 endpoint 达标，后续标为 `FRAGILE_SINGLE_ENDPOINT`，必须先在 r4.2 10-seed 稳定复现。Pilot 不用于调参。
+
+这里是 CERT pilot 启动阈值；确认性非劣界使用 v1.2.7 的
+`-min(0.0005,0.05*PR_A1plus)` 和 `-max(0.01,1/N_events)`，两者不能混用。
 
 详见 `BATCH_REALIZATION_PROTOCOL_v1.2.md`。
 
@@ -232,13 +240,13 @@ H4 不进入 Gate 1。
 - `N_events<20`：不报告确认 p 值；
 - 只报告效应、区间、逐场景方向。
 
-绝对非劣界：
+v1.2.7 临时非劣界：
 
-- PR-AUC：`-0.0005`；
-- K=10：`-max(0.02,2/N_events)`；
-- 不使用 `-5%` 相对值。
+- PR-AUC：`-min(0.0005, 0.05*PR_A1plus)`；
+- K=10：`-max(0.01,1/N_events)`；
+- 旧 `-0.0005` 和两事件界只保留作历史量级审计。
 
-`-0.0005` 在现有 A1 尺度上约为：
+旧 `-0.0005` 在现有 A1 尺度上约为：
 
 - r4.2 原 mask：5.60%；
 - r4.2 S2 欧氏库：3.55%；
@@ -246,7 +254,8 @@ H4 不进入 Gate 1。
 
 因此它是约 3.55%–6.60% A1 基线的固定绝对容差，不是随极小基线变化的相对百分比。
 
-业务可接受损失：只有至少一个主终点相对 A7/A8b 获得正向收益时，才接受最多 `0.0005` PR-AUC 损失；K=10 召回不得损失超过两个事件。没有 endpoint 收益时不接受该 trade-off。
+业务可接受损失：只有至少一个主终点相对 A7/A8b 获得正向收益时，才接受
+v1.2.7 临时界内的损失；K=10 默认不得损失超过一个事件。
 
 ### 比较家族
 
@@ -257,10 +266,15 @@ H4 不进入 Gate 1。
 3. A4 vs A7；
 4. A4 vs A8b；
 5. A4 vs A9；
-6. A3 vs A3-noAnchor；
-7. A3 vs A3-noEMA。
+6. A0-A3batch vs A0-matched；
+7. A1-Cov vs A1-Cov-uniform；
+8. A1-Cov vs A1-Cov-A5a；
+9. A1-sparse vs A1-sparse-EMA；
+10. A3 vs A3-noAnchor；
+11. A3 vs A3-noEMA。
 
-A0-official vs A0-matched 是批次实现诊断，不属于方法优越性家族。
+第 6–9 项是分解诊断，不属于方法优越性家族；A0-official vs A0-matched
+仍是批次实现诊断。
 
 r5.2 锁定复验预先使用三个独立 Holm 家族：
 
@@ -298,7 +312,7 @@ r5.2 锁定复验预先使用三个独立 Holm 家族：
 | 批次 | 数据与 seed | 变体 |
 | --- | --- | --- |
 | Phase 0 | smoke | sampler、A0-matched、覆盖报告 |
-| Pilot | r4.2，1–2 seed | A0-official、A0-matched、A1-Cov、A1-sparse-EMA、A1+、A3、A5a、A5b、A7；先检查 A1-Cov vs A0-matched |
+| Pilot | r4.2，1–2 seed | A0-official、A0-matched、A0-A3batch、A1-Cov-uniform、A1-Cov-A5a、A1-Cov、A1-sparse-EMA、A1+、A3、A5a、A5b、A7 |
 | 第二批 | r4.2，10 seed | A1-R0、A1-Cov、A1-repSupport-P、A2、A4、A8a、A8b、A9、A3 机制消融 |
 | 锁定复验 | r5.2，10 seed，超参冻结 | 主比较与机制小家族 |
 | CLUE pilot | CLUE-LDS，2 seed | 训练期内部合成异常验证；A0-matched、A1-R0、A1-Cov；A1-Cov vs A0-matched |

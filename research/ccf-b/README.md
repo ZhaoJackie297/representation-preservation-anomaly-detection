@@ -1,9 +1,9 @@
 # CCF-B Research Program
 
-版本：v1.2.6
+版本：v1.2.7
 状态：研究目标已从“CCF-C 上沿”切换为“冲击 CCF-B”。
 
-v5 冻结为 R0 基线。后续工作只围绕一个可证伪的新方法展开，不再把 SoftCLT、47 维画像、欧氏库和 PAI 继续组合成更大的方法包。
+v5 冻结为 R0 基线。后续工作只围绕一个可证伪的新方法展开，不再把 SoftCLT、训练期行为画像、欧氏库和 PAI 继续组合成更大的方法包。
 
 本文件只定义研究问题、方法主线、硬门槛和启动顺序。具体实验变体见 `EXPERIMENT_MATRIX.md`，冻结判据见 `PREREGISTRATION.md`，执行排期见 `WEEKLY_PLAN.md`。
 
@@ -14,13 +14,18 @@ v1.2.3 的两个硬结论：
 
 因此当前状态是“方法候选 + 可执行门禁”，不是“B 类有效性已证明”。
 
-Phase 0 规格、A3/A5a/A5b 联合覆盖、A1 版本拆分、pilot 最小效应和边曝光命题见 `PLAN_ERRATA_v1.2.2.md`；LANL 外部候选见 `PLAN_ERRATA_v1.2.3.md`；CLUE-LDS 替代 ChimeraLog 的协议见 `PLAN_ERRATA_v1.2.4.md`；真实数据和覆盖结果见 `PLAN_ERRATA_v1.2.5.md`；平坦先验、独立标签 seed、24 对功效和 CLUE pilot 判据见 `PLAN_ERRATA_v1.2.6.md`。
+Phase 0 规格、A3/A5a/A5b 联合覆盖、A1 版本拆分、pilot 最小效应和边曝光命题见 `PLAN_ERRATA_v1.2.2.md`；LANL 外部候选见 `PLAN_ERRATA_v1.2.3.md`；CLUE-LDS 替代 ChimeraLog 的协议见 `PLAN_ERRATA_v1.2.4.md`；真实数据和覆盖结果见 `PLAN_ERRATA_v1.2.5.md`；平坦先验、独立标签 seed、24 对功效和 CLUE pilot 判据见 `PLAN_ERRATA_v1.2.6.md`；CERT 先验审计、批次控制、功效分类和 v1.2.7 Gate 修订见 `PLAN_ERRATA_v1.2.7.md`。
 
 CLUE-LDS 真实图 10-seed 已完成 80% 三图覆盖，需要 948–961 个 stage batch；详见 `CLUE_LDS_PHASE0_RESULTS.md`。完整训练和外部确认矩阵尚未完成。
 
 CLUE-LDS 当前冻结为 24 个用户对、48 个事件，标签 seed=`20261101`。24 个有效簇下 80% 功效 MDE 约为 23.0–29.5 个百分点，因此它只能作“有限功效外部效应复验”，不能承诺检出中等增益。画像 top-10 行熵检查已触发 `FLAT_PROFILE_PRIOR`，A3/A5b 的画像机制贡献只能记为“不可检验”，不能记为“证明画像无效”。
 
 注入 pair 相似度与画像关系相似度的 Spearman 为 −0.199（绝对值低于冻结阈值 0.5），当前标签距离没有触发循环依赖失败条件；复现见 `clue_lds/label_prior_independence_20261118.json`。
+
+**当前科学状态：** CERT r4.2/r5.2 和 CLUE-LDS 的画像 top-m 先验均触发 `FLAT_PROFILE_PRIOR`，画像锚机制记为 `METHOD_NOT_SUPPORTED`；CLUE-LDS 和当前 r5.2 严格 Gate 记为 `UNDERPOWERED`。这不是数据门禁失败，也不是方法失败，具体状态见 `STATUS_REGISTRY.md`。
+
+相关证据：`CERT_PROFILE_PRIOR_AUDIT.md`（主带宽和 kNN 替代带宽）和
+`CERT_GATE_POWER_PROXY.md`（r5.2 事件级功效代理）。
 
 ## 目标定位
 
@@ -30,7 +35,7 @@ CLUE-LDS 当前冻结为 24 个用户对、48 个事件，标签 seed=`20261101`
 
 ## 研究问题
 
-TS2Vec 的硬实例对比会把行为相近的正常用户当作负样本。固定 47 维画像距离只能提供静态规则，无法随表示学习调整；纯表示近邻图又会自我强化。
+TS2Vec 的硬实例对比会把行为相近的正常用户当作负样本。固定训练期行为画像距离只能提供静态规则，无法随表示学习调整；纯表示近邻图又会自我强化。
 
 本文研究的问题是：
 
@@ -40,7 +45,7 @@ TS2Vec 的硬实例对比会把行为相近的正常用户当作负样本。固�
 
 ### 1. 画像先验
 
-用训练期 47 维鲁棒画像构造用户关系先验 `P`。画像只使用行为和时间特征，不使用 LDAP 部门、角色或团队字段。
+用训练期鲁棒行为画像构造用户关系先验 `P`。CERT 为 47 维，CLUE-LDS 为 105 维；画像只使用行为和时间特征，不使用 LDAP 部门、角色或团队字段。
 
 ### 2. EMA 表示距离
 
@@ -50,7 +55,10 @@ TS2Vec 的硬实例对比会把行为相近的正常用户当作负样本。固�
 d_tilde(u,v) = d_EMA(u,v) / median_{v != u} d_EMA(u,v)
 ```
 
-若行中位数过小，使用预先定义的数值下限，避免温度失效。
+若行中位数过小，使用预先定义的数值下限，避免温度失效。v1.2.7 进一步冻结
+`d_tilde <= 10`；clip 比例超过 5% 时标 `EMA_DISTANCE_SATURATED`。教师进入
+第二阶段前还必须满足 NCA@10 不低于 A1+ 的 95%、有效秩比不低于 0.90，否则标
+`EMA_TEACHER_NOT_QUALIFIED`。
 
 ### 3. 支撑集
 
@@ -92,16 +100,20 @@ KL(W || P_m) 随 beta 单调下降。二分搜索 beta，使其满足 KL 上界�
 ### 5. 两轮更新
 
 - A1-R0：R0 的原始 A1，随机 shuffle、稠密画像权重、单阶段 `B`。
-- A1-Cov：固定画像权重，但重放共同覆盖批次表，单阶段 `B`。
+- A1-Cov：固定画像权重，但重放共同覆盖批次表，单阶段 `B_stage`。
+- A0-A3batch：硬实例负样本，但共同批次表仅由 A3 边选择，测量批次本身携带的画像关系信息。
+- A1-Cov-A5a：固定画像软权重，但批次表由 A5a 边选择，分离批次形状和软权重。
+- A1-Cov-uniform：与 A1-Cov 同一批次表，支撑集内权重取均匀值，分离权重形状和软权重存在。
 - A1-sparse-EMA：支撑集与 AdaGraph 相同，但每行权重固定为 `P_m`；它是 `epsilon=0` 的真实画像端点。
 - A3：画像图训练 `B` 步，更新一次图，再从当前权重继续训练 `B` 步。
 - A4：在 A3 基础上再更新一次图，从当前权重继续训练 `B` 步。
-- A1+：固定画像图连续训练到与 A3 或 A4 相同的总步数。
+- A1+：固定画像图，按与 A3/A4 相同的阶段重新生成覆盖表并连续训练到相同总步数。
 - A9：固定画像图，按与 A4 相同的三段预算继续训练，但图不更新。
 
-所有阶段重置优化器状态，并采用同一种按阶段缩放的 warmup-cosine 调度。A1+ 使用与总训练预算对应的单一 warmup-cosine 调度。
+A3/A4/A9 每个阶段重置优化器状态；A1+ 不重置优化器，使用与总训练预算对应的单一 warmup-cosine 调度。A1+ 的每阶段覆盖表仍与同 seed/stage 的其他变体重放，避免把总覆盖差异误写成算力收益。
 
-主模型邻居总质量固定为 `rho=1.0`，`rho={0.25,0.5}` 只作敏感性分析。A3-hard 的每个支撑邻居取 `1/m`，使软硬图的邻居总质量可比。
+主模型邻居总质量固定为 `rho=1.0`，敏感性网格为 `rho={0.25,0.5,1.0,2.0}`。
+A3-hard 的每个支撑邻居取 `1/m`，使软硬图的邻居总质量可比。
 
 支撑集与权重使用完整 2×2：A1-sparse-EMA、A3-epsInf、A3-noAnchor，以及新增 A1-repSupport-P。主因果比较使用 A1-Cov，A1-R0 只用于 R0 复现。
 
@@ -148,16 +160,16 @@ AdaGraph 的新颖性必须限定为：
 - 图边覆盖门禁通过；
 - A1-Cov 相对 A0-matched 至少一个主终点达到预注册最小正向效应；若两个主终点均未达到，立即停止 AdaGraph 并披露批次覆盖局限；
 - r4.2 pilot 通过，但只作方向性判断；
-- A4 在 r5.2 锁定复验中相对 A1+ 和 A9 的两个共同主终点均优效；
+- A4 在 r5.2 锁定复验中相对 A1+/A9 至少一个主终点优效，另一主终点满足 v1.2.7 临时非劣界；当前统计状态仍为 `UNDERPOWERED`，不能承诺该 Gate 一定能区分中等效应；
 - A4 相对 A7/A8b 至少一个主终点优效，且两个终点均非劣；
 - A4 相对 A1-Cov 有端到端正向收益；
 - A4 相对 A5a/A5b 至少一个共同主终点在关系控制家族中通过 Holm 校正，并要求 8/10 seed 方向一致；
-- A3 相对 noAnchor 和 noEMA 的机制家族至少各有一个主终点通过 Holm 校正的单侧效应判据；
+- A3 相对 noAnchor 和 noEMA 的机制家族至少各有一个主终点通过 Holm 校正的单侧效应判据；若 `FLAT_PROFILE_PRIOR` 仍为真，涉及画像锚的结论改记 `METHOD_NOT_SUPPORTED`；
 - NCA@10 和 ER_ratio 满足预注册非劣界。
 
 共同覆盖批次表必须同时覆盖 A3、A5a 和 A5b，batch 16 中固定 8 个覆盖设计槽位和 8 个随机填充槽位。任一方法覆盖率低于 80% 时，其比较记为 `INVALID_IMPLEMENTATION`。10 个正式 seed 必须使用 10 张不同的批次表，批次表哈希和用户对 Jaccard 必须报告。
 
-Pilot 报告按 `A0-official → A0-matched → A1-Cov → A3/A4` 分解，禁止把 A4 对 A0-official 写成方法增益。
+Pilot 报告按 `A0-official → A0-matched → A0-A3batch → A1-Cov-uniform/A1-Cov-A5a → A1-Cov → A3/A4` 分解，禁止把 A4 对 A0-official 写成方法增益。
 
 预注册主比较固定为：
 
@@ -234,7 +246,7 @@ A4 vs A1-Cov 只表示同批次暴露下的端到端收益，不能用于组件�
 1. 冻结 R0 的代码、配置、种子、切分和数据哈希；
 2. 按 `PREREGISTRATION.md` 冻结主比较、A1-Cov vs A0-matched 最小效应停止规则和当前可冻结阈值；
 3. 完成 `BATCH_REALIZATION_PROTOCOL_v1.2.md` 的采样器、A3∪A5a∪A5b 联合边覆盖、50% 随机填充、seed 差异测试和覆盖率 smoke run；
-4. CLUE-LDS 的数据、标签 seed、用户日、图协议、平坦先验和 24-pair 功效已审计；下一步实现完整训练入口和训练期内部合成异常验证，并继续审计 LANL；
+4. CLUE-LDS 的数据、标签 seed、用户日、图协议、平坦先验和 24-pair 功效已审计；A0/A1 入口 smoke 已通过，下一步补齐分解控制、训练期内部合成异常验证，并继续审计 LANL；
 5. 在 r4.2 跑 `A0-official、A0-matched、A1-Cov、A1-sparse-EMA、A1+、A3、A5a、A5b、A7` 的 1–2 种子 pilot，并先检查 A1-Cov vs A0-matched；pilot 只决定继续或停止，不用于调参；
 6. pilot 和覆盖门禁通过后跑 10 种子 r4.2；
 7. 冻结最终超参数，在 r5.2 做一次性锁定复验；

@@ -1,11 +1,12 @@
-# 八周执行计划 v1.2.6
+# 八周执行计划 v1.2.7
 
 前提：
 
 - 团队可轮班推进，主算力为 RTX 5060；
-- v1.2.6 已完成 CLUE-LDS 全量审计、24 pairs/48 事件半合成注入、用户日/画像图和真实 A3/A5a/A5b 10-seed 覆盖；
+- v1.2.6 已完成 CLUE-LDS canonical 审计；v1.2.7 已补 CERT 平坦先验、Gate 功效代理和状态分类；
 - CLUE-LDS 的数据、标签和图门禁已通过，但完整模型矩阵尚未开始；LANL 仍是真实网络外部候选；
-- CLUE-LDS 真实 10-seed 图覆盖已通过，soft trainer 单步接线 smoke 已完成；完整训练入口尚未完成；
+- CLUE-LDS 真实 10-seed 图覆盖已通过，A0/A1 入口和 soft trainer smoke 已完成；正式模型矩阵和新增分解控制尚未完成；
+- CERT r4.2/r5.2 与 CLUE-LDS 的主/kNN 画像先验均触发 `FLAT_PROFILE_PRIOR`；画像锚机制当前为 `METHOD_NOT_SUPPORTED`；
 - 八周计划以“先过实现和数据门禁，再跑主矩阵”为顺序。
 
 ## 第 1 周：门禁、冻结与采样器
@@ -13,7 +14,8 @@
 ### 数据
 
 - 完成 CERT r1 无标签结论归档；
-- 归档 CLUE-LDS 的 MD5/SHA-256、24-pair/48-event 注入、用户筛选、平坦先验和距离独立性审计；
+- 归档 CLUE-LDS 的 MD5/SHA-256、canonical 24-pair/48-event、用户筛选、平坦先验和距离独立性审计；旧 20/40/568 保留为历史；
+- 归档 CERT r4.2/r5.2 主带宽、kNN 带宽、m=5/10 的画像先验审计；
 - 审计 LANL 的 redteam 时间、事件簇、许可证、用户日和图适配；
 - 继续审计 ChimeraLog 的下载和许可证；
 - 对 OpTC 做最低成本可行性审计；
@@ -32,13 +34,16 @@
   - 不同 seed 的批次表不同；
   - 所有变体共享同一批次表；
 - 在 r4.2 跑采样器 smoke run。
+- 验证已接入的 A0-A3batch、A1-Cov-A5a、A1-Cov-uniform 在正式覆盖表上的行为。
 
 ### 协议
 
 - 冻结 A1-sparse-EMA、A3-hard `1/m`、邻居质量 `rho`；
 - 冻结 `A1-Cov vs A0-matched` 的最小效应和双终点停止规则；CLUE-LDS 使用独立阈值，并要求 2 个 seed 同方向；
+- 冻结批次携带关系信息的分解顺序，以及 `A1-sparse vs A1-sparse-EMA` 对照；
 - 记录 CLUE-LDS 的 `FLAT_PROFILE_PRIOR`、24-pair MDE 和标签/画像距离审计结果；
-- 冻结事件不足规则、绝对非劣界和双层 bootstrap；
+- 冻结事件不足规则、v1.2.7 临时非劣界和双层 bootstrap；
+- 归档 r5.2 Gate 功效代理；正式事件/用户簇功效结果出来前不宣称 Gate 可检出中等效应。
 - 记录实际 `B_stage`；
 - 固定 12 候选表。
 
@@ -47,7 +52,7 @@
 - 数据门禁报告；
 - pair coverage 报告；
 - sampler 单元测试；
-- v1.2.6 hash。
+- v1.2.7 hash。
 
 ## 第 2 周：非约束性 pilot
 
@@ -85,7 +90,7 @@ A7
 
 Pilot Go/No-Go 明确为**非约束性启动判断**。它只决定是否进入第二批，不作确认性推断。r4.2 测试期结果一旦用于该判断，r4.2 永久标记为已见开发数据。
 
-CLUE-LDS 的数据和协议审计已完成；并行完成 LANL redteam 时间/事件簇审计、继续跟踪 ChimeraLog 替代托管并检查 OpTC 最小切片。CLUE-LDS 的完整训练入口和两 seed pilot 尚未完成，不能写成外部确认已通过。
+CLUE-LDS 的数据、协议和首版训练入口审计已完成；并行完成 LANL redteam 时间/事件簇审计、继续跟踪 ChimeraLog 替代托管并检查 OpTC 最小切片。CLUE-LDS 的正式矩阵、新增分解控制和两 seed pilot 尚未完成，不能写成外部确认已通过。
 
 交付：
 
@@ -156,7 +161,7 @@ A3-hard
 
 ## 第 5 周：外部数据结构与统计
 
-- 完成 CLUE-LDS A0-matched/A1-R0/A1-Cov 入口和训练期内部合成异常验证；
+- 完成 CLUE-LDS A0-A3batch/A1-Cov-A5a/A1-Cov-uniform 入口和训练期内部合成异常验证；
 - 用 2 个独立训练 seed 跑 CLUE-LDS pilot，先看 A1-Cov vs A0-matched；单 seed 只作实现 smoke；
 - 以 pair 整簇做 bootstrap，使用 `positive_PR=max(0.001,0.05*PR0)` 和 `positive_recall=3/48`，不沿用 CERT 阈值；
 - 若 ChimeraLog 下载就绪，完成 Schema、用户日、事件和许可证适配；
@@ -244,7 +249,7 @@ A3-hard
 
 - 按审稿人问题检查：
   - r1 是否仍被误写为确认集；
-  - 非劣界是否仍使用相对 5%；
+- 非劣界是否仍使用旧固定 0.0005/两事件界；
   - 事件少于 20 是否仍报 p 值；
   - A1-sparse-EMA 是否完成；
   - A3-hard 是否保持 `1/m`；
@@ -272,7 +277,7 @@ A3-hard
 
 - 图边覆盖率 `<80%` 或有用户零曝光；
 - A0-matched 与 A0-official 的差异解释不了训练分布变化；
-- A4 在 r5.2 不能同时优于 A1+ 和 A9；
+- A4 在 r5.2 相对 A1+/A9 至少一个终点优效且另一终点满足临时非劣界；若功效模拟判定不可检出，标 `UNDERPOWERED`；
 - A4 相对 A7/A8b 超过绝对非劣界；
 - A3 与 A5b 无差异且 PeerMass 无信号；
 - `epsilon=0` 与 A1-sparse-EMA 仍有系统性差异，说明支撑集定义未受控；

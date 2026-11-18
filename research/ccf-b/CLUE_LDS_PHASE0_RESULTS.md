@@ -2,7 +2,10 @@
 
 日期：2026-11-18
 
-状态：数据访问、哈希、全量 Schema、24-pair 半合成账号劫持、用户日、画像/关系图、10-seed 覆盖和训练单步 smoke 已通过。完整 A0/A1 训练入口、训练期内部合成异常验证、CLUE 两 seed pilot 和外部模型矩阵尚未开始。
+状态：数据访问、哈希、全量 Schema、24-pair 半合成账号劫持、用户日、画像/关系图、10-seed 覆盖和 A0/A1 入口 smoke 已通过。正式 A0/A1 矩阵、训练期内部合成异常验证、CLUE 两 seed pilot 和外部模型矩阵尚未开始。外部效应状态为 `UNDERPOWERED`，画像锚状态为 `METHOD_NOT_SUPPORTED`。
+
+canonical 对账：本文件使用 `20261101 / 24 pairs / 48 events / 565 isolated users`；
+v1.2.5 的 `20261116 / 20 pairs / 40 events / 568 isolated users` 仅为开发历史。
 
 ## 1. 下载与校验
 
@@ -370,7 +373,7 @@ positive_recall = Delta_recall >= 3 / 48 = 0.0625
 
 尚未通过：
 
-- 完整 A0-matched/A1-R0/A1-Cov 训练入口；
+- 正式 A0-matched/A1-R0/A1-Cov 训练矩阵；入口 smoke 已通过；
 - 训练期内部合成异常选参；
 - CLUE-LDS 2-seed pilot；
 - A3/A4 外部模型矩阵；

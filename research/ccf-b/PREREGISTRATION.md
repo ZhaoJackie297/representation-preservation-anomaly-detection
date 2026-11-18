@@ -1,6 +1,6 @@
 # AdaGraph-SoftCLT 预注册表
 
-版本：v1.2.6
+版本：v1.2.7
 
 冻结日期：2026-11-18
 
@@ -13,7 +13,24 @@
 - 图边覆盖实现必须通过门禁；
 - `D_ext` 已采用 `D_app=CLUE-LDS` 与 `D_net=LANL` 的双候选；CLUE-LDS 的数据、标签、图和 10-seed 覆盖门禁已通过，完整模型矩阵仍待跑；
 - CLUE-LDS 的低信息画像先验和 24 个有效 pair 已预注册为“有限功效外部效应复验”边界；
+- CERT r4.2/r5.2 与 CLUE-LDS 的主带宽和 kNN 替代带宽均触发 `FLAT_PROFILE_PRIOR`，画像锚机制状态为 `METHOD_NOT_SUPPORTED`；
+- CLUE-LDS 外部效应和 r5.2 严格双终点 Gate 状态为 `UNDERPOWERED`；
 - 未通过 `D_ext` 门禁时，不宣称 CCF-B 外部有效性。
+
+### CLUE-LDS canonical 对账
+
+v1.2.5 中的 `label_seed=20261116 / 20 pairs / 40 events / 568 isolated users`
+是开发历史，不再是 canonical。v1.2.6/v1.2.7 canonical 为：
+
+```text
+label_seed=20261101
+24 pairs / 48 events
+565 isolated users
+label SHA-256=2441744DED393381C9B42D3E1EFB53B11137810D8F94611FCF76BC0C67D248CA
+```
+
+逐文件哈希见 `clue_lds/artifact_hashes_20261118.json`。使用旧数字的 run 标为
+`STALE_CLUE_DEVELOPMENT_DATA`。
 
 ## 1. 数据地位
 
@@ -129,12 +146,15 @@ H2 只研究其他组件存在时的边际贡献和剂量响应，不把画像�
 | --- | --- | --- |
 | A0-official | 官方 TS2Vec 随机 batch + 硬实例负样本 | 原始外部参照 |
 | A0-matched | 共同覆盖 batch + 硬实例负样本 | 排除批次暴露变化 |
+| A0-A3batch | 仅按 A3 边构建共同覆盖 batch + 硬实例负样本 | 分离批次携带的画像关系信息 |
 | A1-R0 | R0 原始随机 shuffle、稠密画像软权重、单阶段 `B` | R0 复现基线 |
-| A1-Cov | 固定画像软权重，重放共同覆盖批次表，单阶段 `B` | 同批次暴露的主因果基线 |
+| A1-Cov | 固定画像软权重，重放共同覆盖批次表，单阶段 `B_stage` | 同批次暴露的主因果基线 |
+| A1-Cov-A5a | 固定画像软权重，重放 A5a 覆盖表，单阶段 `B_stage` | 分离批次形状与软权重 |
+| A1-Cov-uniform | 与 A1-Cov 同一批次表，支撑集内均匀权重 | 分离关系权重形状与软权重存在 |
 | A1-sparse | 按 `P` 选 top-m 并重归一化，权重取 `P_m` | 画像稀疏化对照 |
 | A1-sparse-EMA | 按 `P * exp(-d_tilde/tau)` 选 top-m，权重取 `P_m` | `epsilon=0` 的真实画像端点 |
 | A1-repSupport-P | 按表示距离选 top-m，在该支撑集上归一化并取 `P_m` | 支撑无锚、权重有锚单元 |
-| A1+ | 固定画像图，连续训练到与 A3/A4 相同总步数 | 等算力对照 |
+| A1+ | 固定画像图，逐阶段重放同 seed/stage 覆盖表，连续训练到与 A3/A4 相同总步数 | 等算力/等覆盖对照 |
 | A2 | 当前表示、无 EMA、无画像锚，两阶段 `2B` | EMA×锚的 no/no 单元 |
 | A3 | 画像锚 + EMA + KL 信任域，一次更新，`2B` | AdaGraph 单轮核心 |
 | A4 | AdaGraph 两轮更新，`3B` | 主候选方法 |
@@ -149,7 +169,7 @@ H2 只研究其他组件存在时的边际贡献和剂量响应，不把画像�
 | A7 | NNCLR 近邻正样本 | 近邻对比基线 |
 | A8a | Incremental False Negative Detection 适配 | 动态假负检测基线 |
 | A8b | False Negative Cancellation 适配 | 假负抵消基线 |
-| A9 | 固定画像图，三段 `1B` 权重续训与逐段优化器重置 | 排除重复训练/调度收益 |
+| A9 | 固定画像图，三段 `1B` 权重续训、逐段覆盖表重生成与逐段优化器重置 | 排除重复训练/调度收益 |
 
 ### 支撑集端点
 
@@ -192,7 +212,8 @@ H2 只研究其他组件存在时的边际贡献和剂量响应，不把画像�
 6. 分别记录 A3、A5a、A5b 的 `intended_support_edges`、`realized_support_edges`、`active_pair_mass`、每用户边曝光；
 7. 正式门禁：A3、A5a、A5b 覆盖率均 `>=80%`，没有用户零曝光，用户中位曝光 `>=1`；
 8. 每次图更新后重新生成该 stage 目标边和覆盖率，不得沿用上一 stage；
-9. `B_stage=max(B_base, required_coverage_batches)`，A1+ 与 A9 匹配实际步数。
+9. `B_stage=max(B_base, required_coverage_batches)`；A1+ 与 A9 匹配实际步数，并在每个新 stage 重新生成同 seed/stage 的覆盖表。
+10. 任何实际训练步数少于其 stage 覆盖表长度的 run 标为 `INVALID_COVERAGE_BUDGET`。
 
 违反门禁时状态为 `IMPLEMENTATION_BLOCKED`，不得把阴性结果解释为假设失败。
 
@@ -201,7 +222,8 @@ H2 只研究其他组件存在时的边际贡献和剂量响应，不把画像�
 预注册分解顺序：
 
 ```text
-A0-official -> A0-matched -> A1-Cov -> A3/A4
+A0-official -> A0-matched -> A0-A3batch
+-> A1-Cov-uniform / A1-Cov-A5a -> A1-Cov -> A3/A4
 ```
 
 每一步单独报告。A4 vs A0-official 不得写成方法增益；A0-matched 下降也不自动构成 AdaGraph 有效性证据。
@@ -229,8 +251,8 @@ Pr(exposure >= 1) = 1 - (1-p)^n_b
 
 - 基础预算 `B` 以实际优化步数计；
 - A3 为 `2B`，A4 为 `3B`；
-- A1+ 连续训练到匹配预算；
-- A4 后两段和 A9 三段从上一段权重续训，逐段重置优化器；
+- A1+ 连续训练到匹配总预算，但不重置优化器；每个阶段使用同 seed/stage 的新覆盖表；
+- A4 后两段和 A9 三段从上一段权重续训，逐段重置优化器并重新生成覆盖表；
 - 同一 seed 下数据顺序、图初始化、模型初始化和共同批次表固定；
 - 实际 `B_stage`、wall time 和 GPU 小时写入 run registry。
 
@@ -343,14 +365,14 @@ CLUE_LDS_core_data_and_phase0_passed_full_external_matrix_pending
 5. 冻结最终 MDE、非劣界、Holm 范围和排除规则；
 6. 一次性运行确认性矩阵。
 
-### 固定绝对非劣界
+### 临时非劣界（v1.2.7）
 
-- PR-AUC：`delta_margin_PR=-0.0005`；
-- K=10 事件召回：`delta_margin_K10=-max(0.02, 2/N_events)`；
-- 对 r5.2 的 99 个事件，`2/99=0.020202...`，即约两个事件步长；
-- 不使用 `-5%` 相对界。
+- PR-AUC：`delta_margin_PR=-min(0.0005, 0.05*PR_A1plus)`；
+- K=10 事件召回：`delta_margin_K10=-max(0.01, 1/N_events)`；
+- 对 r5.2 的 99 个事件，默认只允许约一个事件步长，即 `1/99=0.010101...`；
+- 这比 v1.2.6 的 `-max(0.02,2/N)` 更严格，不能再把两个事件损失当作默认容差。
 
-`delta_margin_PR=-0.0005` 的量级依据：
+旧 `0.0005` 的量级依据只用于审计，不再是 v1.2.7 的默认界：
 
 | 当前 A1 附近口径 | PR-AUC | `0.0005` 占基线 |
 | --- | ---: | ---: |
@@ -358,11 +380,11 @@ CLUE_LDS_core_data_and_phase0_passed_full_external_matrix_pending
 | r4.2 instance-soft，S2 欧氏库 | 0.014091 | 3.55% |
 | r5.2 S2 欧氏库路径 | 0.007572 | 6.60% |
 
-因此它对应现有 A1 尺度上约 3.55%–6.60% 的 PR-AUC，不用极小基线百分比定义。最终 `D_ext` 冻结后还要检查该绝对界是否仍具有业务意义；若需改变，只能新建勘误。
+最终 `D_ext` 和非劣界仍须按事件簇 MDE 复核；若需改变，只能新建看结果前冻结的勘误。当前 PR 的严格界是上述 `min(0.0005, 5% PR_A1plus)`，不是旧的固定 0.0005。
 
 业务可接受损失预先定义为：
 
-> 只有当 A4 相对 A7/A8b 至少一个主终点取得正向收益时，才接受不超过 `0.0005` 的 PR-AUC 损失；K=10 事件召回不得损失超过两个事件。没有主终点收益时，任何超过非劣界的 PR-AUC 损失都不接受。
+> 只有当 A4 相对 A7/A8b 至少一个主终点取得正向收益时，才接受 v1.2.7 临时非劣界内的损失；K=10 事件召回默认不得损失超过一个事件。没有主终点收益时，任何超过非劣界的损失都不接受。
 
 这是双终点 trade-off 边界，不表示 AdaGraph 与更强基线等价。
 
@@ -376,10 +398,13 @@ CLUE_LDS_core_data_and_phase0_passed_full_external_matrix_pending
 4. A4 vs A8b；
 5. A4 vs A9；
 6. A0-matched vs A0-official，批次实现诊断；
-7. A3 vs A3-noAnchor；
-8. A3 vs A3-noEMA。
+7. A0-A3batch vs A0-matched，批次携带画像关系诊断；
+8. A1-Cov vs A1-Cov-uniform / A1-Cov-A5a，权重与批次分解；
+9. A1-sparse vs A1-sparse-EMA，支撑集信息增量；
+10. A3 vs A3-noAnchor；
+11. A3 vs A3-noEMA。
 
-前五项属于端到端/算力/已有方法比较，后两项属于机制小家族。A0-matched 差异只用于批次实现诊断，不写成方法优越性。
+前五项属于端到端/算力/已有方法比较；第 6–9 项是分解诊断，不能和主确认家族混合；第 10–11 项属于机制小家族。A0-matched 差异只用于批次实现诊断，不写成方法优越性。
 
 ### r5.2 锁定复验的三个独立 Holm 家族
 
@@ -400,14 +425,16 @@ r5.2 仍是已见数据，但为避免看到结果后改变检验范围，预先
 1. 共同覆盖批次门禁通过；
 2. A1-Cov 相对 A0-matched 至少一个主终点达到预注册最小正向效应；
 3. r4.2 pilot 方向性通过，但 pilot 只作非约束启动判断；
-4. A4 在 r5.2 锁定复验中相对 A1+ 和 A9 在两个主终点均优效；
+4. A4 在 r5.2 锁定复验中相对 A1+/A9 至少一个主终点优效，另一主终点满足 v1.2.7 临时非劣界；当前状态标记 `UNDERPOWERED`，不得据此承诺中等效应可检出；
 5. A4 相对 A7/A8b 至少一个主终点优效，两个主终点均非劣；
 6. A4 相对 A1-Cov 有端到端正向收益；
 7. A4 相对 A5a/A5b 至少一个主终点有统计支持的收益；
-8. A3 相对 noAnchor/noEMA 的机制小家族至少各有一个主终点通过 Holm；
+8. A3 相对 noAnchor/noEMA 的机制小家族至少各有一个主终点通过 Holm；在 `FLAT_PROFILE_PRIOR` 下，涉及画像锚的机制结论改记 `METHOD_NOT_SUPPORTED`，不能强行判 pass/fail；
 9. NCA@10 的 95% CI 下界不低于 `-0.02`；
 10. ER_ratio 的 95% CI 下界不低于 `0.90`；
 11. 不存在异常用户进入正常核心率持续恶化的事后警示。
+
+若 CERT/CLUE-LDS 均保持 `FLAT_PROFILE_PRIOR`，即使端到端 Gate 通过，也不能宣称“画像锚驱动的 AdaGraph 获得验证”；B 类机制主张必须等待信息量足够的新先验/新数据集。
 
 ### A1-Cov vs A0-matched 最小效应与停止规则
 
@@ -425,6 +452,10 @@ Delta_RecallK10 >= +max(0.02, 1/N_events)
 若只有一个主终点达标，可进入 10-seed r4.2 方向性复验，但标记为 `FRAGILE_SINGLE_ENDPOINT`；10-seed 下仍应报告同号 seed 数和区间，不能凭 pilot 结果进入 r5.2。
 
 Pilot 只决定继续或停止，不用于选择超参数。
+
+这里的 `+0.0005`/`+max(0.02,1/N)` 是 CERT pilot 的启动阈值，不是
+v1.2.7 的确认性非劣界；不得与 r5.2/D_ext 的 `min(0.0005,5% PR_A1plus)` 和
+`max(0.01,1/N)` 混用。
 
 ### CLUE-LDS pilot 的独立最小效应
 
@@ -515,7 +546,7 @@ ER_ratio = ER_method / ER_A1plus
 
 ### 画像先验 `P`
 
-- 使用训练期 47 维鲁棒画像；
+- 使用训练期行为画像；CERT 为 47 维，CLUE-LDS 为 105 维；
 - 排除部门、角色、团队和 LDAP 派生字段；
 - 每维用训练用户中位数和 IQR 标准化；
 - `D_profile` 为欧氏距离；
@@ -524,6 +555,15 @@ ER_ratio = ER_method / ER_A1plus
 - 对角置 0，逐行归一化；
 - 支撑集上的 `P_m` 再归一化。
 
+预注册的替代带宽仅为审计用：
+
+```text
+h_knn = median_u d(u, NN_10(u))
+```
+
+主结果仍使用 `h=median(D_profile)`。替代带宽不能根据下游性能选择。CERT r4.2/r5.2
+的主带宽和 kNN 带宽均触发 `FLAT_PROFILE_PRIOR`；详情见 `CERT_PROFILE_PRIOR_AUDIT.md`。
+
 ### EMA
 
 - 每阶段开始时教师权重复制学生；
@@ -531,8 +571,12 @@ ER_ratio = ER_method / ER_A1plus
 - 日表示先 L2 归一化，再对活跃日均值并归一化；
 - `d_EMA=1-cosine`；
 - 行中位数归一化，距离下限 `1e-6`；
+- 归一化距离上界固定为 `10`，并记录 clip fraction；
 - decay 搜索 `{0.99,0.995}`；
-- 记录教师-学生距离；不满足有效步数条件的 decay 不进入正式模型。
+- 记录教师-学生距离；不满足有效步数条件的 decay 不进入正式模型；
+- 教师必须满足 `NCA@10_teacher >= 0.95*NCA@10_A1plus` 且
+  `ER_teacher/ER_A1plus >= 0.90`，否则标 `EMA_TEACHER_NOT_QUALIFIED`；
+- clip fraction > 5% 时标 `EMA_DISTANCE_SATURATED`，不得用该阶段的机制结果作支持证据。
 
 ### 支撑集和 KL
 
@@ -540,8 +584,21 @@ ER_ratio = ER_method / ER_A1plus
 - 按 score 取 top-m；
 - 在支撑集上计算 `P_m` 和 KL；
 - beta 二分容差 `1e-6`，最多 64 次；
-- 无可行 beta 时回退 `beta=1` 并记录失败；
+- `beta=0` 走独立端点分支；
+- 无可行 beta 时标 `BETA_SOLVE_FAILED`，该 run 不得进入主比较，不能静默回退 `beta=1`；
 - `epsilon=0` 必须产出 `P_m`，`epsilon=infinity` 必须产出纯表示权重。
+
+### Pinsker 型偏差界
+
+对同一支撑集上的行分布 `W_u` 与真实同类关系 `W*_u`，若
+`KL(W_u || W*_u) <= delta`，且用户表示有界 `||x_u|| <= B`，则
+
+```text
+|| c_W(u) - c_W*(u) ||_2 <= C * sqrt(delta / 2)
+```
+
+其中 `C` 由特征空间直径决定；信任域 `KL(W_u||P_m)<=epsilon` 只能给出
+`O(sqrt(epsilon))` 级的最坏漂移上界。该界不保证方向正确，也不能替代下游实验。
 
 ### W 到 SoftCLT
 

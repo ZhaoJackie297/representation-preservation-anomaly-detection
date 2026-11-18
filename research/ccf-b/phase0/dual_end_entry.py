@@ -18,7 +18,15 @@ from common_coverage_sampler import build_common_coverage_table  # noqa: E402
 from coverage_soft_ts2vec import CoverageSoftTS2Vec  # noqa: E402
 
 
-VARIANTS = ("A0-official", "A0-matched", "A1-R0", "A1-Cov")
+VARIANTS = (
+    "A0-official",
+    "A0-matched",
+    "A0-A3batch",
+    "A1-R0",
+    "A1-Cov",
+    "A1-Cov-A5a",
+    "A1-Cov-uniform",
+)
 
 
 def random_batch_table(
@@ -240,7 +248,13 @@ def choose_batch_table(
             batches=base_steps,
             seed=seed,
         )
-    if variant in ("A0-matched", "A1-Cov"):
+    if variant in (
+        "A0-matched",
+        "A0-A3batch",
+        "A1-Cov",
+        "A1-Cov-A5a",
+        "A1-Cov-uniform",
+    ):
         return coverage.training_batches
     return random_batch_table(
         user_count=user_count,
@@ -269,12 +283,20 @@ def train_variant(
     device: str,
     batch_size: int,
     tau_temp: float,
+    uniform_labels: np.ndarray | None = None,
 ) -> dict[str, object]:
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
-    selected_soft_labels = soft_labels if variant in ("A1-R0", "A1-Cov") else None
+    if variant == "A1-Cov-uniform":
+        selected_soft_labels = uniform_labels
+    elif variant in ("A1-R0", "A1-Cov", "A1-Cov-A5a"):
+        selected_soft_labels = soft_labels
+    else:
+        selected_soft_labels = None
+    if variant in ("A1-Cov-uniform", "A1-Cov-A5a") and selected_soft_labels is None:
+        raise ValueError(f"{variant} requires soft labels")
     model = CoverageSoftTS2Vec(
         input_dims=train_values.shape[-1],
         output_dims=64,
@@ -378,6 +400,10 @@ def run(args: argparse.Namespace) -> dict[str, object]:
     graph_users, targets = load_graph_edges(graph_path)
     if graph_users != user_count:
         raise ValueError("graph user count does not match dataset users")
+    uniform_labels = np.eye(user_count, dtype=np.float32)
+    for left, right in targets["A3"]:
+        uniform_labels[left, right] = 1.0
+        uniform_labels[right, left] = 1.0
 
     device = args.device
     if device == "auto":
@@ -420,6 +446,29 @@ def run(args: argparse.Namespace) -> dict[str, object]:
         )
         variant_summaries: dict[str, object] = {}
         for variant in args.variants:
+            variant_coverage = coverage
+            if variant == "A0-A3batch":
+                variant_coverage = build_common_coverage_table(
+                    user_count=user_count,
+                    target_edge_sets={"A3": targets["A3"]},
+                    seed=seed,
+                    stage=0,
+                    batch_size=args.batch_size,
+                    target_coverage=0.8,
+                    min_training_batches=base_steps,
+                    max_coverage_batches=10_000,
+                )
+            elif variant == "A1-Cov-A5a":
+                variant_coverage = build_common_coverage_table(
+                    user_count=user_count,
+                    target_edge_sets={"A5a": targets["A5a"]},
+                    seed=seed,
+                    stage=0,
+                    batch_size=args.batch_size,
+                    target_coverage=0.8,
+                    min_training_batches=base_steps,
+                    max_coverage_batches=10_000,
+                )
             variant_dir = seed_dir / variant
             variant_dir.mkdir(parents=True, exist_ok=True)
             batch_table = choose_batch_table(
@@ -428,7 +477,7 @@ def run(args: argparse.Namespace) -> dict[str, object]:
                 batch_size=args.batch_size,
                 seed=seed,
                 base_steps=base_steps,
-                coverage=coverage,
+                coverage=variant_coverage,
             )
             (variant_dir / "batch_table.json").write_text(
                 json.dumps(
@@ -448,8 +497,9 @@ def run(args: argparse.Namespace) -> dict[str, object]:
                 device=device,
                 batch_size=args.batch_size,
                 tau_temp=args.tau_temp,
+                uniform_labels=uniform_labels,
             )
-            train_summary["coverage_summary"] = coverage_summary
+            train_summary["coverage_summary"] = variant_coverage.to_summary()
             variant_summaries[variant] = train_summary
 
             if args.encode:
@@ -463,7 +513,13 @@ def run(args: argparse.Namespace) -> dict[str, object]:
                     batch_size=args.batch_size,
                     lambda_=0.5,
                     tau_temp=args.tau_temp,
-                    soft_instance=variant in ("A1-R0", "A1-Cov"),
+                    soft_instance=variant
+                    in (
+                        "A1-R0",
+                        "A1-Cov",
+                        "A1-Cov-A5a",
+                        "A1-Cov-uniform",
+                    ),
                     soft_temporal=False,
                 )
                 model.load(str(variant_dir / "model.pth"))

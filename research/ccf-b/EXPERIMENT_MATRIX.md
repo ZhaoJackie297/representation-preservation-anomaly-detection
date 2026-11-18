@@ -1,6 +1,6 @@
 # CCF-B 实验矩阵
 
-版本：v1.2.1
+版本：v1.2.3
 
 日期：2026-11-18。
 
@@ -12,14 +12,17 @@
 | --- | --- | ---: | --- |
 | A0-official | 官方随机 batch + 硬实例负样本 | B | 原版外部参照 |
 | A0-matched | 共同覆盖 batch + 硬实例负样本 | B | 排除批次暴露变化 |
-| A1 | 47 维画像软权重 | B | R0 主基线 |
+| A1-R0 | 原始随机 shuffle、稠密画像软权重 | B | R0 复现基线 |
+| A1-Cov | 47 维画像软权重、共同覆盖 batch | B | 主因果基线 |
 | A1-sparse | 按 `P` 选 top-m，权重取 `P_m` | B | 画像稀疏化 |
 | A1-sparse-EMA | 按 `P*exp(-d/tau)` 选 top-m，权重取 `P_m` | B | `epsilon=0` 画像端点 |
+| A1-repSupport-P | 表示 top-m 支撑集、权重取归一化 `P_m` | 2B | 支撑无锚、权重有锚 |
 | A1+ | 固定画像图，匹配 A3/A4 | 2B/3B | 等算力对照 |
 | A2 | 无 EMA、无画像锚 | 2B | EMA×锚 no/no |
 | A3 | 画像锚 + EMA + KL | 2B | 单轮 AdaGraph |
 | A4 | AdaGraph 两轮更新 | 3B | 主候选 |
 | A3-noAnchor | 只按表示选支撑集和权重 | 2B | 真正移除锚 |
+| A3-epsInf | mixed 支撑集、纯表示权重 | 2B | 支撑有锚、权重无锚 |
 | A3-noEMA | 当前表示替代 EMA | 2B | EMA 边际贡献 |
 | A3-product | 替代乘积融合 | 2B | 融合规则对照 |
 | A3-hard | 邻居权重 `1/m` | 2B | 受控软/硬对照 |
@@ -49,13 +52,14 @@
 | 检查 | 目的 |
 | --- | --- |
 | A0-official vs A0-matched | 测量共同批次本身的影响 |
-| A1 vs A3 vs A4 | 在共同批次暴露下比较图更新 |
-| A3∪A5b 联合覆盖 | A5b 不能因未落批而假阴性 |
-| active_pair_mass_A3/A5b | 确认两类软权重确实进入 `inst_CL_soft` |
-| coverage_A3/A5b | 两类目标边均至少覆盖 80% |
+| A1-Cov vs A3 vs A4 | 在共同批次暴露下比较图更新 |
+| A3∪A5a∪A5b 联合覆盖 | 三类图都不能因未落批而假阴性 |
+| active_pair_mass_A3/A5a/A5b | 确认三类软权重确实进入 `inst_CL_soft` |
+| coverage_A3/A5a/A5b | 三类目标边均至少覆盖 80% |
 | zero-realized-edge users | 必须为 0 |
 | median edge exposure | 必须 `>=1` |
 | batch-table hash by seed | 10 个 seed 必须全部不同 |
+| random filler fraction | batch 16 中固定 8 个随机填充用户 |
 
 若覆盖失败：
 
@@ -64,16 +68,23 @@
 - 先调整批次表、m 或预算；
 - 不把失败 run 解释为方法无效。
 
-### A1 vs A0-matched 停止规则
+### A1-Cov vs A0-matched 停止规则
 
 Pilot 首看：
 
 ```text
-Delta_PR = PR_AUC(A1) - PR_AUC(A0-matched)
-Delta_K10 = RecallK10(A1) - RecallK10(A0-matched)
+Delta_PR = PR_AUC(A1-Cov) - PR_AUC(A0-matched)
+Delta_K10 = RecallK10(A1-Cov) - RecallK10(A0-matched)
 ```
 
-若两个均值都 `<=0`，停止 AdaGraph，在 R0 论文披露批次覆盖局限。若只有一个为正，后续标为 `FRAGILE_SINGLE_ENDPOINT`，必须先在 r4.2 10-seed 稳定复现。
+Pilot 正向阈值：
+
+```text
+Delta_PR >= +0.0005
+Delta_K10 >= +max(0.02, 1/N_events)
+```
+
+若两个终点都未达到阈值，停止 AdaGraph，在 R0 论文披露批次覆盖局限。2 seed 时，同一 endpoint 必须两个 seed 均超过阈值。若只有一个 endpoint 达标，后续标为 `FRAGILE_SINGLE_ENDPOINT`，必须先在 r4.2 10-seed 稳定复现。Pilot 不用于调参。
 
 详见 `BATCH_REALIZATION_PROTOCOL_v1.2.md`。
 
@@ -95,7 +106,7 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 - 同分依次比较 RankMe 和较低图漂移；
 - 前 4 名补 2 seed；
 - 冻结后在完整训练期重训 10 个正式 seed；
-- 附录最多 40 次训练的排序稳定性审计；
+- 附录最多 40 次训练，报告主选点是否仍在前 3、top-4 集合 Jaccard、Spearman 秩相关和方法排序结论是否改变；
 - synthetic J 与 r4.2 真实 PR-AUC 的秩相关只作协议诊断。
 
 真实 validation/test 标签不参与选择。
@@ -111,7 +122,8 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 | SPEDIA | 会话级辅助压力测试 | 17 个 `User` 值、25 天、首日异常 |
 | TWOS | 小样本真实感/规避压力测试 | 五天受控竞赛 |
 | ChimeraLog | 外部确认候选 | 当前下载未就绪；需完整审计 |
-| LANL/OpTC | 待审计候选 | 用户日、标签和训练期未确认 |
+| LANL | 首要真实外部候选 | 红队事件构念、事件簇、时间切分和图适配待审计 |
+| OpTC | 待审计候选 | 用户日、标签和训练期未确认 |
 | SMD | 打分端和检测基线 | 训练端固定 A0 |
 | PSM/SMAP/MSL | 连续时序打分端稳健性 | 不验证用户图 |
 
@@ -138,8 +150,8 @@ Gate 1 前主交叉：
 
 | 训练端 | 打分端 |
 | --- | --- |
-| A1 | S1 |
-| A1 | S2 |
+| A1-Cov | S1 |
+| A1-Cov | S2 |
 | A4 | S1 |
 | A4 | S2 |
 
@@ -211,6 +223,8 @@ H4 不进入 Gate 1。
 - 先重采样 seed，再重采样用户/事件簇；
 - 仅作训练随机性敏感性；
 - 不自动升级为确认性 p 值。
+- 必须说明它不能证明“任取一次训练都稳定”。
+- 同时报告逐 seed 配对方向和同号 seed 数，例如 `8/10`，作为描述性证据。
 
 事件不足：
 
@@ -231,11 +245,13 @@ H4 不进入 Gate 1。
 
 因此它是约 3.55%–6.60% A1 基线的固定绝对容差，不是随极小基线变化的相对百分比。
 
+业务可接受损失：只有至少一个主终点相对 A7/A8b 获得正向收益时，才接受最多 `0.0005` PR-AUC 损失；K=10 召回不得损失超过两个事件。没有 endpoint 收益时不接受该 trade-off。
+
 ### 比较家族
 
 候选固定集：
 
-1. A4 vs A1；
+1. A4 vs A1-Cov；
 2. A4 vs A1+；
 3. A4 vs A7；
 4. A4 vs A8b；
@@ -249,7 +265,7 @@ r5.2 锁定复验预先使用三个独立 Holm 家族：
 
 | 家族 | 比较 | 检验数 |
 | --- | --- | ---: |
-| 主复验 | A4 vs A1、A1+、A7、A8b、A9 | 10 |
+| 主复验 | A4 vs A1-Cov、A1+、A7、A8b、A9 | 10 |
 | 机制 | A3 vs A3-noAnchor、A3-noEMA | 4 |
 | 关系控制 | A4 vs A5a、A5b | 4 |
 
@@ -281,8 +297,8 @@ r5.2 锁定复验预先使用三个独立 Holm 家族：
 | 批次 | 数据与 seed | 变体 |
 | --- | --- | --- |
 | Phase 0 | smoke | sampler、A0-matched、覆盖报告 |
-| Pilot | r4.2，1–2 seed | A0-official、A0-matched、A1、A1-sparse-EMA、A1+、A3、A5a、A5b、A7；先检查 A1 vs A0-matched |
-| 第二批 | r4.2，10 seed | A2、A4、A8a、A8b、A9、A3 机制消融 |
+| Pilot | r4.2，1–2 seed | A0-official、A0-matched、A1-Cov、A1-sparse-EMA、A1+、A3、A5a、A5b、A7；先检查 A1-Cov vs A0-matched |
+| 第二批 | r4.2，10 seed | A1-R0、A1-Cov、A1-repSupport-P、A2、A4、A8a、A8b、A9、A3 机制消融 |
 | 锁定复验 | r5.2，10 seed，超参冻结 | 主比较与机制小家族 |
 | 外部确认 | `D_ext`，10 seed | 门禁通过后冻结 Holm |
 | 扩展 | Gate 1 后 | 深度基线、S×A、安全、案例 |

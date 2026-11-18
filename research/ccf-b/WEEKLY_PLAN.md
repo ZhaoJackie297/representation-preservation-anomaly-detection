@@ -1,11 +1,11 @@
-# 八周执行计划 v1.2.1
+# 八周执行计划 v1.2.3
 
 前提：
 
 - 团队可轮班推进，主算力为 RTX 5060；
-- v1.2.1 已修正 r1、非劣界、双层 bootstrap、支撑集端点、硬图权重、A1/A0-matched 停止规则和 A5b 覆盖；
-- 外部确认集尚未通过门禁；
-- 图边落批尚未实现；
+- v1.2.3 已修正 r1、非劣界、双层 bootstrap、支撑集×权重 2×2、硬图权重、A1 版本拆分、批次随机填充、pilot 最小效应和 LANL 候选优先级；
+- 外部确认集尚未通过门禁；LANL 是当前首选；
+- 独立采样器和合成 smoke 已实现，真实图覆盖和 trainer 接线尚未完成；
 - 八周计划以“先过实现和数据门禁，再跑主矩阵”为顺序。
 
 ## 第 1 周：门禁、冻结与采样器
@@ -13,16 +13,19 @@
 ### 数据
 
 - 完成 CERT r1 无标签结论归档；
-- 审计 ChimeraLog 的下载、许可证、用户日字段、每组织事件数；
-- 对 LANL/OpTC 做最低成本可行性审计；
+- 优先审计 LANL 的 redteam 时间、事件簇、许可证、用户日和图适配；
+- 继续审计 ChimeraLog 的下载和许可证；
+- 对 OpTC 做最低成本可行性审计；
 - 若候选不足，记录“B 外部确认不可达”的风险。
 
 ### 实现
 
 - 冻结 R0 的 code、配置、种子、切分和数据哈希；
+- 独立采样器与合成 smoke 已完成，见 `PHASE0_SMOKE_RESULTS.md`；
 - 实现 `CommonCoverageBatchSampler`；
 - 单元测试：
-  - A3∪A5b 联合边覆盖；
+  - A3∪A5a∪A5b 联合边覆盖；
+  - 8 个设计槽位 + 8 个随机填充槽位；
   - 用户不重复；
   - 同 seed 可复现；
   - 不同 seed 的批次表不同；
@@ -32,7 +35,7 @@
 ### 协议
 
 - 冻结 A1-sparse-EMA、A3-hard `1/m`、邻居质量 `rho`；
-- 冻结 `A1 vs A0-matched` 双终点停止规则；
+- 冻结 `A1-Cov vs A0-matched` 最小效应和双终点停止规则；
 - 冻结事件不足规则、绝对非劣界和双层 bootstrap；
 - 记录实际 `B_stage`；
 - 固定 12 候选表。
@@ -42,7 +45,7 @@
 - 数据门禁报告；
 - pair coverage 报告；
 - sampler 单元测试；
-- v1.2.1 hash。
+- v1.2.3 hash。
 
 ## 第 2 周：非约束性 pilot
 
@@ -51,7 +54,7 @@
 ```text
 A0-official
 A0-matched
-A1
+A1-Cov
 A1-sparse-EMA
 A1+
 A3
@@ -69,15 +72,18 @@ A7
 - KL 和 beta 是否有非空变化；
 - 训练损失和显存。
 
-第一比较为 `A1 vs A0-matched`：
+第一比较为 `A1-Cov vs A0-matched`：
 
-- 若 `Delta_PR<=0` 且 `Delta_K10<=0`，停止 AdaGraph；
+- 正向阈值：`Delta_PR>=+0.0005`，`Delta_K10>=+max(0.02,1/N_events)`；
+- 两个终点都未达到阈值，停止 AdaGraph；
 - 在 R0 论文中披露共同批次覆盖和图边落批局限；
-- 若只有一个终点为正，标为 `FRAGILE_SINGLE_ENDPOINT`，先在 10-seed r4.2 复验。
+- 2 seed 时同一终点必须两个 seed 都超过阈值；
+- 只有一个终点达标时，标为 `FRAGILE_SINGLE_ENDPOINT`，先在 10-seed r4.2 复验；
+- pilot 不用于调参。
 
 Pilot Go/No-Go 明确为**非约束性启动判断**。它只决定是否进入第二批，不作确认性推断。r4.2 测试期结果一旦用于该判断，r4.2 永久标记为已见开发数据。
 
-并行继续审计 ChimeraLog 替代托管，并检查 LANL/OpTC 最小切片；外部数据未到位不阻塞 Phase 0 和 pilot。
+并行优先完成 LANL 的 fence 下载、redteam 时间和事件簇审计；继续跟踪 ChimeraLog 替代托管，并检查 OpTC 最小切片。外部数据未到位不阻塞 Phase 0 和 pilot。
 
 交付：
 
@@ -90,6 +96,9 @@ Pilot Go/No-Go 明确为**非约束性启动判断**。它只决定是否进入�
 运行：
 
 ```text
+A1-R0
+A1-Cov
+A1-repSupport-P
 A2
 A4
 A8a
@@ -97,6 +106,7 @@ A8b
 A9
 A3-noAnchor
 A3-noEMA
+A3-epsInf
 A3-product
 A3-hard
 ```
@@ -106,6 +116,8 @@ A3-hard
 - 10 seed；
 - 同 seed/stage 共享覆盖批次表；
 - A1+ 和 A9 实际步数匹配；
+- A1-R0 与 A1-Cov 分开报告，不能合并；
+- 补齐 A1-repSupport-P 与 A3-epsInf 的 2×2 支撑/权重单元；
 - 结果只作方向性和工程复验，不进入确认性 p 值；
 - 完成固定候选表选参；
 - 冻结 r5.2 将使用的全部超参数。
@@ -116,6 +128,11 @@ A3-hard
 - 选参分布；
 - 实际 GPU 小时；
 - 锁定超参数清单。
+
+第三周末外部数据判定：
+
+- 有通过门禁的 `D_ext`：保留条件性 B 路线；
+- 没有 `D_ext`：不进入 B 类外部确认，切到 C 类上沿或“批次共现与覆盖修正”的方法学/实证定位。
 
 ## 第 4 周：r5.2 一次性锁定复验
 
@@ -137,13 +154,13 @@ A3-hard
 ## 第 5 周：外部数据结构与统计
 
 - 若 ChimeraLog 下载就绪，完成 Schema、用户日、事件和许可证适配；
-- 若 LANL/OpTC 可行，完成最小切片和标签审计；
+- 若 LANL 时间切分可行，完成 auth/DNS 最小切片；OpTC 只作后备；
 - 只选一个 `D_ext`，不事后合并多个小型候选；
 - 在 A4 结果可见前冻结业务最小有意义效应；
 - 用 `D_ext` 自身结构做 MDE/80% 功效模拟；
 - 冻结最终 Holm 家族；
 - 完成用户/事件簇主 bootstrap 和双层敏感性；
-- 完成 A1/A4 × S1/S2 四单元；
+- 完成 A1-Cov/A4 × S1/S2 四单元；
 - 完成一个连续时序外部集，仅验证打分端。
 
 交付：

@@ -1,6 +1,6 @@
 # CCF-B 算力预算
 
-版本：v1.2.1
+版本：v1.2.3
 
 日期：2026-11-18。
 
@@ -32,9 +32,11 @@ floor(n_users / batch_size), batch_size=16, drop_last=True
 | --- | ---: |
 | A0-official | 1B |
 | A0-matched | 1B |
-| A1 | 1B |
+| A1-R0 | 1B |
+| A1-Cov | 1B |
 | A1-sparse | 1B |
 | A1-sparse-EMA | 1B |
+| A1-repSupport-P | 2B |
 | A1+（对 A3） | 2B |
 | A1+（对 A4） | 3B |
 | A2 | 2B |
@@ -42,6 +44,7 @@ floor(n_users / batch_size), batch_size=16, drop_last=True
 | A4 | 3B |
 | A3-noAnchor | 2B |
 | A3-noEMA | 2B |
+| A3-epsInf | 2B |
 | A3-product | 2B |
 | A3-hard | 2B |
 | A5a | 2B |
@@ -54,8 +57,32 @@ floor(n_users / batch_size), batch_size=16, drop_last=True
 单 seed 全部正式变体合计约：
 
 ```text
-35 B
+40 B
 ```
+
+### Phase 0 实测覆盖倍率
+
+在 1,000 用户、三张约 6,300 边合成图、8+8 槽位和 80% 覆盖率下，stage 需要：
+
+```text
+1,134–1,146 batches
+```
+
+相对 r4.2 原 B=620：
+
+```text
+1.83–1.85x
+```
+
+因此当前预算表只能作为 `B_base` 名义倍数。覆盖后应先写成：
+
+```text
+A1-Cov  ~= 1.83–1.85 B_base
+A3      ~= 3.66–3.70 B_base
+A4      ~= 5.49–5.55 B_base
+```
+
+真实 A3/A5a/A5b 图、m 和 stage 数不同，最终必须用真实覆盖表重算。合成倍率不是正式预算常量。
 
 ## 3. 10-seed 主矩阵粗估
 
@@ -66,17 +93,17 @@ floor(n_users / batch_size), batch_size=16, drop_last=True
 
 | 数据 | 10-seed 训练粗估 | 覆盖采样前 |
 | --- | ---: | --- |
-| r4.2 | `35 × 10 × 171.5 s ≈ 16.7 GPU·h` | 不加调参 |
-| r5.2 | `35 × 10 × 289.5 s ≈ 28.1 GPU·h` | 不加调参 |
-| 合计 | 约 44.8 GPU·h | 理论下限 |
+| r4.2 | `40 × 10 × 171.5 s ≈ 19.1 GPU·h` | 不加调参 |
+| r5.2 | `40 × 10 × 289.5 s ≈ 32.2 GPU·h` | 不加调参 |
+| 合计 | 约 51.2 GPU·h | 未乘覆盖倍率的名义下限 |
 
-图边覆盖采样会增加每个 stage 的批数。保守按 1.5 倍计：
+Phase 0 合成倍率约 1.83–1.85 倍，且只作用于覆盖版变体。按总变体约 1.8 倍粗估：
 
 ```text
-10-seed 主矩阵约 67 GPU·h
+10-seed 主矩阵约 92–95 GPU·h
 ```
 
-若覆盖后 `B_stage` 增长到 2 倍，主矩阵约 90 GPU·h。
+若真实图需要 2 倍以上 stage 预算，必须先缩小 m 或改进覆盖算法。
 
 ## 4. 调参预算
 
@@ -128,13 +155,13 @@ floor(n_users / batch_size), batch_size=16, drop_last=True
 在覆盖采样 1.5–2 倍、6 个调参族和全部预留下：
 
 ```text
-约 140–240 GPU·h
+约 240–450 GPU·h
 ```
 
 若深度基线和外部数据预处理超出预期，可能达到：
 
 ```text
-约 250–350 GPU·h
+约 400–600 GPU·h
 ```
 
 单张 RTX 5060 八周 24 小时理论上限：
@@ -156,7 +183,7 @@ floor(n_users / batch_size), batch_size=16, drop_last=True
 必须保留：
 
 - A0-official、A0-matched；
-- A1、A1-sparse-EMA；
+- A1-R0、A1-Cov、A1-sparse-EMA、A1-repSupport-P；
 - A1+ 和 A9；
 - A3、A4；
 - A3-noAnchor、A3-noEMA；

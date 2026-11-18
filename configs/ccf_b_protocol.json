@@ -1,10 +1,11 @@
 {
   "target": "CCF-B",
-  "plan_version": "1.2.1",
-  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.1.md",
+  "plan_version": "1.2.3",
+  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.3.md",
   "r0_frozen_manuscript": "paper/manuscript.docx",
   "primary_method_candidate": "AdaGraph-SoftCLT",
   "status": "candidate_method_pending_implementation_and_external_data_gates",
+  "phase0_status": "standalone_sampler_and_ten_seed_synthetic_smoke_passed_pending_real_graph_and_trainer_integration",
   "seeds": [
     20261116,
     20261117,
@@ -37,7 +38,7 @@
     "SPEDIA": "session_level_auxiliary_stress_test_only",
     "TWOS": "small_external_stress_test_only",
     "ChimeraLog": "pending_access_license_label_and_user_day_audit",
-    "LANL": "pending_dataset_audit",
+    "LANL": "primary_real_external_candidate_pending_redteam_timing_event_cluster_and_user_graph_adaptation",
     "OpTC": "pending_dataset_audit",
     "SMD": "scoring_side_and_detection_baselines_only_training_backbone_A0",
     "PSM/SMAP/MSL": "scoring_side_external_validation_only"
@@ -45,13 +46,28 @@
   "external_confirmation": {
     "status": "pending_data_gate",
     "dataset": null,
+    "primary_candidate": "LANL_Comprehensive_Multi_Source_Cyber_Security_Events",
+    "lanl_gate": {
+      "doi": "10.17021/1179829",
+      "license": "CC0",
+      "require_fence_token": true,
+      "require_redteam_time_audit": true,
+      "require_event_clustering_before_counts": true,
+      "require_human_account_filter": true,
+      "require_user_day_feature_protocol": true,
+      "require_authentication_or_interaction_graph_protocol": true,
+      "global_clean_prefix_not_assumed": true,
+      "fallback_if_no_clean_prefix": "external_stress_test_or_per_user_local_baseline_protocol"
+    },
     "require_non_cert_generator_family": true,
     "minimum_users": 100,
     "minimum_events": 20,
     "minimum_clean_training_days": 30,
     "require_license_and_mapping_audit": true,
     "freeze_hash_and_protocol_before_results": true,
-    "if_event_count_below_20": "report_effect_and_interval_only_no_confirmatory_p_value"
+    "if_event_count_below_20": "report_effect_and_interval_only_no_confirmatory_p_value",
+    "external_data_decision_deadline_week": 3,
+    "fallback_if_no_external_data": "drop_CCF_B_external_validity_and_target_CCF_C_or_methodological_empirical_paper"
   },
   "evaluation": {
     "k_grid": [
@@ -85,6 +101,7 @@
         ]
       },
       "event_recall_k10_absolute_formula": "-max(0.02, 2 / N_events)",
+      "business_acceptability": "accept_PR_loss_only_if_at_least_one_primary_endpoint_gains_and_K10_loss_is_at_most_two_events",
       "relative_percent_margin": false
     },
     "r5_2_event_step": 0.010101010101010102,
@@ -99,13 +116,18 @@
     "unit": "one_user_sequence",
     "official_batch_size": 16,
     "shared_coverage_schedule_for_matched_variants": true,
+    "designed_user_slots": 8,
+    "random_filler_slots": 8,
+    "random_filler_fraction": 0.5,
     "target_edge_sets": [
       "A3_soft_edges",
+      "A5a_degree_preserving_random_edges",
       "A5b_profile_permutation_edges"
     ],
     "a0_official_random_reference": true,
     "a0_matched_control": true,
     "coverage_A3_minimum": 0.8,
+    "coverage_A5a_minimum": 0.8,
     "coverage_A5b_minimum": 0.8,
     "zero_realized_edge_users_maximum": 0,
     "median_user_edge_exposures_minimum": 1,
@@ -118,8 +140,10 @@
       "realized_support_edges",
       "support_edge_coverage",
       "coverage_A3",
+      "coverage_A5a",
       "coverage_A5b",
       "active_pair_mass_A3",
+      "active_pair_mass_A5a",
       "active_pair_mass_A5b",
       "median_user_edge_exposures",
       "min_user_edge_exposures",
@@ -195,20 +219,31 @@
       "self_weight": 1.0
     },
     "epsilon_zero_equals": "A1_sparse_EMA",
-    "epsilon_infinity_equals": "pure_representation_weights_on_fixed_mixed_support_not_A3_noAnchor",
+    "epsilon_infinity_equals": "A3_epsInf",
+    "a3_epsInf": "mixed_profile_support_with_representation_only_weights",
     "a3_no_anchor": "support_and_weights_use_representation_distance_only",
+    "a1_repSupport_P": "representation_distance_support_with_profile_weights_renormalized_on_support",
+    "support_weight_factorial": {
+      "S1_W1": "A1_sparse_EMA",
+      "S1_W0": "A3_epsInf",
+      "S0_W0": "A3_noAnchor",
+      "S0_W1": "A1_repSupport_P"
+    },
     "controls": [
       "A0_official",
       "A0_matched",
-      "A1",
+      "A1_R0",
+      "A1_Cov",
       "A1_sparse",
       "A1_sparse_EMA",
+      "A1_repSupport_P",
       "A1_plus",
       "A2",
       "A3",
       "A4",
       "A3_noAnchor",
       "A3_noEMA",
+      "A3_epsInf",
       "A3_product",
       "A3_hard",
       "A5a_degree_preserving_random",
@@ -235,7 +270,7 @@
       "metric": "top10_reference_agreement",
       "profile_excludes_ldap_fields": true,
       "compared_models": [
-        "A1",
+        "A1_Cov",
         "A2",
         "A3",
         "A4",
@@ -264,6 +299,12 @@
     "successive_halving": "12_candidates_one_seed_then_top4_each_two_additional_seeds",
     "report_all_candidate_scores": true,
     "relaxed_budget_sensitivity_max_runs": 40,
+    "relaxed_budget_report": [
+      "main_selection_in_top3",
+      "top4_set_jaccard",
+      "spearman_rank_correlation",
+      "method_ranking_changed"
+    ],
     "posthoc_j_real_pr_spearman": "selection_protocol_diagnostic_only"
   },
   "required_baselines": [
@@ -291,7 +332,7 @@
   },
   "comparison_families": {
     "primary_candidates": [
-      "A4_vs_A1",
+      "A4_vs_A1_Cov",
       "A4_vs_A1plus_matched",
       "A4_vs_A7",
       "A4_vs_A8b",
@@ -308,7 +349,14 @@
     "implementation_diagnostic": [
       "A0_matched_vs_A0_official"
     ],
-    "pilot_stop_rule": "stop_AdaGraph_if_A1_vs_A0_matched_nonpositive_on_both_primary_endpoints",
+    "pilot_stop_rule": {
+      "comparison": "A1_Cov_vs_A0_matched",
+      "positive_PR_threshold": 0.0005,
+      "positive_K10_threshold": "max(0.02, 1 / N_events)",
+      "two_seed_rule": "both_seeds_must_exceed_threshold_for_same_endpoint",
+      "stop_if_both_endpoints_not_positive": true,
+      "pilot_used_for_hyperparameter_selection": false
+    },
     "final_holm_scope": "frozen_after_D_ext_event_count_and_MDE_gate"
   },
   "execution_batches": {
@@ -320,7 +368,7 @@
     "pilot": [
       "A0_official",
       "A0_matched",
-      "A1",
+      "A1_Cov",
       "A1_sparse_EMA",
       "A1_plus",
       "A3",
@@ -329,6 +377,9 @@
       "A7"
     ],
     "second": [
+      "A1_R0",
+      "A1_Cov",
+      "A1_repSupport_P",
       "A2",
       "A4",
       "A8a",
@@ -336,6 +387,7 @@
       "A9",
       "A3_noAnchor",
       "A3_noEMA",
+      "A3_epsInf",
       "A3_product",
       "A3_hard"
     ],

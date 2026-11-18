@@ -1,6 +1,6 @@
 # AdaGraph-SoftCLT 预注册表
 
-版本：v1.2.1
+版本：v1.2.3
 
 冻结日期：2026-11-18
 
@@ -25,7 +25,8 @@
 | SPEDIA | 会话/事件级辅助压力测试 | 17 个 `User` 值、25 天且首日有异常；不作主图确认 |
 | TWOS | 外部小样本压力测试 | 五天受控竞赛；不作确认性分析 |
 | ChimeraLog | 优先外部确认候选 | 当前官方数据下载未就绪；访问、许可、用户日、事件数通过后方可冻结 |
-| LANL/OpTC | 待审计候选 | 未完成用户日、事件和干净训练期审计前不进入承诺矩阵 |
+| LANL | 首要真实外部候选 | 红队入侵而非 CERT 式内部人员；时间切分、事件簇、用户日和图适配通过前不进入确认 |
+| OpTC | 待审计候选 | 未完成用户日、事件和训练期审计前不进入承诺矩阵 |
 | SMD | 打分端验证 | 训练端固定 A0，不运行 AdaGraph 用户图 |
 | PSM/SMAP/MSL | 打分端外部验证 | 不用于 AdaGraph 用户图结论 |
 
@@ -56,14 +57,17 @@ H2 只研究其他组件存在时的边际贡献和剂量响应，不把画像�
 | --- | --- | --- |
 | A0-official | 官方 TS2Vec 随机 batch + 硬实例负样本 | 原始外部参照 |
 | A0-matched | 共同覆盖 batch + 硬实例负样本 | 排除批次暴露变化 |
-| A1 | 固定 47 维画像软权重，单阶段 `B` | R0 主基线 |
+| A1-R0 | R0 原始随机 shuffle、稠密画像软权重、单阶段 `B` | R0 复现基线 |
+| A1-Cov | 固定画像软权重，重放共同覆盖批次表，单阶段 `B` | 同批次暴露的主因果基线 |
 | A1-sparse | 按 `P` 选 top-m 并重归一化，权重取 `P_m` | 画像稀疏化对照 |
 | A1-sparse-EMA | 按 `P * exp(-d_tilde/tau)` 选 top-m，权重取 `P_m` | `epsilon=0` 的真实画像端点 |
+| A1-repSupport-P | 按表示距离选 top-m，在该支撑集上归一化并取 `P_m` | 支撑无锚、权重有锚单元 |
 | A1+ | 固定画像图，连续训练到与 A3/A4 相同总步数 | 等算力对照 |
 | A2 | 当前表示、无 EMA、无画像锚，两阶段 `2B` | EMA×锚的 no/no 单元 |
 | A3 | 画像锚 + EMA + KL 信任域，一次更新，`2B` | AdaGraph 单轮核心 |
 | A4 | AdaGraph 两轮更新，`3B` | 主候选方法 |
 | A3-noAnchor | top-m 只按 `d_tilde` 选，权重为 `exp(-d_tilde/tau)`，`2B` | 真正移除画像锚 |
+| A3-epsInf | mixed 支撑集、纯表示权重 | 支撑有锚、权重无锚单元 |
 | A3-noEMA | 用当前表示替代 EMA，但保留画像锚和信任域，`2B` | EMA 边际贡献 |
 | A3-product | `P_m * exp(-d_tilde/tau)` 归一化，不满足 KL 缩放 | 替代融合规则 |
 | A3-hard | 与 A3 同支撑集，邻居权重 `1/m`，其余为 0 | 受控软/硬权重对照 |
@@ -77,10 +81,16 @@ H2 只研究其他组件存在时的边际贡献和剂量响应，不把画像�
 
 ### 支撑集端点
 
-- `epsilon=0` 返回 `A1-sparse-EMA`，不是 A1-sparse；
-- `epsilon=infinity` 返回固定混合支撑集上的纯表示权重，不是 A3-noAnchor；
-- A3-noAnchor 的支撑集只由表示距离决定；
-- 所有剂量响应图必须报告 `P` 行熵、`P_m` 行熵、每行 beta 分布和实际 KL。
+支撑集与权重采用完整 2×2：
+
+| 单元 | 支撑集 | 权重 | 变体 |
+| --- | --- | --- | --- |
+| S1,W1 | mixed `P*exp(-d/tau)` | `P_m` | A1-sparse-EMA / `epsilon=0` |
+| S1,W0 | mixed `P*exp(-d/tau)` | `exp(-d/tau)` | A3-epsInf |
+| S0,W0 | 表示 top-m | `exp(-d/tau)` | A3-noAnchor |
+| S0,W1 | 表示 top-m | 在表示支撑集上归一化 `P_m` | A1-repSupport-P |
+
+所有剂量响应图必须报告 `P` 行熵、`P_m` 行熵、每行 beta 分布、实际 KL 和可行 beta 比例。若 `P_m` 接近 `ln(m)`，必须明确指出锚在支撑集内信息很弱。
 
 ### 邻居质量
 
@@ -102,17 +112,44 @@ H2 只研究其他组件存在时的边际贡献和剂量响应，不把画像�
 
 正式 A3/A4 使用 `CommonCoverageBatchSampler`：
 
-1. 在每个 stage 开始时从参考 A3/A4 支撑图和 A5b 置换图形成联合目标边集合 `E_A3 ∪ E_A5b`；
-2. 用固定 hash 排序，按贪心覆盖打包 16 用户 batch；
-3. 所有主对照重放同一 seed/stage 的用户批次表；
-4. A0-official 保留原版随机 shuffle，A0-matched 使用共同批次表；
-5. 分别记录 A3 与 A5b 的 `intended_support_edges`、`realized_support_edges`、`active_pair_mass`、每用户边曝光；
-6. 正式门禁：A3 和 A5b 的支撑边覆盖率均 `>=80%`，没有用户零曝光，用户中位曝光 `>=1`；
-7. `B_stage=max(B_base, required_coverage_batches)`，A1+ 与 A9 匹配实际步数。
+1. 在每个 stage 开始时形成 `E_cov=E_A3 ∪ E_A5a ∪ E_A5b`；
+2. batch 16 中固定 8 个覆盖设计槽位和 8 个同 seed、同 stage 的随机填充槽位；
+3. 用固定 hash 排序，按贪心覆盖选择设计槽位；
+4. 所有匹配变体重放同一 seed/stage 的 16 用户批次表；
+5. A0-official 保留原版随机 shuffle，A0-matched 使用共同批次表；
+6. 分别记录 A3、A5a、A5b 的 `intended_support_edges`、`realized_support_edges`、`active_pair_mass`、每用户边曝光；
+7. 正式门禁：A3、A5a、A5b 覆盖率均 `>=80%`，没有用户零曝光，用户中位曝光 `>=1`；
+8. 每次图更新后重新生成该 stage 目标边和覆盖率，不得沿用上一 stage；
+9. `B_stage=max(B_base, required_coverage_batches)`，A1+ 与 A9 匹配实际步数。
 
 违反门禁时状态为 `IMPLEMENTATION_BLOCKED`，不得把阴性结果解释为假设失败。
 
 批次表必须随 seed 变化。10 个正式 seed 的 `batch_table_sha256` 必须全部唯一，并报告 seed 间已落批用户对集合的 Jaccard 中位数、最小值和最大值。复用同一 batch 表的 seed 标记为 `INVALID_SEED_RANDOMIZATION`。
+
+预注册分解顺序：
+
+```text
+A0-official -> A0-matched -> A1-Cov -> A3/A4
+```
+
+每一步单独报告。A4 vs A0-official 不得写成方法增益；A0-matched 下降也不自动构成 AdaGraph 有效性证据。
+
+### Proposition：边曝光下界
+
+随机无放回抽取大小为 `b` 的 batch 时，任意固定无向用户边的单步出现概率：
+
+```text
+p = b(b-1) / [N(N-1)]
+```
+
+`n_b` 步内期望曝光次数和至少曝光一次概率：
+
+```text
+lambda = n_b p
+Pr(exposure >= 1) = 1 - (1-p)^n_b
+```
+
+若定向批次表保证一条目标边至少出现 `c` 次，则其曝光次数至少为 `c`。该命题只解释软图失效机制和覆盖必要性，不证明 AdaGraph 有效。
 
 详细协议见 `BATCH_REALIZATION_PROTOCOL_v1.2.md`。
 
@@ -144,7 +181,7 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 8. 报告所有候选的 `J` 分布、淘汰顺序和同分规则，不只报告胜者；
 9. 同分时依次比较 RankMe 有效秩、较低图漂移；
 10. 冻结超参数后在完整训练期重训 10 个正式 seed；
-11. 附录执行一次最多 40 次训练的放宽预算审计，只检查排序稳定性；
+11. 附录执行一次最多 40 次训练的放宽预算审计，报告主选点是否仍在前 3、top-4 集合 Jaccard、Spearman 秩相关和是否改变方法排序结论；
 12. 在 r4.2 事后计算 synthetic `J` 与真实 PR-AUC 的 Spearman 相关，只作选参协议诊断，不用于重新选参。
 
 固定候选表见 `TUNING_CANDIDATES_v1.2.md`。
@@ -184,6 +221,8 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 3. 重复 10,000 次；
 4. 报告为训练随机性敏感性；除非确认集和计划明确将其升级，不取代主 p 值公式。
 
+所有主比较同时报告逐 seed 配对方向、同号 seed 数、均值和标准差。8/10 同号是描述性稳健性，不替代 p 值；双层区间也必须说明其不能证明“任取一次训练都稳定”。
+
 ## 7. 显著性与事件不足规则
 
 - 单侧 `alpha=0.025`；
@@ -218,7 +257,7 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 `D_ext` 门禁通过后：
 
 1. 先冻结数据、事件簇、用户簇和评价期；
-2. 只运行 A1/A0 等基线并获得方差；
+2. 只运行 A1-Cov/A1-R0/A0 等基线并获得方差；
 3. 在 A4 结果可见前定义业务最小有意义效应；
 4. 用 `D_ext` 自身结构做 80% 功效模拟；
 5. 冻结最终 MDE、非劣界、Holm 范围和排除规则；
@@ -241,11 +280,17 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 
 因此它对应现有 A1 尺度上约 3.55%–6.60% 的 PR-AUC，不用极小基线百分比定义。最终 `D_ext` 冻结后还要检查该绝对界是否仍具有业务意义；若需改变，只能新建勘误。
 
+业务可接受损失预先定义为：
+
+> 只有当 A4 相对 A7/A8b 至少一个主终点取得正向收益时，才接受不超过 `0.0005` 的 PR-AUC 损失；K=10 事件召回不得损失超过两个事件。没有主终点收益时，任何超过非劣界的 PR-AUC 损失都不接受。
+
+这是双终点 trade-off 边界，不表示 AdaGraph 与更强基线等价。
+
 ### 主比较集
 
 最终候选比较：
 
-1. A4 vs A1；
+1. A4 vs A1-Cov；
 2. A4 vs A1+；
 3. A4 vs A7；
 4. A4 vs A8b；
@@ -260,7 +305,7 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 
 r5.2 仍是已见数据，但为避免看到结果后改变检验范围，预先冻结以下三个互不合并的家族：
 
-1. 主复验家族：A4 vs A1、A1+、A7、A8b、A9，`5 x 2 = 10` 个检验；
+1. 主复验家族：A4 vs A1-Cov、A1+、A7、A8b、A9，`5 x 2 = 10` 个检验；
 2. 机制家族：A3 vs A3-noAnchor、A3-noEMA，`2 x 2 = 4` 个检验；
 3. 关系控制家族：A4 vs A5a、A5b，`2 x 2 = 4` 个检验。
 
@@ -273,30 +318,33 @@ r5.2 仍是已见数据，但为避免看到结果后改变检验范围，预先
 以下条件全部满足才通过方法 Gate：
 
 1. 共同覆盖批次门禁通过；
-2. A1 相对 A0-matched 至少一个主终点有正向效应；
+2. A1-Cov 相对 A0-matched 至少一个主终点达到预注册最小正向效应；
 3. r4.2 pilot 方向性通过，但 pilot 只作非约束启动判断；
 4. A4 在 r5.2 锁定复验中相对 A1+ 和 A9 在两个主终点均优效；
 5. A4 相对 A7/A8b 至少一个主终点优效，两个主终点均非劣；
-6. A4 相对 A1 有端到端正向收益；
+6. A4 相对 A1-Cov 有端到端正向收益；
 7. A4 相对 A5a/A5b 至少一个主终点有统计支持的收益；
 8. A3 相对 noAnchor/noEMA 的机制小家族至少各有一个主终点通过 Holm；
 9. NCA@10 的 95% CI 下界不低于 `-0.02`；
 10. ER_ratio 的 95% CI 下界不低于 `0.90`；
 11. 不存在异常用户进入正常核心率持续恶化的事后警示。
 
-### A1 vs A0-matched 停止规则
+### A1-Cov vs A0-matched 最小效应与停止规则
 
-若在覆盖门禁通过后的 pilot 中：
+Endpoint 在 pilot 中算“正向”必须同时满足方向和幅度：
 
 ```text
-mean(PR_AUC_A1 - PR_AUC_A0matched) <= 0
-and
-mean(RecallK10_A1 - RecallK10_A0matched) <= 0
+Delta_PR >= +0.0005
+Delta_RecallK10 >= +max(0.02, 1/N_events)
 ```
 
-则立即停止 AdaGraph 主实验，不运行 A3/A4 的 10-seed 矩阵，并在 R0 论文中披露共同批次与图边落批的局限。
+2 个 pilot seed 时，每个 seed 必须在同一 endpoint 上超过该阈值；1 个 pilot seed 时，仅按幅度判断并标记 `PILOT_ONE_SEED`。
 
-若只有一个主终点为正，可进入 10-seed r4.2 方向性复验，但标记为 `FRAGILE_SINGLE_ENDPOINT`；10-seed 下仍没有至少一个稳定正向终点时不得进入 r5.2。
+若两个主终点均未达到上述正向标准，立即停止 AdaGraph 主实验，不运行 A3/A4 的 10-seed 矩阵，并在 R0 论文中披露共同批次与图边落批的局限。
+
+若只有一个主终点达标，可进入 10-seed r4.2 方向性复验，但标记为 `FRAGILE_SINGLE_ENDPOINT`；10-seed 下仍应报告同号 seed 数和区间，不能凭 pilot 结果进入 r5.2。
+
+Pilot 只决定继续或停止，不用于选择超参数。
 
 外部 B 类 Gate 额外要求：
 
@@ -315,7 +363,7 @@ LDAP 只用于评价：
 PeerMass(u) = sum_{v: same department and role} W(u,v)
 ```
 
-先做 A1/A5a/A5b 的 PeerMass 基线差异。只有 A1 对随机图和置换图均显示关系信号，才把 PeerMass 用作 H1a 代理终点。
+先分别做 A1-R0、A1-Cov、A5a、A5b 的 PeerMass 基线。只有画像锚定方法对随机图和置换图均显示关系信号，才把 PeerMass 用作 H1a 代理终点。
 
 报告：
 
@@ -430,7 +478,7 @@ ER_ratio = ER_method / ER_A1plus
 ### Phase 0：实现门禁
 
 - `CommonCoverageBatchSampler`；
-- 单元测试：A3∪A5b 联合边覆盖、同 seed 可复现、不同 seed 表不同、用户不重复；
+- 单元测试：A3∪A5a∪A5b 联合边覆盖、50% 随机填充、同 seed 可复现、不同 seed 表不同、用户不重复；
 - pair coverage smoke run；
 - A0-matched 实现；
 - 画图/统计管线测试。
@@ -440,11 +488,11 @@ ER_ratio = ER_method / ER_A1plus
 r4.2，1–2 seed：
 
 ```text
-A0-official, A0-matched, A1, A1-sparse-EMA,
+A0-official, A0-matched, A1-Cov, A1-sparse-EMA,
 A1+, A3, A5a, A5b, A7
 ```
 
-第一优先比较为 `A1 vs A0-matched`。Pilot 只判断方向、覆盖和实现稳定性，不作确认性推断。
+第一优先比较为 `A1-Cov vs A0-matched`。Pilot 只判断继续或停止，不作确认性推断，也不用于调参。
 
 ### 并行任务
 
@@ -459,7 +507,8 @@ Pilot 和覆盖门禁通过后：
 
 ```text
 r4.2, 10 seed
-A2, A4, A8a, A8b, A9, A3-noAnchor, A3-noEMA, A3-product, A3-hard
+A1-R0, A1-Cov, A1-repSupport-P, A2, A4, A8a, A8b, A9,
+A3-noAnchor, A3-noEMA, A3-epsInf, A3-product, A3-hard
 ```
 
 ### 锁定复验

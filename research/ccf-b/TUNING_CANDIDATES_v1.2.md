@@ -1,4 +1,4 @@
-# 无标签调参候选表 v1.2.1
+# 无标签调参候选表 v1.2.3
 
 日期：2026-11-18。
 
@@ -58,8 +58,10 @@ J = mean synthetic PR-AUC over 3 mechanisms x 3 strengths
 为保持“相同预算 + 相同候选机制”，其他方法只用其真实存在的维度：
 
 - 学习率和 weight decay 沿用同一行；
-- A1、A1-sparse、A1-sparse-EMA 使用同一 tau 行和 m 行；没有 EMA 的方法忽略 EMA 列；
+- A1-R0、A1-Cov、A1-sparse、A1-sparse-EMA 使用同一 tau 行和 m 行；没有 EMA 的方法忽略 EMA 列；
+- A1-repSupport-P 使用同一 tau、m、lr、weight decay，支撑集只由表示距离决定；
 - A2、A3-noAnchor 忽略 epsilon 和 tau 中不适用项，但保留 m、lr、weight decay；
+- A3-epsInf 固定 epsilon=infinity，保留 tau、m、lr、weight decay；
 - A7 将 m 映射为 NNCLR 的 `k`；
 - A8a/A8b 使用同一 lr、weight decay 和 k/m 候选；
 - TS-TCC、TNC 等外部基线使用自身合法维度的固定 12 点表，不能因为变体不同而扩大试验次数。
@@ -72,7 +74,7 @@ J = mean synthetic PR-AUC over 3 mechanisms x 3 strengths
 - 报告每个方法的 median、IQR、最小值、最大值和最佳值；
 - 报告前 4 名的补 seed 区间；
 - 记录“最佳候选与第二名差异”，避免把一个噪声点当稳定选择；
-- 40 次放宽预算只检查排序，不替换主选择；
+- 40 次放宽预算报告主选点是否仍在前 3、top-4 集合 Jaccard、Spearman 秩相关和方法排序结论是否变化，不替换主选择；
 - r4.2 真实 PR-AUC 与 synthetic J 的 Spearman 相关只用于诊断选择器，不用于二次选参。
 
 ## 5. 开跑前检查

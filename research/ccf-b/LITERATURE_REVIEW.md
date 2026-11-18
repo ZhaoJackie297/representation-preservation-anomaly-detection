@@ -143,6 +143,8 @@ Harilal 等提出 TWOS，用 gamified competition 记录恶意内部人员行为
 
 本地文件审计得到 72,250 行、25 列、17 个 `User` 值、25 个活动日期、41,541 个异常行；首个活动日已有异常。因此它适合会话/事件级迁移压力测试，但不能直接承担本项目 1000 级用户图的主确认。
 
+Alriyami 与 Mohamad 的 2026 IJACSA cross-dataset benchmark 进一步移除 `Decoder_name == 'cert'` 行，得到 20,619 条 real-only SPEDIA 事件和 82/256 个正用户日；LANL authentication 按固定采样后，时间切分测试期没有正例，只能使用 user-disjoint 分布内评价。该工作报告方法在域内与零样本迁移之间存在明显 PR-AUC 落差，并明确表示 representation effect 依赖源域，没有一般性的 graph advantage。这支持“不能只在 CERT 上验证”，但不能替代本项目的方法确认。
+
 ### ChimeraLog
 
 Yu 等的 Chimera 论文已被 NDSS 2026 接收，arXiv:2508.07745。论文构建三个组织场景、每组织 20 个员工代理、一个月的模拟和 15 类威胁，提供六类日志和用户日基准特征。官方项目页为 <https://sites.google.com/view/chimerallm>。
@@ -153,6 +155,12 @@ Yu 等的 Chimera 论文已被 NDSS 2026 接收，arXiv:2508.07745。论文构�
 - 官方 GitHub README 说明旧 ChimeraLog 链接位于作者学校 OneDrive，作者毕业后账号受影响，旧链接已不可访问；
 - 必须先审计实际下载、许可证、用户日字段、事件窗口和每组织事件数；
 - 每组织只有 20 个用户，默认不满足主图确认规模。
+
+### CLUE-LDS
+
+Landauer 等公开 CLUE-LDS，DOI:10.5281/zenodo.7119953，论文 DOI:10.1109/BigData55660.2022.10020672，许可 CC BY 4.0。数据来自真实运营的 Nextcloud 云存储，约 5,000 万事件、超过 5,000 用户、2017–2022 共 1,910 天，包含登录、文件、分享、组和配置等 49 类事件。
+
+原始数据只含正常行为；官方代码通过切换相似用户对模拟账号劫持并输出标签，默认 10 pairs 约产生 20 个受影响用户级事件，可配置到 20 pairs。它的优势是可直接下载、真实正常行为和用户关系充分；限制是标签仍为受控合成，不是真实攻击。
 
 ### LANL Comprehensive Multi-Source Cyber-Security Events
 
@@ -172,5 +180,5 @@ Kent 公开的 LANL 数据集 DOI:10.17021/1179829，许可为 CC0。官方页�
 2. 获取 Ripple2Detect、ATHITD 全文并核对具体机制。
 3. 把 NNCLR 和 False Negative Cancellation 写成可执行基线。
 4. 检索 2026 年以后“用户行为图 + 对比学习 + 内部威胁”的新工作，提交前再做最后一轮更新。
-5. 完成 ChimeraLog、LANL 和 OpTC 的访问、许可证、用户日、事件和训练期审计。
+5. 完成 CLUE-LDS 下载与协议审计，以及 LANL/ChimeraLog/OpTC 的访问、许可证、用户日、事件和训练期审计。
 

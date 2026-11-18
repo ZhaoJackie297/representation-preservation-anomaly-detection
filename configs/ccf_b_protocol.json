@@ -1,7 +1,7 @@
 {
   "target": "CCF-B",
-  "plan_version": "1.2.3",
-  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.3.md",
+  "plan_version": "1.2.4",
+  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.4.md",
   "r0_frozen_manuscript": "paper/manuscript.docx",
   "primary_method_candidate": "AdaGraph-SoftCLT",
   "status": "candidate_method_pending_implementation_and_external_data_gates",
@@ -37,7 +37,8 @@
     "CERT r1": "unlabeled_engineering_diagnosis_only_no_confirmatory_metrics",
     "SPEDIA": "session_level_auxiliary_stress_test_only",
     "TWOS": "small_external_stress_test_only",
-    "ChimeraLog": "pending_access_license_label_and_user_day_audit",
+    "CLUE-LDS": "primary_application_level_semi_synthetic_external_candidate_pending_download_and_protocol_audit",
+    "ChimeraLog": "fallback_after_hosting_restored",
     "LANL": "primary_real_external_candidate_pending_redteam_timing_event_cluster_and_user_graph_adaptation",
     "OpTC": "pending_dataset_audit",
     "SMD": "scoring_side_and_detection_baselines_only_training_backbone_A0",
@@ -46,7 +47,20 @@
   "external_confirmation": {
     "status": "pending_data_gate",
     "dataset": null,
-    "primary_candidate": "LANL_Comprehensive_Multi_Source_Cyber_Security_Events",
+    "primary_candidate": "CLUE-LDS_Cloud_User_Entity_Behavior_Analytics_Log_Data_Set",
+    "secondary_real_network_candidate": "LANL_Comprehensive_Multi_Source_Cyber_Security_Events",
+    "clue_lds_gate": {
+      "doi": "10.5281/zenodo.7119953",
+      "md5": "9e318370f96b68077667e9cdc05f26a5",
+      "license": "CC-BY-4.0",
+      "require_time_restricted_account_hijacking_injection": true,
+      "require_fixed_anomaly_seed": true,
+      "minimum_switch_pairs": 10,
+      "target_switch_pairs": 20,
+      "minimum_post_switch_active_days": 30,
+      "require_group_share_graph_protocol": true,
+      "labels_are_semi_synthetic": true
+    },
     "lanl_gate": {
       "doi": "10.17021/1179829",
       "license": "CC0",
@@ -392,7 +406,7 @@
       "A3_hard"
     ],
     "locked_replication": "CERT_r5_2_after_hyperparameter_freeze",
-    "external_confirmation": "D_ext_only_after_data_gate",
+    "external_confirmation": "CLUE_LDS_D_app_and_LANL_D_net_only_after_data_gates",
     "extension": [
       "deep_baselines",
       "SxA_cross",

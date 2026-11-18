@@ -1,0 +1,75 @@
+{
+  "target": "CCF-B",
+  "r0_frozen_manuscript": "paper/manuscript.docx",
+  "primary_method_candidate": "AdaGraph-SoftCLT",
+  "seeds": [20261116, 20261117, 20261118, 20261119, 20261120],
+  "extension_seeds": [20261121, 20261122, 20261123, 20261124, 20261125],
+  "training": {
+    "epochs": 10,
+    "batch_size": 16,
+    "output_dims": 64,
+    "hidden_dims": 64,
+    "depth": 5
+  },
+  "evaluation": {
+    "k_grid": [5, 10, 20],
+    "cooldown_days": 7,
+    "correction": "Holm",
+    "primary_endpoints": ["pr_auc", "event_recall_at_k10"],
+    "direction_rule": "positive_mean_and_at_least_4_of_5_seeds_positive",
+    "bootstrap_repetitions": 10000
+  },
+  "adagraph": {
+    "max_rounds": 2,
+    "representation_source": "ema_teacher_stop_gradient",
+    "ema_decay_grid": [0.99, 0.995, 0.999],
+    "trust_region_kl_max": 0.05,
+    "row_entropy_bounds": [0.1, 0.9],
+    "graph_top_m_grid": [10, 20, 50],
+    "controls": [
+      "profile_only",
+      "representation_only",
+      "one_step_trust_region",
+      "two_round_trust_region",
+      "nnclr_nearest_neighbor",
+      "fnc_false_negative_control",
+      "degree_preserving_random"
+    ],
+    "collapse_early_stop": {
+      "effective_rank_drop_fraction": 0.2,
+      "isotropy_drop_fraction": 0.2,
+      "edge_change_rate_max": 0.5
+    }
+  },
+  "required_baselines": [
+    "TS2Vec",
+    "TNC",
+    "TS-TCC",
+    "OmniAnomaly",
+    "DCdetector",
+    "AnomalyTransformer",
+    "NNCLR-style",
+    "FNC-style",
+    "iForest"
+  ],
+  "security_experiments": [
+    "threat_model",
+    "low_and_slow",
+    "amplitude_direction_perturbation",
+    "operational_budget",
+    "incident_case_study"
+  ],
+  "dataset_roles": {
+    "CERT r4.2": "development; hyperparameter selection inside training validation",
+    "CERT r5.2": "external test; no retuning after r4.2",
+    "CERT r6.2": "five-event pressure audit only",
+    "SMD": "cross-type validation for scoring side",
+    "PSM/SMAP/MSL": "scoring-side external validation and robustness only"
+  },
+  "label_isolation": {
+    "graph_updates_use_labels": false,
+    "hyperparameter_selection_split": "training-internal validation",
+    "test_events_for_model_selection": false
+  }
+}
+

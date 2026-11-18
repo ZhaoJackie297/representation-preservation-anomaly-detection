@@ -1,5 +1,7 @@
 {
   "target": "CCF-B",
+  "plan_version": "1.1",
+  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.1.md",
   "r0_frozen_manuscript": "paper/manuscript.docx",
   "primary_method_candidate": "AdaGraph-SoftCLT",
   "seeds": [20261116, 20261117, 20261118, 20261119, 20261120, 20261121, 20261122, 20261123, 20261124, 20261125],
@@ -20,32 +22,50 @@
     "bootstrap_primary_unit": "user_cluster",
     "bootstrap_sensitivity_unit": "event",
     "primary_inference": "average_paired_effect_over_ten_seeds_then_user_cluster_bootstrap",
+    "confirmatory_dataset": "CERT r1_after_label_audit",
+    "alpha_one_sided": 0.025,
+    "superiority_p_value": "1_plus_count_nonpositive_bootstrap_deltas_over_B_plus_1",
+    "noninferiority_margin_relative": 0.05,
+    "k10_bootstrap": "fixed_daily_topk_then_resample_user_event_clusters",
     "mechanism_non_inferiority": {
       "neighborhood_overlap_ci_lower": -0.02,
-      "effective_rank_ci_lower": -0.5
+      "effective_rank_ratio_ci_lower": 0.9
     }
   },
   "adagraph": {
     "max_rounds": 2,
     "representation_source": "ema_teacher_stop_gradient",
-    "ema_decay_grid": [0.99, 0.995, 0.999],
     "distance_normalization": "row_median",
+    "profile_standardization": "training_user_median_iqr",
+    "profile_bandwidth": "median_pairwise_profile_distance",
+    "profile_kernel": "exp(-d^2/(2*h^2))",
+    "profile_probability_floor": 1e-12,
+    "ema_initialization": "copy_student_at_stage_start",
+    "ema_user_representation": "normalized_mean_of_normalized_active_day_representations",
+    "ema_distance": "one_minus_cosine",
+    "ema_decay_grid": [0.99, 0.995],
     "support_selection": "top_m_of_profile_prior_times_exp_negative_raw_distance_over_tau",
-    "trust_region_kl_max_grid": [0.01, 0.05, 0.1, 0.2],
+    "support_prior_renormalization": true,
+    "trust_region_kl_max_grid": [0, 0.001, 0.01, 0.05, 0.1, 0.2, 0.5, "infinity"],
     "tau_grid": [0.05, 0.1, 0.2, 0.5, 1.0],
     "beta_solution": "beta=lambda/(tau+lambda), bisection on KL constraint",
     "weight_formula": "P_m^beta * exp(-(1-beta)*d_tilde/tau), normalized",
+    "softclt_weight_mapping": "self_weight_1; positive_pair_weight_W_beta; no_m_scaling",
+    "beta_bisection_tolerance": 1e-06,
+    "beta_bisection_max_iterations": 64,
+    "row_median_distance_floor": 1e-06,
     "entropy_role": "objective_regularizer_only",
     "graph_top_m_grid": [10, 20, 50],
     "controls": [
       "profile_only",
+      "profile_only_topm_renormalized",
       "profile_only_equal_budget",
       "representation_only",
       "one_step_trust_region",
       "two_round_trust_region",
       "no_anchor_ablation",
       "no_ema_ablation",
-      "no_trust_region_ablation",
+      "alternative_product_fusion",
       "hard_neighbor_ablation",
       "profile_permutation_graph",
       "fixed_graph_restart_control",
@@ -72,6 +92,15 @@
       "compared_models": ["A1", "A2", "A3", "A4", "A5a", "A5b", "A7"]
     }
   },
+  "hypothesis_selection": {
+    "inner_validation": "last_part_of_training_period_before_first_real_malicious_event",
+    "synthetic_anomalies": ["amplitude_spike", "multi_channel_burst", "low_and_slow"],
+    "severity_levels": 3,
+    "selection_metric": "mean_synthetic_pr_auc_using_fixed_s2",
+    "tie_break": ["higher_rankme_effective_rank", "lower_graph_drift"],
+    "max_tuning_runs_per_method_family": 20,
+    "successive_halving": "12_candidates_one_seed_then_top4_each_two_additional_seeds"
+  },
   "required_baselines": [
     "TS2Vec",
     "TNC",
@@ -80,7 +109,8 @@
     "DCdetector",
     "AnomalyTransformer",
     "NNCLR-style",
-    "FNC-style",
+    "IncrementalFalseNegativeDetection",
+    "FalseNegativeCancellation",
     "iForest"
   ],
   "security_experiments": [
@@ -91,10 +121,11 @@
     "incident_case_study"
   ],
   "dataset_roles": {
-    "CERT r4.2": "development; hyperparameter selection inside training validation",
-    "CERT r5.2": "external test; no retuning after r4.2",
+    "CERT r4.2": "development and directional replication; no final confirmatory p-values",
+    "CERT r5.2": "seen-data engineering replication; not blind",
+    "CERT r1": "planned independent confirmation after label, account mapping, split, and preprocessing audit",
     "CERT r6.2": "five-event pressure audit only",
-    "SMD": "cross-type validation for scoring side",
+    "SMD": "scoring-side and detection baselines only; training backbone fixed A0",
     "PSM/SMAP/MSL": "scoring-side external validation and robustness only"
   },
   "training_budget": {
@@ -116,13 +147,13 @@
     "A4_vs_A9"
   ],
   "execution_batches": {
-    "pilot": ["A1", "A1plus", "A3", "A5a", "A5b", "A7"],
-    "second": ["A2", "A4", "A8a", "A8b", "A9", "A3_noAnchor", "A3_noEMA", "A3_noTrust", "A3_hard"],
+    "pilot": ["A1", "A1sparse", "A1plus", "A3", "A5a", "A5b", "A7"],
+    "second": ["A2", "A4", "A8a", "A8b", "A9", "A3_noAnchor", "A3_noEMA", "A3_product", "A3_hard"],
     "third": ["deep_baselines", "SxA_cross", "statistics", "security"]
   },
   "exclusions": {
     "CERT r6.2": "pressure audit only; no significance tests",
-    "CERT r1": "excluded until label and preprocessing audit passes",
+    "CERT r1": "do not run confirmation until label and preprocessing audit passes",
     "SMD": "S series and detection baselines only"
   },
   "label_isolation": {

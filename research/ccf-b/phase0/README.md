@@ -17,6 +17,37 @@ python -m unittest -v test_common_coverage_sampler.py test_coverage_soft_ts2vec.
 
 `CoverageSoftTS2Vec` 使用显式共同批次表、真实 `active_pair_mass` 日志和逐阶段优化器重置；已通过 CPU 单步训练测试。
 
+## CLUE 双端训练入口
+
+`dual_end_entry.py` 提供首批入口：
+
+```text
+A0-official
+A0-matched
+A1-R0
+A1-Cov
+```
+
+它从 `clue_lds/processed_final` 读取用户日数据、画像特征、A3/A5a/A5b 图和用户顺序，生成与 seed 绑定的共同覆盖批次表，并保存每个变体的模型、batch table、摘要和可选分数。
+
+正式运行前必须先完成 `--encode` 的分数 smoke 和训练期内部合成异常验证。当前入口只支持首个训练阶段；A3/A4 的两阶段更新、EMA 教师和 trust-region 更新尚未接入。
+
+实现 smoke 可用较小的 `--base-steps` 只验证显式批次表接线；不能用该 smoke 解释覆盖率或检测性能。
+
+示例：
+
+```powershell
+python dual_end_entry.py `
+  --data-dir E:\MarketRisker\work\cert\external\clue_lds\processed_final `
+  --output-dir E:\MarketRisker\work\cert\external\clue_lds\dual_end_pilot `
+  --seeds 20261116 20261117 `
+  --variants A0-matched A1-R0 A1-Cov `
+  --base-steps 530 `
+  --encode
+```
+
+每个 seed 的 A0-matched/A1-Cov 使用该 seed 实际生成并通过 80% 门禁的覆盖批次表；A1-R0 使用相同 optimizer steps 的随机 shuffle 表；A0-official 使用未覆盖的随机表。
+
 ## 合成 smoke
 
 ```powershell

@@ -105,3 +105,28 @@ seeds=20261116, 20261117, 20261118
 - 覆盖后的训练是否能提升检测；
 - AdaGraph 是否有效；
 - CCF-B 外部有效性。
+
+## 6. CLUE 双端入口真实数据 smoke
+
+`phase0/dual_end_entry.py` 已在最终 CLUE-LDS `processed_final` 数据上完成 2-step `A0-official` 接线：
+
+```text
+users=838
+train_end_index=1697
+eval_start_index=1698
+eval_end_index=1910
+base_steps=2
+batch_size=16
+device=cpu
+loss=3.573866 → 3.015208
+batch_table_sha256=24add3f7e3e551c17fa8bdcb2c23f2313f88580ef23d782293be603c117cbed5
+```
+
+该 smoke 只证明：
+
+- 用户日数据、画像特征、用户顺序和图能正确对齐；
+- 随机 batch table 可按 seed 重放；
+- 模型能完成真实形状前向、反向和 checkpoint 保存；
+- 输出摘要与冻结的 948-batch CLUE 覆盖摘要并列记录。
+
+它没有运行 A1-Cov 的正式 948 步训练，也没有计算检测分数和 pilot 指标，不能解释性能。A3/A4、EMA 教师和两阶段 trust-region 仍未接入。

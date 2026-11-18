@@ -313,6 +313,19 @@ loss=5.898293
 
 该结果只证明软关系权重进入训练 loss，不证明性能。
 
+真实 `processed_final` 的 2-step `A0-official` 入口 smoke 也已通过：
+
+```text
+users=838
+timesteps=1698 (training prefix)
+features=52
+optimizer_steps=2
+loss=3.573866 -> 3.015208
+batch_table_sha256=24add3f7e3e551c17fa8bdcb2c23f2313f88580ef23d782293be603c117cbed5
+```
+
+这证明用户日、画像用户顺序、图和随机批次表能正确对齐，但不代表 A1-Cov 已训练或 pilot 已完成。
+
 ## 12. 统计功效
 
 账号劫持每次切换一对用户，同 pair 的两个目标事件共享切换，因此有效独立单元是 pair，不是 48 个独立事件。

@@ -2,8 +2,7 @@
   "target": "CCF-B",
   "r0_frozen_manuscript": "paper/manuscript.docx",
   "primary_method_candidate": "AdaGraph-SoftCLT",
-  "seeds": [20261116, 20261117, 20261118, 20261119, 20261120],
-  "extension_seeds": [20261121, 20261122, 20261123, 20261124, 20261125],
+  "seeds": [20261116, 20261117, 20261118, 20261119, 20261120, 20261121, 20261122, 20261123, 20261124, 20261125],
   "training": {
     "epochs": 10,
     "batch_size": 16,
@@ -16,17 +15,27 @@
     "cooldown_days": 7,
     "correction": "Holm",
     "primary_endpoints": ["pr_auc", "event_recall_at_k10"],
-    "direction_rule": "positive_mean_and_at_least_4_of_5_seeds_positive",
+    "direction_rule": "seed_averaged_effect_then_at_least_8_of_10_seeds_positive",
     "bootstrap_repetitions": 10000,
     "bootstrap_primary_unit": "user_cluster",
-    "bootstrap_sensitivity_unit": "event"
+    "bootstrap_sensitivity_unit": "event",
+    "primary_inference": "average_paired_effect_over_ten_seeds_then_user_cluster_bootstrap",
+    "mechanism_non_inferiority": {
+      "neighborhood_overlap_ci_lower": -0.02,
+      "effective_rank_ci_lower": -0.5
+    }
   },
   "adagraph": {
     "max_rounds": 2,
     "representation_source": "ema_teacher_stop_gradient",
     "ema_decay_grid": [0.99, 0.995, 0.999],
-    "trust_region_kl_max": 0.05,
-    "row_entropy_bounds": [0.1, 0.9],
+    "distance_normalization": "row_median",
+    "support_selection": "top_m_of_profile_prior_times_exp_negative_raw_distance_over_tau",
+    "trust_region_kl_max_grid": [0.01, 0.05, 0.1, 0.2],
+    "tau_grid": [0.05, 0.1, 0.2, 0.5, 1.0],
+    "beta_solution": "beta=lambda/(tau+lambda), bisection on KL constraint",
+    "weight_formula": "P_m^beta * exp(-(1-beta)*d_tilde/tau), normalized",
+    "entropy_role": "objective_regularizer_only",
     "graph_top_m_grid": [10, 20, 50],
     "controls": [
       "profile_only",
@@ -53,12 +62,14 @@
     "posthoc_only_metrics": [
       "anomalous_user_normal_core_rate"
     ],
-    "real_peer_evaluation": {
+    "organization_reference_evaluation": {
       "source": "CERT LDAP",
       "labels_used_for_training": false,
       "primary_reference": "same_department_and_role",
       "secondary_reference": "same_department",
-      "metric": "top10_reference_agreement"
+      "metric": "top10_reference_agreement",
+      "profile_excludes_ldap_fields": true,
+      "compared_models": ["A1", "A2", "A3", "A4", "A5a", "A5b", "A7"]
     }
   },
   "required_baselines": [
@@ -92,7 +103,10 @@
     "A3_budget": "2B",
     "A4_budget": "3B",
     "equal_compute_control": "continuous fixed-profile training to matching B/2B/3B",
-    "restart_control": "three separate B rounds with fixed graph"
+    "equal_schedule_control": "A1plus uses a continuous schedule over matching total steps",
+    "restart_control": "three B rounds with weight continuation and optimizer resets; graph fixed",
+    "stage_initialization": "weight_continuation_with_optimizer_reset",
+    "lr_schedule": "stagewise_warmup_cosine; A1plus uses matched continuous warmup_cosine"
   },
   "confirmatory_comparisons": [
     "A4_vs_A1",
@@ -114,7 +128,8 @@
   "label_isolation": {
     "graph_updates_use_labels": false,
     "hyperparameter_selection_split": "training-internal validation",
-    "test_events_for_model_selection": false
+    "test_events_for_model_selection": false,
+    "posthoc_label_metrics_cannot_early_stop": true
   }
 }
 

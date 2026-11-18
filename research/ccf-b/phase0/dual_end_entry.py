@@ -464,7 +464,7 @@ def run(args: argparse.Namespace) -> dict[str, object]:
                     stage=0,
                     batch_size=args.batch_size,
                     target_coverage=0.8,
-                    min_training_batches=base_steps,
+                    min_training_batches=stage_batches,
                     max_coverage_batches=10_000,
                 )
             elif variant == "A1-Cov-A5a":
@@ -475,7 +475,7 @@ def run(args: argparse.Namespace) -> dict[str, object]:
                     stage=0,
                     batch_size=args.batch_size,
                     target_coverage=0.8,
-                    min_training_batches=base_steps,
+                    min_training_batches=stage_batches,
                     max_coverage_batches=10_000,
                 )
             variant_dir = seed_dir / variant

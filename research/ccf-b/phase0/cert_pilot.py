@@ -171,7 +171,7 @@ def main() -> None:
             stage=0,
             batch_size=args.batch_size,
             target_coverage=0.8,
-            min_training_batches=args.base_steps,
+            min_training_batches=len(full_coverage.training_batches),
             max_coverage_batches=10_000,
         )
         seed_dir = args.output_dir / f"seed_{seed}"

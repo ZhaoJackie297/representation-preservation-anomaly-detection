@@ -1,0 +1,181 @@
+{
+  "dataset": "E:\\MarketRisker\\work\\cert\\processed_r42\\r4.2_sequence_dataset.npz",
+  "user_limit": null,
+  "base_steps": 620,
+  "seeds": [
+    20261116,
+    20261117
+  ],
+  "soft_metadata": {
+    "distance": "user_profile_euclidean",
+    "profile_dimensions": 47,
+    "alpha": 0.5,
+    "minimum_distance": 0.027251428759574484,
+    "maximum_distance": 38.904135905419444,
+    "median_normalized_distance": 0.20788171452477183,
+    "tau_inst": 4.810427902646708,
+    "missing_policy": "profile features are already training-period imputed and standardized"
+  },
+  "runs": {
+    "20261116": {
+      "coverage": {
+        "user_count": 1000,
+        "seed": 20261116,
+        "stage": 0,
+        "batch_size": 16,
+        "designed_slots": 8,
+        "filler_slots": 8,
+        "target_coverage": 0.8,
+        "coverage_batch_count": 1145,
+        "training_batch_count": 1145,
+        "intended_edges": {
+          "A3": 6636,
+          "A5a": 6636,
+          "A5b": 6636
+        },
+        "realized_edges": {
+          "A3": 5974,
+          "A5a": 5311,
+          "A5b": 5996
+        },
+        "coverage": {
+          "A3": 0.9002411091018686,
+          "A5a": 0.8003315250150693,
+          "A5b": 0.9035563592525618
+        },
+        "users_with_zero_exposure": 0,
+        "median_user_exposure": 40.0,
+        "min_user_exposure": 19,
+        "batch_table_sha256": "cf5b433da2e2dfb097b118d93895daa7fccc9667f0dabf4611d1659fc7bbc814",
+        "training_batch_table_sha256": "cf5b433da2e2dfb097b118d93895daa7fccc9667f0dabf4611d1659fc7bbc814",
+        "median_training_edge_exposure": {
+          "A3": 1.0,
+          "A5a": 1.0,
+          "A5b": 1.0
+        }
+      },
+      "a3_coverage": {
+        "user_count": 1000,
+        "seed": 20261116,
+        "stage": 0,
+        "batch_size": 16,
+        "designed_slots": 8,
+        "filler_slots": 8,
+        "target_coverage": 0.8,
+        "coverage_batch_count": 267,
+        "training_batch_count": 1145,
+        "intended_edges": {
+          "A3": 6636
+        },
+        "realized_edges": {
+          "A3": 5311
+        },
+        "coverage": {
+          "A3": 0.8003315250150693
+        },
+        "users_with_zero_exposure": 0,
+        "median_user_exposure": 12.0,
+        "min_user_exposure": 1,
+        "batch_table_sha256": "50ed461ae48ba8b93729aab9fdc0fa86d2c87d282c3bf190033e5460504625de",
+        "training_batch_table_sha256": "89fff4245ffb633278db2fdb6bd5c15fb6c913ada7916c64483d5e57e78452f7",
+        "median_training_edge_exposure": {
+          "A3": 4.0
+        }
+      },
+      "models": {
+        "A0-A3batch": {
+          "variant": "A0-A3batch",
+          "seed": 20261116,
+          "optimizer_steps": 1145,
+          "batch_table_sha256": "89fff4245ffb633278db2fdb6bd5c15fb6c913ada7916c64483d5e57e78452f7",
+          "soft_instance": false,
+          "soft_temporal": false,
+          "loss_first": 2.477977752685547,
+          "loss_last": 1.3722769021987915,
+          "active_pair_mass_mean": 0.0,
+          "realized_pairs_mean": 0.0
+        }
+      }
+    },
+    "20261117": {
+      "coverage": {
+        "user_count": 1000,
+        "seed": 20261117,
+        "stage": 0,
+        "batch_size": 16,
+        "designed_slots": 8,
+        "filler_slots": 8,
+        "target_coverage": 0.8,
+        "coverage_batch_count": 1150,
+        "training_batch_count": 1150,
+        "intended_edges": {
+          "A3": 6636,
+          "A5a": 6636,
+          "A5b": 6636
+        },
+        "realized_edges": {
+          "A3": 6007,
+          "A5a": 5311,
+          "A5b": 6012
+        },
+        "coverage": {
+          "A3": 0.9052139843279083,
+          "A5a": 0.8003315250150693,
+          "A5b": 0.9059674502712477
+        },
+        "users_with_zero_exposure": 0,
+        "median_user_exposure": 40.0,
+        "min_user_exposure": 21,
+        "batch_table_sha256": "22364170eba2e6d223d47a2a0078501d6ca6f3066215ba29d01d3007eab3c844",
+        "training_batch_table_sha256": "22364170eba2e6d223d47a2a0078501d6ca6f3066215ba29d01d3007eab3c844",
+        "median_training_edge_exposure": {
+          "A3": 1.0,
+          "A5a": 1.0,
+          "A5b": 1.0
+        }
+      },
+      "a3_coverage": {
+        "user_count": 1000,
+        "seed": 20261117,
+        "stage": 0,
+        "batch_size": 16,
+        "designed_slots": 8,
+        "filler_slots": 8,
+        "target_coverage": 0.8,
+        "coverage_batch_count": 265,
+        "training_batch_count": 1150,
+        "intended_edges": {
+          "A3": 6636
+        },
+        "realized_edges": {
+          "A3": 5315
+        },
+        "coverage": {
+          "A3": 0.8009342977697408
+        },
+        "users_with_zero_exposure": 0,
+        "median_user_exposure": 12.0,
+        "min_user_exposure": 1,
+        "batch_table_sha256": "6e9217b45e48bf7cb234f2efa77ee81dd738733a84ae479b78ba475b4f14daa2",
+        "training_batch_table_sha256": "91ab8de47b3eb990d4508f129ac2acd054142e99b52204d9938312108f9991b4",
+        "median_training_edge_exposure": {
+          "A3": 4.0
+        }
+      },
+      "models": {
+        "A0-A3batch": {
+          "variant": "A0-A3batch",
+          "seed": 20261117,
+          "optimizer_steps": 1150,
+          "batch_table_sha256": "91ab8de47b3eb990d4508f129ac2acd054142e99b52204d9938312108f9991b4",
+          "soft_instance": false,
+          "soft_temporal": false,
+          "loss_first": 3.4324309825897217,
+          "loss_last": 1.1332255601882935,
+          "active_pair_mass_mean": 0.0,
+          "realized_pairs_mean": 0.0
+        }
+      }
+    }
+  }
+}

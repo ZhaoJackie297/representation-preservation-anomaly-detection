@@ -324,3 +324,7 @@ iForest
 
 本方案保证的是研究可完成、结论可解释和失败可写作；不保证 A3/A4 正向，
 也不保证 CCF-B 录用。
+
+当前执行状态：r4.2 两 seed 控制训练和 encode 评价已完成，结果见
+`R4.2_TWO_SEED_CONTROL_PILOT_RESULTS.md`。关系通道未通过预注册 pilot 门槛，
+尺度通道和批次/覆盖路径有信号；不能据此启动 A3/A4 10-seed 主矩阵。

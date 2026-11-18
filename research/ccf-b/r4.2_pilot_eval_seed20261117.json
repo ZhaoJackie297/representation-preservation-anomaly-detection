@@ -1,0 +1,423 @@
+{
+  "dataset": "E:\\MarketRisker\\work\\cert\\processed_r42\\r4.2_sequence_dataset.npz",
+  "evaluation_protocol": {
+    "score": "mask_last vs plain L1, training-period robust calibration",
+    "k_grid": [
+      5,
+      10,
+      20
+    ],
+    "cooldown_days": 7,
+    "splits": [
+      "validation",
+      "test"
+    ],
+    "test_role": "r4.2 development test, not external confirmation"
+  },
+  "runs": {
+    "20261117": {
+      "A0-matched": {
+        "variant": "A0-matched",
+        "seed": 20261117,
+        "model": "E:\\MarketRisker\\work\\cert\\external\\pilot_r42_controls_v3\\seed_20261117\\A0-matched\\model.pth",
+        "score_summary": {
+          "mean": 0.3455364406108856,
+          "max": 7.532347202301025
+        },
+        "validation": {
+          "5": {
+            "pr_auc": 0.014186874244561396,
+            "roc_auc": 0.628155909565966,
+            "event_recall_at_k5": 0.22857142857142856,
+            "events_hit": 16,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "10": {
+            "pr_auc": 0.014186874244561396,
+            "roc_auc": 0.628155909565966,
+            "event_recall_at_k10": 0.2857142857142857,
+            "events_hit": 20,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "20": {
+            "pr_auc": 0.014186874244561396,
+            "roc_auc": 0.628155909565966,
+            "event_recall_at_k20": 0.45714285714285713,
+            "events_hit": 32,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          }
+        },
+        "test": {
+          "5": {
+            "pr_auc": 0.008511352579122238,
+            "roc_auc": 0.6388880035396935,
+            "event_recall_at_k5": 0.18571428571428572,
+            "events_hit": 13,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "10": {
+            "pr_auc": 0.008511352579122238,
+            "roc_auc": 0.6388880035396935,
+            "event_recall_at_k10": 0.24285714285714285,
+            "events_hit": 17,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "20": {
+            "pr_auc": 0.008511352579122238,
+            "roc_auc": 0.6388880035396935,
+            "event_recall_at_k20": 0.2714285714285714,
+            "events_hit": 19,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          }
+        }
+      },
+      "A0-A3batch": {
+        "variant": "A0-A3batch",
+        "seed": 20261117,
+        "model": "E:\\MarketRisker\\work\\cert\\external\\pilot_r42_a3batch_matched_v3\\seed_20261117\\A0-A3batch\\model.pth",
+        "score_summary": {
+          "mean": 0.3468526005744934,
+          "max": 7.7548747062683105
+        },
+        "validation": {
+          "5": {
+            "pr_auc": 0.014479707560629582,
+            "roc_auc": 0.6423304162735866,
+            "event_recall_at_k5": 0.2,
+            "events_hit": 14,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "10": {
+            "pr_auc": 0.014479707560629582,
+            "roc_auc": 0.6423304162735866,
+            "event_recall_at_k10": 0.3,
+            "events_hit": 21,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "20": {
+            "pr_auc": 0.014479707560629582,
+            "roc_auc": 0.6423304162735866,
+            "event_recall_at_k20": 0.44285714285714284,
+            "events_hit": 31,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          }
+        },
+        "test": {
+          "5": {
+            "pr_auc": 0.009332791689209578,
+            "roc_auc": 0.6617080334102043,
+            "event_recall_at_k5": 0.12857142857142856,
+            "events_hit": 9,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "10": {
+            "pr_auc": 0.009332791689209578,
+            "roc_auc": 0.6617080334102043,
+            "event_recall_at_k10": 0.2,
+            "events_hit": 14,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "20": {
+            "pr_auc": 0.009332791689209578,
+            "roc_auc": 0.6617080334102043,
+            "event_recall_at_k20": 0.3,
+            "events_hit": 21,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          }
+        }
+      },
+      "A1-Cov": {
+        "variant": "A1-Cov",
+        "seed": 20261117,
+        "model": "E:\\MarketRisker\\work\\cert\\external\\pilot_r42_controls_v3\\seed_20261117\\A1-Cov\\model.pth",
+        "score_summary": {
+          "mean": 0.3925803601741791,
+          "max": 10.809039115905762
+        },
+        "validation": {
+          "5": {
+            "pr_auc": 0.017028647246017593,
+            "roc_auc": 0.6735206062582926,
+            "event_recall_at_k5": 0.2,
+            "events_hit": 14,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "10": {
+            "pr_auc": 0.017028647246017593,
+            "roc_auc": 0.6735206062582926,
+            "event_recall_at_k10": 0.24285714285714285,
+            "events_hit": 17,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "20": {
+            "pr_auc": 0.017028647246017593,
+            "roc_auc": 0.6735206062582926,
+            "event_recall_at_k20": 0.34285714285714286,
+            "events_hit": 24,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          }
+        },
+        "test": {
+          "5": {
+            "pr_auc": 0.010246672408295432,
+            "roc_auc": 0.6800286512483903,
+            "event_recall_at_k5": 0.12857142857142856,
+            "events_hit": 9,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "10": {
+            "pr_auc": 0.010246672408295432,
+            "roc_auc": 0.6800286512483903,
+            "event_recall_at_k10": 0.22857142857142856,
+            "events_hit": 16,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "20": {
+            "pr_auc": 0.010246672408295432,
+            "roc_auc": 0.6800286512483903,
+            "event_recall_at_k20": 0.2714285714285714,
+            "events_hit": 19,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          }
+        }
+      },
+      "A1-Cov-rownorm": {
+        "variant": "A1-Cov-rownorm",
+        "seed": 20261117,
+        "model": "E:\\MarketRisker\\work\\cert\\external\\pilot_r42_controls_v3\\seed_20261117\\A1-Cov-rownorm\\model.pth",
+        "score_summary": {
+          "mean": 0.4053511917591095,
+          "max": 8.60612964630127
+        },
+        "validation": {
+          "5": {
+            "pr_auc": 0.012171378747902466,
+            "roc_auc": 0.6129064636591861,
+            "event_recall_at_k5": 0.21428571428571427,
+            "events_hit": 15,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "10": {
+            "pr_auc": 0.012171378747902466,
+            "roc_auc": 0.6129064636591861,
+            "event_recall_at_k10": 0.2571428571428571,
+            "events_hit": 18,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "20": {
+            "pr_auc": 0.012171378747902466,
+            "roc_auc": 0.6129064636591861,
+            "event_recall_at_k20": 0.38571428571428573,
+            "events_hit": 27,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          }
+        },
+        "test": {
+          "5": {
+            "pr_auc": 0.007291597317610713,
+            "roc_auc": 0.6246907744946049,
+            "event_recall_at_k5": 0.14285714285714285,
+            "events_hit": 10,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "10": {
+            "pr_auc": 0.007291597317610713,
+            "roc_auc": 0.6246907744946049,
+            "event_recall_at_k10": 0.18571428571428572,
+            "events_hit": 13,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "20": {
+            "pr_auc": 0.007291597317610713,
+            "roc_auc": 0.6246907744946049,
+            "event_recall_at_k20": 0.2714285714285714,
+            "events_hit": 19,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          }
+        }
+      },
+      "A1-Cov-uniform": {
+        "variant": "A1-Cov-uniform",
+        "seed": 20261117,
+        "model": "E:\\MarketRisker\\work\\cert\\external\\pilot_r42_controls_v3\\seed_20261117\\A1-Cov-uniform\\model.pth",
+        "score_summary": {
+          "mean": 0.38491466641426086,
+          "max": 10.478119850158691
+        },
+        "validation": {
+          "5": {
+            "pr_auc": 0.01690760318487725,
+            "roc_auc": 0.6717804269797201,
+            "event_recall_at_k5": 0.18571428571428572,
+            "events_hit": 13,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "10": {
+            "pr_auc": 0.01690760318487725,
+            "roc_auc": 0.6717804269797201,
+            "event_recall_at_k10": 0.24285714285714285,
+            "events_hit": 17,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "20": {
+            "pr_auc": 0.01690760318487725,
+            "roc_auc": 0.6717804269797201,
+            "event_recall_at_k20": 0.35714285714285715,
+            "events_hit": 25,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          }
+        },
+        "test": {
+          "5": {
+            "pr_auc": 0.010156362549858414,
+            "roc_auc": 0.677535014673554,
+            "event_recall_at_k5": 0.12857142857142856,
+            "events_hit": 9,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "10": {
+            "pr_auc": 0.010156362549858414,
+            "roc_auc": 0.677535014673554,
+            "event_recall_at_k10": 0.2,
+            "events_hit": 14,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "20": {
+            "pr_auc": 0.010156362549858414,
+            "roc_auc": 0.677535014673554,
+            "event_recall_at_k20": 0.2714285714285714,
+            "events_hit": 19,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          }
+        }
+      },
+      "A1-Cov-permq": {
+        "variant": "A1-Cov-permq",
+        "seed": 20261117,
+        "model": "E:\\MarketRisker\\work\\cert\\external\\pilot_r42_controls_v3\\seed_20261117\\A1-Cov-permq\\model.pth",
+        "score_summary": {
+          "mean": 0.3847864270210266,
+          "max": 10.455155372619629
+        },
+        "validation": {
+          "5": {
+            "pr_auc": 0.016927334981129017,
+            "roc_auc": 0.6717282730309037,
+            "event_recall_at_k5": 0.18571428571428572,
+            "events_hit": 13,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "10": {
+            "pr_auc": 0.016927334981129017,
+            "roc_auc": 0.6717282730309037,
+            "event_recall_at_k10": 0.24285714285714285,
+            "events_hit": 17,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          },
+          "20": {
+            "pr_auc": 0.016927334981129017,
+            "roc_auc": 0.6717282730309037,
+            "event_recall_at_k20": 0.35714285714285715,
+            "events_hit": 25,
+            "events_total": 70,
+            "eval_active_user_days": 136801,
+            "labeled_user_days": 1073
+          }
+        },
+        "test": {
+          "5": {
+            "pr_auc": 0.010154373355170334,
+            "roc_auc": 0.6772422781315803,
+            "event_recall_at_k5": 0.12857142857142856,
+            "events_hit": 9,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "10": {
+            "pr_auc": 0.010154373355170334,
+            "roc_auc": 0.6772422781315803,
+            "event_recall_at_k10": 0.2,
+            "events_hit": 14,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          },
+          "20": {
+            "pr_auc": 0.010154373355170334,
+            "roc_auc": 0.6772422781315803,
+            "event_recall_at_k20": 0.2714285714285714,
+            "events_hit": 19,
+            "events_total": 70,
+            "eval_active_user_days": 172864,
+            "labeled_user_days": 819
+          }
+        }
+      }
+    }
+  }
+}

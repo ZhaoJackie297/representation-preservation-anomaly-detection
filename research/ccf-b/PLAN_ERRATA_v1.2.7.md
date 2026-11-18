@@ -109,15 +109,15 @@ r4.2（1,000 用户，47 维画像）：
 
 | 先验 | mean H10 | fraction > 0.95 log 10 | 状态 |
 | --- | ---: | ---: | --- |
-| 主带宽 | 2.29961 | 0.997 | `FLAT_PROFILE_PRIOR` |
-| kNN 带宽 | 2.18843 | 0.879 | `FLAT_PROFILE_PRIOR` |
+| 主带宽 | 2.30154 | 1.000 | `FLAT_PROFILE_PRIOR` |
+| kNN 带宽 | 2.22480 | 0.889 | `FLAT_PROFILE_PRIOR` |
 
 m=5 时两者也均触发平坦规则。r5.2（2,000 用户）得到同方向结论：
 
 | 先验 | mean H10 | fraction > 0.95 log 10 | 状态 |
 | --- | ---: | ---: | --- |
-| 主带宽 | 2.29618 | 0.996 | `FLAT_PROFILE_PRIOR` |
-| kNN 带宽 | 2.22210 | 0.879 | `FLAT_PROFILE_PRIOR` |
+| 主带宽 | 2.29736 | 0.9975 | `FLAT_PROFILE_PRIOR` |
+| kNN 带宽 | 2.24142 | 0.8905 | `FLAT_PROFILE_PRIOR` |
 
 详细 JSON：
 

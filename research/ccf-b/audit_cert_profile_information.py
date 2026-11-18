@@ -85,6 +85,23 @@ def build_profile_features(
                 for feature in PROFILE_FEATURES
             ]
 
+    # Match R0's align_raw exactly: count features use log1p, while timing
+    # sentinel values below zero are treated as missing.
+    count_dimensions = 20
+    counts = raw[:, :, :count_dimensions]
+    raw[:, :, :count_dimensions] = np.where(
+        np.isfinite(counts),
+        np.log1p(np.maximum(counts, 0.0)),
+        np.nan,
+    )
+    timing = raw[:, :, count_dimensions:]
+    raw[:, :, count_dimensions:] = np.where(
+        np.isfinite(timing) & (timing >= 0.0),
+        timing,
+        np.nan,
+    )
+    raw = raw.astype(np.float32)
+
     profiles = []
     for user in range(len(users)):
         user_active = active_mask[user, : train_end + 1]

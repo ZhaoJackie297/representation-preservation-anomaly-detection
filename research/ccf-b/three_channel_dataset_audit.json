@@ -1,0 +1,229 @@
+{
+  "r4.2": {
+    "dataset": "E:\\MarketRisker\\work\\cert\\processed_r42\\r4.2_sequence_dataset.npz",
+    "profile_dimensions": 47,
+    "train_end_index": 158,
+    "soft_sha256": "AAF0703AA78AB867B6F026D36A01E8BA436C841DBEEC48B0D8120CD6F27BD9A8",
+    "soft_metadata": {
+      "distance": "user_profile_euclidean",
+      "profile_dimensions": 47,
+      "alpha": 0.5,
+      "minimum_distance": 0.027251428759574484,
+      "maximum_distance": 38.904135905419444,
+      "median_normalized_distance": 0.20788171452477183,
+      "tau_inst": 4.810427902646708,
+      "missing_policy": "profile features are already training-period imputed and standardized"
+    },
+    "batch_audit": {
+      "source": "random_shuffle",
+      "batch_count": 100,
+      "batch_size": 16,
+      "candidate_count": 30,
+      "aggregate": {
+        "W_mean": {
+          "mean": 22.983474264442922,
+          "min": 21.22943250834942,
+          "max": 24.79101014137268
+        },
+        "W_min": {
+          "mean": 21.703251299858092,
+          "min": 20.184240221977234,
+          "max": 23.509281992912292
+        },
+        "W_max": {
+          "mean": 26.51512375354767,
+          "min": 23.165238738059998,
+          "max": 30.485403299331665
+        },
+        "pi_mean": {
+          "mean": 0.9563137046572067,
+          "min": 0.9528299880585285,
+          "max": 0.9595319925840762
+        },
+        "pi_min": {
+          "mean": 0.9538809669950448,
+          "min": 0.9504563962278268,
+          "max": 0.95746360946704
+        },
+        "pi_max": {
+          "mean": 0.9621326674241439,
+          "min": 0.9568318716112767,
+          "max": 0.9671974160820132
+        },
+        "q_entropy_mean": {
+          "mean": 3.3964172491640428,
+          "min": 3.3926958743762654,
+          "max": 3.3988242260310275
+        },
+        "q_kl_uniform_mean": {
+          "mean": 0.004780132498112909,
+          "min": 0.002373155631127811,
+          "max": 0.00850150728588973
+        }
+      }
+    }
+  },
+  "r5.2": {
+    "dataset": "E:\\MarketRisker\\work\\cert\\processed_r52\\r5.2_sequence_dataset.npz",
+    "profile_dimensions": 47,
+    "train_end_index": 103,
+    "soft_sha256": "E16D1356ABCD0B8956BF41B77FCE556B91E0D739FA61D57E27AD04E0E1F58E02",
+    "soft_metadata": {
+      "distance": "user_profile_euclidean",
+      "profile_dimensions": 47,
+      "alpha": 0.5,
+      "minimum_distance": 0.05452903987760954,
+      "maximum_distance": 48.22191533151428,
+      "median_normalized_distance": 0.16316218527456555,
+      "tau_inst": 6.1288710880969335,
+      "missing_policy": "profile features are already training-period imputed and standardized"
+    },
+    "batch_audit": {
+      "source": "random_shuffle",
+      "batch_count": 100,
+      "batch_size": 16,
+      "candidate_count": 30,
+      "aggregate": {
+        "W_mean": {
+          "mean": 23.162720086425544,
+          "min": 21.53267991542816,
+          "max": 25.11700101196766
+        },
+        "W_min": {
+          "mean": 21.869024440050126,
+          "min": 20.68662655353546,
+          "max": 23.505252242088318
+        },
+        "W_max": {
+          "mean": 26.520235116481782,
+          "min": 22.57022714614868,
+          "max": 30.625108242034912
+        },
+        "pi_mean": {
+          "mean": 0.9566644993577885,
+          "min": 0.9534620216250542,
+          "max": 0.9600736937808152
+        },
+        "pi_min": {
+          "mean": 0.9542451043368829,
+          "min": 0.9516595904406128,
+          "max": 0.9574563170094637
+        },
+        "pi_max": {
+          "mean": 0.9621761343689272,
+          "min": 0.9556938442167766,
+          "max": 0.9673470541851853
+        },
+        "q_entropy_mean": {
+          "mean": 3.396828640392003,
+          "min": 3.391415470864581,
+          "max": 3.3992817325367284
+        },
+        "q_kl_uniform_mean": {
+          "mean": 0.004368741270152355,
+          "min": 0.0019156491254272345,
+          "max": 0.009781910797574511
+        }
+      }
+    }
+  },
+  "CLUE-LDS": {
+    "dataset": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_user_day_dataset.npz",
+    "profile_dimensions": 105,
+    "soft_sha256": "43FC66EE113F3480711A21C2BE8504413876D8877564AED7FE4A0F97A4B9A9CB",
+    "soft_metadata": {
+      "distance": "user_profile_euclidean",
+      "profile_dimensions": 105,
+      "alpha": 0.5,
+      "minimum_distance": 0.0,
+      "maximum_distance": 43307.81640040404,
+      "median_normalized_distance": 0.0002242188146327424,
+      "tau_inst": 4459.929027980737,
+      "missing_policy": "profile features are already training-period imputed and standardized"
+    },
+    "coverage": {
+      "user_count": 838,
+      "seed": 20261116,
+      "stage": 0,
+      "batch_size": 16,
+      "designed_slots": 8,
+      "filler_slots": 8,
+      "target_coverage": 0.8,
+      "coverage_batch_count": 948,
+      "training_batch_count": 948,
+      "intended_edges": {
+        "A3": 6817,
+        "A5a": 6817,
+        "A5b": 6824
+      },
+      "realized_edges": {
+        "A3": 5951,
+        "A5a": 5456,
+        "A5b": 5873
+      },
+      "coverage": {
+        "A3": 0.8729646472055156,
+        "A5a": 0.8003520610239108,
+        "A5b": 0.8606389214536928
+      },
+      "users_with_zero_exposure": 0,
+      "median_user_exposure": 40.0,
+      "min_user_exposure": 13,
+      "batch_table_sha256": "c713ae5a1d4843f574cfc00c5c5ae1574e8da94fb5d1150179992e3409d3601e",
+      "training_batch_table_sha256": "c713ae5a1d4843f574cfc00c5c5ae1574e8da94fb5d1150179992e3409d3601e",
+      "median_training_edge_exposure": {
+        "A3": 1.0,
+        "A5a": 1.0,
+        "A5b": 1.0
+      }
+    },
+    "batch_audit": {
+      "source": "A3_A5a_A5b_common_coverage",
+      "batch_count": 948,
+      "batch_size": 16,
+      "candidate_count": 30,
+      "aggregate": {
+        "W_mean": {
+          "mean": 23.28967106128544,
+          "min": 17.333930805325508,
+          "max": 29.959069296717644
+        },
+        "W_min": {
+          "mean": 21.021460139047246,
+          "min": 16.94242298603058,
+          "max": 28.433754801750183
+        },
+        "W_max": {
+          "mean": 30.3606967570158,
+          "min": 18.142504453659058,
+          "max": 31.0
+        },
+        "pi_mean": {
+          "mean": 0.9559790499517538,
+          "min": 0.9422726622197681,
+          "max": 0.9665873952869585
+        },
+        "pi_min": {
+          "mean": 0.9521051870042959,
+          "min": 0.940976565109694,
+          "max": 0.9648305330417196
+        },
+        "pi_max": {
+          "mean": 0.9669227719323136,
+          "min": 0.9448808182710234,
+          "max": 0.967741935483871
+        },
+        "q_entropy_mean": {
+          "mean": 3.383996722341167,
+          "min": 3.370786011570738,
+          "max": 3.4002117561577485
+        },
+        "q_kl_uniform_mean": {
+          "mean": 0.01720065932098842,
+          "min": 0.0009856255044073075,
+          "max": 0.030411370091417245
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "assumptions": {
+    "normal_distribution": "standard normal",
+    "shift": 1.0,
+    "change_index": 20,
+    "target_false_alarm": 0.01,
+    "false_alarm_scope": "probability of at least one alert in a normal sequence",
+    "repetitions": 2000,
+    "horizon": 100
+  },
+  "rows": [
+    {
+      "method": "ewma",
+      "parameter": 0.05,
+      "threshold": 0.5612139249955538,
+      "analytic_mean_delay": 16.059473176472345,
+      "false_alarm_rate": 0.0075,
+      "mean_detection_delay": 15.619,
+      "median_detection_delay": 15.0
+    },
+    {
+      "method": "ewma",
+      "parameter": 0.1,
+      "threshold": 0.8553351588147418,
+      "analytic_mean_delay": 18.349717065198583,
+      "false_alarm_rate": 0.0045,
+      "mean_detection_delay": 15.4345,
+      "median_detection_delay": 14.0
+    },
+    {
+      "method": "ewma",
+      "parameter": 0.2,
+      "threshold": 1.222769688722363,
+      "analytic_mean_delay": Infinity,
+      "false_alarm_rate": 0.008,
+      "mean_detection_delay": 17.6945,
+      "median_detection_delay": 14.0
+    },
+    {
+      "method": "ewma",
+      "parameter": 0.5,
+      "threshold": 2.1382735187188557,
+      "analytic_mean_delay": Infinity,
+      "false_alarm_rate": 0.0125,
+      "mean_detection_delay": 46.4805,
+      "median_detection_delay": 38.0
+    },
+    {
+      "method": "cusum",
+      "parameter": 0.25,
+      "threshold": 15.215602935770866,
+      "analytic_mean_delay": 20.287470581027822,
+      "false_alarm_rate": 0.004,
+      "mean_detection_delay": 18.691,
+      "median_detection_delay": 18.0
+    },
+    {
+      "method": "cusum",
+      "parameter": 0.5,
+      "threshold": 8.509756078475768,
+      "analytic_mean_delay": 17.019512156951535,
+      "false_alarm_rate": 0.001,
+      "mean_detection_delay": 15.6725,
+      "median_detection_delay": 14.0
+    },
+    {
+      "method": "cusum",
+      "parameter": 1.0,
+      "threshold": 4.138937262224173,
+      "analytic_mean_delay": 0.0,
+      "false_alarm_rate": 0.006,
+      "mean_detection_delay": 26.792,
+      "median_detection_delay": 20.0
+    }
+  ],
+  "interpretation": "Analytic delays are mean-drift approximations. Empirical values include noise and threshold calibration; real scores are heavy-tailed and serially dependent, so they must be re-estimated on training data."
+}

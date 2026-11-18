@@ -156,6 +156,8 @@ R_final(u,t) = beta * Z_u,t + (1-beta) * R_group(u,t)
 
 > 理论给出高斯/独立同分布条件下的基准预测；实际偏离用训练期分数和回放事件评估。
 
+均值漂移近似、阈值校准和数值结果见 `RISK_THEORY_AUDIT.md`。
+
 预注册预测：
 
 - `alpha` 增大，响应更快但误报/方差更高；
@@ -315,7 +317,7 @@ iForest
 
 1. rownorm、permuq 和逐 batch 逐锚点 uniform 已接入；下一步在真实数据上跑控制 smoke；
 2. 生成全部数据的 W/pi/q、熵、KL、覆盖统计；
-3. 实现 EWMA/CUSUM 和提前量定义；
+3. EWMA/CUSUM 数值脚本和提前量定义已接入；下一步用真实训练分数重标定；
 4. 运行 r4.2 2-seed pilot；
 5. pilot 通过后跑 10-seed；
 6. 再跑 r5.2、CLUE、r6.2 和 scoring-side。

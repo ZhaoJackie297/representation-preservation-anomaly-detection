@@ -1,0 +1,16 @@
+{
+  "dataset": "r6.2",
+  "events": 5,
+  "train_end": 221,
+  "test_start": 222,
+  "completed_models": [
+    {
+      "seed": 20261116,
+      "bank_clusters": 500,
+      "encode_batch_size": 256
+    }
+  ],
+  "labels_used_in_training": false,
+  "labels_used_in_calibration": false,
+  "test_used_for_model_selection": false
+}

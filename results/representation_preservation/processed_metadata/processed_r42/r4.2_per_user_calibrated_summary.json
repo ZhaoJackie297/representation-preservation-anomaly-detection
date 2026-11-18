@@ -1,0 +1,39 @@
+{
+  "result_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_per_user_calibrated_trend.csv",
+  "early_result_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_early_horizon_trend.csv",
+  "calibrated_arrays_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_calibrated_method_scores.npz",
+  "methods": [
+    "ts2vec_quantile",
+    "ts2vec_quantile_dynamic",
+    "zscore_quantile",
+    "zscore_quantile_dynamic",
+    "iforest_quantile",
+    "iforest_quantile_dynamic"
+  ],
+  "k_values": [
+    1,
+    2,
+    5,
+    10,
+    20,
+    50,
+    100,
+    200,
+    300,
+    500,
+    1000
+  ],
+  "calibration": "Per-user empirical tail probability on training-period raw scores; labels not used.",
+  "dynamic_risk_parameters": {
+    "window_days": 7,
+    "decay": 0.65,
+    "threshold": 3.0,
+    "weights": [
+      0.7,
+      0.2,
+      0.1
+    ]
+  },
+  "labels_used_for_calibration": false,
+  "labels_used_for_risk_parameters": false
+}

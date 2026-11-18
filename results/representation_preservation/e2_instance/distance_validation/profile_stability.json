@@ -1,0 +1,72 @@
+{
+  "purpose": "Construct-validity check for the training-only user profile distance used by SoftCLT instance weights.",
+  "labels_used": false,
+  "datasets": {
+    "r42": {
+      "train_start": 0,
+      "first_half_end": 79,
+      "second_half_start": 80,
+      "second_half_end": 158,
+      "variants": {
+        "counts_41d": {
+          "profile_dimensions": 20,
+          "users": 1000,
+          "pairwise_distance_spearman": 0.9684454464982082,
+          "top10_neighbor_jaccard_mean": 0.6336999999999999,
+          "top10_neighbor_jaccard_median": 0.7
+        },
+        "behavior_47d": {
+          "profile_dimensions": 23,
+          "users": 1000,
+          "pairwise_distance_spearman": 0.9639671670150081,
+          "top10_neighbor_jaccard_mean": 0.6791999999999999,
+          "top10_neighbor_jaccard_median": 0.7
+        }
+      }
+    },
+    "r52": {
+      "train_start": 0,
+      "first_half_end": 51,
+      "second_half_start": 52,
+      "second_half_end": 103,
+      "variants": {
+        "counts_41d": {
+          "profile_dimensions": 20,
+          "users": 2000,
+          "pairwise_distance_spearman": 0.9586294302306554,
+          "top10_neighbor_jaccard_mean": 0.5335,
+          "top10_neighbor_jaccard_median": 0.6
+        },
+        "behavior_47d": {
+          "profile_dimensions": 23,
+          "users": 2000,
+          "pairwise_distance_spearman": 0.9618011788256597,
+          "top10_neighbor_jaccard_mean": 0.6207,
+          "top10_neighbor_jaccard_median": 0.6
+        }
+      }
+    },
+    "r62": {
+      "train_start": 0,
+      "first_half_end": 110,
+      "second_half_start": 111,
+      "second_half_end": 221,
+      "variants": {
+        "counts_41d": {
+          "profile_dimensions": 20,
+          "users": 4000,
+          "pairwise_distance_spearman": 0.9381287502173403,
+          "top10_neighbor_jaccard_mean": 0.31179999999999997,
+          "top10_neighbor_jaccard_median": 0.3
+        },
+        "behavior_47d": {
+          "profile_dimensions": 23,
+          "users": 4000,
+          "pairwise_distance_spearman": 0.9328880373944046,
+          "top10_neighbor_jaccard_mean": 0.38807500000000006,
+          "top10_neighbor_jaccard_median": 0.4
+        }
+      }
+    }
+  }
+}

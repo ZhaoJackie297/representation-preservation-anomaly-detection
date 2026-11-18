@@ -1,0 +1,82 @@
+{
+  "evaluation_design": "External sensitivity only. The selected methods and parameters were frozen from r4.2 validation; r5.2 was not used to choose fusion weights, q, gates, or K.",
+  "train_end": "2010-04-15",
+  "external_start": "2010-04-16",
+  "incident_count": 99,
+  "primary_k": 10,
+  "cooldown_days": 7,
+  "report_k": [
+    5,
+    10,
+    20
+  ],
+  "k10": {
+    "ts2vec_single": {
+      "hits_3d": 29,
+      "incidents_total": 99,
+      "recall_3d": 0.29292929292929293,
+      "recall_1d": 0.2828282828282828,
+      "precision": 0.010424242424242424,
+      "false_per_day": 9.883777239709444,
+      "scenario_macro": 0.346264367816092,
+      "rescue_slots": 0
+    },
+    "iforest_single": {
+      "hits_3d": 35,
+      "incidents_total": 99,
+      "recall_3d": 0.35353535353535354,
+      "recall_1d": 0.35353535353535354,
+      "precision": 0.02909090909090909,
+      "false_per_day": 9.697336561743342,
+      "scenario_macro": 0.2985632183908046,
+      "rescue_slots": 0
+    },
+    "equal_percentile_mean": {
+      "hits_3d": 31,
+      "incidents_total": 99,
+      "recall_3d": 0.31313131313131315,
+      "recall_1d": 0.24242424242424243,
+      "precision": 0.01793939393939394,
+      "false_per_day": 9.80871670702179,
+      "scenario_macro": 0.29798850574712643,
+      "rescue_slots": 0
+    },
+    "iforest_primary_ts2vec_rescue_q1_nogate": {
+      "hits_3d": 38,
+      "incidents_total": 99,
+      "recall_3d": 0.3838383838383838,
+      "recall_1d": 0.3434343434343434,
+      "precision": 0.02909090909090909,
+      "false_per_day": 9.697336561743342,
+      "scenario_macro": 0.3735632183908046,
+      "rescue_slots": 412
+    },
+    "ts2vec_primary_iforest_rescue_q1_nogate": {
+      "hits_3d": 32,
+      "incidents_total": 99,
+      "recall_3d": 0.32323232323232326,
+      "recall_1d": 0.29292929292929293,
+      "precision": 0.01818181818181818,
+      "false_per_day": 9.806295399515738,
+      "scenario_macro": 0.3560344827586207,
+      "rescue_slots": 412
+    },
+    "ts2vec_primary_iforest_rescue_q1_personal": {
+      "hits_3d": 32,
+      "incidents_total": 99,
+      "recall_3d": 0.32323232323232326,
+      "recall_1d": 0.29292929292929293,
+      "precision": 0.014545454545454545,
+      "false_per_day": 9.842615012106538,
+      "scenario_macro": 0.3560344827586207,
+      "rescue_slots": 412
+    }
+  },
+  "outputs": {
+    "results_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_conditional_combination_results.json",
+    "alerts_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_conditional_combination_alerts.csv",
+    "hits_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_conditional_combination_hits.csv",
+    "scenario_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_conditional_combination_scenarios.csv",
+    "scores_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_conditional_combination_scores.npz"
+  }
+}

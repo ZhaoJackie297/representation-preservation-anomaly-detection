@@ -1,0 +1,513 @@
+{
+  "r42_validation": {
+    "pai": {
+      "pr_auc": {
+        "mean_difference": 0.0024213387188519327,
+        "median_difference": 0.0035132374738322016,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      },
+      "roc_auc": {
+        "mean_difference": 0.014793837368337281,
+        "median_difference": 0.020325813529672443,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      },
+      "incident_hits_k5": {
+        "mean_difference": 3.6666666666666665,
+        "median_difference": 2.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k10": {
+        "mean_difference": -1.3333333333333333,
+        "median_difference": -2.0,
+        "positive": 0,
+        "negative": 2,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      },
+      "incident_hits_k20": {
+        "mean_difference": 2.6666666666666665,
+        "median_difference": 3.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      }
+    },
+    "euclidean": {
+      "pr_auc": {
+        "mean_difference": 0.0013570618624071662,
+        "median_difference": 0.0016530771783494977,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      },
+      "roc_auc": {
+        "mean_difference": 0.01213431642498101,
+        "median_difference": 0.01383276141056855,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k5": {
+        "mean_difference": 2.3333333333333335,
+        "median_difference": 2.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k10": {
+        "mean_difference": 1.6666666666666667,
+        "median_difference": 2.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      },
+      "incident_hits_k20": {
+        "mean_difference": 2.0,
+        "median_difference": 3.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      }
+    },
+    "cosine": {
+      "pr_auc": {
+        "mean_difference": 0.0037821688160132663,
+        "median_difference": 0.0054363772765753,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      },
+      "roc_auc": {
+        "mean_difference": 0.017823309637464257,
+        "median_difference": 0.02668677277761733,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      },
+      "incident_hits_k5": {
+        "mean_difference": 2.3333333333333335,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      },
+      "incident_hits_k10": {
+        "mean_difference": 4.333333333333333,
+        "median_difference": 4.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k20": {
+        "mean_difference": 5.333333333333333,
+        "median_difference": 6.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "original": {
+      "pr_auc": {
+        "mean_difference": 0.0021892632887633655,
+        "median_difference": 0.0023721652572452987,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.027256079507250803,
+        "median_difference": 0.028757214583357116,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k5": {
+        "mean_difference": -4.0,
+        "median_difference": -5.0,
+        "positive": 0,
+        "negative": 3,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k10": {
+        "mean_difference": -5.333333333333333,
+        "median_difference": -7.0,
+        "positive": 0,
+        "negative": 3,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k20": {
+        "mean_difference": -3.6666666666666665,
+        "median_difference": -6.0,
+        "positive": 1,
+        "negative": 2,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      }
+    }
+  },
+  "r42_test": {
+    "pai": {
+      "pr_auc": {
+        "mean_difference": 0.003593375461325234,
+        "median_difference": 0.0032778422376455,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.012206487327821924,
+        "median_difference": 0.008750961800127688,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k5": {
+        "mean_difference": 2.0,
+        "median_difference": 2.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k10": {
+        "mean_difference": 2.0,
+        "median_difference": 2.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k20": {
+        "mean_difference": 0.6666666666666666,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      }
+    },
+    "euclidean": {
+      "pr_auc": {
+        "mean_difference": 0.0032508964732912335,
+        "median_difference": 0.0032356301440149005,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.016456007737892613,
+        "median_difference": 0.016051873714943432,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k5": {
+        "mean_difference": 4.0,
+        "median_difference": 4.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k10": {
+        "mean_difference": 2.3333333333333335,
+        "median_difference": 2.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k20": {
+        "mean_difference": 1.0,
+        "median_difference": 2.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      }
+    },
+    "cosine": {
+      "pr_auc": {
+        "mean_difference": 0.004719511878523634,
+        "median_difference": 0.004786093069432701,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.027523353671321044,
+        "median_difference": 0.024657508543346807,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k5": {
+        "mean_difference": 2.3333333333333335,
+        "median_difference": 3.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k10": {
+        "mean_difference": 2.3333333333333335,
+        "median_difference": 3.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k20": {
+        "mean_difference": 2.0,
+        "median_difference": 3.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      }
+    },
+    "original": {
+      "pr_auc": {
+        "mean_difference": 0.0014249784380872,
+        "median_difference": 0.0014784063016856988,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.02653403419101537,
+        "median_difference": 0.018806603772711372,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k5": {
+        "mean_difference": -0.6666666666666666,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 1.0
+      },
+      "incident_hits_k10": {
+        "mean_difference": 1.3333333333333333,
+        "median_difference": 2.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      },
+      "incident_hits_k20": {
+        "mean_difference": 0.3333333333333333,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 1.0
+      }
+    }
+  },
+  "r52_external_test": {
+    "pai": {
+      "pr_auc": {
+        "mean_difference": 0.0008323793593437,
+        "median_difference": 0.0009267712614140005,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.028198437973919892,
+        "median_difference": 0.030047757696813227,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k5": {
+        "mean_difference": 5.0,
+        "median_difference": 7.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      },
+      "incident_hits_k10": {
+        "mean_difference": 8.0,
+        "median_difference": 7.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k20": {
+        "mean_difference": 4.333333333333333,
+        "median_difference": 4.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "euclidean": {
+      "pr_auc": {
+        "mean_difference": 0.0006977265632750664,
+        "median_difference": 0.0007705669070038005,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.02484029454985759,
+        "median_difference": 0.02811593006836144,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k5": {
+        "mean_difference": 5.333333333333333,
+        "median_difference": 5.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k10": {
+        "mean_difference": 7.333333333333333,
+        "median_difference": 7.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k20": {
+        "mean_difference": 8.333333333333334,
+        "median_difference": 8.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "cosine": {
+      "pr_auc": {
+        "mean_difference": 0.0017509555203642,
+        "median_difference": 0.0013672765178280007,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.038364731449536116,
+        "median_difference": 0.03725286147098361,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k5": {
+        "mean_difference": -3.0,
+        "median_difference": -2.0,
+        "positive": 1,
+        "negative": 2,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      },
+      "incident_hits_k10": {
+        "mean_difference": 0.3333333333333333,
+        "median_difference": 3.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 1.0
+      },
+      "incident_hits_k20": {
+        "mean_difference": 11.0,
+        "median_difference": 9.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "original": {
+      "pr_auc": {
+        "mean_difference": 0.0014482037335695,
+        "median_difference": 0.0018270104766205005,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.049422318193320026,
+        "median_difference": 0.05743654402462439,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "incident_hits_k5": {
+        "mean_difference": 0.0,
+        "median_difference": -2.0,
+        "positive": 1,
+        "negative": 2,
+        "zero": 0,
+        "wilcoxon_p": 1.0
+      },
+      "incident_hits_k10": {
+        "mean_difference": -1.3333333333333333,
+        "median_difference": -2.0,
+        "positive": 1,
+        "negative": 2,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      },
+      "incident_hits_k20": {
+        "mean_difference": -4.666666666666667,
+        "median_difference": -4.0,
+        "positive": 0,
+        "negative": 3,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    }
+  },
+  "note": "All comparisons are paired by random seed. PR-AUC and ROC-AUC are point-level metrics; incident hits are evaluated under the frozen fixed-K protocol."
+}

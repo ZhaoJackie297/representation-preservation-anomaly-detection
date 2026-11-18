@@ -1,0 +1,275 @@
+{
+  "r62_joint_vs_matched_t0": {
+    "status": "complete",
+    "comparisons": {
+      "pai": {
+        "pr_auc": {
+          "mean_difference": 0.00010498244632696668,
+          "median_difference": 0.00010605278342240001,
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "wilcoxon_p": 0.25
+        },
+        "roc_auc": {
+          "mean_difference": 0.05809622388051942,
+          "median_difference": 0.052256635671917406,
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "wilcoxon_p": 0.25
+        },
+        "incident_hits_k5": {
+          "mean_difference": 0.6666666666666666,
+          "median_difference": 1.0,
+          "positive": 2,
+          "negative": 0,
+          "zero": 1,
+          "wilcoxon_p": 0.5
+        },
+        "incident_hits_k10": {
+          "mean_difference": 1.0,
+          "median_difference": 1.0,
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "wilcoxon_p": 0.25
+        },
+        "incident_hits_k20": {
+          "mean_difference": 0.6666666666666666,
+          "median_difference": 1.0,
+          "positive": 2,
+          "negative": 0,
+          "zero": 1,
+          "wilcoxon_p": 0.5
+        }
+      },
+      "euclidean": {
+        "pr_auc": {
+          "mean_difference": 0.00028772136012213335,
+          "median_difference": 0.00028732003657500006,
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "wilcoxon_p": 0.25
+        },
+        "roc_auc": {
+          "mean_difference": 0.05023734099873819,
+          "median_difference": 0.04780563168139007,
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "wilcoxon_p": 0.25
+        },
+        "incident_hits_k5": {
+          "mean_difference": 0.3333333333333333,
+          "median_difference": 0.0,
+          "positive": 1,
+          "negative": 0,
+          "zero": 2,
+          "wilcoxon_p": 1.0
+        },
+        "incident_hits_k10": {
+          "mean_difference": 0.0,
+          "median_difference": 0.0,
+          "positive": 0,
+          "negative": 0,
+          "zero": 3,
+          "wilcoxon_p": null
+        },
+        "incident_hits_k20": {
+          "mean_difference": 0.0,
+          "median_difference": 0.0,
+          "positive": 0,
+          "negative": 0,
+          "zero": 3,
+          "wilcoxon_p": null
+        }
+      },
+      "original": {
+        "pr_auc": {
+          "mean_difference": 4.696454065683332e-05,
+          "median_difference": 4.990235440500003e-05,
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "wilcoxon_p": 0.25
+        },
+        "roc_auc": {
+          "mean_difference": 0.02187301202050118,
+          "median_difference": 0.026143565982187256,
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "wilcoxon_p": 0.25
+        },
+        "incident_hits_k5": {
+          "mean_difference": 0.3333333333333333,
+          "median_difference": 0.0,
+          "positive": 1,
+          "negative": 0,
+          "zero": 2,
+          "wilcoxon_p": 1.0
+        },
+        "incident_hits_k10": {
+          "mean_difference": 0.3333333333333333,
+          "median_difference": 0.0,
+          "positive": 1,
+          "negative": 0,
+          "zero": 2,
+          "wilcoxon_p": 1.0
+        },
+        "incident_hits_k20": {
+          "mean_difference": 0.3333333333333333,
+          "median_difference": 0.0,
+          "positive": 1,
+          "negative": 0,
+          "zero": 2,
+          "wilcoxon_p": 1.0
+        }
+      }
+    }
+  },
+  "smd_joint_vs_matched_t0": {
+    "status": "complete",
+    "comparisons": {
+      "original": {
+        "roc_auc": {
+          "mean_difference": 0.005044539142129489,
+          "median_difference": 0.0021708983142529337,
+          "positive": 23,
+          "negative": 5,
+          "zero": 0,
+          "wilcoxon_p": 0.000244140625
+        },
+        "pr_auc": {
+          "mean_difference": 0.004620536286914005,
+          "median_difference": 0.0021136133643355204,
+          "positive": 19,
+          "negative": 9,
+          "zero": 0,
+          "wilcoxon_p": 0.029833190143108368
+        },
+        "f1_q99": {
+          "mean_difference": 0.018485709594266864,
+          "median_difference": 0.000338367408377796,
+          "positive": 18,
+          "negative": 10,
+          "zero": 0,
+          "wilcoxon_p": 0.11451615393161774
+        },
+        "pa_f1_top5": {
+          "mean_difference": 0.006318334811836243,
+          "median_difference": 0.0014308315884820968,
+          "positive": 16,
+          "negative": 7,
+          "zero": 5,
+          "wilcoxon_p": 0.03584937324277264
+        }
+      },
+      "cos": {
+        "roc_auc": {
+          "mean_difference": -0.013010714119730522,
+          "median_difference": -0.0009378164498735075,
+          "positive": 14,
+          "negative": 14,
+          "zero": 0,
+          "wilcoxon_p": 0.4247525781393051
+        },
+        "pr_auc": {
+          "mean_difference": 0.005835626013129994,
+          "median_difference": 0.0009168507732508491,
+          "positive": 16,
+          "negative": 12,
+          "zero": 0,
+          "wilcoxon_p": 0.38639477640390396
+        },
+        "f1_q99": {
+          "mean_difference": -0.004838336672318075,
+          "median_difference": -0.00216650073914125,
+          "positive": 11,
+          "negative": 17,
+          "zero": 0,
+          "wilcoxon_p": 0.3052256628870964
+        },
+        "pa_f1_top5": {
+          "mean_difference": 0.014422215789486046,
+          "median_difference": 0.005377514377843793,
+          "positive": 17,
+          "negative": 11,
+          "zero": 0,
+          "wilcoxon_p": 0.0992795079946518
+        }
+      },
+      "euc": {
+        "roc_auc": {
+          "mean_difference": 0.004409721773422646,
+          "median_difference": 0.0027387026756676147,
+          "positive": 21,
+          "negative": 7,
+          "zero": 0,
+          "wilcoxon_p": 0.006060026586055756
+        },
+        "pr_auc": {
+          "mean_difference": 0.0031286783113966257,
+          "median_difference": 0.0010036485662643924,
+          "positive": 18,
+          "negative": 10,
+          "zero": 0,
+          "wilcoxon_p": 0.024749115109443665
+        },
+        "f1_q99": {
+          "mean_difference": 0.0030683762410458272,
+          "median_difference": 0.0008051612170001596,
+          "positive": 17,
+          "negative": 10,
+          "zero": 1,
+          "wilcoxon_p": 0.11837637171414281
+        },
+        "pa_f1_top5": {
+          "mean_difference": 0.0031152594164738983,
+          "median_difference": 0.0011939754539787018,
+          "positive": 17,
+          "negative": 7,
+          "zero": 4,
+          "wilcoxon_p": 0.04250196114281887
+        }
+      },
+      "pai": {
+        "roc_auc": {
+          "mean_difference": 0.002628905548858531,
+          "median_difference": 0.0006895206258001885,
+          "positive": 19,
+          "negative": 9,
+          "zero": 0,
+          "wilcoxon_p": 0.05049888789653778
+        },
+        "pr_auc": {
+          "mean_difference": 0.0017425982791516809,
+          "median_difference": 0.0011054586413091205,
+          "positive": 19,
+          "negative": 9,
+          "zero": 0,
+          "wilcoxon_p": 0.0451183095574379
+        },
+        "f1_q99": {
+          "mean_difference": 0.006678138297315556,
+          "median_difference": 0.0013507850205878302,
+          "positive": 20,
+          "negative": 8,
+          "zero": 0,
+          "wilcoxon_p": 0.011838570237159729
+        },
+        "pa_f1_top5": {
+          "mean_difference": 0.0009515615882323443,
+          "median_difference": 0.001229824141042557,
+          "positive": 16,
+          "negative": 7,
+          "zero": 5,
+          "wilcoxon_p": 0.12086271883780898
+        }
+      }
+    }
+  },
+  "protocol_note": "r6.2 uses the same fixed 1,000-user subset and three seeds; SMD uses the same 512-point windows and seed."
+}

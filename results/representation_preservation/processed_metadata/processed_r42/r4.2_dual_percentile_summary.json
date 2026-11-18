@@ -1,0 +1,14 @@
+{
+  "purpose": "Scale-corrected diagnostic for the raw-score dual baseline. Development test was already seen and is not a final holdout.",
+  "normalization": "daily active-user percentile",
+  "selected_variants": {
+    "percentile_mean": "percentile_mean_raw",
+    "percentile_max": "percentile_max_raw"
+  },
+  "selection_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_dual_percentile_selection.csv",
+  "results_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_dual_percentile_results.json",
+  "primary_k": 10,
+  "cooldown_days": 7,
+  "labels_used_for_signal": false,
+  "labels_used_for_variant_selection": "validation only"
+}

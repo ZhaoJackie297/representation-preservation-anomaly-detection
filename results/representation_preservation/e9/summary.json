@@ -1,0 +1,9 @@
+{
+  "cert_rows": 72,
+  "smd_machines": 28,
+  "weights": {
+    "magG": 0.6,
+    "T2": 0.4
+  },
+  "interpretation_boundary": "The individual-component ablation tests whether magG and T2 add value beyond the Euclidean representation-bank score; a non-significant result must not be reported as proven gain."
+}

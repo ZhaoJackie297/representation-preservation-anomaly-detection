@@ -1,0 +1,124 @@
+{
+  "feature_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_user_day_features.csv",
+  "feature_parquet_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_user_day_features.parquet",
+  "legacy_csv_written": false,
+  "label_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_malicious_account_days.csv",
+  "rows": 973252,
+  "users": 2000,
+  "date_min": "2010-01-02",
+  "date_max": "2011-06-02",
+  "columns": [
+    "user_id",
+    "date",
+    "day_index",
+    "primary_pc",
+    "role",
+    "functional_unit",
+    "department",
+    "team",
+    "supervisor",
+    "weekday",
+    "is_weekend",
+    "is_workday",
+    "has_any_event",
+    "observed_event_count",
+    "logon_count",
+    "logoff_count",
+    "first_logon_minute",
+    "last_logoff_minute",
+    "active_span_minutes",
+    "after_hours_logon_count",
+    "other_pc_logon_count",
+    "usb_connect_count",
+    "usb_disconnect_count",
+    "file_copy_count",
+    "archive_copy_count",
+    "executable_copy_count",
+    "unique_file_extensions",
+    "email_count",
+    "email_recipient_count",
+    "external_recipient_count",
+    "email_attachment_count",
+    "email_size_bytes",
+    "after_hours_email_count",
+    "http_count",
+    "after_hours_http_count",
+    "external_http_count",
+    "unique_http_domains"
+  ],
+  "label_rows": 1307,
+  "label_keys_missing_from_features": 0,
+  "missing_label_keys_sample": [],
+  "raw_event_totals": {
+    "logon": 1810070,
+    "device": 836984,
+    "file": 887621,
+    "email": 17361575,
+    "http": 58960449
+  },
+  "feature_totals": {
+    "logon": 995082,
+    "logoff": 814988,
+    "usb_connect": 419734,
+    "usb_disconnect": 417250,
+    "file_copy": 403966,
+    "email": 5555187,
+    "http": 58960449,
+    "all_events": 67566656
+  },
+  "zero_event_rows": 280607,
+  "weekend_rows": 276506,
+  "missing_org": {
+    "functional_unit": 2923,
+    "department": 14910,
+    "team": 107482,
+    "supervisor": 539
+  },
+  "psychometric_used": false,
+  "assumptions": {
+    "work_hours_start": 8,
+    "work_hours_end": 18,
+    "calendar": "all dates between each user's first and last logon",
+    "ldap": "same-month snapshot, fallback to previous month",
+    "labels": "observer-account malicious dates only; labels kept in separate CSV"
+  },
+  "raw_feature_count_validation": {
+    "logon": {
+      "raw": 1810070,
+      "feature_sum": 1810070
+    },
+    "device": {
+      "raw": 836984,
+      "feature_sum": 836984
+    },
+    "file": {
+      "raw": 403966,
+      "feature_sum": 403966
+    },
+    "email": {
+      "raw": 5555187,
+      "feature_sum": 5555187
+    },
+    "http": {
+      "raw": 58960449,
+      "feature_sum": 58960449
+    }
+  },
+  "malicious_accounts_missing_from_features": 0,
+  "required_ldap_fields": [
+    "functional_unit",
+    "role"
+  ],
+  "primary_pc_source_end": "2010-04-15",
+  "primary_pc_uses_future_events": false,
+  "email_feature_scope": "Send events only, matching the r4.2 email behavior semantics.",
+  "email_activity_counts": {
+    "Send": 5555187,
+    "Receive": 11806388
+  },
+  "email_send_rows_used": 5555187,
+  "file_write_rows_used": 403966,
+  "file_feature_scope": "File Write to removable media only, matching r4.2 file-copy semantics.",
+  "dataset_version": "5.2",
+  "label_source": "answers/insiders.csv dataset=5.2"
+}

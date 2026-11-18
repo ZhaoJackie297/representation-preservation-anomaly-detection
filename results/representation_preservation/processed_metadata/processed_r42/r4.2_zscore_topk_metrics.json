@@ -1,0 +1,114 @@
+{
+  "score_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_zscore_daily_scores.csv",
+  "topk_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_zscore_daily_topk.csv",
+  "features": [
+    "logon_count",
+    "logoff_count",
+    "first_logon_minute",
+    "last_logoff_minute",
+    "active_span_minutes",
+    "after_hours_logon_count",
+    "other_pc_logon_count",
+    "usb_connect_count",
+    "usb_disconnect_count",
+    "file_copy_count",
+    "archive_copy_count",
+    "executable_copy_count",
+    "unique_file_extensions",
+    "email_count",
+    "email_recipient_count",
+    "external_recipient_count",
+    "email_attachment_count",
+    "email_size_bytes",
+    "after_hours_email_count",
+    "http_count",
+    "after_hours_http_count",
+    "external_http_count",
+    "unique_http_domains"
+  ],
+  "top_features_per_day": 3,
+  "max_abs_feature_z": 20.0,
+  "min_personal_days": 30,
+  "personal_baseline_users": 1000,
+  "global_fallback_users": 0,
+  "metrics": {
+    "validation": {
+      "k_5": {
+        "alert_slots": 720,
+        "true_alert_slots": 28,
+        "precision_at_k": 0.03888888888888889,
+        "account_day_recall": 0.04835924006908463,
+        "false_alert_slots": 692,
+        "false_alerts_per_day": 4.805555555555555,
+        "incidents_in_split": 46,
+        "incidents_hit": 20,
+        "incident_recall": 0.43478260869565216,
+        "median_detection_delay_days": 0.5
+      },
+      "k_10": {
+        "alert_slots": 1440,
+        "true_alert_slots": 36,
+        "precision_at_k": 0.025,
+        "account_day_recall": 0.06217616580310881,
+        "false_alert_slots": 1404,
+        "false_alerts_per_day": 9.75,
+        "incidents_in_split": 46,
+        "incidents_hit": 26,
+        "incident_recall": 0.5652173913043478,
+        "median_detection_delay_days": 1.0
+      },
+      "k_20": {
+        "alert_slots": 2880,
+        "true_alert_slots": 52,
+        "precision_at_k": 0.018055555555555554,
+        "account_day_recall": 0.08981001727115717,
+        "false_alert_slots": 2828,
+        "false_alerts_per_day": 19.63888888888889,
+        "incidents_in_split": 46,
+        "incidents_hit": 37,
+        "incident_recall": 0.8043478260869565,
+        "median_detection_delay_days": 1.0
+      }
+    },
+    "test": {
+      "k_5": {
+        "alert_slots": 989,
+        "true_alert_slots": 9,
+        "precision_at_k": 0.00910010111223458,
+        "account_day_recall": 0.022113022113022112,
+        "false_alert_slots": 980,
+        "false_alerts_per_day": 4.94949494949495,
+        "incidents_in_split": 24,
+        "incidents_hit": 8,
+        "incident_recall": 0.3333333333333333,
+        "median_detection_delay_days": 1.0
+      },
+      "k_10": {
+        "alert_slots": 1974,
+        "true_alert_slots": 12,
+        "precision_at_k": 0.0060790273556231,
+        "account_day_recall": 0.029484029484029485,
+        "false_alert_slots": 1962,
+        "false_alerts_per_day": 9.909090909090908,
+        "incidents_in_split": 24,
+        "incidents_hit": 10,
+        "incident_recall": 0.4166666666666667,
+        "median_detection_delay_days": 1.0
+      },
+      "k_20": {
+        "alert_slots": 3944,
+        "true_alert_slots": 20,
+        "precision_at_k": 0.005070993914807302,
+        "account_day_recall": 0.04914004914004914,
+        "false_alert_slots": 3924,
+        "false_alerts_per_day": 19.818181818181817,
+        "incidents_in_split": 24,
+        "incidents_hit": 17,
+        "incident_recall": 0.7083333333333334,
+        "median_detection_delay_days": 1.0
+      }
+    }
+  },
+  "labels_used_in_baseline_construction": false,
+  "labels_used_in_calibration": false
+}

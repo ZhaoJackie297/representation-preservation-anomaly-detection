@@ -1,0 +1,45 @@
+{
+  "fusion_signal": "daily cross-sectional percentile",
+  "component_configurations": {
+    "ts2vec": {
+      "calibration": "per-user training quantile",
+      "aggregation": "dynamic risk",
+      "array": "ts2vec_quantile_dynamic"
+    },
+    "personal_baseline": {
+      "calibration": "global robust z-score",
+      "aggregation": "dynamic risk",
+      "column": "robust_z_score"
+    },
+    "group_baseline": {
+      "calibration": "training-period robust calibration",
+      "aggregation": "raw score",
+      "column": "group_score"
+    }
+  },
+  "configuration_rule": "Use each component's validation-selected production variant; do not tune component variants on the test split.",
+  "combination_scores": [
+    "ts2vec_only",
+    "personal_only",
+    "group_only",
+    "ts2vec_personal",
+    "personal_group",
+    "ts2vec_personal_group"
+  ],
+  "selected_on_validation": "ts2vec_only",
+  "primary_k": 10,
+  "cooldown_days": 7,
+  "component_config_selection_split": "validation",
+  "fusion_scheme_selection_split": "validation",
+  "test_used_for_selection": false,
+  "best_fused_on_validation": "ts2vec_personal",
+  "best_fused_validation_recall_3d": 0.5652173913043478,
+  "ts2vec_validation_recall_3d": 0.6086956521739131,
+  "best_fusion_gain_vs_ts2vec_3d": -0.0434782608695653,
+  "fusion_adopted": false,
+  "selection_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_fusion_selection.csv",
+  "results_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_fusion_results.json",
+  "validation_hits_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_fusion_validation_hits.csv",
+  "labels_used_for_signal": false,
+  "labels_used_for_candidate_selection": "validation only"
+}

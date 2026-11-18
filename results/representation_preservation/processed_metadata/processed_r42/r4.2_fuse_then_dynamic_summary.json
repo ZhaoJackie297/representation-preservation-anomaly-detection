@@ -1,0 +1,84 @@
+{
+  "protocol": {
+    "primary_k": 10,
+    "report_k": [
+      5,
+      10,
+      20
+    ],
+    "cooldown_days": 7,
+    "selection_split": "validation",
+    "test_used_for_selection": false,
+    "pipeline": "Daily-percentile each base anomaly score, fuse the base scores, then apply one shared dynamic-risk aggregation.",
+    "operators": [
+      "mean",
+      "if70_ts30",
+      "if30_ts70",
+      "max",
+      "min"
+    ]
+  },
+  "selected_on_validation": {
+    "method": "fuse_mean_then_dynamic",
+    "validation_recall_3d": 0.6521739130434783,
+    "validation_recall_1d": 0.6304347826086957,
+    "validation_precision": 0.03333333333333333,
+    "validation_false_per_day": 9.666666666666666,
+    "validation_scenario_macro": 0.7333333333333334
+  },
+  "validation_hit_sets": {
+    "selected": [
+      "1:AAM0658:r4.2-1-AAM0658",
+      "1:AJR0932:r4.2-1-AJR0932",
+      "1:BDV0168:r4.2-1-BDV0168",
+      "1:BIH0745:r4.2-1-BIH0745",
+      "1:BLS0678:r4.2-1-BLS0678",
+      "1:BTL0226:r4.2-1-BTL0226",
+      "1:CAH0936:r4.2-1-CAH0936",
+      "1:EHB0824:r4.2-1-EHB0824",
+      "1:EHD0584:r4.2-1-EHD0584",
+      "1:JMB0308:r4.2-1-JMB0308",
+      "1:KPC0073:r4.2-1-KPC0073",
+      "1:LJR0523:r4.2-1-LJR0523",
+      "1:LQC0479:r4.2-1-LQC0479",
+      "1:MAS0025:r4.2-1-MAS0025",
+      "1:MCF0600:r4.2-1-MCF0600",
+      "1:RAB0589:r4.2-1-RAB0589",
+      "1:RGG0064:r4.2-1-RGG0064",
+      "1:RKD0604:r4.2-1-RKD0604",
+      "1:TAP0551:r4.2-1-TAP0551",
+      "2:ABC0174:r4.2-2-ABC0174",
+      "2:IUB0565:r4.2-2-IUB0565",
+      "2:LCC0819:r4.2-2-LCC0819",
+      "2:PNL0301:r4.2-2-PNL0301",
+      "3:BBS0039:r4.2-3-BBS0039",
+      "3:BSS0369:r4.2-3-BSS0369",
+      "3:CCA0046:r4.2-3-CCA0046",
+      "3:CSC0217:r4.2-3-CSC0217",
+      "3:GTD0219:r4.2-3-GTD0219",
+      "3:JGT0221:r4.2-3-JGT0221",
+      "3:JTM0223:r4.2-3-JTM0223"
+    ],
+    "added_over_ts2vec": [
+      "1:MAS0025:r4.2-1-MAS0025",
+      "2:ABC0174:r4.2-2-ABC0174",
+      "2:IUB0565:r4.2-2-IUB0565"
+    ],
+    "lost_vs_ts2vec": [
+      "2:JJM0203:r4.2-2-JJM0203"
+    ],
+    "added_over_iforest": [
+      "2:ABC0174:r4.2-2-ABC0174",
+      "3:GTD0219:r4.2-3-GTD0219"
+    ],
+    "lost_vs_iforest": [
+      "2:XHW0498:r4.2-2-XHW0498"
+    ]
+  },
+  "outputs": {
+    "selection_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_fuse_then_dynamic_selection.csv",
+    "results_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_fuse_then_dynamic_results.json",
+    "hits_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_fuse_then_dynamic_hits.csv",
+    "scenario_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_fuse_then_dynamic_scenarios.csv"
+  }
+}

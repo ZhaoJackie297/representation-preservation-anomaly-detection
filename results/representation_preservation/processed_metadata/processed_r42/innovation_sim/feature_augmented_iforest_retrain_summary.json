@@ -1,0 +1,9 @@
+{
+  "experiment": "Retrained TS2Vec with augmented IForest auxiliary",
+  "variant": "IForest(23 features + TS dynamic + personal)",
+  "retrain_threshold": "TS2Vec seed 20261111",
+  "q_relation": "q=min(max(1,round(0.4K)),floor(K/2))",
+  "selection_data": "r4.2 original validation variant selected previously",
+  "test_used_for_selection": false,
+  "metrics": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\innovation_sim\\feature_augmented_iforest_retrain_metrics.csv"
+}

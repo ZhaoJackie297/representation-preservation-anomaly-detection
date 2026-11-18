@@ -1,0 +1,41 @@
+{
+  "model_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_ts2vec_model.pth",
+  "score_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_ts2vec_daily_errors.csv",
+  "input_shape": [
+    1000,
+    501,
+    27
+  ],
+  "training_shape": [
+    1000,
+    159,
+    27
+  ],
+  "representation_shape": [
+    1000,
+    501,
+    64
+  ],
+  "loss_first": 2.635291,
+  "loss_last": 0.998444,
+  "active_training_days": 155022,
+  "active_scored_rows": 464687,
+  "score_split_counts": {
+    "test": 172864,
+    "train": 155022,
+    "validation": 136801
+  },
+  "label_rows_in_scores": 986,
+  "causal_test_cutoff_index": 303,
+  "causal_future_perturbation_max_diff": 0.0,
+  "labels_used_in_training": false,
+  "labels_used_in_calibration": false,
+  "model_config": {
+    "output_dims": 64,
+    "hidden_dims": 64,
+    "depth": 5,
+    "batch_size": 16,
+    "epochs": 10,
+    "sliding_padding": 30
+  }
+}

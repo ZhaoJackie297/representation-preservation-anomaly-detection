@@ -1,0 +1,1913 @@
+[
+  {
+    "method": "ts2vec_single",
+    "k": 5,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 720,
+        "true_alert_slots": 30,
+        "precision_at_k": 0.041666666666666664,
+        "account_day_recall": 0.05181347150259067,
+        "false_alert_slots": 690,
+        "false_alerts_per_day": 4.791666666666667,
+        "horizons": {
+          "1": {
+            "incidents_hit": 20,
+            "incidents_total": 46,
+            "event_recall": 0.43478260869565216,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 5
+          },
+          "3": {
+            "incidents_hit": 22,
+            "incidents_total": 46,
+            "event_recall": 0.4782608695652174,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 5
+          }
+        },
+        "scenario_macro_recall_3d": 0.5646616541353383,
+        "scenario_recalls": {
+          "1": {
+            "hits": 14,
+            "total": 19,
+            "recall": 0.7368421052631579
+          },
+          "2": {
+            "hits": 2,
+            "total": 20,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 6,
+            "total": 7,
+            "recall": 0.8571428571428571
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 989,
+        "true_alert_slots": 12,
+        "precision_at_k": 0.012133468149646108,
+        "account_day_recall": 0.029484029484029485,
+        "false_alert_slots": 977,
+        "false_alerts_per_day": 4.934343434343434,
+        "horizons": {
+          "1": {
+            "incidents_hit": 12,
+            "incidents_total": 24,
+            "event_recall": 0.5,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 8
+          },
+          "3": {
+            "incidents_hit": 12,
+            "incidents_total": 24,
+            "event_recall": 0.5,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 8
+          }
+        },
+        "scenario_macro_recall_3d": 0.5282828282828284,
+        "scenario_recalls": {
+          "1": {
+            "hits": 9,
+            "total": 11,
+            "recall": 0.8181818181818182
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "ts2vec_single",
+    "k": 10,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 1440,
+        "true_alert_slots": 37,
+        "precision_at_k": 0.025694444444444443,
+        "account_day_recall": 0.06390328151986183,
+        "false_alert_slots": 1403,
+        "false_alerts_per_day": 9.743055555555555,
+        "horizons": {
+          "1": {
+            "incidents_hit": 25,
+            "incidents_total": 46,
+            "event_recall": 0.5434782608695652,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 12
+          },
+          "3": {
+            "incidents_hit": 28,
+            "incidents_total": 46,
+            "event_recall": 0.6086956521739131,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 12
+          }
+        },
+        "scenario_macro_recall_3d": 0.6991228070175438,
+        "scenario_recalls": {
+          "1": {
+            "hits": 18,
+            "total": 19,
+            "recall": 0.9473684210526315
+          },
+          "2": {
+            "hits": 3,
+            "total": 20,
+            "recall": 0.15
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 1973,
+        "true_alert_slots": 16,
+        "precision_at_k": 0.008109477952356817,
+        "account_day_recall": 0.03931203931203931,
+        "false_alert_slots": 1957,
+        "false_alerts_per_day": 9.883838383838384,
+        "horizons": {
+          "1": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          },
+          "3": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          }
+        },
+        "scenario_macro_recall_3d": 0.7000000000000001,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 3,
+            "total": 3,
+            "recall": 1.0
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "ts2vec_single",
+    "k": 20,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 2880,
+        "true_alert_slots": 51,
+        "precision_at_k": 0.017708333333333333,
+        "account_day_recall": 0.08808290155440414,
+        "false_alert_slots": 2829,
+        "false_alerts_per_day": 19.645833333333332,
+        "horizons": {
+          "1": {
+            "incidents_hit": 29,
+            "incidents_total": 46,
+            "event_recall": 0.6304347826086957,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 16
+          },
+          "3": {
+            "incidents_hit": 30,
+            "incidents_total": 46,
+            "event_recall": 0.6521739130434783,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 16
+          }
+        },
+        "scenario_macro_recall_3d": 0.7333333333333334,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 4,
+            "total": 20,
+            "recall": 0.2
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 3941,
+        "true_alert_slots": 29,
+        "precision_at_k": 0.007358538442019792,
+        "account_day_recall": 0.07125307125307126,
+        "false_alert_slots": 3912,
+        "false_alerts_per_day": 19.757575757575758,
+        "horizons": {
+          "1": {
+            "incidents_hit": 16,
+            "incidents_total": 24,
+            "event_recall": 0.6666666666666666,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 11
+          },
+          "3": {
+            "incidents_hit": 16,
+            "incidents_total": 24,
+            "event_recall": 0.6666666666666666,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 11
+          }
+        },
+        "scenario_macro_recall_3d": 0.7333333333333334,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 2,
+            "total": 10,
+            "recall": 0.2
+          },
+          "3": {
+            "hits": 3,
+            "total": 3,
+            "recall": 1.0
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "iforest_single",
+    "k": 5,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 720,
+        "true_alert_slots": 30,
+        "precision_at_k": 0.041666666666666664,
+        "account_day_recall": 0.05181347150259067,
+        "false_alert_slots": 690,
+        "false_alerts_per_day": 4.791666666666667,
+        "horizons": {
+          "1": {
+            "incidents_hit": 21,
+            "incidents_total": 46,
+            "event_recall": 0.45652173913043476,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 12
+          },
+          "3": {
+            "incidents_hit": 23,
+            "incidents_total": 46,
+            "event_recall": 0.5,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 12
+          }
+        },
+        "scenario_macro_recall_3d": 0.5538847117794486,
+        "scenario_recalls": {
+          "1": {
+            "hits": 18,
+            "total": 19,
+            "recall": 0.9473684210526315
+          },
+          "2": {
+            "hits": 0,
+            "total": 20,
+            "recall": 0.0
+          },
+          "3": {
+            "hits": 5,
+            "total": 7,
+            "recall": 0.7142857142857143
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 989,
+        "true_alert_slots": 25,
+        "precision_at_k": 0.025278058645096056,
+        "account_day_recall": 0.06142506142506143,
+        "false_alert_slots": 964,
+        "false_alerts_per_day": 4.8686868686868685,
+        "horizons": {
+          "1": {
+            "incidents_hit": 10,
+            "incidents_total": 24,
+            "event_recall": 0.4166666666666667,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 6
+          },
+          "3": {
+            "incidents_hit": 12,
+            "incidents_total": 24,
+            "event_recall": 0.5,
+            "median_contact_time_days": -1.5,
+            "pre_event_contacts": 6
+          }
+        },
+        "scenario_macro_recall_3d": 0.5252525252525252,
+        "scenario_recalls": {
+          "1": {
+            "hits": 10,
+            "total": 11,
+            "recall": 0.9090909090909091
+          },
+          "2": {
+            "hits": 0,
+            "total": 10,
+            "recall": 0.0
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "iforest_single",
+    "k": 10,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 1440,
+        "true_alert_slots": 44,
+        "precision_at_k": 0.030555555555555555,
+        "account_day_recall": 0.07599309153713299,
+        "false_alert_slots": 1396,
+        "false_alerts_per_day": 9.694444444444445,
+        "horizons": {
+          "1": {
+            "incidents_hit": 25,
+            "incidents_total": 46,
+            "event_recall": 0.5434782608695652,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 16
+          },
+          "3": {
+            "incidents_hit": 29,
+            "incidents_total": 46,
+            "event_recall": 0.6304347826086957,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 16
+          }
+        },
+        "scenario_macro_recall_3d": 0.6857142857142856,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 4,
+            "total": 20,
+            "recall": 0.2
+          },
+          "3": {
+            "hits": 6,
+            "total": 7,
+            "recall": 0.8571428571428571
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 1974,
+        "true_alert_slots": 39,
+        "precision_at_k": 0.019756838905775075,
+        "account_day_recall": 0.09582309582309582,
+        "false_alert_slots": 1935,
+        "false_alerts_per_day": 9.772727272727273,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 9
+          },
+          "3": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          }
+        },
+        "scenario_macro_recall_3d": 0.7000000000000001,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 3,
+            "total": 3,
+            "recall": 1.0
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "iforest_single",
+    "k": 20,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 2880,
+        "true_alert_slots": 73,
+        "precision_at_k": 0.025347222222222222,
+        "account_day_recall": 0.12607944732297063,
+        "false_alert_slots": 2807,
+        "false_alerts_per_day": 19.493055555555557,
+        "horizons": {
+          "1": {
+            "incidents_hit": 30,
+            "incidents_total": 46,
+            "event_recall": 0.6521739130434783,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 17
+          },
+          "3": {
+            "incidents_hit": 32,
+            "incidents_total": 46,
+            "event_recall": 0.6956521739130435,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 17
+          }
+        },
+        "scenario_macro_recall_3d": 0.7666666666666666,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 6,
+            "total": 20,
+            "recall": 0.3
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 3944,
+        "true_alert_slots": 49,
+        "precision_at_k": 0.01242393509127789,
+        "account_day_recall": 0.12039312039312039,
+        "false_alert_slots": 3895,
+        "false_alerts_per_day": 19.671717171717173,
+        "horizons": {
+          "1": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -4.0,
+            "pre_event_contacts": 11
+          },
+          "3": {
+            "incidents_hit": 16,
+            "incidents_total": 24,
+            "event_recall": 0.6666666666666666,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 11
+          }
+        },
+        "scenario_macro_recall_3d": 0.7333333333333334,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 2,
+            "total": 10,
+            "recall": 0.2
+          },
+          "3": {
+            "hits": 3,
+            "total": 3,
+            "recall": 1.0
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_mean_then_dynamic",
+    "k": 5,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 720,
+        "true_alert_slots": 36,
+        "precision_at_k": 0.05,
+        "account_day_recall": 0.06217616580310881,
+        "false_alert_slots": 684,
+        "false_alerts_per_day": 4.75,
+        "horizons": {
+          "1": {
+            "incidents_hit": 25,
+            "incidents_total": 46,
+            "event_recall": 0.5434782608695652,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 12
+          },
+          "3": {
+            "incidents_hit": 27,
+            "incidents_total": 46,
+            "event_recall": 0.5869565217391305,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 12
+          }
+        },
+        "scenario_macro_recall_3d": 0.6824561403508772,
+        "scenario_recalls": {
+          "1": {
+            "hits": 18,
+            "total": 19,
+            "recall": 0.9473684210526315
+          },
+          "2": {
+            "hits": 2,
+            "total": 20,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 989,
+        "true_alert_slots": 18,
+        "precision_at_k": 0.01820020222446916,
+        "account_day_recall": 0.044226044226044224,
+        "false_alert_slots": 971,
+        "false_alerts_per_day": 4.904040404040404,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          },
+          "3": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          }
+        },
+        "scenario_macro_recall_3d": 0.5888888888888889,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_mean_then_dynamic",
+    "k": 10,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 1440,
+        "true_alert_slots": 48,
+        "precision_at_k": 0.03333333333333333,
+        "account_day_recall": 0.08290155440414508,
+        "false_alert_slots": 1392,
+        "false_alerts_per_day": 9.666666666666666,
+        "horizons": {
+          "1": {
+            "incidents_hit": 29,
+            "incidents_total": 46,
+            "event_recall": 0.6304347826086957,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 17
+          },
+          "3": {
+            "incidents_hit": 30,
+            "incidents_total": 46,
+            "event_recall": 0.6521739130434783,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 17
+          }
+        },
+        "scenario_macro_recall_3d": 0.7333333333333334,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 4,
+            "total": 20,
+            "recall": 0.2
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 1974,
+        "true_alert_slots": 22,
+        "precision_at_k": 0.011144883485309016,
+        "account_day_recall": 0.05405405405405406,
+        "false_alert_slots": 1952,
+        "false_alerts_per_day": 9.858585858585858,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 10
+          },
+          "3": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 10
+          }
+        },
+        "scenario_macro_recall_3d": 0.5888888888888889,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_mean_then_dynamic",
+    "k": 20,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 2880,
+        "true_alert_slots": 61,
+        "precision_at_k": 0.021180555555555557,
+        "account_day_recall": 0.10535405872193437,
+        "false_alert_slots": 2819,
+        "false_alerts_per_day": 19.57638888888889,
+        "horizons": {
+          "1": {
+            "incidents_hit": 29,
+            "incidents_total": 46,
+            "event_recall": 0.6304347826086957,
+            "median_contact_time_days": -2.0,
+            "pre_event_contacts": 18
+          },
+          "3": {
+            "incidents_hit": 32,
+            "incidents_total": 46,
+            "event_recall": 0.6956521739130435,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 18
+          }
+        },
+        "scenario_macro_recall_3d": 0.7666666666666666,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 6,
+            "total": 20,
+            "recall": 0.3
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 3944,
+        "true_alert_slots": 33,
+        "precision_at_k": 0.008367139959432049,
+        "account_day_recall": 0.08108108108108109,
+        "false_alert_slots": 3911,
+        "false_alerts_per_day": 19.752525252525253,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 9
+          },
+          "3": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 9
+          }
+        },
+        "scenario_macro_recall_3d": 0.5888888888888889,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_if70_ts30_then_dynamic",
+    "k": 5,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 720,
+        "true_alert_slots": 37,
+        "precision_at_k": 0.05138888888888889,
+        "account_day_recall": 0.06390328151986183,
+        "false_alert_slots": 683,
+        "false_alerts_per_day": 4.743055555555555,
+        "horizons": {
+          "1": {
+            "incidents_hit": 24,
+            "incidents_total": 46,
+            "event_recall": 0.5217391304347826,
+            "median_contact_time_days": -0.5,
+            "pre_event_contacts": 12
+          },
+          "3": {
+            "incidents_hit": 26,
+            "incidents_total": 46,
+            "event_recall": 0.5652173913043478,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 12
+          }
+        },
+        "scenario_macro_recall_3d": 0.6348370927318295,
+        "scenario_recalls": {
+          "1": {
+            "hits": 18,
+            "total": 19,
+            "recall": 0.9473684210526315
+          },
+          "2": {
+            "hits": 2,
+            "total": 20,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 6,
+            "total": 7,
+            "recall": 0.8571428571428571
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 989,
+        "true_alert_slots": 17,
+        "precision_at_k": 0.017189079878665317,
+        "account_day_recall": 0.04176904176904177,
+        "false_alert_slots": 972,
+        "false_alerts_per_day": 4.909090909090909,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          },
+          "3": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          }
+        },
+        "scenario_macro_recall_3d": 0.5888888888888889,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_if70_ts30_then_dynamic",
+    "k": 10,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 1440,
+        "true_alert_slots": 45,
+        "precision_at_k": 0.03125,
+        "account_day_recall": 0.07772020725388601,
+        "false_alert_slots": 1395,
+        "false_alerts_per_day": 9.6875,
+        "horizons": {
+          "1": {
+            "incidents_hit": 27,
+            "incidents_total": 46,
+            "event_recall": 0.5869565217391305,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 17
+          },
+          "3": {
+            "incidents_hit": 28,
+            "incidents_total": 46,
+            "event_recall": 0.6086956521739131,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 17
+          }
+        },
+        "scenario_macro_recall_3d": 0.7000000000000001,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 2,
+            "total": 20,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 1974,
+        "true_alert_slots": 23,
+        "precision_at_k": 0.01165146909827761,
+        "account_day_recall": 0.056511056511056514,
+        "false_alert_slots": 1951,
+        "false_alerts_per_day": 9.853535353535353,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 10
+          },
+          "3": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 10
+          }
+        },
+        "scenario_macro_recall_3d": 0.5888888888888889,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_if70_ts30_then_dynamic",
+    "k": 20,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 2880,
+        "true_alert_slots": 60,
+        "precision_at_k": 0.020833333333333332,
+        "account_day_recall": 0.10362694300518134,
+        "false_alert_slots": 2820,
+        "false_alerts_per_day": 19.583333333333332,
+        "horizons": {
+          "1": {
+            "incidents_hit": 30,
+            "incidents_total": 46,
+            "event_recall": 0.6521739130434783,
+            "median_contact_time_days": -2.0,
+            "pre_event_contacts": 19
+          },
+          "3": {
+            "incidents_hit": 33,
+            "incidents_total": 46,
+            "event_recall": 0.717391304347826,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 19
+          }
+        },
+        "scenario_macro_recall_3d": 0.7833333333333333,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 7,
+            "total": 20,
+            "recall": 0.35
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 3944,
+        "true_alert_slots": 34,
+        "precision_at_k": 0.008620689655172414,
+        "account_day_recall": 0.08353808353808354,
+        "false_alert_slots": 3910,
+        "false_alerts_per_day": 19.747474747474747,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 10
+          },
+          "3": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 10
+          }
+        },
+        "scenario_macro_recall_3d": 0.5888888888888889,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_if30_ts70_then_dynamic",
+    "k": 5,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 720,
+        "true_alert_slots": 36,
+        "precision_at_k": 0.05,
+        "account_day_recall": 0.06217616580310881,
+        "false_alert_slots": 684,
+        "false_alerts_per_day": 4.75,
+        "horizons": {
+          "1": {
+            "incidents_hit": 24,
+            "incidents_total": 46,
+            "event_recall": 0.5217391304347826,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 11
+          },
+          "3": {
+            "incidents_hit": 25,
+            "incidents_total": 46,
+            "event_recall": 0.5434782608695652,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 11
+          }
+        },
+        "scenario_macro_recall_3d": 0.6473684210526316,
+        "scenario_recalls": {
+          "1": {
+            "hits": 16,
+            "total": 19,
+            "recall": 0.8421052631578947
+          },
+          "2": {
+            "hits": 2,
+            "total": 20,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 989,
+        "true_alert_slots": 14,
+        "precision_at_k": 0.014155712841253791,
+        "account_day_recall": 0.0343980343980344,
+        "false_alert_slots": 975,
+        "false_alerts_per_day": 4.924242424242424,
+        "horizons": {
+          "1": {
+            "incidents_hit": 13,
+            "incidents_total": 24,
+            "event_recall": 0.5416666666666666,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 8
+          },
+          "3": {
+            "incidents_hit": 13,
+            "incidents_total": 24,
+            "event_recall": 0.5416666666666666,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 8
+          }
+        },
+        "scenario_macro_recall_3d": 0.5555555555555555,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 0,
+            "total": 10,
+            "recall": 0.0
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_if30_ts70_then_dynamic",
+    "k": 10,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 1440,
+        "true_alert_slots": 45,
+        "precision_at_k": 0.03125,
+        "account_day_recall": 0.07772020725388601,
+        "false_alert_slots": 1395,
+        "false_alerts_per_day": 9.6875,
+        "horizons": {
+          "1": {
+            "incidents_hit": 29,
+            "incidents_total": 46,
+            "event_recall": 0.6304347826086957,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 17
+          },
+          "3": {
+            "incidents_hit": 30,
+            "incidents_total": 46,
+            "event_recall": 0.6521739130434783,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 17
+          }
+        },
+        "scenario_macro_recall_3d": 0.7333333333333334,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 4,
+            "total": 20,
+            "recall": 0.2
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 1974,
+        "true_alert_slots": 21,
+        "precision_at_k": 0.010638297872340425,
+        "account_day_recall": 0.051597051597051594,
+        "false_alert_slots": 1953,
+        "false_alerts_per_day": 9.863636363636363,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          },
+          "3": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          }
+        },
+        "scenario_macro_recall_3d": 0.5888888888888889,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_if30_ts70_then_dynamic",
+    "k": 20,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 2880,
+        "true_alert_slots": 56,
+        "precision_at_k": 0.019444444444444445,
+        "account_day_recall": 0.09671848013816926,
+        "false_alert_slots": 2824,
+        "false_alerts_per_day": 19.61111111111111,
+        "horizons": {
+          "1": {
+            "incidents_hit": 29,
+            "incidents_total": 46,
+            "event_recall": 0.6304347826086957,
+            "median_contact_time_days": -2.0,
+            "pre_event_contacts": 19
+          },
+          "3": {
+            "incidents_hit": 31,
+            "incidents_total": 46,
+            "event_recall": 0.6739130434782609,
+            "median_contact_time_days": -2.0,
+            "pre_event_contacts": 19
+          }
+        },
+        "scenario_macro_recall_3d": 0.75,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 5,
+            "total": 20,
+            "recall": 0.25
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 3943,
+        "true_alert_slots": 30,
+        "precision_at_k": 0.00760841998478316,
+        "account_day_recall": 0.07371007371007371,
+        "false_alert_slots": 3913,
+        "false_alerts_per_day": 19.762626262626263,
+        "horizons": {
+          "1": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -4.0,
+            "pre_event_contacts": 11
+          },
+          "3": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -4.0,
+            "pre_event_contacts": 11
+          }
+        },
+        "scenario_macro_recall_3d": 0.6222222222222222,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 2,
+            "total": 10,
+            "recall": 0.2
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_max_then_dynamic",
+    "k": 5,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 720,
+        "true_alert_slots": 31,
+        "precision_at_k": 0.043055555555555555,
+        "account_day_recall": 0.0535405872193437,
+        "false_alert_slots": 689,
+        "false_alerts_per_day": 4.784722222222222,
+        "horizons": {
+          "1": {
+            "incidents_hit": 22,
+            "incidents_total": 46,
+            "event_recall": 0.4782608695652174,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 7
+          },
+          "3": {
+            "incidents_hit": 24,
+            "incidents_total": 46,
+            "event_recall": 0.5217391304347826,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 7
+          }
+        },
+        "scenario_macro_recall_3d": 0.6006265664160401,
+        "scenario_recalls": {
+          "1": {
+            "hits": 17,
+            "total": 19,
+            "recall": 0.8947368421052632
+          },
+          "2": {
+            "hits": 1,
+            "total": 20,
+            "recall": 0.05
+          },
+          "3": {
+            "hits": 6,
+            "total": 7,
+            "recall": 0.8571428571428571
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 989,
+        "true_alert_slots": 19,
+        "precision_at_k": 0.019211324570273004,
+        "account_day_recall": 0.04668304668304668,
+        "false_alert_slots": 970,
+        "false_alerts_per_day": 4.898989898989899,
+        "horizons": {
+          "1": {
+            "incidents_hit": 12,
+            "incidents_total": 24,
+            "event_recall": 0.5,
+            "median_contact_time_days": -2.0,
+            "pre_event_contacts": 7
+          },
+          "3": {
+            "incidents_hit": 12,
+            "incidents_total": 24,
+            "event_recall": 0.5,
+            "median_contact_time_days": -2.0,
+            "pre_event_contacts": 7
+          }
+        },
+        "scenario_macro_recall_3d": 0.5282828282828284,
+        "scenario_recalls": {
+          "1": {
+            "hits": 9,
+            "total": 11,
+            "recall": 0.8181818181818182
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_max_then_dynamic",
+    "k": 10,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 1440,
+        "true_alert_slots": 44,
+        "precision_at_k": 0.030555555555555555,
+        "account_day_recall": 0.07599309153713299,
+        "false_alert_slots": 1396,
+        "false_alerts_per_day": 9.694444444444445,
+        "horizons": {
+          "1": {
+            "incidents_hit": 26,
+            "incidents_total": 46,
+            "event_recall": 0.5652173913043478,
+            "median_contact_time_days": -0.5,
+            "pre_event_contacts": 13
+          },
+          "3": {
+            "incidents_hit": 28,
+            "incidents_total": 46,
+            "event_recall": 0.6086956521739131,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 13
+          }
+        },
+        "scenario_macro_recall_3d": 0.7000000000000001,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 2,
+            "total": 20,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 1973,
+        "true_alert_slots": 32,
+        "precision_at_k": 0.016218955904713634,
+        "account_day_recall": 0.07862407862407862,
+        "false_alert_slots": 1941,
+        "false_alerts_per_day": 9.803030303030303,
+        "horizons": {
+          "1": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          },
+          "3": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          }
+        },
+        "scenario_macro_recall_3d": 0.7000000000000001,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 3,
+            "total": 3,
+            "recall": 1.0
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_max_then_dynamic",
+    "k": 20,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 2880,
+        "true_alert_slots": 59,
+        "precision_at_k": 0.02048611111111111,
+        "account_day_recall": 0.10189982728842832,
+        "false_alert_slots": 2821,
+        "false_alerts_per_day": 19.59027777777778,
+        "horizons": {
+          "1": {
+            "incidents_hit": 29,
+            "incidents_total": 46,
+            "event_recall": 0.6304347826086957,
+            "median_contact_time_days": -2.0,
+            "pre_event_contacts": 20
+          },
+          "3": {
+            "incidents_hit": 32,
+            "incidents_total": 46,
+            "event_recall": 0.6956521739130435,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 20
+          }
+        },
+        "scenario_macro_recall_3d": 0.7666666666666666,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 6,
+            "total": 20,
+            "recall": 0.3
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 3942,
+        "true_alert_slots": 42,
+        "precision_at_k": 0.0106544901065449,
+        "account_day_recall": 0.10319410319410319,
+        "false_alert_slots": 3900,
+        "false_alerts_per_day": 19.696969696969695,
+        "horizons": {
+          "1": {
+            "incidents_hit": 16,
+            "incidents_total": 24,
+            "event_recall": 0.6666666666666666,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 12
+          },
+          "3": {
+            "incidents_hit": 16,
+            "incidents_total": 24,
+            "event_recall": 0.6666666666666666,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 12
+          }
+        },
+        "scenario_macro_recall_3d": 0.7333333333333334,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 2,
+            "total": 10,
+            "recall": 0.2
+          },
+          "3": {
+            "hits": 3,
+            "total": 3,
+            "recall": 1.0
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_min_then_dynamic",
+    "k": 5,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 720,
+        "true_alert_slots": 37,
+        "precision_at_k": 0.05138888888888889,
+        "account_day_recall": 0.06390328151986183,
+        "false_alert_slots": 683,
+        "false_alerts_per_day": 4.743055555555555,
+        "horizons": {
+          "1": {
+            "incidents_hit": 24,
+            "incidents_total": 46,
+            "event_recall": 0.5217391304347826,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 11
+          },
+          "3": {
+            "incidents_hit": 26,
+            "incidents_total": 46,
+            "event_recall": 0.5652173913043478,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 11
+          }
+        },
+        "scenario_macro_recall_3d": 0.6649122807017543,
+        "scenario_recalls": {
+          "1": {
+            "hits": 17,
+            "total": 19,
+            "recall": 0.8947368421052632
+          },
+          "2": {
+            "hits": 2,
+            "total": 20,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 989,
+        "true_alert_slots": 17,
+        "precision_at_k": 0.017189079878665317,
+        "account_day_recall": 0.04176904176904177,
+        "false_alert_slots": 972,
+        "false_alerts_per_day": 4.909090909090909,
+        "horizons": {
+          "1": {
+            "incidents_hit": 13,
+            "incidents_total": 24,
+            "event_recall": 0.5416666666666666,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 8
+          },
+          "3": {
+            "incidents_hit": 13,
+            "incidents_total": 24,
+            "event_recall": 0.5416666666666666,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 8
+          }
+        },
+        "scenario_macro_recall_3d": 0.5555555555555555,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 0,
+            "total": 10,
+            "recall": 0.0
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_min_then_dynamic",
+    "k": 10,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 1440,
+        "true_alert_slots": 49,
+        "precision_at_k": 0.034027777777777775,
+        "account_day_recall": 0.0846286701208981,
+        "false_alert_slots": 1391,
+        "false_alerts_per_day": 9.659722222222221,
+        "horizons": {
+          "1": {
+            "incidents_hit": 28,
+            "incidents_total": 46,
+            "event_recall": 0.6086956521739131,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 16
+          },
+          "3": {
+            "incidents_hit": 30,
+            "incidents_total": 46,
+            "event_recall": 0.6521739130434783,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 16
+          }
+        },
+        "scenario_macro_recall_3d": 0.7324561403508771,
+        "scenario_recalls": {
+          "1": {
+            "hits": 18,
+            "total": 19,
+            "recall": 0.9473684210526315
+          },
+          "2": {
+            "hits": 5,
+            "total": 20,
+            "recall": 0.25
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 1974,
+        "true_alert_slots": 23,
+        "precision_at_k": 0.01165146909827761,
+        "account_day_recall": 0.056511056511056514,
+        "false_alert_slots": 1951,
+        "false_alerts_per_day": 9.853535353535353,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 10
+          },
+          "3": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 10
+          }
+        },
+        "scenario_macro_recall_3d": 0.5888888888888889,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "fuse_min_then_dynamic",
+    "k": 20,
+    "cooldown_days": 7,
+    "splits": {
+      "validation": {
+        "alert_slots": 2880,
+        "true_alert_slots": 58,
+        "precision_at_k": 0.02013888888888889,
+        "account_day_recall": 0.1001727115716753,
+        "false_alert_slots": 2822,
+        "false_alerts_per_day": 19.59722222222222,
+        "horizons": {
+          "1": {
+            "incidents_hit": 29,
+            "incidents_total": 46,
+            "event_recall": 0.6304347826086957,
+            "median_contact_time_days": -2.0,
+            "pre_event_contacts": 19
+          },
+          "3": {
+            "incidents_hit": 31,
+            "incidents_total": 46,
+            "event_recall": 0.6739130434782609,
+            "median_contact_time_days": -2.0,
+            "pre_event_contacts": 19
+          }
+        },
+        "scenario_macro_recall_3d": 0.75,
+        "scenario_recalls": {
+          "1": {
+            "hits": 19,
+            "total": 19,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 5,
+            "total": 20,
+            "recall": 0.25
+          },
+          "3": {
+            "hits": 7,
+            "total": 7,
+            "recall": 1.0
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 3944,
+        "true_alert_slots": 32,
+        "precision_at_k": 0.008113590263691683,
+        "account_day_recall": 0.07862407862407862,
+        "false_alert_slots": 3912,
+        "false_alerts_per_day": 19.757575757575758,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 9
+          },
+          "3": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 9
+          }
+        },
+        "scenario_macro_recall_3d": 0.5888888888888889,
+        "scenario_recalls": {
+          "1": {
+            "hits": 11,
+            "total": 11,
+            "recall": 1.0
+          },
+          "2": {
+            "hits": 1,
+            "total": 10,
+            "recall": 0.1
+          },
+          "3": {
+            "hits": 2,
+            "total": 3,
+            "recall": 0.6666666666666666
+          }
+        }
+      }
+    }
+  }
+]

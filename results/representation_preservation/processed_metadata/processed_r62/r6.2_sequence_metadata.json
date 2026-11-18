@@ -1,0 +1,94 @@
+{
+  "array_file": "E:\\MarketRisker\\work\\cert\\processed_r62\\r6.2_sequence_dataset.npz",
+  "shape": [
+    4000,
+    516,
+    27
+  ],
+  "users": 4000,
+  "dates": 516,
+  "features": [
+    "has_any_event",
+    "logon_count",
+    "logoff_count",
+    "first_logon_minute",
+    "last_logoff_minute",
+    "active_span_minutes",
+    "after_hours_logon_count",
+    "other_pc_logon_count",
+    "usb_connect_count",
+    "usb_disconnect_count",
+    "file_copy_count",
+    "archive_copy_count",
+    "executable_copy_count",
+    "unique_file_extensions",
+    "email_count",
+    "email_recipient_count",
+    "external_recipient_count",
+    "email_attachment_count",
+    "email_size_bytes",
+    "after_hours_email_count",
+    "http_count",
+    "after_hours_http_count",
+    "external_http_count",
+    "unique_http_domains",
+    "is_weekend",
+    "weekday_sin",
+    "weekday_cos"
+  ],
+  "splits": {
+    "train": {
+      "start": "2010-01-02",
+      "end": "2010-08-11",
+      "days": 222,
+      "indices": [
+        0,
+        221
+      ],
+      "malicious_account_days": 0
+    },
+    "external_test": {
+      "start": "2010-08-12",
+      "end": "2011-06-01",
+      "days": 294,
+      "indices": [
+        222,
+        515
+      ],
+      "malicious_account_days": 78
+    }
+  },
+  "active_cells": {
+    "train": 866445,
+    "external_test": 1097311
+  },
+  "missing_cells": 2706588,
+  "log1p_features": [
+    "logon_count",
+    "logoff_count",
+    "after_hours_logon_count",
+    "other_pc_logon_count",
+    "usb_connect_count",
+    "usb_disconnect_count",
+    "file_copy_count",
+    "archive_copy_count",
+    "executable_copy_count",
+    "unique_file_extensions",
+    "email_count",
+    "email_recipient_count",
+    "external_recipient_count",
+    "email_attachment_count",
+    "email_size_bytes",
+    "after_hours_email_count",
+    "http_count",
+    "after_hours_http_count",
+    "external_http_count",
+    "unique_http_domains"
+  ],
+  "standardization": "training-period non-missing mean/std only",
+  "labels_used_for_features": false,
+  "labels_used_for_split": "Only the first official malicious date was used to place a global clean cutoff before all incidents.",
+  "test_performance_used_for_split": false,
+  "test_performance_used_for_model_selection": false,
+  "external_evaluation_design": "One-shot replication: all dates after the globally clean cutoff are external evaluation data; no validation split is used to choose models or hyperparameters."
+}

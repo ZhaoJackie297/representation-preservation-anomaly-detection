@@ -1,0 +1,162 @@
+{
+  "validation": {
+    "k_5": {
+      "ts2vec": {
+        "alert_slots": 720,
+        "true_alert_slots": 20,
+        "precision_at_k": 0.027777777777777776,
+        "account_day_recall": 0.03454231433506045,
+        "false_alert_slots": 700,
+        "false_alerts_per_day": 4.861111111111111,
+        "incidents_in_split": 46,
+        "incidents_hit": 13,
+        "incident_recall": 0.2826086956521739,
+        "median_detection_delay_days": 0.0
+      },
+      "robust_zscore": {
+        "alert_slots": 720,
+        "true_alert_slots": 28,
+        "precision_at_k": 0.03888888888888889,
+        "account_day_recall": 0.04835924006908463,
+        "false_alert_slots": 692,
+        "false_alerts_per_day": 4.805555555555555,
+        "incidents_in_split": 46,
+        "incidents_hit": 20,
+        "incident_recall": 0.43478260869565216,
+        "median_detection_delay_days": 0.5
+      }
+    },
+    "k_10": {
+      "ts2vec": {
+        "alert_slots": 1440,
+        "true_alert_slots": 33,
+        "precision_at_k": 0.022916666666666665,
+        "account_day_recall": 0.05699481865284974,
+        "false_alert_slots": 1407,
+        "false_alerts_per_day": 9.770833333333334,
+        "incidents_in_split": 46,
+        "incidents_hit": 16,
+        "incident_recall": 0.34782608695652173,
+        "median_detection_delay_days": 0.0
+      },
+      "robust_zscore": {
+        "alert_slots": 1440,
+        "true_alert_slots": 36,
+        "precision_at_k": 0.025,
+        "account_day_recall": 0.06217616580310881,
+        "false_alert_slots": 1404,
+        "false_alerts_per_day": 9.75,
+        "incidents_in_split": 46,
+        "incidents_hit": 26,
+        "incident_recall": 0.5652173913043478,
+        "median_detection_delay_days": 1.0
+      }
+    },
+    "k_20": {
+      "ts2vec": {
+        "alert_slots": 2880,
+        "true_alert_slots": 60,
+        "precision_at_k": 0.020833333333333332,
+        "account_day_recall": 0.10362694300518134,
+        "false_alert_slots": 2820,
+        "false_alerts_per_day": 19.583333333333332,
+        "incidents_in_split": 46,
+        "incidents_hit": 29,
+        "incident_recall": 0.6304347826086957,
+        "median_detection_delay_days": 0.0
+      },
+      "robust_zscore": {
+        "alert_slots": 2880,
+        "true_alert_slots": 52,
+        "precision_at_k": 0.018055555555555554,
+        "account_day_recall": 0.08981001727115717,
+        "false_alert_slots": 2828,
+        "false_alerts_per_day": 19.63888888888889,
+        "incidents_in_split": 46,
+        "incidents_hit": 37,
+        "incident_recall": 0.8043478260869565,
+        "median_detection_delay_days": 1.0
+      }
+    }
+  },
+  "test": {
+    "k_5": {
+      "ts2vec": {
+        "alert_slots": 989,
+        "true_alert_slots": 8,
+        "precision_at_k": 0.008088978766430738,
+        "account_day_recall": 0.019656019656019656,
+        "false_alert_slots": 981,
+        "false_alerts_per_day": 4.954545454545454,
+        "incidents_in_split": 24,
+        "incidents_hit": 6,
+        "incident_recall": 0.25,
+        "median_detection_delay_days": 4.5
+      },
+      "robust_zscore": {
+        "alert_slots": 989,
+        "true_alert_slots": 9,
+        "precision_at_k": 0.00910010111223458,
+        "account_day_recall": 0.022113022113022112,
+        "false_alert_slots": 980,
+        "false_alerts_per_day": 4.94949494949495,
+        "incidents_in_split": 24,
+        "incidents_hit": 8,
+        "incident_recall": 0.3333333333333333,
+        "median_detection_delay_days": 1.0
+      }
+    },
+    "k_10": {
+      "ts2vec": {
+        "alert_slots": 1974,
+        "true_alert_slots": 17,
+        "precision_at_k": 0.008611955420466059,
+        "account_day_recall": 0.04176904176904177,
+        "false_alert_slots": 1957,
+        "false_alerts_per_day": 9.883838383838384,
+        "incidents_in_split": 24,
+        "incidents_hit": 11,
+        "incident_recall": 0.4583333333333333,
+        "median_detection_delay_days": 6.0
+      },
+      "robust_zscore": {
+        "alert_slots": 1974,
+        "true_alert_slots": 12,
+        "precision_at_k": 0.0060790273556231,
+        "account_day_recall": 0.029484029484029485,
+        "false_alert_slots": 1962,
+        "false_alerts_per_day": 9.909090909090908,
+        "incidents_in_split": 24,
+        "incidents_hit": 10,
+        "incident_recall": 0.4166666666666667,
+        "median_detection_delay_days": 1.0
+      }
+    },
+    "k_20": {
+      "ts2vec": {
+        "alert_slots": 3944,
+        "true_alert_slots": 29,
+        "precision_at_k": 0.007352941176470588,
+        "account_day_recall": 0.07125307125307126,
+        "false_alert_slots": 3915,
+        "false_alerts_per_day": 19.772727272727273,
+        "incidents_in_split": 24,
+        "incidents_hit": 17,
+        "incident_recall": 0.7083333333333334,
+        "median_detection_delay_days": 9.0
+      },
+      "robust_zscore": {
+        "alert_slots": 3944,
+        "true_alert_slots": 20,
+        "precision_at_k": 0.005070993914807302,
+        "account_day_recall": 0.04914004914004914,
+        "false_alert_slots": 3924,
+        "false_alerts_per_day": 19.818181818181817,
+        "incidents_in_split": 24,
+        "incidents_hit": 17,
+        "incident_recall": 0.7083333333333334,
+        "median_detection_delay_days": 1.0
+      }
+    }
+  }
+}

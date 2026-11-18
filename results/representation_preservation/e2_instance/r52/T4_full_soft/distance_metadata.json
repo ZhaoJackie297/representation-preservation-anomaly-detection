@@ -1,0 +1,32 @@
+{
+  "distance": "user_profile_euclidean",
+  "profile_dimensions": 47,
+  "profile_features": [
+    "logon_count",
+    "logoff_count",
+    "after_hours_logon_count",
+    "other_pc_logon_count",
+    "usb_connect_count",
+    "usb_disconnect_count",
+    "file_copy_count",
+    "archive_copy_count",
+    "executable_copy_count",
+    "unique_file_extensions",
+    "email_count",
+    "email_recipient_count",
+    "external_recipient_count",
+    "email_attachment_count",
+    "email_size_bytes",
+    "after_hours_email_count",
+    "http_count",
+    "after_hours_http_count",
+    "external_http_count",
+    "unique_http_domains",
+    "first_logon_minute",
+    "last_logoff_minute",
+    "active_span_minutes"
+  ],
+  "tau_inst": 6.125474595720689,
+  "median_distance": 0.16325265648781057,
+  "alpha": 0.5
+}

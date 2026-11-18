@@ -1,0 +1,124 @@
+{
+  "feature_file": "E:\\MarketRisker\\work\\cert\\processed_r62\\r6.2_user_day_features.csv",
+  "feature_parquet_file": "E:\\MarketRisker\\work\\cert\\processed_r62\\r6.2_user_day_features.parquet",
+  "legacy_csv_written": false,
+  "label_file": "E:\\MarketRisker\\work\\cert\\processed_r62\\r6.2_malicious_account_days.csv",
+  "rows": 1963756,
+  "users": 4000,
+  "date_min": "2010-01-02",
+  "date_max": "2011-06-01",
+  "columns": [
+    "user_id",
+    "date",
+    "day_index",
+    "primary_pc",
+    "role",
+    "functional_unit",
+    "department",
+    "team",
+    "supervisor",
+    "weekday",
+    "is_weekend",
+    "is_workday",
+    "has_any_event",
+    "observed_event_count",
+    "logon_count",
+    "logoff_count",
+    "first_logon_minute",
+    "last_logoff_minute",
+    "active_span_minutes",
+    "after_hours_logon_count",
+    "other_pc_logon_count",
+    "usb_connect_count",
+    "usb_disconnect_count",
+    "file_copy_count",
+    "archive_copy_count",
+    "executable_copy_count",
+    "unique_file_extensions",
+    "email_count",
+    "email_recipient_count",
+    "external_recipient_count",
+    "email_attachment_count",
+    "email_size_bytes",
+    "after_hours_email_count",
+    "http_count",
+    "after_hours_http_count",
+    "external_http_count",
+    "unique_http_domains"
+  ],
+  "label_rows": 78,
+  "label_keys_missing_from_features": 0,
+  "missing_label_keys_sample": [],
+  "raw_event_totals": {
+    "logon": 3530285,
+    "device": 1551828,
+    "file": 2014883,
+    "email": 10994957,
+    "http": 117025216
+  },
+  "feature_totals": {
+    "logon": 1948933,
+    "logoff": 1581352,
+    "usb_connect": 778354,
+    "usb_disconnect": 773474,
+    "file_copy": 251126,
+    "email": 3832466,
+    "http": 117025216,
+    "all_events": 126190921
+  },
+  "zero_event_rows": 569746,
+  "weekend_rows": 558975,
+  "missing_org": {
+    "functional_unit": 1026,
+    "department": 10926,
+    "team": 79221,
+    "supervisor": 556
+  },
+  "psychometric_used": false,
+  "assumptions": {
+    "work_hours_start": 8,
+    "work_hours_end": 18,
+    "calendar": "all dates between each user's first and last logon",
+    "ldap": "same-month snapshot, fallback to previous month",
+    "labels": "observer-account malicious dates only; labels kept in separate CSV"
+  },
+  "raw_feature_count_validation": {
+    "logon": {
+      "raw": 3530285,
+      "feature_sum": 3530285
+    },
+    "device": {
+      "raw": 1551828,
+      "feature_sum": 1551828
+    },
+    "file": {
+      "raw": 251126,
+      "feature_sum": 251126
+    },
+    "email": {
+      "raw": 3832466,
+      "feature_sum": 3832466
+    },
+    "http": {
+      "raw": 117025216,
+      "feature_sum": 117025216
+    }
+  },
+  "malicious_accounts_missing_from_features": 0,
+  "required_ldap_fields": [
+    "functional_unit",
+    "role"
+  ],
+  "primary_pc_source_end": "2010-04-15",
+  "primary_pc_uses_future_events": false,
+  "email_feature_scope": "Send events only, matching r4.2/r5.2 email semantics.",
+  "email_activity_counts": {
+    "View": 7162491,
+    "Send": 3832466
+  },
+  "email_send_rows_used": 3832466,
+  "file_write_rows_used": 251126,
+  "file_feature_scope": "File Write to removable media only, matching r4.2/r5.2 file-copy semantics.",
+  "dataset_version": "6.2",
+  "label_source": "answers/insiders.csv dataset=6.2"
+}

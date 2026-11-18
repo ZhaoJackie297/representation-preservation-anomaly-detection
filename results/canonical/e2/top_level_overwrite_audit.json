@@ -1,0 +1,29 @@
+{
+  "issue": "The legacy e2 script rewrote top-level aggregate files on every partial run.",
+  "resolution": "Canonical aggregates are rebuilt from every results/<method>/seed_*/metrics.csv file. New runs write to e2/aggregates/<run-tag>/.",
+  "per_seed_source_files": 12,
+  "methods": 12,
+  "legacy_top_level_files": [
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\metrics_by_seed.csv",
+      "exists": true,
+      "bytes": 4511,
+      "modified_utc": "2026-11-17T07:20:04.482908+00:00",
+      "sha256": "b859a5bfef37f53a69b01789bbd99c83ea3f549ad09cb352337b4840b6d7eb3e"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\metric_summary.csv",
+      "exists": true,
+      "bytes": 2426,
+      "modified_utc": "2026-11-17T07:20:04.495974+00:00",
+      "sha256": "ee6f935253e13f5e85398a4b101ed8b23aad0061c80f058ca37996a76acbe275"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\run_summaries.json",
+      "exists": true,
+      "bytes": 1064,
+      "modified_utc": "2026-11-17T07:20:04.496974+00:00",
+      "sha256": "4d16b58875e1db6e780ebc144fd8b538a7b0b09bb76f099b7efe85a984d677a9"
+    }
+  ]
+}

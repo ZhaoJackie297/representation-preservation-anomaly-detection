@@ -1,0 +1,42 @@
+{
+  "cert_seeds": [20261116, 20261117, 20261118],
+  "smd_seed": 20261116,
+  "k_grid": [5, 10, 20],
+  "cooldown_days": 7,
+  "cert_training": {
+    "epochs": 10,
+    "batch_size": 16,
+    "output_dims": 64,
+    "hidden_dims": 64,
+    "depth": 5
+  },
+  "representation_bank": {
+    "algorithm": "MiniBatchKMeans",
+    "max_centers": 500,
+    "ratio": 0.1,
+    "query_top_k": 3
+  },
+  "softclt": {
+    "alpha": 0.5,
+    "tau_temp": 1.5,
+    "lambda_t0_t3_t4": 0.5,
+    "lambda_t1_t2": 0.0
+  },
+  "pai": {
+    "project_weights": {
+      "euclidean": 1.0,
+      "magG": 0.6,
+      "T2": 0.4
+    },
+    "official_sensitivity_weights": {
+      "euclidean": 0.6,
+      "magG": 0.4,
+      "T2": 0.2
+    }
+  },
+  "smd": {
+    "window": 512,
+    "epochs": 10
+  }
+}
+

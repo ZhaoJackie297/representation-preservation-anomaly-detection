@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Raw datasets and generated arrays
+data/raw/
+runtime/cert/processed_r42/
+runtime/cert/processed_r52/
+runtime/cert/processed_r62/
+runtime/cert/processed/
+runtime/cert/processed_r42_point_process*/
+runtime/cert/processed_r52_point_process*/
+runtime/cert/r4.2_extracted/
+runtime/cert/r5.2_extracted/
+runtime/cert/r6.2_extracted*/
+runtime/cert/r6.2_segments/
+runtime/cert/OmniAnomaly/ServerMachineDataset/
+*.npy
+*.npz
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.parquet
+
+# Runtime outputs
+runtime/cert/experiments/
+runtime/cert/innovation_sim/
+runtime/cert/v3_runs/
+runtime/cert/*.log
+*.err.log
+
+# Third-party clones
+references/softclt_repo/
+
+# Office and OS files
+~$*
+.DS_Store
+Thumbs.db
+
+# Archives generated locally
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tar.bz2
+

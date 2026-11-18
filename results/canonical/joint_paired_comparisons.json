@@ -1,0 +1,716 @@
+[
+  {
+    "dataset": "r4.2",
+    "split": "validation",
+    "treatment": "T4 original",
+    "control": "T0 original",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.0021954039639852925,
+        "median_difference": 0.0023914211129082846,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.027263585288287023,
+        "median_difference": 0.02864637118688884,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": -4.0,
+        "median_difference": -5.0,
+        "positive": 0,
+        "negative": 3,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "10": {
+        "mean_difference": -5.0,
+        "median_difference": -7.0,
+        "positive": 0,
+        "negative": 3,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "20": {
+        "mean_difference": -4.666666666666667,
+        "median_difference": -6.0,
+        "positive": 0,
+        "negative": 2,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      }
+    }
+  },
+  {
+    "dataset": "r4.2",
+    "split": "validation",
+    "treatment": "T4 project A1 weights",
+    "control": "T0 project A1 weights",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.0018084642678467763,
+        "median_difference": 0.003261276416892899,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      },
+      "roc_auc": {
+        "mean_difference": 0.015564185766829683,
+        "median_difference": 0.022358789823651914,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 2.3333333333333335,
+        "median_difference": 2.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      },
+      "10": {
+        "mean_difference": -1.0,
+        "median_difference": 0.0,
+        "positive": 1,
+        "negative": 1,
+        "zero": 1,
+        "wilcoxon_p": 1.0
+      },
+      "20": {
+        "mean_difference": 2.0,
+        "median_difference": 1.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    }
+  },
+  {
+    "dataset": "r4.2",
+    "split": "validation",
+    "treatment": "T4 Euclidean bank",
+    "control": "T0 Euclidean bank",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.000893298523682879,
+        "median_difference": 0.0016789749792342351,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      },
+      "roc_auc": {
+        "mean_difference": 0.012272604946477047,
+        "median_difference": 0.014621369227398207,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 1.3333333333333333,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      },
+      "10": {
+        "mean_difference": 1.0,
+        "median_difference": 2.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      },
+      "20": {
+        "mean_difference": 2.0,
+        "median_difference": 3.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      }
+    }
+  },
+  {
+    "dataset": "r4.2",
+    "split": "validation",
+    "treatment": "T4 cosine bank",
+    "control": "T0 cosine bank",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.0013247892638313062,
+        "median_difference": 0.0022446265606833778,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      },
+      "roc_auc": {
+        "mean_difference": 0.017533451672790523,
+        "median_difference": 0.01968602810778053,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 0.0,
+        "median_difference": 0.0,
+        "positive": 1,
+        "negative": 1,
+        "zero": 1,
+        "wilcoxon_p": 1.0
+      },
+      "10": {
+        "mean_difference": 0.6666666666666666,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      },
+      "20": {
+        "mean_difference": 4.0,
+        "median_difference": 4.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    }
+  },
+  {
+    "dataset": "r4.2",
+    "split": "test",
+    "treatment": "T4 original",
+    "control": "T0 original",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.0014271288093619364,
+        "median_difference": 0.0014737736553480712,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.026524773612453423,
+        "median_difference": 0.018920822323989506,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": -0.6666666666666666,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 1.0
+      },
+      "10": {
+        "mean_difference": 1.3333333333333333,
+        "median_difference": 2.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      },
+      "20": {
+        "mean_difference": 0.6666666666666666,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      }
+    }
+  },
+  {
+    "dataset": "r4.2",
+    "split": "test",
+    "treatment": "T4 project A1 weights",
+    "control": "T0 project A1 weights",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.004202453781042817,
+        "median_difference": 0.0038579968565013566,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.01478759341009058,
+        "median_difference": 0.010952094471464613,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 1.0,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      },
+      "10": {
+        "mean_difference": 2.3333333333333335,
+        "median_difference": 2.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "20": {
+        "mean_difference": 0.6666666666666666,
+        "median_difference": 2.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 1.0
+      }
+    }
+  },
+  {
+    "dataset": "r4.2",
+    "split": "test",
+    "treatment": "T4 Euclidean bank",
+    "control": "T0 Euclidean bank",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.0036917637550563293,
+        "median_difference": 0.003107157137147494,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.01777145155204622,
+        "median_difference": 0.015653262796028966,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 3.6666666666666665,
+        "median_difference": 3.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "10": {
+        "mean_difference": 1.3333333333333333,
+        "median_difference": 1.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "20": {
+        "mean_difference": 0.3333333333333333,
+        "median_difference": 0.0,
+        "positive": 1,
+        "negative": 1,
+        "zero": 1,
+        "wilcoxon_p": 1.0
+      }
+    }
+  },
+  {
+    "dataset": "r4.2",
+    "split": "test",
+    "treatment": "T4 cosine bank",
+    "control": "T0 cosine bank",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.00563104616503379,
+        "median_difference": 0.004842403259141783,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.030394795513056832,
+        "median_difference": 0.023448483023913336,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 1.6666666666666667,
+        "median_difference": 2.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.5
+      },
+      "10": {
+        "mean_difference": 2.3333333333333335,
+        "median_difference": 3.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      },
+      "20": {
+        "mean_difference": -0.3333333333333333,
+        "median_difference": -1.0,
+        "positive": 1,
+        "negative": 2,
+        "zero": 0,
+        "wilcoxon_p": 1.0
+      }
+    }
+  },
+  {
+    "dataset": "r5.2",
+    "split": "test",
+    "treatment": "T4 project A1 weights",
+    "control": "T0 project A1 weights",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.0009949205550548,
+        "median_difference": 0.0009777564684299994,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.03111980168884876,
+        "median_difference": 0.02968894516121423,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 7.666666666666667,
+        "median_difference": 7.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "10": {
+        "mean_difference": 9.0,
+        "median_difference": 10.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "20": {
+        "mean_difference": 4.0,
+        "median_difference": 4.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    }
+  },
+  {
+    "dataset": "r5.2",
+    "split": "test",
+    "treatment": "T4 Euclidean bank",
+    "control": "T0 Euclidean bank",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.0008801580997742665,
+        "median_difference": 0.0008306717875177002,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.028141147161403035,
+        "median_difference": 0.030094144416644375,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 5.0,
+        "median_difference": 5.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "10": {
+        "mean_difference": 5.333333333333333,
+        "median_difference": 5.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "20": {
+        "mean_difference": 9.0,
+        "median_difference": 9.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    }
+  },
+  {
+    "dataset": "r5.2",
+    "split": "test",
+    "treatment": "T4 cosine bank",
+    "control": "T0 cosine bank",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.002129866991437967,
+        "median_difference": 0.0021835595223144,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.042489710918011826,
+        "median_difference": 0.0383201456307648,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": -2.6666666666666665,
+        "median_difference": -2.0,
+        "positive": 1,
+        "negative": 2,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      },
+      "10": {
+        "mean_difference": 2.6666666666666665,
+        "median_difference": 3.0,
+        "positive": 2,
+        "negative": 1,
+        "zero": 0,
+        "wilcoxon_p": 0.75
+      },
+      "20": {
+        "mean_difference": 7.666666666666667,
+        "median_difference": 5.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    }
+  },
+  {
+    "dataset": "r6.2",
+    "split": "test",
+    "treatment": "T4 project A1 weights",
+    "control": "Matched T0 project A1 weights",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.00011333279952406668,
+        "median_difference": 0.00011411765866850001,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.05992744834654432,
+        "median_difference": 0.055456134915784605,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 0.6666666666666666,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      },
+      "10": {
+        "mean_difference": 1.0,
+        "median_difference": 1.0,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "20": {
+        "mean_difference": 0.6666666666666666,
+        "median_difference": 1.0,
+        "positive": 2,
+        "negative": 0,
+        "zero": 1,
+        "wilcoxon_p": 0.5
+      }
+    }
+  },
+  {
+    "dataset": "r6.2",
+    "split": "test",
+    "treatment": "T4 Euclidean bank",
+    "control": "Matched T0 Euclidean bank",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 0.0003065937675574666,
+        "median_difference": 0.0002955324755578,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.05106233971092219,
+        "median_difference": 0.04805258738607454,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 0.3333333333333333,
+        "median_difference": 0.0,
+        "positive": 1,
+        "negative": 0,
+        "zero": 2,
+        "wilcoxon_p": 1.0
+      },
+      "10": {
+        "mean_difference": 0.0,
+        "median_difference": 0.0,
+        "positive": 0,
+        "negative": 0,
+        "zero": 3,
+        "wilcoxon_p": null
+      },
+      "20": {
+        "mean_difference": 0.0,
+        "median_difference": 0.0,
+        "positive": 0,
+        "negative": 0,
+        "zero": 3,
+        "wilcoxon_p": null
+      }
+    }
+  },
+  {
+    "dataset": "r6.2",
+    "split": "test",
+    "treatment": "T4 original",
+    "control": "Matched T0 original",
+    "n_paired_seeds": 3,
+    "point_metrics": {
+      "pr_auc": {
+        "mean_difference": 4.6912778541133337e-05,
+        "median_difference": 4.987388570660005e-05,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      },
+      "roc_auc": {
+        "mean_difference": 0.02188876843827074,
+        "median_difference": 0.026156833622066666,
+        "positive": 3,
+        "negative": 0,
+        "zero": 0,
+        "wilcoxon_p": 0.25
+      }
+    },
+    "incident_hits_by_k": {
+      "5": {
+        "mean_difference": 0.3333333333333333,
+        "median_difference": 0.0,
+        "positive": 1,
+        "negative": 0,
+        "zero": 2,
+        "wilcoxon_p": 1.0
+      },
+      "10": {
+        "mean_difference": 0.3333333333333333,
+        "median_difference": 0.0,
+        "positive": 1,
+        "negative": 0,
+        "zero": 2,
+        "wilcoxon_p": 1.0
+      },
+      "20": {
+        "mean_difference": 0.3333333333333333,
+        "median_difference": 0.0,
+        "positive": 1,
+        "negative": 0,
+        "zero": 2,
+        "wilcoxon_p": 1.0
+      }
+    }
+  }
+]

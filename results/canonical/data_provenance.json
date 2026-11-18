@@ -1,0 +1,175 @@
+{
+  "created_utc": "2026-11-17T15:17:36.333725+00:00",
+  "output_tag": "missing_safe_v2_20261117",
+  "policy": [
+    "Original files are not overwritten.",
+    "Test data are not used to select weights or thresholds.",
+    "Missing timing sentinel -1 is treated as missing, not zero.",
+    "Project PAI-A1 and E0/E1 S5 are separate variants.",
+    "Official PAI scalar weights are a fixed sensitivity comparison."
+  ],
+  "sources": [
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e0_e1\\r42\\seed_20261116\\scores.npz",
+      "exists": true,
+      "bytes": 6762241,
+      "sha256": "92967f078365e24a481fec02bce2b099502fa4cde5f762ff256df77ff7dd918e"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e0_e1\\r42\\seed_20261117\\scores.npz",
+      "exists": true,
+      "bytes": 6762353,
+      "sha256": "5cf94441724d21b24da0e64940913a6374768874f2aec093680ea4ec7de71ad3"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e0_e1\\r42\\seed_20261118\\scores.npz",
+      "exists": true,
+      "bytes": 6756280,
+      "sha256": "e639cc9d6c101d4537416a1257dd0d5666a07517c606b7d3da69e8a60003459f"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e11_iforest\\metrics_by_seed.csv",
+      "exists": true,
+      "bytes": 1224,
+      "sha256": "fa582ac1eb128816e2321bd68d7380bb4dbfe47c11d2b6975d3783091fb8c766"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T0\\seed_20261116\\metrics.csv",
+      "exists": true,
+      "bytes": 2262,
+      "sha256": "5fe219f934c8683a61cb5bbe33cf5c5e5acaca99c11a528f8f5b6c6ca1abffcd"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T0\\seed_20261117\\metrics.csv",
+      "exists": true,
+      "bytes": 2203,
+      "sha256": "1d5e8ed09a7221bc3874898f68a7bd7c8cd5e2038aadcbc860e207c5b6d97af0"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T0\\seed_20261118\\metrics.csv",
+      "exists": true,
+      "bytes": 2222,
+      "sha256": "314bf07c60a97cae36a02f203a5d4bc8397857ee0fa9b8f6e305d01d1ede99f4"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T1\\seed_20261116\\metrics.csv",
+      "exists": true,
+      "bytes": 2282,
+      "sha256": "9c3b4b6a7ff91c02a4f4c175fe8480a5c3cfda597e7a524912c512ee991f24f7"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T1\\seed_20261117\\metrics.csv",
+      "exists": true,
+      "bytes": 2235,
+      "sha256": "e691d40f4b816b81011eb9f7f64a4c6253d3a0687ac8c0eaccf7b2aab6f6c5f8"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T1\\seed_20261118\\metrics.csv",
+      "exists": true,
+      "bytes": 2229,
+      "sha256": "97d72ccf694436379df00267508334aaa69f65bfe0d6dd2520949a4c456e481b"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T2_tau1.5\\seed_20261116\\metrics.csv",
+      "exists": true,
+      "bytes": 2270,
+      "sha256": "07923a91e4f154701b3a828da056d3c582256114cc2ba9f401d0f9b879b944f1"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T2_tau1.5\\seed_20261117\\metrics.csv",
+      "exists": true,
+      "bytes": 2318,
+      "sha256": "7014931793bb69780291700cc5876d2be202c5e1f03940df20f77a466057b27a"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T2_tau1.5\\seed_20261118\\metrics.csv",
+      "exists": true,
+      "bytes": 2265,
+      "sha256": "c480166a4d622f954b0014dd5c546a33fd6614d38a50decbc362c240ed7d9193"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T2_tau3\\seed_20261116\\metrics.csv",
+      "exists": true,
+      "bytes": 2322,
+      "sha256": "a7864a1ef5bfe761266c5fa00c88e35dd5ea3bd1537d2e285f693ce29d970a89"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T2_tau4\\seed_20261116\\metrics.csv",
+      "exists": true,
+      "bytes": 2361,
+      "sha256": "ff3166f7cae8e7ba4b9ba4a775a300f7b6b38f4396a184d8f0c0b2bccc6485b4"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2\\results\\T2_tau8\\seed_20261116\\metrics.csv",
+      "exists": true,
+      "bytes": 2331,
+      "sha256": "585949f8b5fa8f68b347c5640097e4ea3644b518d0d8f3b0bb8ff8c3c9bcb77d"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e3\\metrics_by_seed.csv",
+      "exists": true,
+      "bytes": 40929,
+      "sha256": "67154c20f2238d64a0c09a6b91d99332a35af269a83231e1cc98afd2abd45f50"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e4_joint\\missing_safe_v2_20261117\\metrics_by_seed.csv",
+      "exists": true,
+      "bytes": 26631,
+      "sha256": "5592fd28ad81a7ecc99afe0ad31d369530c8700fa98ea8bf9a94efbe32aa57f1"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e4_joint\\missing_safe_v2_20261117\\T4_full_soft_seed_20261116_scores.npz",
+      "exists": true,
+      "bytes": 6883957,
+      "sha256": "c3c8d2feac219020ed88bdfdc12777f1a7815451389223abc24c6d60d3871eaa"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e4_joint\\missing_safe_v2_20261117\\T4_full_soft_seed_20261117_scores.npz",
+      "exists": true,
+      "bytes": 6883321,
+      "sha256": "a66db7f90d81d0db232dd4e1668caa0999f2ace72ed75dc6ef0c12d629ed3899"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e4_joint\\missing_safe_v2_20261117\\T4_full_soft_seed_20261118_scores.npz",
+      "exists": true,
+      "bytes": 6882985,
+      "sha256": "deea4582fe4960e5d2c801427061e66696f665592928ce04d176e121e5e95bf8"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e4_joint\\r52\\missing_safe_v2_20261117\\metrics_by_seed.csv",
+      "exists": true,
+      "bytes": 6487,
+      "sha256": "8ff84a490bd6fd214d901e146d1ca3187d2877b27d8d47822c1fc3d5ed14c1c9"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e4_joint\\r62\\missing_safe_v2_20261117\\metrics_by_seed.csv",
+      "exists": true,
+      "bytes": 4450,
+      "sha256": "8a8e4530f741f53c6135e4c60ba4dab13395a531e5977ddc736fd2e8be87d04d"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e4_joint\\r62_matched_t0\\metrics_by_seed.csv",
+      "exists": true,
+      "bytes": 4665,
+      "sha256": "1bf1b57f34db1fe4a151a90f915727896ac00363fe2aaac529407c37d09795cb"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e5\\r52\\metrics_by_seed.csv",
+      "exists": true,
+      "bytes": 8985,
+      "sha256": "55421f74aec65484e2a461cce160c8874314e1ff5d0f54d7714f1df7e3b9eae2"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\processed_r42\\r4.2_sequence_dataset.npz",
+      "exists": true,
+      "bytes": 6745831,
+      "sha256": "b9f5bb2c39c6f2327beff1ff29671c84ed7a6e784709e58509f586a4699992d0"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\processed_r42\\r4.2_user_day_features.csv",
+      "exists": true,
+      "bytes": 91994943,
+      "sha256": "2754630a8394edeed2d1291b5f0d263253bbbd2cb5053badb374ea91782fbf84"
+    }
+  ]
+}

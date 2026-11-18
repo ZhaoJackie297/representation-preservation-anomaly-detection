@@ -1,0 +1,25 @@
+{
+  "peer_group_rule": {
+    "primary": "functional_unit",
+    "fallback_1": "role",
+    "fallback_2": "all active users on the same day",
+    "minimum_functional_or_role_group_size": 10
+  },
+  "peer_level_rows": {
+    "1": 463659,
+    "2": 498,
+    "3": 530
+  },
+  "selected_variants": {
+    "personal": "personal_dynamic",
+    "group": "group_raw",
+    "dual_mean": "dual_mean_raw",
+    "dual_max": "dual_max_dynamic"
+  },
+  "selection_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_dual_baseline_selection.csv",
+  "results_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_dual_baseline_results.json",
+  "group_score_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_group_baseline_daily_scores.csv",
+  "dual_score_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_dual_baseline_daily_scores.csv",
+  "labels_used_for_scores": false,
+  "risk_parameters_tuned_on_labels": false
+}

@@ -1,0 +1,177 @@
+{
+  "protocol": {
+    "primary_daily_new_alerts": 10,
+    "cooldown_days": 7,
+    "primary_horizon_days": 3,
+    "secondary_horizon_days": 1,
+    "report_k_values": [
+      5,
+      10,
+      20
+    ],
+    "configuration_selected_on_validation": true,
+    "configuration": {
+      "ts2vec": "ts2vec_personal_quantile_dynamic",
+      "zscore": "zscore_global_dynamic",
+      "iforest": "iforest_personal_quantile_dynamic"
+    }
+  },
+  "comparison": {
+    "ts2vec": {
+      "variant": "ts2vec_personal_quantile_dynamic",
+      "validation": {
+        "alert_slots": 1440,
+        "true_alert_slots": 37,
+        "precision_at_k": 0.025694444444444443,
+        "account_day_recall": 0.06390328151986183,
+        "false_alert_slots": 1403,
+        "false_alerts_per_day": 9.743055555555555,
+        "horizons": {
+          "1": {
+            "incidents_hit": 25,
+            "incidents_total": 46,
+            "event_recall": 0.5434782608695652,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 12
+          },
+          "3": {
+            "incidents_hit": 28,
+            "incidents_total": 46,
+            "event_recall": 0.6086956521739131,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 12
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 1973,
+        "true_alert_slots": 16,
+        "precision_at_k": 0.008109477952356817,
+        "account_day_recall": 0.03931203931203931,
+        "false_alert_slots": 1957,
+        "false_alerts_per_day": 9.883838383838384,
+        "horizons": {
+          "1": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          },
+          "3": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          }
+        }
+      }
+    },
+    "zscore": {
+      "variant": "zscore_global_dynamic",
+      "validation": {
+        "alert_slots": 1440,
+        "true_alert_slots": 27,
+        "precision_at_k": 0.01875,
+        "account_day_recall": 0.046632124352331605,
+        "false_alert_slots": 1413,
+        "false_alerts_per_day": 9.8125,
+        "horizons": {
+          "1": {
+            "incidents_hit": 20,
+            "incidents_total": 46,
+            "event_recall": 0.43478260869565216,
+            "median_contact_time_days": -0.5,
+            "pre_event_contacts": 10
+          },
+          "3": {
+            "incidents_hit": 24,
+            "incidents_total": 46,
+            "event_recall": 0.5217391304347826,
+            "median_contact_time_days": 0.0,
+            "pre_event_contacts": 10
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 1973,
+        "true_alert_slots": 8,
+        "precision_at_k": 0.0040547389761784085,
+        "account_day_recall": 0.019656019656019656,
+        "false_alert_slots": 1965,
+        "false_alerts_per_day": 9.924242424242424,
+        "horizons": {
+          "1": {
+            "incidents_hit": 5,
+            "incidents_total": 24,
+            "event_recall": 0.20833333333333334,
+            "median_contact_time_days": -5.0,
+            "pre_event_contacts": 4
+          },
+          "3": {
+            "incidents_hit": 10,
+            "incidents_total": 24,
+            "event_recall": 0.4166666666666667,
+            "median_contact_time_days": 0.5,
+            "pre_event_contacts": 4
+          }
+        }
+      }
+    },
+    "iforest": {
+      "variant": "iforest_personal_quantile_dynamic",
+      "validation": {
+        "alert_slots": 1440,
+        "true_alert_slots": 44,
+        "precision_at_k": 0.030555555555555555,
+        "account_day_recall": 0.07599309153713299,
+        "false_alert_slots": 1396,
+        "false_alerts_per_day": 9.694444444444445,
+        "horizons": {
+          "1": {
+            "incidents_hit": 25,
+            "incidents_total": 46,
+            "event_recall": 0.5434782608695652,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 16
+          },
+          "3": {
+            "incidents_hit": 29,
+            "incidents_total": 46,
+            "event_recall": 0.6304347826086957,
+            "median_contact_time_days": -1.0,
+            "pre_event_contacts": 16
+          }
+        }
+      },
+      "test": {
+        "alert_slots": 1974,
+        "true_alert_slots": 39,
+        "precision_at_k": 0.019756838905775075,
+        "account_day_recall": 0.09582309582309582,
+        "false_alert_slots": 1935,
+        "false_alerts_per_day": 9.772727272727273,
+        "horizons": {
+          "1": {
+            "incidents_hit": 14,
+            "incidents_total": 24,
+            "event_recall": 0.5833333333333334,
+            "median_contact_time_days": -3.5,
+            "pre_event_contacts": 9
+          },
+          "3": {
+            "incidents_hit": 15,
+            "incidents_total": 24,
+            "event_recall": 0.625,
+            "median_contact_time_days": -3.0,
+            "pre_event_contacts": 9
+          }
+        }
+      }
+    }
+  },
+  "alert_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_production_alerts.csv",
+  "result_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_production_protocol_results.json",
+  "selection_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_production_variant_selection.csv"
+}

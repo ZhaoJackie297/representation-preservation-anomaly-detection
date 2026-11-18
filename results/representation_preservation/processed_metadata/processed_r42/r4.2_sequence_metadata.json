@@ -1,0 +1,100 @@
+{
+  "array_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_sequence_dataset.npz",
+  "shape": [
+    1000,
+    501,
+    27
+  ],
+  "users": 1000,
+  "dates": 501,
+  "features": [
+    "has_any_event",
+    "logon_count",
+    "logoff_count",
+    "first_logon_minute",
+    "last_logoff_minute",
+    "active_span_minutes",
+    "after_hours_logon_count",
+    "other_pc_logon_count",
+    "usb_connect_count",
+    "usb_disconnect_count",
+    "file_copy_count",
+    "archive_copy_count",
+    "executable_copy_count",
+    "unique_file_extensions",
+    "email_count",
+    "email_recipient_count",
+    "external_recipient_count",
+    "email_attachment_count",
+    "email_size_bytes",
+    "after_hours_email_count",
+    "http_count",
+    "after_hours_http_count",
+    "external_http_count",
+    "unique_http_domains",
+    "is_weekend",
+    "weekday_sin",
+    "weekday_cos"
+  ],
+  "splits": {
+    "train": {
+      "start": "2010-01-02",
+      "end": "2010-06-09",
+      "days": 159,
+      "indices": [
+        0,
+        158
+      ]
+    },
+    "validation": {
+      "start": "2010-06-10",
+      "end": "2010-10-31",
+      "days": 144,
+      "indices": [
+        159,
+        302
+      ]
+    },
+    "test": {
+      "start": "2010-11-01",
+      "end": "2011-05-17",
+      "days": 198,
+      "indices": [
+        303,
+        500
+      ]
+    }
+  },
+  "active_cells": {
+    "train": 155022,
+    "validation": 136801,
+    "test": 172864
+  },
+  "missing_cells": 980451,
+  "log1p_features": [
+    "logon_count",
+    "logoff_count",
+    "after_hours_logon_count",
+    "other_pc_logon_count",
+    "usb_connect_count",
+    "usb_disconnect_count",
+    "file_copy_count",
+    "archive_copy_count",
+    "executable_copy_count",
+    "unique_file_extensions",
+    "email_count",
+    "email_recipient_count",
+    "external_recipient_count",
+    "email_attachment_count",
+    "email_size_bytes",
+    "after_hours_email_count",
+    "http_count",
+    "after_hours_http_count",
+    "external_http_count",
+    "unique_http_domains"
+  ],
+  "standardization": "training-period non-missing mean/std only",
+  "labels_used_for_features": false,
+  "labels_used_for_split": false,
+  "split_reason": "training ends before the first official malicious event"
+}

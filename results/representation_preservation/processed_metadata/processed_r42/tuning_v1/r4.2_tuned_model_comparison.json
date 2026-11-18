@@ -1,0 +1,167 @@
+{
+  "selected_configurations": {
+    "ts2vec": {
+      "model": "ts2vec",
+      "config": "ts_depth3",
+      "variant": "personal_quantile_dynamic"
+    },
+    "isolation_forest": {
+      "model": "isolation_forest",
+      "config": "if_100_auto_f100",
+      "variant": "personal_quantile_dynamic"
+    }
+  },
+  "r4.2_validation": {
+    "events": 46,
+    "ts2vec_hits": 29,
+    "isolation_forest_hits": 30,
+    "ts2vec_recall": 0.6304347826086957,
+    "isolation_forest_recall": 0.6521739130434783,
+    "ts2vec_wilson_ci95": {
+      "lower": 0.48600096423389705,
+      "upper": 0.7547624540916037
+    },
+    "isolation_forest_wilson_ci95": {
+      "lower": 0.5077005884206276,
+      "upper": 0.7731900662924567
+    },
+    "shared_hits": 27,
+    "ts2vec_only": 2,
+    "isolation_forest_only": 3,
+    "scenario_macro_recall": {
+      "ts2vec": 0.7157894736842105,
+      "isolation_forest": 0.7023809523809524
+    },
+    "mcnemar": {
+      "ts2vec_only_hits": 2,
+      "other_method_only_hits": 3,
+      "discordant_events": 5,
+      "exact_two_sided_p": 1.0
+    },
+    "month_cluster_bootstrap": {
+      "iterations": 10000,
+      "seed": 20261110,
+      "month_clusters": 5,
+      "isolation_forest_minus_ts2vec_mean": 0.0212536778496467,
+      "isolation_forest_minus_ts2vec_ci95": [
+        -0.06060606060606055,
+        0.09302325581395343
+      ]
+    }
+  },
+  "r4.2_development_test": {
+    "events": 24,
+    "ts2vec_hits": 13,
+    "isolation_forest_hits": 14,
+    "ts2vec_recall": 0.5416666666666666,
+    "isolation_forest_recall": 0.5833333333333334,
+    "ts2vec_wilson_ci95": {
+      "lower": 0.3507486535891948,
+      "upper": 0.72108666268789
+    },
+    "isolation_forest_wilson_ci95": {
+      "lower": 0.3883466586522876,
+      "upper": 0.7553239739018824
+    },
+    "shared_hits": 11,
+    "ts2vec_only": 2,
+    "isolation_forest_only": 3,
+    "scenario_macro_recall": {
+      "ts2vec": 0.6393939393939394,
+      "isolation_forest": 0.6696969696969696
+    },
+    "mcnemar": {
+      "ts2vec_only_hits": 2,
+      "other_method_only_hits": 3,
+      "discordant_events": 5,
+      "exact_two_sided_p": 1.0
+    },
+    "month_cluster_bootstrap": {
+      "iterations": 10000,
+      "seed": 20261110,
+      "month_clusters": 5,
+      "isolation_forest_minus_ts2vec_mean": 0.04194434915638874,
+      "isolation_forest_minus_ts2vec_ci95": [
+        0.0,
+        0.13043478260869568
+      ]
+    }
+  },
+  "r5.2_post_hoc_external": {
+    "events": 99,
+    "ts2vec_hits": 31,
+    "isolation_forest_hits": 34,
+    "ts2vec_recall": 0.31313131313131315,
+    "isolation_forest_recall": 0.3434343434343434,
+    "ts2vec_wilson_ci95": {
+      "lower": 0.23020787273174337,
+      "upper": 0.41001504490976803
+    },
+    "isolation_forest_wilson_ci95": {
+      "lower": 0.25732131645748857,
+      "upper": 0.44124383075566953
+    },
+    "shared_hits": 18,
+    "ts2vec_only": 13,
+    "isolation_forest_only": 16,
+    "scenario_macro_recall": {
+      "ts2vec": 0.33045977011494254,
+      "isolation_forest": 0.2896551724137931
+    },
+    "mcnemar": {
+      "ts2vec_only_hits": 13,
+      "other_method_only_hits": 16,
+      "discordant_events": 29,
+      "exact_two_sided_p": 0.711071103811264
+    },
+    "month_cluster_bootstrap": {
+      "iterations": 10000,
+      "seed": 20261110,
+      "month_clusters": 13,
+      "isolation_forest_minus_ts2vec_mean": 0.027504296198107066,
+      "isolation_forest_minus_ts2vec_ci95": [
+        -0.07291666666666666,
+        0.11627906976744184
+      ]
+    }
+  },
+  "calibration_and_risk_summary": {
+    "isolation_forest": {
+      "global_dynamic": {
+        "recall_3d_mean": 0.4786231884057971,
+        "recall_3d_std": 0.07323771477145054
+      },
+      "global_raw": {
+        "recall_3d_mean": 0.4771739130434783,
+        "recall_3d_std": 0.07049033861948285
+      },
+      "personal_quantile_dynamic": {
+        "recall_3d_mean": 0.6210144927536232,
+        "recall_3d_std": 0.016056898410261106
+      },
+      "personal_quantile_raw": {
+        "recall_3d_mean": 0.6231884057971014,
+        "recall_3d_std": 0.022334833344090484
+      }
+    },
+    "ts2vec": {
+      "global_dynamic": {
+        "recall_3d_mean": 0.4184782608695652,
+        "recall_3d_std": 0.04536226096213375
+      },
+      "global_raw": {
+        "recall_3d_mean": 0.4166666666666666,
+        "recall_3d_std": 0.04597310703061419
+      },
+      "personal_quantile_dynamic": {
+        "recall_3d_mean": 0.5561594202898551,
+        "recall_3d_std": 0.03914888185683754
+      },
+      "personal_quantile_raw": {
+        "recall_3d_mean": 0.5543478260869564,
+        "recall_3d_std": 0.031377732021175324
+      }
+    }
+  },
+  "note": "r5.2 is post-hoc sensitivity because it has already been used to inspect model performance. McNemar p-values are descriptive and do not account for overlapping incidents."
+}

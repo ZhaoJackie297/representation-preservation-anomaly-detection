@@ -1,0 +1,49 @@
+{
+  "dataset_version": "6.2",
+  "model_file": "E:\\MarketRisker\\work\\cert\\processed_r62\\r6.2_ts2vec_model.pth",
+  "score_file": "E:\\MarketRisker\\work\\cert\\processed_r62\\r6.2_ts2vec_daily_errors.csv",
+  "input_shape": [
+    4000,
+    516,
+    27
+  ],
+  "training_shape": [
+    4000,
+    222,
+    27
+  ],
+  "representation_shape": [
+    4000,
+    516,
+    64
+  ],
+  "train_end_index": 221,
+  "train_end_date": "2010-08-11",
+  "external_test_start_index": 222,
+  "external_test_start_date": "2010-08-12",
+  "external_test_end_index": 515,
+  "external_test_end_date": "2011-06-01",
+  "loss_first": 2.065034553050995,
+  "loss_last": 0.7677658749818802,
+  "active_training_days": 866445,
+  "active_scored_rows": 1963756,
+  "score_split_counts": {
+    "external_test": 1097311,
+    "train": 866445
+  },
+  "label_rows_in_scores": 78,
+  "causal_test_cutoff_index": 222,
+  "causal_future_perturbation_max_diff": 0.0,
+  "labels_used_in_training": false,
+  "labels_used_in_calibration": false,
+  "external_test_used_for_model_selection": false,
+  "model_config": {
+    "output_dims": 64,
+    "hidden_dims": 64,
+    "depth": 5,
+    "batch_size": 16,
+    "epochs": 10,
+    "sliding_padding": 30,
+    "random_seed": 20261109
+  }
+}

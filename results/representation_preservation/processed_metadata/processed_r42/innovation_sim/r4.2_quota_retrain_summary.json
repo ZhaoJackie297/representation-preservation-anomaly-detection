@@ -1,0 +1,20 @@
+{
+  "retrain_seed": 20261111,
+  "ts2vec_loss_first": 2.4971008723781956,
+  "ts2vec_loss_last": 1.0309693433584706,
+  "iforest_n_estimators": 200,
+  "feature_count": 23,
+  "relation": "q(K)=min(max(1,round(0.4*K)),floor(K/2))",
+  "q_by_k": {
+    "3": 1,
+    "5": 2,
+    "10": 4,
+    "20": 8,
+    "30": 12,
+    "50": 20
+  },
+  "calibrated_scores": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\innovation_sim\\r4.2_quota_retrained_scores.npz",
+  "metrics_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\innovation_sim\\r4.2_quota_retrain_metrics.csv",
+  "labels_used_for_model_fit": false,
+  "labels_used_for_retraining": false
+}

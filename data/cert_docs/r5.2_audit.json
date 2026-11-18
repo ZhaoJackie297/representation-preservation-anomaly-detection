@@ -1,0 +1,438 @@
+{
+  "files": {
+    "logon.csv": {
+      "rows": 1810070,
+      "columns": [
+        "id",
+        "date",
+        "user",
+        "pc",
+        "activity"
+      ],
+      "unique_users": 2000,
+      "unique_pcs": 2004,
+      "date_min": "2010-01-02",
+      "date_max": "2011-06-02",
+      "activities": {
+        "Logon": 995082,
+        "Logoff": 814988
+      },
+      "bad_rows": 0,
+      "blank_early_fields": {}
+    },
+    "device.csv": {
+      "rows": 836984,
+      "columns": [
+        "id",
+        "date",
+        "user",
+        "pc",
+        "file_tree",
+        "activity"
+      ],
+      "unique_users": 447,
+      "unique_pcs": 1920,
+      "date_min": "2010-01-02",
+      "date_max": "2011-06-01",
+      "activities": {
+        "Connect": 419734,
+        "Disconnect": 417250
+      },
+      "bad_rows": 0,
+      "blank_early_fields": {}
+    },
+    "file.csv": {
+      "rows": 887621,
+      "columns": [
+        "id",
+        "date",
+        "user",
+        "pc",
+        "filename",
+        "activity",
+        "to_removable_media",
+        "from_removable_media",
+        "content"
+      ],
+      "unique_users": 473,
+      "unique_pcs": 1897,
+      "date_min": "2010-01-02",
+      "date_max": "2011-06-01",
+      "activities": {
+        "File Open": 483655,
+        "File Write": 403966
+      },
+      "bad_rows": 0,
+      "blank_early_fields": {}
+    },
+    "email.csv": {
+      "rows": 17361575,
+      "columns": [
+        "id",
+        "date",
+        "user",
+        "pc",
+        "to",
+        "cc",
+        "bcc",
+        "from",
+        "activity",
+        "size",
+        "attachments",
+        "content"
+      ],
+      "unique_users": 2000,
+      "unique_pcs": 2000,
+      "date_min": "2010-01-02",
+      "date_max": "2011-06-02",
+      "activities": {
+        "Send": 5555187,
+        "Receive": 11806388
+      },
+      "bad_rows": 0,
+      "blank_early_fields": {}
+    },
+    "http.csv": {
+      "rows": 58960449,
+      "columns": [
+        "id",
+        "date",
+        "user",
+        "pc",
+        "url",
+        "content"
+      ],
+      "unique_users": 2000,
+      "unique_pcs": 2000,
+      "date_min": "2010-01-02",
+      "date_max": "2011-06-01",
+      "activities": {},
+      "bad_rows": 0,
+      "blank_early_fields": {}
+    }
+  },
+  "ldap": {
+    "files": {
+      "2009-12": {
+        "rows": 2000,
+        "unique_users": 2000,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-01": {
+        "rows": 2000,
+        "unique_users": 2000,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-02": {
+        "rows": 1987,
+        "unique_users": 1987,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-03": {
+        "rows": 1975,
+        "unique_users": 1975,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-04": {
+        "rows": 1964,
+        "unique_users": 1964,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-05": {
+        "rows": 1958,
+        "unique_users": 1958,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-06": {
+        "rows": 1940,
+        "unique_users": 1940,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-07": {
+        "rows": 1928,
+        "unique_users": 1928,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-08": {
+        "rows": 1911,
+        "unique_users": 1911,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-09": {
+        "rows": 1889,
+        "unique_users": 1889,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-10": {
+        "rows": 1876,
+        "unique_users": 1876,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-11": {
+        "rows": 1858,
+        "unique_users": 1858,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2010-12": {
+        "rows": 1837,
+        "unique_users": 1837,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2011-01": {
+        "rows": 1824,
+        "unique_users": 1824,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2011-02": {
+        "rows": 1807,
+        "unique_users": 1807,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2011-03": {
+        "rows": 1793,
+        "unique_users": 1793,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2011-04": {
+        "rows": 1778,
+        "unique_users": 1778,
+        "role_count": 48,
+        "department_count": 24
+      },
+      "2011-05": {
+        "rows": 1762,
+        "unique_users": 1762,
+        "role_count": 48,
+        "department_count": 24
+      }
+    },
+    "latest_month": "2011-05",
+    "fields": [
+      "business_unit",
+      "department",
+      "email",
+      "employee_name",
+      "functional_unit",
+      "projects",
+      "role",
+      "supervisor",
+      "team",
+      "user_id"
+    ],
+    "latest_users": 1762,
+    "latest_roles": {
+      "Technician": 280,
+      "ProductionLineWorker": 262,
+      "Salesman": 253,
+      "ElectricalEngineer": 78,
+      "AdministrativeAssistant": 71,
+      "Scientist": 61,
+      "ITAdmin": 60,
+      "Manager": 52,
+      "Mathematician": 51,
+      "MechanicalEngineer": 41,
+      "Physicist": 39,
+      "TestEngineer": 38,
+      "TechnicalWriter": 36,
+      "StockroomClerk": 35,
+      "SystemsEngineer": 32,
+      "HardwareEngineer": 30,
+      "SoftwareDeveloper": 28,
+      "SecurityGuard": 28,
+      "ComputerProgrammer": 27,
+      "WebDeveloper": 27,
+      "Director": 26,
+      "ComputerScientist": 24,
+      "SoftwareQualityEngineer": 23,
+      "Supervisor": 16,
+      "SoftwareEngineer": 15,
+      "MaterialsEngineer": 14,
+      "ChiefEngineer": 14,
+      "VicePresident": 12,
+      "LabManager": 11,
+      "HumanResourceSpecialist": 11,
+      "FieldServiceEngineer": 10,
+      "PurchasingClerk": 9,
+      "Engineer": 6,
+      "Statistician": 6,
+      "ProjectManager": 6,
+      "Accountant": 6,
+      "IndustrialEngineer": 4,
+      "Attorney": 4,
+      "HealthSafetyEngineer": 3,
+      "President": 2,
+      "AdministrativeStaff": 2,
+      "Nurse": 2,
+      "FinancialAnalyst": 2,
+      "TechnicalTrainer": 1,
+      "InstructionalCoordinator": 1,
+      "ChiefExecutiveOfficer": 1,
+      "QualityEngineer": 1,
+      "NursePractitioner": 1
+    },
+    "latest_business_units": {
+      "1 - Executive": 908,
+      "2 - Executive": 853,
+      "Unknown": 1
+    },
+    "latest_functional_units": {
+      "2 - ResearchAndEngineering": 648,
+      "5 - SalesAndMarketing": 562,
+      "3 - Manufacturing": 350,
+      "1 - Adminstration": 136,
+      "6 - PurchasingAndContracts": 35,
+      "4 - Finance": 27,
+      "Unknown": 4
+    },
+    "latest_departments": {
+      "3 - Assembly": 317,
+      "3 - FieldService": 282,
+      "4 - Engineering": 271,
+      "2 - Sales": 269,
+      "3 - SoftwareManagement": 198,
+      "2 - Research": 166,
+      "6 - Security": 98,
+      "Unknown": 26,
+      "2 - ManufacturingEngineering": 14,
+      "3 - Contracts": 12,
+      "1 - Purchasing": 11,
+      "1 - Personnel": 11,
+      "1 - ProjectManagement": 9,
+      "2 - EmployeeRelations": 8,
+      "1 - MarketAnalysis": 8,
+      "2 - Payroll": 8,
+      "4 - QualityControl": 8,
+      "1 - Accounting": 8,
+      "2 - Pricing": 8,
+      "3 - FinancialPlanning": 7,
+      "1 - IndustrialEngineering": 7,
+      "3 - Training": 6,
+      "5 - Medical": 5,
+      "4 - Safety": 5
+    },
+    "latest_teams": {
+      "Unknown": 196,
+      "3 - RegionalFieldService": 59,
+      "4 - RegionalFieldService": 57,
+      "5 - AssemblyDept": 56,
+      "4 - AssemblyDept": 56,
+      "5 - RegionalFieldService": 56,
+      "2 - AssemblyDept": 55,
+      "2 - RegionalSales": 55,
+      "1 - RegionalSales": 54,
+      "1 - RegionalFieldService": 54,
+      "3 - RegionalSales": 54,
+      "2 - RegionalFieldService": 52,
+      "5 - RegionalSales": 52,
+      "4 - RegionalSales": 50,
+      "5 - SystemsEngineering": 41,
+      "7 - SystemsEngineering": 40,
+      "1 - Publications": 40,
+      "6 - TestAndEvalualtion": 38,
+      "8 - TestAndEvalualtion": 37,
+      "3 - ElectronicSecurity": 35,
+      "3 - Lab": 31,
+      "1 - Lab": 30,
+      "1 - BuildingSecurity": 30,
+      "3 - EmbeddedSoftware": 29,
+      "4 - WebSoftware": 29,
+      "6 - AssemblyDept": 29,
+      "2 - ElectronicSecurity": 29,
+      "2 - DesktopSoftware": 28,
+      "5 - Lab": 28,
+      "5 - DesktopSoftware": 28,
+      "6 - EmbeddedSoftware": 28,
+      "3 - ElectricalEngineering": 27,
+      "4 - Lab": 27,
+      "2 - MechanicalEngineering": 27,
+      "2 - Lab": 27,
+      "1 - SQA": 26,
+      "1 - AssemblyDept": 26,
+      "3 - AssemblyDept": 26,
+      "7 - AssemblyDept": 25,
+      "7 - WebSoftware": 24,
+      "1 - Stockroom": 19,
+      "3 - Stockroom": 18,
+      "4 - MaterialsEngineering": 18,
+      "6 - Lab": 15,
+      "8 - AssemblyDept": 1
+    },
+    "latest_supervisors": 141,
+    "missing_latest": {
+      "employee_name": 0,
+      "user_id": 0,
+      "email": 0,
+      "role": 0,
+      "projects": 1403,
+      "business_unit": 1,
+      "functional_unit": 4,
+      "department": 26,
+      "team": 196,
+      "supervisor": 1
+    }
+  },
+  "psychometric": {
+    "rows": 2000,
+    "unique_users": 2000,
+    "columns": [
+      "employee_name",
+      "user_id",
+      "O",
+      "C",
+      "E",
+      "A",
+      "N"
+    ],
+    "missing": {
+      "employee_name": 0,
+      "user_id": 0,
+      "O": 0,
+      "C": 0,
+      "E": 0,
+      "A": 0,
+      "N": 0
+    }
+  },
+  "answers": {
+    "rows": 99,
+    "scenario_counts": {
+      "1": 29,
+      "2": 30,
+      "3": 10,
+      "4": 30
+    },
+    "unique_insiders": 99,
+    "unique_observed_accounts": 99,
+    "malicious_account_days": 1307,
+    "missing_insider_from_observed_accounts": [],
+    "start_min": "2010-04-16 12:32:57",
+    "start_max": "2011-05-12 07:49:54",
+    "end_min": "2010-06-18 20:22:06",
+    "end_max": "2011-05-19 08:48:32",
+    "first_observed_event_min": "2010-04-16 12:32:57",
+    "last_observed_event_max": "2011-05-19 08:48:32",
+    "detail_events_total": 10328,
+    "detail_events_min": 6,
+    "detail_events_median": 89,
+    "detail_events_max": 327,
+    "duration_days_min": 0.03270833333333333,
+    "duration_days_median": 49.348310185185184,
+    "duration_days_max": 159.868125
+  }
+}

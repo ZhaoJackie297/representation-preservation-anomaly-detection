@@ -1,0 +1,2 @@
+variant_id,knn_overlap_mean,local_distance_spearman_mean,effective_rank_mean,mean_norm_mean,validation_pr_auc,test_pr_auc,validation_roc_auc,test_roc_auc,test_incident_hits_k10
+T4_minus_T3,-0.002533333333333332,-0.010019488274182253,-0.3210080548080576,-0.023173053877374006,-0.0001956776952026021,-5.4538367023666476e-05,-0.0014674161155221466,-0.0005388018312979526,0.0

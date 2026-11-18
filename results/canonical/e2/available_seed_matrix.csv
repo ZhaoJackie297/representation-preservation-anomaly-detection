@@ -1,0 +1,13 @@
+method_id,n_seeds,seeds
+T0_T0_global_z,3,"20261116,20261117,20261118"
+T0_T0_user_tail,3,"20261116,20261117,20261118"
+T1_T1_global_z,3,"20261116,20261117,20261118"
+T1_T1_user_tail,3,"20261116,20261117,20261118"
+T2_tau1.5_T2_tau1.5_global_z,3,"20261116,20261117,20261118"
+T2_tau1.5_T2_tau1.5_user_tail,3,"20261116,20261117,20261118"
+T2_tau3_T2_tau3_global_z,1,20261116
+T2_tau3_T2_tau3_user_tail,1,20261116
+T2_tau4_T2_tau4_global_z,1,20261116
+T2_tau4_T2_tau4_user_tail,1,20261116
+T2_tau8_T2_tau8_global_z,1,20261116
+T2_tau8_T2_tau8_user_tail,1,20261116

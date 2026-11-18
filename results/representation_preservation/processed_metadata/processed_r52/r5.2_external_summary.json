@@ -1,0 +1,37 @@
+{
+  "dataset_version": "5.2",
+  "evaluation_design": "One-shot external replication after a globally clean pre-incident cutoff; no validation or test-based selection.",
+  "train_end_date": "2010-04-15",
+  "external_test_start": "2010-04-16",
+  "external_test_end": "2011-06-02",
+  "external_incident_count": 99,
+  "training_malicious_account_days": 0,
+  "external_malicious_account_days": 1307,
+  "primary_k": 10,
+  "cooldown_days": 7,
+  "report_k": [
+    5,
+    10,
+    20
+  ],
+  "event_anchor": "First official malicious log date; not the answer-file scenario metadata start.",
+  "pre_event_contact_days": 6,
+  "methods": {
+    "ts2vec": "personal training quantile + dynamic risk",
+    "robust_zscore": "global robust calibration + dynamic risk",
+    "isolation_forest": "personal training quantile + dynamic risk",
+    "group_baseline": "training calibration + raw score"
+  },
+  "peer_level_rows": {
+    "1": 970310,
+    "2": 1381,
+    "3": 1561
+  },
+  "iforest_training_rows": 203110,
+  "labels_used_for_model_fit": false,
+  "labels_used_for_calibration": false,
+  "external_test_used_for_selection": false,
+  "alerts_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_external_alerts.csv",
+  "hits_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_external_hits.csv",
+  "results_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_external_results.json"
+}

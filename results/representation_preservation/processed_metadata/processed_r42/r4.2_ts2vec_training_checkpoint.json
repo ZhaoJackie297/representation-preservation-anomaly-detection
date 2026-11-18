@@ -1,0 +1,11 @@
+{
+  "loss_first": 2.635291,
+  "loss_last": 0.998444,
+  "epochs": 10,
+  "training_shape": [
+    1000,
+    159,
+    27
+  ],
+  "note": "Values captured from the completed training run before the process exited during encoding."
+}

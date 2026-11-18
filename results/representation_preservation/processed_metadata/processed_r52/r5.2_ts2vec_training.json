@@ -1,0 +1,49 @@
+{
+  "dataset_version": "5.2",
+  "model_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_ts2vec_model.pth",
+  "score_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_ts2vec_daily_errors.csv",
+  "input_shape": [
+    2000,
+    517,
+    27
+  ],
+  "training_shape": [
+    2000,
+    104,
+    27
+  ],
+  "representation_shape": [
+    2000,
+    517,
+    64
+  ],
+  "train_end_index": 103,
+  "train_end_date": "2010-04-15",
+  "external_test_start_index": 104,
+  "external_test_start_date": "2010-04-16",
+  "external_test_end_index": 516,
+  "external_test_end_date": "2011-06-02",
+  "loss_first": 2.2899025068283083,
+  "loss_last": 0.7321916353702546,
+  "active_training_days": 203110,
+  "active_scored_rows": 973252,
+  "score_split_counts": {
+    "external_test": 770142,
+    "train": 203110
+  },
+  "label_rows_in_scores": 1307,
+  "causal_test_cutoff_index": 104,
+  "causal_future_perturbation_max_diff": 0.0,
+  "labels_used_in_training": false,
+  "labels_used_in_calibration": false,
+  "external_test_used_for_model_selection": false,
+  "model_config": {
+    "output_dims": 64,
+    "hidden_dims": 64,
+    "depth": 5,
+    "batch_size": 16,
+    "epochs": 10,
+    "sliding_padding": 30,
+    "random_seed": 20261109
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "result_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r42\\r4.2_topk_trend.csv",
+  "methods": [
+    "ts2vec_raw",
+    "ts2vec_dynamic",
+    "zscore_raw",
+    "zscore_dynamic"
+  ],
+  "k_values": [
+    1,
+    2,
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "risk_parameters": {
+    "window_days": 7,
+    "decay": 0.65,
+    "threshold": 3.0,
+    "severity_weight": 0.7,
+    "memory_weight": 0.2,
+    "frequency_weight": 0.1
+  },
+  "split_incidents": {
+    "test": 24,
+    "validation": 46,
+    "validation_plus_test": 70
+  },
+  "labels_used_for_parameters": false
+}

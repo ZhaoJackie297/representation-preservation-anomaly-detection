@@ -1,0 +1,867 @@
+{
+  "purpose": "Post-hoc external sensitivity for the r4.2-validation multiscale and dynamic-risk configuration.",
+  "selected_static_combination": "point_context",
+  "selected_dynamic_weights": [
+    0.4,
+    0.3,
+    0.3,
+    0.0
+  ],
+  "warning_levels": {
+    "level_1": {
+      "threshold": 0.3489626944065094,
+      "alerted_account_days": 36253,
+      "alerts_per_day": 87.77966101694915,
+      "precision": 0.00882685570849309,
+      "recall": 0.24483550114766642,
+      "f1": 0.01703940362087327,
+      "false_positive_rate": 0.046736946158798705,
+      "events_contacted": 69,
+      "events_total": 99,
+      "event_coverage": 0.696969696969697,
+      "pre_event_contacts": 40,
+      "median_lead_days_among_hits": 1.0
+    },
+    "level_2": {
+      "threshold": 0.41571691632270813,
+      "alerted_account_days": 14072,
+      "alerts_per_day": 34.0726392251816,
+      "precision": 0.01435474701534963,
+      "recall": 0.1545524100994644,
+      "f1": 0.026269588399765915,
+      "false_positive_rate": 0.018040281724947486,
+      "events_contacted": 54,
+      "events_total": 99,
+      "event_coverage": 0.5454545454545454,
+      "pre_event_contacts": 30,
+      "median_lead_days_among_hits": 1.0
+    },
+    "level_3": {
+      "threshold": 0.46929168701171875,
+      "alerted_account_days": 7216,
+      "alerts_per_day": 17.47215496368039,
+      "precision": 0.020232815964523282,
+      "recall": 0.1117061973986228,
+      "f1": 0.03426023700574915,
+      "false_positive_rate": 0.009195731203704306,
+      "events_contacted": 44,
+      "events_total": 99,
+      "event_coverage": 0.4444444444444444,
+      "pre_event_contacts": 26,
+      "median_lead_days_among_hits": 1.5
+    }
+  },
+  "warning_per_event": {
+    "5.2:4:OHS0036:r5.2-4-OHS0036": {
+      "level_1": {
+        "contact_date": "2010-04-13",
+        "lead_days": 3
+      }
+    },
+    "5.2:3:MPF0690:r5.2-3-MPF0690": {
+      "level_1": {
+        "contact_date": "2010-06-16",
+        "lead_days": 1
+      },
+      "level_2": {
+        "contact_date": "2010-06-16",
+        "lead_days": 1
+      },
+      "level_3": {
+        "contact_date": "2010-06-17",
+        "lead_days": 0
+      }
+    },
+    "5.2:2:CKP0630:r5.2-2-CKP0630": {
+      "level_1": {
+        "contact_date": "2010-06-24",
+        "lead_days": 4
+      },
+      "level_2": {
+        "contact_date": "2010-06-24",
+        "lead_days": 4
+      },
+      "level_3": {
+        "contact_date": "2010-06-24",
+        "lead_days": 4
+      }
+    },
+    "5.2:2:ZIE0741:r5.2-2-ZIE0741": {
+      "level_1": {
+        "contact_date": "2010-07-01",
+        "lead_days": -2
+      }
+    },
+    "5.2:1:KEW0198:r5.2-1-KEW0198": {
+      "level_1": {
+        "contact_date": "2010-07-01",
+        "lead_days": 6
+      },
+      "level_2": {
+        "contact_date": "2010-07-01",
+        "lead_days": 6
+      },
+      "level_3": {
+        "contact_date": "2010-07-01",
+        "lead_days": 6
+      }
+    },
+    "5.2:1:DAS1320:r5.2-1-DAS1320": {
+      "level_1": {
+        "contact_date": "2010-07-09",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2010-07-09",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2010-07-09",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:EPG1196:r5.2-1-EPG1196": {
+      "level_1": {
+        "contact_date": "2010-07-09",
+        "lead_days": 6
+      },
+      "level_2": {
+        "contact_date": "2010-07-09",
+        "lead_days": 6
+      },
+      "level_3": {
+        "contact_date": "2010-07-09",
+        "lead_days": 6
+      }
+    },
+    "5.2:3:CRD0272:r5.2-3-CRD0272": {
+      "level_1": {
+        "contact_date": "2010-07-15",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:GFM1815:r5.2-1-GFM1815": {
+      "level_1": {
+        "contact_date": "2010-07-13",
+        "lead_days": 3
+      },
+      "level_2": {
+        "contact_date": "2010-07-14",
+        "lead_days": 2
+      },
+      "level_3": {
+        "contact_date": "2010-07-14",
+        "lead_days": 2
+      }
+    },
+    "5.2:1:KBC1390:r5.2-1-KBC1390": {
+      "level_1": {
+        "contact_date": "2010-07-14",
+        "lead_days": 2
+      },
+      "level_2": {
+        "contact_date": "2010-07-14",
+        "lead_days": 2
+      },
+      "level_3": {
+        "contact_date": "2010-07-14",
+        "lead_days": 2
+      }
+    },
+    "5.2:1:SAF1942:r5.2-1-SAF1942": {
+      "level_1": {
+        "contact_date": "2010-07-20",
+        "lead_days": 1
+      },
+      "level_2": {
+        "contact_date": "2010-07-20",
+        "lead_days": 1
+      },
+      "level_3": {
+        "contact_date": "2010-07-20",
+        "lead_days": 1
+      }
+    },
+    "5.2:1:PBC0077:r5.2-1-PBC0077": {
+      "level_1": {
+        "contact_date": "2010-07-20",
+        "lead_days": 2
+      },
+      "level_2": {
+        "contact_date": "2010-07-20",
+        "lead_days": 2
+      },
+      "level_3": {
+        "contact_date": "2010-07-20",
+        "lead_days": 2
+      }
+    },
+    "5.2:2:OSS1463:r5.2-2-OSS1463": {
+      "level_1": {
+        "contact_date": "2010-07-28",
+        "lead_days": -2
+      },
+      "level_2": {
+        "contact_date": "2010-07-28",
+        "lead_days": -2
+      }
+    },
+    "5.2:4:OFS0030:r5.2-4-OFS0030": {
+      "level_1": {
+        "contact_date": "2010-07-22",
+        "lead_days": 4
+      },
+      "level_2": {
+        "contact_date": "2010-07-22",
+        "lead_days": 4
+      }
+    },
+    "5.2:4:RCG0584:r5.2-4-RCG0584": {
+      "level_1": {
+        "contact_date": "2010-07-30",
+        "lead_days": 4
+      },
+      "level_2": {
+        "contact_date": "2010-07-30",
+        "lead_days": 4
+      },
+      "level_3": {
+        "contact_date": "2010-07-30",
+        "lead_days": 4
+      }
+    },
+    "5.2:3:VRP0267:r5.2-3-VRP0267": {
+      "level_1": {
+        "contact_date": "2010-08-05",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2010-08-05",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2010-08-05",
+        "lead_days": 0
+      }
+    },
+    "5.2:2:MCP0611:r5.2-2-MCP0611": {
+      "level_1": {
+        "contact_date": "2010-08-09",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2010-08-09",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2010-08-10",
+        "lead_days": -1
+      }
+    },
+    "5.2:4:MJR0711:r5.2-4-MJR0711": {
+      "level_1": {
+        "contact_date": "2010-08-11",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:ALT1465:r5.2-1-ALT1465": {
+      "level_1": {
+        "contact_date": "2010-08-11",
+        "lead_days": 2
+      },
+      "level_2": {
+        "contact_date": "2010-08-11",
+        "lead_days": 2
+      },
+      "level_3": {
+        "contact_date": "2010-08-11",
+        "lead_days": 2
+      }
+    },
+    "5.2:2:KSS1005:r5.2-2-KSS1005": {
+      "level_1": {
+        "contact_date": "2010-08-16",
+        "lead_days": 2
+      }
+    },
+    "5.2:4:WCW1013:r5.2-4-WCW1013": {
+      "level_1": {
+        "contact_date": "2010-08-25",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2010-08-25",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2010-08-25",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:SLL0193:r5.2-1-SLL0193": {
+      "level_1": {
+        "contact_date": "2010-08-27",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2010-08-27",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2010-08-27",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:IHC0561:r5.2-1-IHC0561": {
+      "level_1": {
+        "contact_date": "2010-08-27",
+        "lead_days": 6
+      },
+      "level_2": {
+        "contact_date": "2010-08-27",
+        "lead_days": 6
+      },
+      "level_3": {
+        "contact_date": "2010-08-27",
+        "lead_days": 6
+      }
+    },
+    "5.2:1:JKB0287:r5.2-1-JKB0287": {
+      "level_1": {
+        "contact_date": "2010-09-08",
+        "lead_days": 1
+      },
+      "level_2": {
+        "contact_date": "2010-09-08",
+        "lead_days": 1
+      },
+      "level_3": {
+        "contact_date": "2010-09-08",
+        "lead_days": 1
+      }
+    },
+    "5.2:4:DIM0330:r5.2-4-DIM0330": {
+      "level_1": {
+        "contact_date": "2010-09-09",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2010-09-09",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2010-09-09",
+        "lead_days": 0
+      }
+    },
+    "5.2:2:NAH1366:r5.2-2-NAH1366": {
+      "level_1": {
+        "contact_date": "2010-09-21",
+        "lead_days": -1
+      },
+      "level_2": {
+        "contact_date": "2010-09-21",
+        "lead_days": -1
+      }
+    },
+    "5.2:1:DNJ0740:r5.2-1-DNJ0740": {
+      "level_1": {
+        "contact_date": "2010-10-04",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:MIB0203:r5.2-1-MIB0203": {
+      "level_1": {
+        "contact_date": "2010-10-08",
+        "lead_days": 5
+      },
+      "level_2": {
+        "contact_date": "2010-10-08",
+        "lead_days": 5
+      }
+    },
+    "5.2:1:REF1924:r5.2-1-REF1924": {
+      "level_1": {
+        "contact_date": "2010-10-08",
+        "lead_days": 6
+      },
+      "level_2": {
+        "contact_date": "2010-10-13",
+        "lead_days": 1
+      }
+    },
+    "5.2:3:ELM1123:r5.2-3-ELM1123": {
+      "level_1": {
+        "contact_date": "2010-10-14",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2010-10-15",
+        "lead_days": -1
+      }
+    },
+    "5.2:4:CBW1826:r5.2-4-CBW1826": {
+      "level_1": {
+        "contact_date": "2010-10-08",
+        "lead_days": 6
+      },
+      "level_2": {
+        "contact_date": "2010-10-08",
+        "lead_days": 6
+      },
+      "level_3": {
+        "contact_date": "2010-10-08",
+        "lead_days": 6
+      }
+    },
+    "5.2:1:AYG1697:r5.2-1-AYG1697": {
+      "level_1": {
+        "contact_date": "2010-10-21",
+        "lead_days": 4
+      }
+    },
+    "5.2:1:ISW0738:r5.2-1-ISW0738": {
+      "level_1": {
+        "contact_date": "2010-10-21",
+        "lead_days": 6
+      },
+      "level_2": {
+        "contact_date": "2010-10-25",
+        "lead_days": 2
+      },
+      "level_3": {
+        "contact_date": "2010-10-25",
+        "lead_days": 2
+      }
+    },
+    "5.2:4:NKN1405:r5.2-4-NKN1405": {
+      "level_1": {
+        "contact_date": "2010-11-01",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2010-11-01",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2010-11-01",
+        "lead_days": 0
+      }
+    },
+    "5.2:4:JCC0016:r5.2-4-JCC0016": {
+      "level_1": {
+        "contact_date": "2010-11-01",
+        "lead_days": 1
+      }
+    },
+    "5.2:3:GKW0043:r5.2-3-GKW0043": {
+      "level_1": {
+        "contact_date": "2010-11-01",
+        "lead_days": 3
+      },
+      "level_2": {
+        "contact_date": "2010-11-04",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2010-11-04",
+        "lead_days": 0
+      }
+    },
+    "5.2:4:BDP0096:r5.2-4-BDP0096": {
+      "level_1": {
+        "contact_date": "2010-11-11",
+        "lead_days": 4
+      },
+      "level_2": {
+        "contact_date": "2010-11-11",
+        "lead_days": 4
+      },
+      "level_3": {
+        "contact_date": "2010-11-11",
+        "lead_days": 4
+      }
+    },
+    "5.2:3:ACA1126:r5.2-3-ACA1126": {
+      "level_1": {
+        "contact_date": "2010-12-02",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:FZG0389:r5.2-1-FZG0389": {
+      "level_1": {
+        "contact_date": "2010-12-07",
+        "lead_days": 3
+      },
+      "level_2": {
+        "contact_date": "2010-12-07",
+        "lead_days": 3
+      },
+      "level_3": {
+        "contact_date": "2010-12-07",
+        "lead_days": 3
+      }
+    },
+    "5.2:2:ITA0159:r5.2-2-ITA0159": {
+      "level_1": {
+        "contact_date": "2010-12-16",
+        "lead_days": 4
+      },
+      "level_2": {
+        "contact_date": "2010-12-16",
+        "lead_days": 4
+      },
+      "level_3": {
+        "contact_date": "2010-12-16",
+        "lead_days": 4
+      }
+    },
+    "5.2:4:KDC0996:r5.2-4-KDC0996": {
+      "level_1": {
+        "contact_date": "2010-12-16",
+        "lead_days": 5
+      }
+    },
+    "5.2:4:MTP1582:r5.2-4-MTP1582": {
+      "level_1": {
+        "contact_date": "2010-12-21",
+        "lead_days": 0
+      }
+    },
+    "5.2:4:WOS1834:r5.2-4-WOS1834": {
+      "level_1": {
+        "contact_date": "2010-12-29",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2010-12-29",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2010-12-29",
+        "lead_days": 0
+      }
+    },
+    "5.2:4:JIG1593:r5.2-4-JIG1593": {
+      "level_1": {
+        "contact_date": "2011-01-07",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2011-01-07",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2011-01-07",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:ZKP0542:r5.2-1-ZKP0542": {
+      "level_1": {
+        "contact_date": "2011-01-11",
+        "lead_days": 1
+      },
+      "level_2": {
+        "contact_date": "2011-01-11",
+        "lead_days": 1
+      },
+      "level_3": {
+        "contact_date": "2011-01-11",
+        "lead_days": 1
+      }
+    },
+    "5.2:4:JMM0613:r5.2-4-JMM0613": {
+      "level_1": {
+        "contact_date": "2011-01-12",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2011-01-12",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2011-01-12",
+        "lead_days": 0
+      }
+    },
+    "5.2:4:ASH0298:r5.2-4-ASH0298": {
+      "level_1": {
+        "contact_date": "2011-01-25",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:PTH0005:r5.2-1-PTH0005": {
+      "level_1": {
+        "contact_date": "2011-01-28",
+        "lead_days": 3
+      },
+      "level_2": {
+        "contact_date": "2011-01-28",
+        "lead_days": 3
+      },
+      "level_3": {
+        "contact_date": "2011-01-28",
+        "lead_days": 3
+      }
+    },
+    "5.2:1:ALW0764:r5.2-1-ALW0764": {
+      "level_1": {
+        "contact_date": "2011-01-31",
+        "lead_days": 3
+      },
+      "level_2": {
+        "contact_date": "2011-01-31",
+        "lead_days": 3
+      },
+      "level_3": {
+        "contact_date": "2011-01-31",
+        "lead_days": 3
+      }
+    },
+    "5.2:1:ELT1370:r5.2-1-ELT1370": {
+      "level_1": {
+        "contact_date": "2011-02-01",
+        "lead_days": 2
+      }
+    },
+    "5.2:4:GCD0194:r5.2-4-GCD0194": {
+      "level_1": {
+        "contact_date": "2011-02-03",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2011-02-03",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:NIV1608:r5.2-1-NIV1608": {
+      "level_1": {
+        "contact_date": "2011-02-03",
+        "lead_days": 2
+      },
+      "level_2": {
+        "contact_date": "2011-02-03",
+        "lead_days": 2
+      },
+      "level_3": {
+        "contact_date": "2011-02-03",
+        "lead_days": 2
+      }
+    },
+    "5.2:3:KCM0466:r5.2-3-KCM0466": {
+      "level_1": {
+        "contact_date": "2011-02-10",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2011-02-10",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2011-02-10",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:JUP1472:r5.2-1-JUP1472": {
+      "level_1": {
+        "contact_date": "2011-02-10",
+        "lead_days": 1
+      },
+      "level_2": {
+        "contact_date": "2011-02-10",
+        "lead_days": 1
+      },
+      "level_3": {
+        "contact_date": "2011-02-10",
+        "lead_days": 1
+      }
+    },
+    "5.2:1:WHB1247:r5.2-1-WHB1247": {
+      "level_1": {
+        "contact_date": "2011-02-14",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2011-02-14",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2011-02-14",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:TMC0934:r5.2-1-TMC0934": {
+      "level_1": {
+        "contact_date": "2011-02-14",
+        "lead_days": 3
+      },
+      "level_2": {
+        "contact_date": "2011-02-14",
+        "lead_days": 3
+      },
+      "level_3": {
+        "contact_date": "2011-02-14",
+        "lead_days": 3
+      }
+    },
+    "5.2:4:JNR1592:r5.2-4-JNR1592": {
+      "level_1": {
+        "contact_date": "2011-02-18",
+        "lead_days": 3
+      },
+      "level_2": {
+        "contact_date": "2011-02-18",
+        "lead_days": 3
+      },
+      "level_3": {
+        "contact_date": "2011-02-18",
+        "lead_days": 3
+      }
+    },
+    "5.2:4:NKM1738:r5.2-4-NKM1738": {
+      "level_1": {
+        "contact_date": "2011-02-17",
+        "lead_days": 6
+      }
+    },
+    "5.2:4:ASH0458:r5.2-4-ASH0458": {
+      "level_1": {
+        "contact_date": "2011-02-25",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2011-02-25",
+        "lead_days": 0
+      }
+    },
+    "5.2:2:OKM1092:r5.2-2-OKM1092": {
+      "level_1": {
+        "contact_date": "2011-03-04",
+        "lead_days": -2
+      }
+    },
+    "5.2:1:WSK1857:r5.2-1-WSK1857": {
+      "level_1": {
+        "contact_date": "2011-03-02",
+        "lead_days": 2
+      },
+      "level_2": {
+        "contact_date": "2011-03-02",
+        "lead_days": 2
+      },
+      "level_3": {
+        "contact_date": "2011-03-02",
+        "lead_days": 2
+      }
+    },
+    "5.2:4:CGF1056:r5.2-4-CGF1056": {
+      "level_1": {
+        "contact_date": "2011-03-11",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2011-03-11",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2011-03-11",
+        "lead_days": 0
+      }
+    },
+    "5.2:2:TMT0851:r5.2-2-TMT0851": {
+      "level_1": {
+        "contact_date": "2011-03-08",
+        "lead_days": 6
+      },
+      "level_2": {
+        "contact_date": "2011-03-08",
+        "lead_days": 6
+      },
+      "level_3": {
+        "contact_date": "2011-03-08",
+        "lead_days": 6
+      }
+    },
+    "5.2:1:ETW0002:r5.2-1-ETW0002": {
+      "level_1": {
+        "contact_date": "2011-03-12",
+        "lead_days": 5
+      },
+      "level_2": {
+        "contact_date": "2011-03-15",
+        "lead_days": 2
+      },
+      "level_3": {
+        "contact_date": "2011-03-15",
+        "lead_days": 2
+      }
+    },
+    "5.2:1:WWW0701:r5.2-1-WWW0701": {
+      "level_1": {
+        "contact_date": "2011-03-23",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2011-03-23",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2011-03-23",
+        "lead_days": 0
+      }
+    },
+    "5.2:3:ZEH0685:r5.2-3-ZEH0685": {
+      "level_1": {
+        "contact_date": "2011-03-25",
+        "lead_days": 6
+      },
+      "level_2": {
+        "contact_date": "2011-03-31",
+        "lead_days": 0
+      }
+    },
+    "5.2:1:VAH1292:r5.2-1-VAH1292": {
+      "level_1": {
+        "contact_date": "2011-04-26",
+        "lead_days": 3
+      },
+      "level_2": {
+        "contact_date": "2011-04-29",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2011-04-29",
+        "lead_days": 0
+      }
+    },
+    "5.2:3:LAH0463:r5.2-3-LAH0463": {
+      "level_1": {
+        "contact_date": "2011-05-05",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2011-05-05",
+        "lead_days": 0
+      },
+      "level_3": {
+        "contact_date": "2011-05-05",
+        "lead_days": 0
+      }
+    },
+    "5.2:3:CWW1120:r5.2-3-CWW1120": {
+      "level_1": {
+        "contact_date": "2011-05-12",
+        "lead_days": 0
+      },
+      "level_2": {
+        "contact_date": "2011-05-12",
+        "lead_days": 0
+      }
+    }
+  },
+  "test_used_for_selection": false,
+  "confirmatory": false,
+  "results_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_frozen_multiscale_results.json",
+  "risk_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_frozen_multiscale_risk.npz",
+  "evidence_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_frozen_multiscale_alert_evidence.csv"
+}

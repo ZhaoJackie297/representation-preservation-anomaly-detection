@@ -1,0 +1,34 @@
+{
+  "purpose": "Post-hoc external sensitivity for the configurations selected on r4.2 validation. r5.2 has already been used for evaluation and is not a fresh confirmatory holdout.",
+  "selected_configurations": {
+    "ts2vec": "ts2vec_depth3",
+    "isolation_forest": "iforest_100_auto",
+    "variant": "personal_quantile_dynamic",
+    "selected_on": "r4.2 validation only"
+  },
+  "primary_k": 10,
+  "cooldown_days": 7,
+  "report_k": [
+    5,
+    10,
+    20
+  ],
+  "ts2vec_seeds": [
+    20261109,
+    20261110
+  ],
+  "iforest_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "results_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\tuning_v1\\r5.2_tuned_sensitivity_results.json",
+  "base_result_file": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\work\\cert\\processed_r52\\r5.2_external_results.json"
+}

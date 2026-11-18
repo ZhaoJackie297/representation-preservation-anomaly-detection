@@ -1,8 +1,8 @@
 # CLUE-LDS 数据与 Phase 0 结果
 
-日期：2026-11-18。
+日期：2026-11-18
 
-状态：数据访问、哈希、Schema、用户日、异常注入、画像图和真实覆盖 smoke 已通过；完整训练与论文结论尚未完成。
+状态：数据访问、哈希、全量 Schema、24-pair 半合成账号劫持、用户日、画像/关系图、10-seed 覆盖和训练单步 smoke 已通过。完整 A0/A1 训练入口、训练期内部合成异常验证、CLUE 两 seed pilot 和外部模型矩阵尚未开始。
 
 ## 1. 下载与校验
 
@@ -45,13 +45,17 @@
 
 Schema smoke 和全量扫描均无解析错误。
 
-## 3. 固定账号劫持标签
+## 3. 半合成账号劫持协议
 
-协议：
+原始 CLUE-LDS 只有正常行为。标签由本项目基于官方切换算法实现、用固定 seed 构造，不是官方恶意标签，也不是真实攻击记录。
+
+冻结协议：
 
 ```text
-seed=20261116
-pairs=20
+label_seed=20261101
+training_seeds=20261116..20261125
+pairs=24
+events=48
 min_similarity=0.1
 max_similarity=0.6
 switch_window=2022-03-01..2022-08-30
@@ -63,19 +67,68 @@ min_profile_days=20
 
 结果：
 
-- 40 个受影响用户级事件；
-- 20 个用户对；
-- 切换日期 2022-03-01 至 2022-05-25；
-- 相似度范围 0.1716–0.5903；
-- 40 个目标用户都在训练期有活跃记录，避免“无画像的新用户异常”。
+- 24 个用户对；
+- 48 个用户级事件；
+- 切换日期 2022-03-03 至 2022-07-25；
+- 标签相似度 0.2109–0.5961；
+- 48 个目标用户都在训练期有活动，避免“无画像的新用户异常”。
 
-标签 SHA-256：
+标签文件：
 
 ```text
-51B507859ECEDC9B61F39079D553C3CEF5B246D78850E842AEC30F789320575A
+hijack_labels_24pairs_20261101.csv
+bytes=5,526
+SHA-256=2441744DED393381C9B42D3E1EFB53B11137810D8F94611FCF76BC0C67D248CA
 ```
 
-## 4. 用户日数据
+20-pair/40-event 文件只保留为开发历史，不进入最终确认统计。
+
+## 4. 5,389 到 838 用户筛选
+
+规则在任何模型结果可见前冻结：
+
+1. 只保留 `uidType=name`；
+2. 所有 48 个注入目标用户必须保留；
+3. 其他用户至少在训练期出现一次；
+4. 非目标用户按训练期事件数降序；
+5. 最多保留 1,000 用户；
+6. 实际只有 838 个 `name` 用户满足训练期活动条件；
+7. 任一注入目标用户训练期全空则整体失败；
+8. 不回填全空目标用户，不使用评价期检测结果或异常标签。
+
+## 5. 标签距离与画像距离独立性
+
+pair 选择距离：
+
+```text
+0.7 * action Jaccard
++ 0.3 * average-events-per-active-day ratio
+```
+
+画像关系使用：
+
+```text
+52 维用户日特征的 median/q90 + active fraction
+训练用户中位数/IQR 标准化
+标准化欧氏距离 + Gaussian kernel
+```
+
+两者不是同一个距离。正式审计对 24 个 pair 计算：
+
+```text
+Spearman(label similarity, profile affinity) = -0.1991304347826087
+abs(rho) = 0.1991304347826087 < 0.5
+status = PASS_DISTANCES_DISTINCT
+```
+
+因此当前 pair 选择没有触发预注册的“高相关”失败条件，不需要重新生成标签。该审计不使用模型结果。
+
+复现文件：
+
+- `research/ccf-b/clue_lds/audit_label_prior_independence.py`
+- `research/ccf-b/clue_lds/label_prior_independence_20261118.json`
+
+## 6. 用户日数据
 
 处理后：
 
@@ -84,36 +137,39 @@ users=838
 dates=1,911
 features=52
 active_user_days=71,877
-events=40
-```
-
-切分：
-
-```text
-train: 2017-07-07..2022-02-28
-eval:  2022-03-01..2022-09-29
-```
-
-40 个事件全部有评价期活动；没有目标用户在训练期无活动。
-
-数据集 SHA-256：
-
-```text
-F72B97560DFF921AFC82299E14D73372945F165E3B5FB0EF63B6096FCC390B93
+events=48
+train=2017-07-07..2022-02-28
+eval=2022-03-01..2022-09-29
 ```
 
 特征为 49 类事件计数、总事件数、事件类型数和外部 IP 事件数。
 
-## 5. 画像先验
+最终数据集：
 
-- 画像维度：105；
-- 每用户使用训练期 median、q90 和活跃比例；
+```text
+clue_user_day_dataset.npz
+bytes=1,559,876
+SHA-256=E503014FDD5E9BE9D57908D1DC267C74425BC8185E26D9259AF6B0F52615E571
+```
+
+元数据：
+
+```text
+clue_user_day_metadata.json
+bytes=57,077
+SHA-256=E272E7A51DF9603D441F4F05CF6A38E84F75EE847D0C3AC0C779939A1FA63D3E
+```
+
+## 7. 画像先验与平坦性
+
+- 画像维度：105（52 个 median、52 个 q90、1 个活跃比例）；
+- 每用户只使用训练期数据；
 - 训练用户中位数/IQR 标准化；
 - 高斯核带宽为全体 pairwise 距离中位数；
 - 概率下限 `1e-12`；
-- 距离中位数约 9.71。
+- pairwise 距离中位数约 9.71。
 
-归一化画像熵：
+全图行熵：
 
 ```text
 mean   = 5.9308
@@ -121,15 +177,42 @@ median = 6.4906
 max    = log(837) = 6.7298
 ```
 
-结论：画像先验接近平坦，top-m 关系仍有排序信息，但直接软权重的信息量较弱。后续必须报告 `P_m` 行熵和 beta 分布，不能假定画像锚天然很强。
-
-先验 SHA-256：
+top-10 支撑集：
 
 ```text
-9BBDFC575479AC452AEA3A74CAD5260C5134DFC77F81D7A06E7B3EE0AB768526
+flat_threshold = 0.95 * log(10) = 2.1874558383
+mean H_10      = 2.1689294186
+median H_10    = 2.3025850924
+fraction H_10 > threshold = 0.8997613365
 ```
 
-## 6. 组与分享关系图
+按预注册规则触发：
+
+```text
+FLAT_PROFILE_PRIOR
+```
+
+后果：
+
+- A3/A5b 的画像机制贡献记为“不可检验”；
+- 不记为 A3 失败；
+- A3/A4 的端到端比较仍可运行；
+- 必须报告 `P_m` 熵、beta 和实际 KL。
+
+画像先验：
+
+```text
+clue_profile_prior.npy
+bytes=2,809,104
+SHA-256=9BBDFC575479AC452AEA3A74CAD5260C5134DFC77F81D7A06E7B3EE0AB768526
+```
+
+可复现判定：
+
+- `research/ccf-b/clue_lds/audit_profile_prior_information.py`
+- `research/ccf-b/clue_lds/profile_prior_information_20261118.json`
+
+## 8. 组与分享关系图
 
 使用训练期：
 
@@ -140,21 +223,16 @@ max    = log(837) = 6.7298
 
 结果：
 
-- group edges：1,516；
+- group edges：1,488；
 - share edges：1,121；
-- 非零关系边：2,164；
-- 连通用户：270；
-- 孤立用户：568 / 838。
+- 非零关系边：2,140；
+- 孤立用户：565 / 838；
+- 权重：`0.6_group_cooccurrence + 0.4_log1p_share_interactions`；
+- 行归一化。
 
-结论：该图只能作辅助组织结构或关系质量评价，不能作为全用户画像先验。主图仍采用行为画像先验。
+该图只作辅助组织结构或关系质量评价，不能作为全用户主先验，也不能用其覆盖不足解释 A3/A5b 结果。
 
-关系图 SHA-256：
-
-```text
-3E28D847572205E568F99F39395A9FEDF545C969FCC5DF5BF3FE7C3A7530617B
-```
-
-## 7. 真实图覆盖门禁
+## 9. 真实图覆盖门禁
 
 从画像先验构造：
 
@@ -182,24 +260,38 @@ max    = log(837) = 6.7298
 
 - 10 个 seed 全部通过；
 - 无零曝光用户；
-- 10 张批次表哈希全部唯一；
+- 10 张 batch table SHA-256 全部唯一；
 - 相邻 seed 用户对 Jaccard：0.2184–0.2216；
 - 覆盖 batch 数：948–961；
 - A5a 总是最后一个达到 80%，说明随机图是当前覆盖瓶颈。
 
-结果文件 SHA-256：
+覆盖文件：
 
 ```text
-85AF3232F024EC84A0B416238D0721A0D776C90A56E8BE0C7BAEC1245ED76C71
+coverage_10seed.json
+bytes=11,149
+SHA-256=CB651D1A8F4D4793D77F869F3383360655E9F1773BD8E6B194EC3E515D55CD3B
 ```
 
-先验图文件 SHA-256：
+先验图：
 
 ```text
-EFCA9CEFF1A5683AC62C90EC3F39AEE5E0B75FD10243D535D606225A3018F608
+clue_prior_graphs.npz
+bytes=1,108,326
+SHA-256=EFCA9CEFF1A5683AC62C90EC3F39AEE5E0B75FD10243D535D606225A3018F608
 ```
 
-## 8. 真实训练接线 smoke
+## 10. 最终产物哈希
+
+`processed_final/` 的 12 个文件和 1 个标签文件共 13 个最终产物，已冻结在：
+
+```text
+research/ccf-b/clue_lds/artifact_hashes_20261118.json
+```
+
+哈希清单包含每个产物的绝对路径、字节数和 SHA-256；关键字段不得在其他文档中手工替换，引用时以该 JSON 为准。
+
+## 11. 真实训练接线 smoke
 
 `CoverageSoftTS2Vec` 已实现为显式 batch table 训练器，替代原随机 shuffle：
 
@@ -221,25 +313,60 @@ loss=5.898293
 
 该结果只证明软关系权重进入训练 loss，不证明性能。
 
-## 9. 当前判定
+## 12. 统计功效
+
+账号劫持每次切换一对用户，同 pair 的两个目标事件共享切换，因此有效独立单元是 pair，不是 48 个独立事件。
+
+在 24 个 pair、80% 功效、单侧 alpha=0.025 下：
+
+| baseline recall | cluster SD=0.5 | cluster SD=1.0 | cluster SD=1.5 |
+| ---: | ---: | ---: | ---: |
+| 10% | 23.37 pp | 25.95 pp | 28.61 pp |
+| 25% | 27.21 pp | 28.25 pp | 29.53 pp |
+| 50% | 26.31 pp | 24.46 pp | 22.97 pp |
+
+因此：
+
+- 80% 功效 MDE 约为 23.0–29.5 个百分点；
+- 对 5–10 pp 的中小效应功效不足；
+- 不显著不能解释为方法一定无效；
+- CLUE-LDS 只能定位为“有限功效外部效应复验”。
+
+CLUE-LDS pilot 使用独立门槛：
+
+```text
+PR0 = A0-matched 的 PR-AUC
+positive_PR = Delta_PR >= max(0.001, 0.05 * PR0)
+positive_recall = Delta_recall >= 3 / 48 = 0.0625
+```
+
+必须使用 2 个独立训练 seed；同一 endpoint 在两个 seed 上均为正且均值过阈值才算 pilot 达标。单 seed 只作实现 smoke，不能决定继续或停止，也不能用于调参。
+
+## 13. 当前判定
 
 已通过：
 
-- 数据下载和 MD5/SHA-256；
+- 数据下载、MD5 和 SHA-256；
 - 全量 Schema 与事件审计；
-- 固定 seed 的 40 个账号劫持事件；
-- 用户日特征；
-- 画像先验；
-- 真实 A3/A5a/A5b 10-seed 覆盖门禁；
+- 固定标签 seed 的 24 pairs/48 个半合成账号劫持事件；
+- 标签距离与画像距离独立性审计；
+- 用户筛选和用户日特征；
+- 画像先验与 `FLAT_PROFILE_PRIOR` 判定；
+- A3/A5a/A5b 真实 10-seed 覆盖门禁；
 - 一个真实用户子集的软权重训练 step。
 
 尚未通过：
 
-- 完整 A1-Cov/A0-matched/LR 训练与评价；
-- 训练期内部异常选参；
-- 全量外部确认矩阵；
-- 与原版 TS2Vec 和 R0 的端到端性能比较。
+- 完整 A0-matched/A1-R0/A1-Cov 训练入口；
+- 训练期内部合成异常选参；
+- CLUE-LDS 2-seed pilot；
+- A3/A4 外部模型矩阵；
+- 最终外部确认性统计。
 
-当前状态是：
+当前状态：
 
-> CLUE-LDS 已具备进入外部实验的数据条件，但论文外部有效性仍未成立。
+```text
+CLUE_LDS_core_data_and_phase0_passed_full_external_matrix_pending
+```
+
+这不是“外部有效性已成立”，也不是“B 类结论已完成”。

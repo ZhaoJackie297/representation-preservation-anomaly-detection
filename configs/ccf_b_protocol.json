@@ -1,7 +1,7 @@
 {
   "target": "CCF-B",
-  "plan_version": "1.2.5",
-  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.5.md",
+  "plan_version": "1.2.6",
+  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.6.md",
   "r0_frozen_manuscript": "paper/manuscript.docx",
   "primary_method_candidate": "AdaGraph-SoftCLT",
   "status": "candidate_method_phase0_passed_full_model_and_external_confirmation_pending",
@@ -37,7 +37,7 @@
     "CERT r1": "unlabeled_engineering_diagnosis_only_no_confirmatory_metrics",
     "SPEDIA": "session_level_auxiliary_stress_test_only",
     "TWOS": "small_external_stress_test_only",
-    "CLUE-LDS": "primary_application_level_semi_synthetic_external_candidate_pending_download_and_protocol_audit",
+    "CLUE-LDS": "limited_power_application_level_semi_synthetic_external_replication_core_gate_passed_full_matrix_pending",
     "ChimeraLog": "fallback_after_hosting_restored",
     "LANL": "primary_real_external_candidate_pending_redteam_timing_event_cluster_and_user_graph_adaptation",
     "OpTC": "pending_dataset_audit",
@@ -45,7 +45,7 @@
     "PSM/SMAP/MSL": "scoring_side_external_validation_only"
   },
   "external_confirmation": {
-    "status": "clue_lds_core_gate_passed_external_matrix_pending",
+    "status": "clue_lds_core_data_and_phase0_passed_full_external_matrix_pending",
     "dataset": null,
     "primary_candidate": "CLUE-LDS_Cloud_User_Entity_Behavior_Analytics_Log_Data_Set",
     "secondary_real_network_candidate": "LANL_Comprehensive_Multi_Source_Cyber_Security_Events",
@@ -56,19 +56,69 @@
       "license": "CC-BY-4.0",
       "core_data_audit_passed": true,
       "processed_user_count": 838,
-      "processed_event_count": 40,
+      "processed_event_count": 48,
+      "processed_pair_cluster_count": 24,
       "real_graph_coverage_10seed_passed": true,
       "coverage_batches_range": [
         948,
         961
       ],
       "require_time_restricted_account_hijacking_injection": true,
-      "require_fixed_anomaly_seed": true,
+      "label_seed": 20261101,
+      "training_seeds": [
+        20261116,
+        20261117,
+        20261118,
+        20261119,
+        20261120,
+        20261121,
+        20261122,
+        20261123,
+        20261124,
+        20261125
+      ],
+      "require_label_seed_distinct_from_training_seeds": true,
       "minimum_switch_pairs": 10,
-      "target_switch_pairs": 20,
+      "target_switch_pairs": 24,
+      "target_events": 48,
       "minimum_post_switch_active_days": 30,
       "require_group_share_graph_protocol": true,
-      "labels_are_semi_synthetic": true
+      "labels_are_semi_synthetic": true,
+      "label_distance": "0.7_action_jaccard_plus_0.3_average_events_per_active_day_ratio",
+      "label_profile_spearman_affinity": -0.1991304347826087,
+      "label_profile_independence_max_abs_rho": 0.5,
+      "label_profile_independence_status": "PASS_DISTANCES_DISTINCT",
+      "label_file_sha256": "2441744DED393381C9B42D3E1EFB53B11137810D8F94611FCF76BC0C67D248CA",
+      "artifact_hashes": "research/ccf-b/clue_lds/artifact_hashes_20261118.json",
+      "user_filter": {
+        "uid_type": "name",
+        "retain_all_target_users": true,
+        "nontarget_requires_training_activity": true,
+        "nontarget_order": "training_event_count_descending",
+        "maximum_users": 1000,
+        "actual_users": 838
+      },
+      "flat_profile_prior": {
+        "top_m": 10,
+        "threshold": 2.1874558383443437,
+        "mean_Hm": 2.168929418624515,
+        "median_Hm": 2.3025850924448723,
+        "fraction_users_above_threshold": 0.8997613365155132,
+        "triggered": true,
+        "mechanism_interpretation": "UNTESTABLE_NOT_A3_FAILURE"
+      },
+      "power": {
+        "cluster_unit": "injected_user_pair",
+        "pair_clusters": 24,
+        "events_per_pair": 2,
+        "target_power": 0.8,
+        "one_sided_alpha": 0.025,
+        "recall_mde_percentage_points_range": [
+          22.97,
+          29.53
+        ],
+        "positioning": "LIMITED_POWER_EXTERNAL_EFFECT_REPLICATION"
+      }
     },
     "lanl_gate": {
       "doi": "10.17021/1179829",
@@ -380,6 +430,19 @@
       "stop_if_both_endpoints_not_positive": true,
       "pilot_used_for_hyperparameter_selection": false
     },
+    "clue_lds_pilot_stop_rule": {
+      "comparison": "A1_Cov_vs_A0_matched",
+      "positive_PR_threshold": "max(0.001, 0.05 * PR0_A0_matched)",
+      "positive_event_recall_threshold": 0.0625,
+      "event_threshold_count": 3,
+      "event_count": 48,
+      "required_training_seeds": 2,
+      "two_seed_rule": "both_seeds_must_be_positive_for_same_endpoint_and_mean_must_cross_threshold",
+      "single_seed_role": "implementation_smoke_only",
+      "stop_if_both_endpoints_not_positive": true,
+      "pilot_used_for_hyperparameter_selection": false,
+      "bootstrap_cluster_unit": "injected_user_pair"
+    },
     "final_holm_scope": "frozen_after_D_ext_event_count_and_MDE_gate"
   },
   "execution_batches": {
@@ -398,6 +461,12 @@
       "A5a",
       "A5b",
       "A7"
+    ],
+    "clue_lds_pilot": [
+      "training_internal_synthetic_anomaly_validation",
+      "A0_matched",
+      "A1_R0",
+      "A1_Cov"
     ],
     "second": [
       "A1_R0",

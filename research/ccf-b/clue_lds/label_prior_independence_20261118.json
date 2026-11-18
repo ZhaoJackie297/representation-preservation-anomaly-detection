@@ -1,0 +1,18 @@
+{
+  "labels": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\hijack_labels_24pairs_20261101.csv",
+  "labels_sha256": "2441744DED393381C9B42D3E1EFB53B11137810D8F94611FCF76BC0C67D248CA",
+  "profile_distances": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_profile_distances.npy",
+  "profile_distances_sha256": "5FA1ADC6C659846CE21C3CF5A1754ABDED58FE727C88876DDB2C5D166F30947D",
+  "profile_metadata_sha256": "146FFBA7C459252197A8573CA3839316A4E6267A75DA34BE34A8AB91AA646761",
+  "event_rows": 48,
+  "unique_pairs": 24,
+  "label_similarity_min": 0.21092915324492428,
+  "label_similarity_max": 0.5960553521589826,
+  "profile_distance_min": 30.766355514526367,
+  "profile_distance_median": 168.15460968017578,
+  "profile_distance_max": 1603.175048828125,
+  "spearman_label_similarity_vs_profile_distance": 0.1991304347826087,
+  "spearman_label_similarity_vs_profile_affinity": -0.1991304347826087,
+  "maximum_abs_rho": 0.5,
+  "status": "PASS_DISTANCES_DISTINCT"
+}

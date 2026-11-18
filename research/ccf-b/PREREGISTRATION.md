@@ -1,6 +1,6 @@
 # AdaGraph-SoftCLT 预注册表
 
-版本：v1.2.5
+版本：v1.2.6
 
 冻结日期：2026-11-18
 
@@ -11,7 +11,8 @@
 - 方法公式可冻结；
 - 统计对象和事件不足规则可冻结；
 - 图边覆盖实现必须通过门禁；
-- 独立外部确认集 `D_ext` 尚未选定，状态为 `pending_data_gate`；
+- `D_ext` 已采用 `D_app=CLUE-LDS` 与 `D_net=LANL` 的双候选；CLUE-LDS 的数据、标签、图和 10-seed 覆盖门禁已通过，完整模型矩阵仍待跑；
+- CLUE-LDS 的低信息画像先验和 24 个有效 pair 已预注册为“有限功效外部效应复验”边界；
 - 未通过 `D_ext` 门禁时，不宣称 CCF-B 外部有效性。
 
 ## 1. 数据地位
@@ -24,7 +25,7 @@
 | CERT r1 | 无标签工程诊断 | 官方 answer key 无恶意标签；禁止 PR-AUC、K=10 和确认 p 值 |
 | SPEDIA | 会话/事件级辅助压力测试 | 17 个 `User` 值、25 天且首日有异常；不作主图确认 |
 | TWOS | 外部小样本压力测试 | 五天受控竞赛；不作确认性分析 |
-| CLUE-LDS | 首要应用级外部候选 | 真实正常云行为 + 官方受控账号劫持注入；核心数据、用户日、40 事件和真实图覆盖已通过 |
+| CLUE-LDS | 首要应用级外部候选 | 真实正常云行为 + 本项目固定 seed 的半合成账号劫持；24 pairs、48 事件和真实图覆盖已通过 |
 | LANL | 首要真实网络外部候选 | 红队入侵而非 CERT 式内部人员；时间切分、事件簇、用户日和图适配通过前不进入确认 |
 | ChimeraLog | 托管恢复后的备选 | 当前官方数据下载未就绪 |
 | OpTC | 待审计候选 | 未完成用户日、事件和训练期审计前不进入承诺矩阵 |
@@ -50,12 +51,65 @@
 CLUE-LDS 进入确认前至少要求：
 
 - 下载文件 MD5 为 `9e318370f96b68077667e9cdc05f26a5`；
-- 固定异常注入 seed；
-- 20 个切换 pairs，目标约 40 个用户级事件；
+- 固定异常注入 seed=`20261101`，不得与训练 seed 重合；
+- 24 个切换 pairs，共 48 个用户级事件；
 - 每个受影响用户切换后至少 30 个活跃日；
 - 切换时间只落入冻结评价窗口；
 - 训练期不得看到切换后身份；
 - 用户图只由训练期组、共享目录、文件分享或画像构建。
+
+CLUE-LDS 用户筛选冻结为：
+
+1. 只保留 `uidType=name`；
+2. 所有注入目标用户保留；
+3. 其余用户至少在训练期出现一次；
+4. 非目标用户按训练期事件数排序；
+5. 上限 1,000 用户；
+6. 实际满足条件 838 用户；
+7. 任一目标用户训练期全空则整体失败。
+
+### 平坦先验规则
+
+对每个用户和支撑集计算：
+
+```text
+H_m(u) = -sum P_m(u,v) log P_m(u,v)
+flat_threshold = 0.95 * log(m)
+```
+
+满足以下任一条件即标记 `FLAT_PROFILE_PRIOR`：
+
+- 平均 `H_m` 大于阈值；
+- 至少 80% 用户大于阈值。
+
+触发后：
+
+- A3/A5b 的画像机制贡献记为“不可检验”；
+- 不记为 A3 失败；
+- 端到端性能比较继续；
+- 必须报告熵、beta 和实际 KL。
+
+CLUE-LDS 当前已触发。
+
+### 标签距离独立性
+
+账号劫持 pair 的选择距离为：
+
+```text
+0.7 * action Jaccard
++ 0.3 * average-events-per-active-day ratio
+```
+
+画像先验使用 52 维用户日特征聚合后的标准化欧氏距离；两者不是同一个距离。
+
+冻结审计规则：
+
+```text
+rho = Spearman(label_pair_similarity, -profile_distance)
+若 |rho| >= 0.5，则 pair 选择与画像先验相关性过强，必须增加独立度量对照或重新生成标签。
+```
+
+CLUE-LDS 当前审计结果为 `rho=-0.1991`，24 个 pair，状态为 `PASS_DISTANCES_DISTINCT`。该审计只检查距离关系，不查看模型结果。
 
 ## 2. 研究假设
 
@@ -265,12 +319,20 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 
 ### `D_ext`
 
-`D_ext` 门禁通过前：
+`D_ext` 的数据哈希、标签和用户日门禁通过前：
 
 - 最终外部 MDE 不冻结；
 - 最终外部 Holm 家族不冻结；
 - 只冻结候选比较集和审计规则；
 - 所有外部结果标为 `pending_data_gate`。
+
+当前 CLUE-LDS 已达到：
+
+```text
+CLUE_LDS_core_data_and_phase0_passed_full_external_matrix_pending
+```
+
+这不等于外部确认已通过；完整模型矩阵和最终确认性统计仍未运行。
 
 `D_ext` 门禁通过后：
 
@@ -363,6 +425,29 @@ Delta_RecallK10 >= +max(0.02, 1/N_events)
 若只有一个主终点达标，可进入 10-seed r4.2 方向性复验，但标记为 `FRAGILE_SINGLE_ENDPOINT`；10-seed 下仍应报告同号 seed 数和区间，不能凭 pilot 结果进入 r5.2。
 
 Pilot 只决定继续或停止，不用于选择超参数。
+
+### CLUE-LDS pilot 的独立最小效应
+
+CLUE-LDS 不得直接沿用 CERT r4.2 的 `0.0005` PR-AUC 门槛。其 pilot 判据在数据结果可见前单独冻结为：
+
+```text
+PR0 = A0-matched 的 PR-AUC
+positive_PR = Delta_PR >= max(0.001, 0.05 * PR0)
+positive_recall = Delta_recall >= 3 / 48 = 0.0625
+```
+
+`PR0` 只由 A0-matched 计算，不使用 A1/A3/A4 的结果。事件阈值对应至少 3 个用户级事件。
+
+CLUE-LDS pilot 必须运行 2 个独立训练 seed：
+
+- 两个 seed 在同一 endpoint 上必须均为正；
+- 两个 seed 的均值必须达到该 endpoint 的阈值；
+- 单 seed 只作实现 smoke，不能用来继续或停止 AdaGraph；
+- pilot 不用于选择超参数。
+
+只有两个 endpoint 都未达标时才停止 CLUE 上的 AdaGraph 主实验；只有一个达标时标记 `FRAGILE_SINGLE_ENDPOINT`，不得据此宣称外部确认成功。
+
+按 pair 聚类，24 个有效簇在 80% 功效下的 MDE 约为 23.0–29.5 个百分点的事件召回差。因此 CLUE-LDS 只能定位为“有限功效外部效应复验”，不能把不显著解释为方法无效，也不能用它单独支撑中等效应。
 
 外部 B 类 Gate 额外要求：
 
@@ -513,6 +598,22 @@ A1+, A3, A5a, A5b, A7
 
 第一优先比较为 `A1-Cov vs A0-matched`。Pilot 只判断继续或停止，不作确认性推断，也不用于调参。
 
+CLUE-LDS 入口验证与 pilot：
+
+```text
+CLUE-LDS, 2 training seeds
+A0-matched
+A1-R0
+A1-Cov
+```
+
+- 先完成训练期内部 synthetic anomaly validation；
+- 两个 seed 使用同一标签、用户、时间和评价协议；
+- 主比较为 A1-Cov vs A0-matched；
+- 判据使用 `max(0.001,0.05*PR0)` 和 `3/48`，不使用 CERT 的 `0.0005` 阈值；
+- 主 bootstrap 按注入 pair 整簇重采样；
+- pilot 只决定是否进入 A3/A4 外部矩阵，不用于调参或选择异常阈值。
+
 ### 并行任务
 
 - 继续审计 ChimeraLog 替代下载方式；
@@ -539,7 +640,7 @@ A3-noAnchor, A3-noEMA, A3-epsInf, A3-product, A3-hard
 
 ### 外部确认
 
-仅在 `D_ext` 通过门禁后执行。ChimeraLog/SPEDIA/TWOS 的辅助结果不能替代 `D_ext`。
+仅在 `D_ext` 的完整数据门禁通过后执行。CLUE-LDS 的核心数据与图门禁已通过，但完整模型矩阵尚未开始；ChimeraLog/SPEDIA/TWOS 的辅助结果不能替代 `D_ext`。
 
 ### 安全与基线
 

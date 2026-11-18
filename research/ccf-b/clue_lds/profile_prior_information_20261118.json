@@ -1,0 +1,15 @@
+{
+  "prior_path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_profile_prior.npy",
+  "prior_sha256": "9BBDFC575479AC452AEA3A74CAD5260C5134DFC77F81D7A06E7B3EE0AB768526",
+  "user_count": 838,
+  "top_m": 10,
+  "flat_ratio": 0.95,
+  "flat_threshold": 2.1874558383443437,
+  "mean_Hm": 2.168929418624515,
+  "median_Hm": 2.3025850924448723,
+  "fraction_users_above_threshold": 0.8997613365155132,
+  "majority_fraction": 0.8,
+  "triggered": true,
+  "status": "FLAT_PROFILE_PRIOR",
+  "mechanism_interpretation": "UNTESTABLE_NOT_A3_FAILURE"
+}

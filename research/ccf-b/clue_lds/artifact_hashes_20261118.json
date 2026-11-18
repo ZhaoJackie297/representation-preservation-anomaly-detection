@@ -1,0 +1,71 @@
+{
+  "algorithm": "sha256",
+  "artifact_count": 13,
+  "artifacts": [
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_prior_graphs_metadata.json",
+      "bytes": 216,
+      "sha256": "E956B8BA18DF337631AD0246D504C0E34A28CFD538116C59C8DEE20A9E28126A"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_prior_graphs.npz",
+      "bytes": 1108326,
+      "sha256": "EFCA9CEFF1A5683AC62C90EC3F39AEE5E0B75FD10243D535D606225A3018F608"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_profile_distances.npy",
+      "bytes": 2809104,
+      "sha256": "5FA1ADC6C659846CE21C3CF5A1754ABDED58FE727C88876DDB2C5D166F30947D"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_profile_entropy.npy",
+      "bytes": 6832,
+      "sha256": "B664DF1A5653575E26B8A3D9E89DA60B91C2B988D4D1CB2F2DD33AE8EC94F1EA"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_profile_features.npy",
+      "bytes": 704048,
+      "sha256": "49DDEAA605CB25CC2921D1C913878E4DE494A67E89BE0343785A15552DE863C7"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_profile_prior_metadata.json",
+      "bytes": 36593,
+      "sha256": "146FFBA7C459252197A8573CA3839316A4E6267A75DA34BE34A8AB91AA646761"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_profile_prior.npy",
+      "bytes": 2809104,
+      "sha256": "9BBDFC575479AC452AEA3A74CAD5260C5134DFC77F81D7A06E7B3EE0AB768526"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_relation_graph_metadata.json",
+      "bytes": 451,
+      "sha256": "33E3904AF27B8146E898106B85CF2F2BA191A2A44DBCE5454866B050951CC0D3"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_relation_graph.npy",
+      "bytes": 2809104,
+      "sha256": "B41A0C31D838B563B7ADABCA5B7CE18753CE06DB69D443276BC7B8722855E3EF"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_user_day_dataset.npz",
+      "bytes": 1559876,
+      "sha256": "E503014FDD5E9BE9D57908D1DC267C74425BC8185E26D9259AF6B0F52615E571"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\clue_user_day_metadata.json",
+      "bytes": 57077,
+      "sha256": "E272E7A51DF9603D441F4F05CF6A38E84F75EE847D0C3AC0C779939A1FA63D3E"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\processed_final\\coverage_10seed.json",
+      "bytes": 11149,
+      "sha256": "CB651D1A8F4D4793D77F869F3383360655E9F1773BD8E6B194EC3E515D55CD3B"
+    },
+    {
+      "path": "E:\\MarketRisker\\work\\cert\\external\\clue_lds\\hijack_labels_24pairs_20261101.csv",
+      "bytes": 5526,
+      "sha256": "2441744DED393381C9B42D3E1EFB53B11137810D8F94611FCF76BC0C67D248CA"
+    }
+  ]
+}

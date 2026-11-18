@@ -1,6 +1,6 @@
 # CCF-B 实验矩阵
 
-版本：v1.2.5
+版本：v1.2.6
 
 日期：2026-11-18。
 
@@ -121,7 +121,7 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 | CERT r1 | 无标签工程诊断 | 无官方恶意标签；不作确认 |
 | SPEDIA | 会话级辅助压力测试 | 17 个 `User` 值、25 天、首日异常 |
 | TWOS | 小样本真实感/规避压力测试 | 五天受控竞赛 |
-| CLUE-LDS | 首要应用级外部确认候选 | 真实正常云行为 + 官方账号劫持注入；核心数据与 10-seed 真实图覆盖已通过 |
+| CLUE-LDS | 首要应用级外部效应复验候选 | 真实正常云行为 + 本项目固定 seed 的半合成账号劫持；24 pairs、48 事件、数据/图门禁已通过，但只有 24 个有效簇，MDE 约 23.0–29.5 pp |
 | LANL | 首要真实外部候选 | 红队事件构念、事件簇、时间切分和图适配待审计 |
 | ChimeraLog | 托管恢复后备选 | 当前下载未就绪 |
 | OpTC | 待审计候选 | 用户日、标签和训练期未确认 |
@@ -301,8 +301,11 @@ r5.2 锁定复验预先使用三个独立 Holm 家族：
 | Pilot | r4.2，1–2 seed | A0-official、A0-matched、A1-Cov、A1-sparse-EMA、A1+、A3、A5a、A5b、A7；先检查 A1-Cov vs A0-matched |
 | 第二批 | r4.2，10 seed | A1-R0、A1-Cov、A1-repSupport-P、A2、A4、A8a、A8b、A9、A3 机制消融 |
 | 锁定复验 | r5.2，10 seed，超参冻结 | 主比较与机制小家族 |
+| CLUE pilot | CLUE-LDS，2 seed | 训练期内部合成异常验证；A0-matched、A1-R0、A1-Cov；A1-Cov vs A0-matched |
 | 外部确认 | `D_ext`，10 seed | 门禁通过后冻结 Holm |
 | 扩展 | Gate 1 后 | 深度基线、S×A、安全、案例 |
+
+CLUE-LDS 的 pilot 不沿用 CERT 的阈值：`positive_PR = max(0.001, 0.05*PR0)`，`positive_recall=3/48`，并且必须在 2 个独立训练 seed 上同方向达标。24 个 pair 的簇 bootstrap 必须整 pair 重采样。
 
 ## J. 安全与运营
 

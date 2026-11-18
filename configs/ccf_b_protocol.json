@@ -1,18 +1,26 @@
 {
   "target": "CCF-B",
-  "plan_version": "1.2.7",
-  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.7.md",
+  "plan_version": "1.2.8",
+  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.8.md",
   "r0_frozen_manuscript": "paper/manuscript.docx",
   "primary_method_candidate": "AdaGraph-SoftCLT",
-  "status": "method_mechanism_not_supported_pending_full_model_external_confirmation",
+  "status": "data_envelope_frozen_methodological_empirical_ccf_b_candidate",
   "phase0_status": "clue_lds_canonical_data_and_dual_end_entry_smoke_passed_full_pilot_pending",
   "status_taxonomy": [
     "IMPLEMENTATION_BLOCKED",
     "DATA_GATE_FAILED",
     "METHOD_NOT_SUPPORTED",
     "UNDERPOWERED",
-    "PENDING"
+    "PENDING",
+    "NOT_PURSUED"
   ],
+  "paper_positioning": {
+    "primary": "methodological_empirical_study",
+    "primary_claim": "realized_graph_exposure_and_prior_informativeness_bound_soft_relational_contrast",
+    "external_claim": "limited_external_replication_not_full_confirmation",
+    "ccf_b_route": "conditional_on_controls_power_scoring_side_external_and_baselines",
+    "fallback": "CCF_C_or_methodological_journal"
+  },
   "status_registry": "research/ccf-b/STATUS_REGISTRY.md",
   "profile_prior_audit": "research/ccf-b/CERT_PROFILE_PRIOR_AUDIT.md",
   "cert_gate_power_proxy": "research/ccf-b/CERT_GATE_POWER_PROXY.md",
@@ -48,6 +56,32 @@
       "substitute_for_downstream_evidence": false
     }
   },
+  "data_envelope": {
+    "frozen": true,
+    "additional_external_data_search": false,
+    "user_level_datasets": [
+      "CERT r4.2",
+      "CERT r5.2",
+      "CERT r6.2",
+      "CLUE-LDS"
+    ],
+    "scoring_side_datasets": [
+      "SMD",
+      "PSM",
+      "SMAP",
+      "MSL"
+    ],
+    "not_used_for_confirmation": [
+      "CERT r1",
+      "SPEDIA",
+      "TWOS",
+      "LANL",
+      "OpTC",
+      "ChimeraLog"
+    ],
+    "real_network_external_confirmation": "NOT_CLAIMED",
+    "same_family_raw_volume_counts_as_external_validity": false
+  },
   "dataset_roles": {
     "CERT r4.2": "development_pilot_and_directional_diagnosis",
     "CERT r5.2": "locked_parameter_replication_seen_data_not_blind",
@@ -56,17 +90,17 @@
     "SPEDIA": "session_level_auxiliary_stress_test_only",
     "TWOS": "small_external_stress_test_only",
     "CLUE-LDS": "limited_power_application_level_semi_synthetic_external_replication_core_gate_passed_full_matrix_pending",
-    "ChimeraLog": "fallback_after_hosting_restored",
-    "LANL": "primary_real_external_candidate_pending_redteam_timing_event_cluster_and_user_graph_adaptation",
-    "OpTC": "pending_dataset_audit",
+    "ChimeraLog": "not_pursued_data_envelope_frozen",
+    "LANL": "not_available_do_not_depend_on_it",
+    "OpTC": "not_pursued",
     "SMD": "scoring_side_and_detection_baselines_only_training_backbone_A0",
     "PSM/SMAP/MSL": "scoring_side_external_validation_only"
   },
   "external_confirmation": {
-    "status": "clue_lds_core_data_and_phase0_passed_full_external_matrix_pending",
+    "status": "real_network_external_confirmation_not_claimed_data_envelope_frozen",
     "dataset": null,
     "primary_candidate": "CLUE-LDS_Cloud_User_Entity_Behavior_Analytics_Log_Data_Set",
-    "secondary_real_network_candidate": "LANL_Comprehensive_Multi_Source_Cyber_Security_Events",
+    "secondary_real_network_candidate": "NONE_data_envelope_frozen",
     "clue_lds_gate": {
       "doi": "10.5281/zenodo.7119953",
       "md5": "9e318370f96b68077667e9cdc05f26a5",
@@ -180,8 +214,8 @@
     "require_license_and_mapping_audit": true,
     "freeze_hash_and_protocol_before_results": true,
     "if_event_count_below_20": "report_effect_and_interval_only_no_confirmatory_p_value",
-    "external_data_decision_deadline_week": 3,
-    "fallback_if_no_external_data": "drop_CCF_B_external_validity_and_target_CCF_C_or_methodological_empirical_paper"
+    "external_data_decision_deadline_week": "not_pursued",
+    "fallback_if_no_external_data": "methodological_empirical_paper_with_limited_external_replication"
   },
   "evaluation": {
     "k_grid": [
@@ -562,7 +596,7 @@
       "A3_hard"
     ],
     "locked_replication": "CERT_r5_2_after_hyperparameter_freeze",
-    "external_confirmation": "CLUE_LDS_D_app_and_LANL_D_net_only_after_data_gates",
+    "external_confirmation": "limited_CLUE_LDS_replication_and_scoring_side_only",
     "extension": [
       "deep_baselines",
       "SxA_cross",

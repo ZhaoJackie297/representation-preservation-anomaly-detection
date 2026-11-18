@@ -1,10 +1,10 @@
-# 八周执行计划 v1.2.7
+# 八周执行计划 v1.2.8
 
 前提：
 
 - 团队可轮班推进，主算力为 RTX 5060；
-- v1.2.6 已完成 CLUE-LDS canonical 审计；v1.2.7 已补 CERT 平坦先验、Gate 功效代理和状态分类；
-- CLUE-LDS 的数据、标签和图门禁已通过，但完整模型矩阵尚未开始；LANL 仍是真实网络外部候选；
+- v1.2.6 已完成 CLUE-LDS canonical 审计；v1.2.7 已补 CERT 平坦先验、Gate 功效代理和状态分类；v1.2.8 已冻结现有数据范围；
+- CLUE-LDS 的数据、标签和图门禁已通过，但完整模型矩阵尚未开始；LANL、OpTC、ChimeraLog 不再等待；
 - CLUE-LDS 真实 10-seed 图覆盖已通过，A0/A1 入口和 soft trainer smoke 已完成；正式模型矩阵和新增分解控制尚未完成；
 - CERT r4.2/r5.2 与 CLUE-LDS 的主/kNN 画像先验均触发 `FLAT_PROFILE_PRIOR`；画像锚机制当前为 `METHOD_NOT_SUPPORTED`；
 - 八周计划以“先过实现和数据门禁，再跑主矩阵”为顺序。
@@ -16,10 +16,8 @@
 - 完成 CERT r1 无标签结论归档；
 - 归档 CLUE-LDS 的 MD5/SHA-256、canonical 24-pair/48-event、用户筛选、平坦先验和距离独立性审计；旧 20/40/568 保留为历史；
 - 归档 CERT r4.2/r5.2 主带宽、kNN 带宽、m=5/10 的画像先验审计；
-- 审计 LANL 的 redteam 时间、事件簇、许可证、用户日和图适配；
-- 继续审计 ChimeraLog 的下载和许可证；
-- 对 OpTC 做最低成本可行性审计；
-- 若候选不足，记录“B 外部确认不可达”的风险。
+- 将 LANL、OpTC、ChimeraLog 标为 `NOT_PURSUED`；现有数据只做稳定性、敏感性和复现；
+- 将 SMD/PSM/SMAP/MSL 明确限制为 scoring-side 外部验证。
 
 ### 实现
 
@@ -42,7 +40,7 @@
 - 冻结 `A1-Cov vs A0-matched` 的最小效应和双终点停止规则；CLUE-LDS 使用独立阈值，并要求 2 个 seed 同方向；
 - 冻结批次携带关系信息的分解顺序，以及 `A1-sparse vs A1-sparse-EMA` 对照；
 - 记录 CLUE-LDS 的 `FLAT_PROFILE_PRIOR`、24-pair MDE 和标签/画像距离审计结果；
-- 冻结事件不足规则、v1.2.7 临时非劣界和双层 bootstrap；
+- 冻结事件不足规则、v1.2.8 临时非劣界和双层 bootstrap；
 - 归档 r5.2 Gate 功效代理；正式事件/用户簇功效结果出来前不宣称 Gate 可检出中等效应。
 - 记录实际 `B_stage`；
 - 固定 12 候选表。
@@ -52,7 +50,7 @@
 - 数据门禁报告；
 - pair coverage 报告；
 - sampler 单元测试；
-- v1.2.7 hash。
+- v1.2.8 hash。
 
 ## 第 2 周：非约束性 pilot
 
@@ -90,7 +88,7 @@ A7
 
 Pilot Go/No-Go 明确为**非约束性启动判断**。它只决定是否进入第二批，不作确认性推断。r4.2 测试期结果一旦用于该判断，r4.2 永久标记为已见开发数据。
 
-CLUE-LDS 的数据、协议和首版训练入口审计已完成；并行完成 LANL redteam 时间/事件簇审计、继续跟踪 ChimeraLog 替代托管并检查 OpTC 最小切片。CLUE-LDS 的正式矩阵、新增分解控制和两 seed pilot 尚未完成，不能写成外部确认已通过。
+CLUE-LDS 的数据、协议和首版训练入口审计已完成；不再等待 LANL/OpTC/ChimeraLog。CLUE-LDS 的正式矩阵、新增分解控制和两 seed pilot 尚未完成，不能写成外部确认已通过。
 
 交付：
 
@@ -139,7 +137,7 @@ A3-hard
 第三周末外部数据判定：
 
 - CLUE-LDS 核心数据与 Phase 0 已通过，保留条件性 B 路线；但其 24 个 pair 只能提供有限功效复验，A3/A4 外部矩阵尚未开始；
-- LANL 或其他真实网络数据若仍未通过适配门禁，不能补写“已完成的真实网络外部确认”；
+- LANL/OpTC/ChimeraLog 已标 `NOT_PURSUED`，不能补写“已完成的真实网络外部确认”；
 - 若完整模型结果和外部效应均不足，切到 C 类上沿或“批次共现与覆盖修正”的方法学/实证定位。
 
 ## 第 4 周：r5.2 一次性锁定复验
@@ -159,29 +157,28 @@ A3-hard
 - 失败分析；
 - 外部数据门禁状态更新。
 
-## 第 5 周：外部数据结构与统计
+## 第 5 周：有限外部复验与统计
 
 - 完成 CLUE-LDS A0-A3batch/A1-Cov-A5a/A1-Cov-uniform 入口和训练期内部合成异常验证；
 - 用 2 个独立训练 seed 跑 CLUE-LDS pilot，先看 A1-Cov vs A0-matched；单 seed 只作实现 smoke；
 - 以 pair 整簇做 bootstrap，使用 `positive_PR=max(0.001,0.05*PR0)` 和 `positive_recall=3/48`，不沿用 CERT 阈值；
-- 若 ChimeraLog 下载就绪，完成 Schema、用户日、事件和许可证适配；
-- 若 LANL 时间切分可行，完成 auth/DNS 最小切片；OpTC 只作后备；
-- 保留 `D_app=CLUE-LDS` 与 `D_net=LANL` 两条外部证据路线；每条路线单独报告，不把多个小型候选事后合并成一次确认；
+- 不再适配 ChimeraLog、LANL、OpTC；
+- CLUE-LDS 只作有限功效外部效应复验；SMD/PSM/SMAP/MSL 只作 scoring-side 验证；
 - 在 A4 结果可见前冻结业务最小有意义效应；
 - 用每条数据自身结构做 MDE/80% 功效模拟；CLUE-LDS 当前 MDE 为 23.0–29.5 pp；
 - 只有完整模型矩阵和外部数据门禁同时通过后，才冻结最终 Holm 家族；
 - 完成用户/事件簇主 bootstrap 和双层敏感性；
 - 完成 A1-Cov/A4 × S1/S2 四单元；
-- 完成一个连续时序外部集，仅验证打分端。
+- 完成 SMD/PSM/SMAP/MSL 的 scoring-side 稳健性。
 
 交付：
 
-- CLUE-LDS 两 seed pilot 与 LANL 门禁状态；
+- CLUE-LDS 两 seed pilot 与 scoring-side 外部验证状态；
 - 最终统计计划；
 - S×A 主交叉；
 - 外部 MDE。
 
-若 `D_ext` 无法过门禁：
+若 CLUE-LDS 复验功效不足：
 
 - 不进入“B 类外部确认”；
 - 不把 r5.2 包装成盲测；
@@ -236,7 +233,8 @@ A3-hard
 - 主文区分：
   - r4.2 开发；
   - r5.2 已见复验；
-  - `D_ext` 独立外部确认；
+  - CLUE-LDS 有限功效外部复验；
+  - SMD/PSM/SMAP/MSL scoring-side 泛化；
 - 贡献表述以条件、算法性质或可复现新现象为主，不以组件数量为主。
 
 交付：
@@ -260,9 +258,9 @@ A3-hard
 - 冻结 artifact、hash 和附录；
 - 建立回复审稿意见的结果索引；
 - 核查所有文献与许可证；
-- 根据外部数据与主结果作投稿分级：
-  - `B-ready`：实现、r5.2、D_ext、统计和安全全部通过；
-  - `C-ready`：实现和锁定复验通过，但 D_ext 或外部有效性失败；
+- 根据现有数据与主结果作投稿分级：
+  - `B-ready`：实现、r5.2、CLUE 有限复验、scoring-side 外部数据、统计和安全全部通过；
+  - `C-ready`：实现和锁定复验通过，但外部泛化或机制结果不足；
   - `stop`：图边覆盖、加性噪声、算力归因或异常核心警示失败。
 
 交付：
@@ -283,8 +281,7 @@ A3-hard
 - `epsilon=0` 与 A1-sparse-EMA 仍有系统性差异，说明支撑集定义未受控；
 - 有效秩持续下降；
 - 异常用户进入正常核心率持续恶化；
-- `D_ext` 无法在预算内通过数据门禁；
 - 深度基线无法公平运行；
 - 外部数据许可证不允许复现实验。
 
-`D_ext` 失败不否定方法工程结果，但否定当前“CCF-B 外部确认”承诺。
+现有数据无法支持真实网络外部确认，不否定方法工程结果，但当前只能按方法学/实证论文评级。

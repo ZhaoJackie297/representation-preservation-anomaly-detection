@@ -1,6 +1,6 @@
 # AdaGraph-SoftCLT 预注册表
 
-版本：v1.2.7
+版本：v1.2.8
 
 冻结日期：2026-11-18
 
@@ -11,11 +11,12 @@
 - 方法公式可冻结；
 - 统计对象和事件不足规则可冻结；
 - 图边覆盖实现必须通过门禁；
-- `D_ext` 已采用 `D_app=CLUE-LDS` 与 `D_net=LANL` 的双候选；CLUE-LDS 的数据、标签、图和 10-seed 覆盖门禁已通过，完整模型矩阵仍待跑；
+- 数据包已冻结；LANL、OpTC、ChimeraLog 标为 `NOT_PURSUED`；
+- `D_app=CLUE-LDS` 只作有限功效外部效应复验；SMD/PSM/SMAP/MSL 只作 scoring-side 泛化；
 - CLUE-LDS 的低信息画像先验和 24 个有效 pair 已预注册为“有限功效外部效应复验”边界；
 - CERT r4.2/r5.2 与 CLUE-LDS 的主带宽和 kNN 替代带宽均触发 `FLAT_PROFILE_PRIOR`，画像锚机制状态为 `METHOD_NOT_SUPPORTED`；
 - CLUE-LDS 外部效应和 r5.2 严格双终点 Gate 状态为 `UNDERPOWERED`；
-- 未通过 `D_ext` 门禁时，不宣称 CCF-B 外部有效性。
+- 现有数据不宣称真实网络外部有效性；CCF-B 仅按方法学/实证路线条件性争取。
 
 ### CLUE-LDS canonical 对账
 
@@ -43,13 +44,13 @@ label SHA-256=2441744DED393381C9B42D3E1EFB53B11137810D8F94611FCF76BC0C67D248CA
 | SPEDIA | 会话/事件级辅助压力测试 | 17 个 `User` 值、25 天且首日有异常；不作主图确认 |
 | TWOS | 外部小样本压力测试 | 五天受控竞赛；不作确认性分析 |
 | CLUE-LDS | 首要应用级外部候选 | 真实正常云行为 + 本项目固定 seed 的半合成账号劫持；24 pairs、48 事件和真实图覆盖已通过 |
-| LANL | 首要真实网络外部候选 | 红队入侵而非 CERT 式内部人员；时间切分、事件簇、用户日和图适配通过前不进入确认 |
-| ChimeraLog | 托管恢复后的备选 | 当前官方数据下载未就绪 |
-| OpTC | 待审计候选 | 未完成用户日、事件和训练期审计前不进入承诺矩阵 |
+| LANL | 不追求 | 数据包冻结，不能作为依赖 |
+| ChimeraLog | 不追求 | 数据包冻结，不能作为依赖 |
+| OpTC | 不追求 | 数据包冻结，不能作为依赖 |
 | SMD | 打分端验证 | 训练端固定 A0，不运行 AdaGraph 用户图 |
 | PSM/SMAP/MSL | 打分端外部验证 | 不用于 AdaGraph 用户图结论 |
 
-`D_ext` 最低门禁：
+外部数据门禁仅适用于未来重新开放的 `D_ext`；当前不追求该门禁：
 
 1. 非 CERT r1–r6.2 同一生成家族；
 2. 至少 100 个可建模用户；
@@ -61,7 +62,7 @@ label SHA-256=2441744DED393381C9B42D3E1EFB53B11137810D8F94611FCF76BC0C67D248CA
 外部证据采用两层：
 
 - `D_app=CLUE-LDS`：应用级半合成账号劫持确认；
-- `D_net=LANL`：真实企业网络红队事件压力/确认。
+- 当前不依赖 `D_net`。
 
 不得把 CLUE-LDS 的账号劫持写成真实恶意内部人员攻击；不得把 LANL 写成 CERT 同构。
 
@@ -341,6 +342,10 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 
 ### `D_ext`
 
+v1.2.8 数据封闭后，本项目不追求新的真实网络 `D_ext`。CLUE-LDS 只作有限功效
+外部效应复验，SMD/PSM/SMAP/MSL 只作 scoring-side 泛化；不得把二者合并成
+“独立外部确认”。
+
 `D_ext` 的数据哈希、标签和用户日门禁通过前：
 
 - 最终外部 MDE 不冻结；
@@ -484,9 +489,10 @@ CLUE-LDS pilot 必须运行 2 个独立训练 seed：
 
 - `D_app=CLUE-LDS` 的数据、时间、标签和图门禁通过；
 - CLUE-LDS 的预注册主要比较完成；
-- LANL 至少完成真实网络外部压力验证且不出现致命反向；
-- r5.2、CLUE-LDS 与 LANL 不出现相反方向的致命失败；
-- 论文明确区分 r4.2 开发、r5.2 已见复验、CLUE-LDS 半合成账号劫持和 LANL 真实红队事件。
+- SMD/PSM/SMAP/MSL 的 scoring-side 验证完成；
+- 论文明确区分 r4.2 开发、r5.2 已见复验、CLUE-LDS 半合成账号劫持和 scoring-side 外部数据；
+- 不声称 LANL、OpTC 或 ChimeraLog 获批；
+- 当前外部 B 类承诺为条件性方法学稿，不是外部确认稿。
 
 ## 10. 机制分析
 
@@ -673,9 +679,8 @@ A1-Cov
 
 ### 并行任务
 
-- 继续审计 ChimeraLog 替代下载方式；
-- 检查作者后续 release、联系方式和数据许可；
-- 同时评估 LANL/OpTC 的最小可行切片；
+- 不再审计或等待 ChimeraLog、LANL、OpTC；
+- 将现有数据整理成可审计的 scoring-side 和有限外部复验清单；
 - 不因外部数据等待而跳过 Phase 0 和 A1/A0-matched pilot。
 
 ### 第二批
@@ -697,7 +702,8 @@ A3-noAnchor, A3-noEMA, A3-epsInf, A3-product, A3-hard
 
 ### 外部确认
 
-仅在 `D_ext` 的完整数据门禁通过后执行。CLUE-LDS 的核心数据与图门禁已通过，但完整模型矩阵尚未开始；ChimeraLog/SPEDIA/TWOS 的辅助结果不能替代 `D_ext`。
+当前不执行新的 `D_ext` 外部确认。CLUE-LDS 只作有限功效外部效应复验；
+SMD/PSM/SMAP/MSL 只作 scoring-side 泛化；辅助结果不能替代独立确认。
 
 ### 安全与基线
 

@@ -1,6 +1,6 @@
 # CCF-B Research Program
 
-版本：v1.2.7
+版本：v1.2.8
 状态：研究目标已从“CCF-C 上沿”切换为“冲击 CCF-B”。
 
 v5 冻结为 R0 基线。后续工作只围绕一个可证伪的新方法展开，不再把 SoftCLT、训练期行为画像、欧氏库和 PAI 继续组合成更大的方法包。
@@ -14,7 +14,7 @@ v1.2.3 的两个硬结论：
 
 因此当前状态是“方法候选 + 可执行门禁”，不是“B 类有效性已证明”。
 
-Phase 0 规格、A3/A5a/A5b 联合覆盖、A1 版本拆分、pilot 最小效应和边曝光命题见 `PLAN_ERRATA_v1.2.2.md`；LANL 外部候选见 `PLAN_ERRATA_v1.2.3.md`；CLUE-LDS 替代 ChimeraLog 的协议见 `PLAN_ERRATA_v1.2.4.md`；真实数据和覆盖结果见 `PLAN_ERRATA_v1.2.5.md`；平坦先验、独立标签 seed、24 对功效和 CLUE pilot 判据见 `PLAN_ERRATA_v1.2.6.md`；CERT 先验审计、批次控制、功效分类和 v1.2.7 Gate 修订见 `PLAN_ERRATA_v1.2.7.md`。
+Phase 0 规格、A3/A5a/A5b 联合覆盖、A1 版本拆分、pilot 最小效应和边曝光命题见 `PLAN_ERRATA_v1.2.2.md`；CLUE-LDS 替代 ChimeraLog 的协议见 `PLAN_ERRATA_v1.2.4.md`；真实数据和覆盖结果见 `PLAN_ERRATA_v1.2.5.md`；平坦先验、独立标签 seed、24 对功效和 CLUE pilot 判据见 `PLAN_ERRATA_v1.2.6.md`；CERT 先验审计、批次控制、功效分类和 v1.2.7 Gate 修订见 `PLAN_ERRATA_v1.2.7.md`；数据封闭和论文重定位见 `PLAN_ERRATA_v1.2.8.md`。
 
 CLUE-LDS 真实图 10-seed 已完成 80% 三图覆盖，需要 948–961 个 stage batch；详见 `CLUE_LDS_PHASE0_RESULTS.md`。完整训练和外部确认矩阵尚未完成。
 
@@ -151,7 +151,7 @@ AdaGraph 的新颖性必须限定为：
 
 锁定参数复验：CERT r5.2，一次运行，不宣称盲测。
 
-独立外部路线：`D_app=CLUE-LDS` 与 `D_net=LANL`。CLUE-LDS 已通过核心数据与 Phase 0 门禁，完整模型矩阵仍待跑；它只有 24 个有效 pair，定位为有限功效外部效应复验。
+外部路线已冻结：`D_app=CLUE-LDS` 只作有限功效外部效应复验；LANL、OpTC 和 ChimeraLog 不再作为后续依赖。SMD/PSM/SMAP/MSL 只作 scoring-side 泛化。
 
 预注册 10 个种子。主推断明确为“条件于当前 10 个训练模型，在用户/事件簇重采样下的配对效应”；双层 bootstrap 只作训练随机性敏感性。
 
@@ -183,9 +183,9 @@ Pilot 报告按 `A0-official → A0-matched → A0-A3batch → A1-Cov-uniform/A1
 
 A4 vs A1-Cov 只表示同批次暴露下的端到端收益，不能用于组件归因。A1-R0 单独保留为 R0 复现参照。画像锚与 KL 信任域由同一个 `beta` 控制，H2 评价的是其他组件存在时的边际贡献和剂量响应，不再宣称三个组件的独立作用。H4 的交互项只作探索性分析。
 
-外部 B 类有效性还要求 `D_ext` 通过数据门禁并完成预注册分析。r5.2 再稳，也不能替代这一要求。
+外部 B 类有效性不再承诺真实网络外部确认；当前论文定位为方法学/实证研究，r5.2 再稳也不能替代独立外部确认。
 
-当前外部路线进一步拆为 `D_app=CLUE-LDS` 和 `D_net=LANL`：前者提供应用级真实正常行为上的半合成账号劫持，后者计划提供真实企业网络红队事件。CLUE-LDS 的数据和图门禁已通过，但完整模型矩阵和有限功效复验尚未完成；不承诺 B 类外部有效性。
+CLUE-LDS 提供应用级半合成账号劫持；SMD/PSM/SMAP/MSL 提供 scoring-side 外部验证。LANL 不可得，因此不承诺真实企业网络外部确认，也不再用“未来外部数据”作为实验依赖。
 
 第三周末若仍无通过门禁的外部数据，停止条件性 B 主张，转为 C 类上沿或“批次共现与覆盖修正”的方法学/实证研究。
 
@@ -213,15 +213,15 @@ A4 vs A1-Cov 只表示同批次暴露下的端到端收益，不能用于组件�
 - r1 无官方恶意场景标签，只可用于无标签工程诊断，不能计算 PR-AUC、K=10 或确认性 p 值。
 - SPEDIA 仅 17 个 `User` 值、25 天且首日有异常，不作主用户图确认集。
 - TWOS 为五天受控竞赛，只作外部压力测试。
-- ChimeraLog 降为托管恢复后的备选；官方页面仍显示数据正在迁移。
-- CLUE-LDS 已取代 ChimeraLog 成为首要应用级外部候选：真实正常云行为 + 基于官方切换算法、由本项目固定 seed 构造的半合成账号劫持。标签 seed=`20261101`，与训练 seed 分离。
-- LANL 是首要真实网络外部候选；它是红队入侵事件，不是 CERT 式内部人员构念，且尚无证据支持 30 天全局干净前缀。
-- `D_ext` 最终门禁见 `DATASET_AND_POWER_AUDIT_v1.2.md`。
+- ChimeraLog/OpTC/LANL 均不追求，数据包冻结。
+- CLUE-LDS 是当前应用级有限外部复验：真实正常云行为 + 基于官方切换算法、由本项目固定 seed 构造的半合成账号劫持。标签 seed=`20261101`，与训练 seed 分离。
+- LANL/OpTC/ChimeraLog 不再等待，数据包冻结。
+- 现有数百 GB 同源数据只能做稳定性、敏感性和复现，不能冒充独立外部验证。
 - SMD 没有跨用户图结构，训练端固定为 A0，仅用于 S 系列和检测基线。
 - PSM、SMAP、MSL 只用于评分端和稳健性验证。
 - r6.2 只作五事件压力审计，不进入显著性检验。
 
-数据未到位的准确原因见 `DATASET_AND_POWER_AUDIT_v1.2.md`：r1 有规模但无标签；SPEDIA/TWOS 有标签但协议不适配；ChimeraLog 代码公开，但原始数据因作者学校 OneDrive 链接失效而暂无稳定下载。
+数据边界和不可用原因见 `DATASET_AND_POWER_AUDIT_v1.2.md`；不再把未来数据获取写成实验依赖。
 
 ## 标签与调参纪律
 
@@ -246,11 +246,11 @@ A4 vs A1-Cov 只表示同批次暴露下的端到端收益，不能用于组件�
 1. 冻结 R0 的代码、配置、种子、切分和数据哈希；
 2. 按 `PREREGISTRATION.md` 冻结主比较、A1-Cov vs A0-matched 最小效应停止规则和当前可冻结阈值；
 3. 完成 `BATCH_REALIZATION_PROTOCOL_v1.2.md` 的采样器、A3∪A5a∪A5b 联合边覆盖、50% 随机填充、seed 差异测试和覆盖率 smoke run；
-4. CLUE-LDS 的数据、标签 seed、用户日、图协议、平坦先验和 24-pair 功效已审计；A0/A1 入口 smoke 已通过，下一步补齐分解控制、训练期内部合成异常验证，并继续审计 LANL；
+4. CLUE-LDS 的数据、标签 seed、用户日、图协议、平坦先验和 24-pair 功效已审计；A0/A1 入口 smoke 已通过，下一步补齐分解控制和训练期内部合成异常验证；
 5. 在 r4.2 跑 `A0-official、A0-matched、A1-Cov、A1-sparse-EMA、A1+、A3、A5a、A5b、A7` 的 1–2 种子 pilot，并先检查 A1-Cov vs A0-matched；pilot 只决定继续或停止，不用于调参；
 6. pilot 和覆盖门禁通过后跑 10 种子 r4.2；
 7. 冻结最终超参数，在 r5.2 做一次性锁定复验；
-8. 完成 CLUE-LDS 两 seed pilot 后再决定是否运行 A3/A4 外部矩阵；LANL 门禁通过后才补真实网络外部证据；
+8. 完成 CLUE-LDS 两 seed pilot 后再决定是否运行 A3/A4 外部矩阵；不再补充真实网络外部证据；
 9. Gate 1 通过后再运行深度基线、S×A 交叉和安全实验。
 
 文献条目见 `LITERATURE_REVIEW.md` 和 `references_ccf_b.bib`。只有已经核实的条目可以进入论文。

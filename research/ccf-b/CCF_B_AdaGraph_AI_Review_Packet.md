@@ -1,12 +1,16 @@
 # AdaGraph-SoftCLT CCF-B 研究计划审阅包
 
-版本：v1.2.7
+版本：v1.2.8
 
 冻结日期：2026-11-18
 
 代码分支：`ccf-b`
 
 仓库：<https://github.com/ZhaoJackie297/representation-preservation-anomaly-detection>
+
+> v1.2.8 数据范围已冻结：LANL、OpTC、ChimeraLog 均标为 `NOT_PURSUED`。
+> 本文旧节中的 LANL/外部确认内容是审计历史，不是当前执行依赖。当前只使用
+> CERT、CLUE-LDS 与 SMD/PSM/SMAP/MSL；外部声明限定为有限复验和 scoring-side 泛化。
 
 关键状态：
 

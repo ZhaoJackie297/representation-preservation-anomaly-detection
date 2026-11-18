@@ -7,6 +7,8 @@ v5 冻结为 R0 基线。后续工作只围绕一个可证伪的新方法展开�
 
 本文件只定义研究问题、方法主线、硬门槛和启动顺序。具体实验变体见 `EXPERIMENT_MATRIX.md`，冻结判据见 `PREREGISTRATION.md`，执行排期见 `WEEKLY_PLAN.md`。
 
+导师课题三层对齐版方案见 `ALIGNED_UPGRADE_PLAN_v2.md`。
+
 v1.2.3 的两个硬结论：
 
 - CERT r1 没有官方恶意标签，不能作为确认集；现有外部数据也尚未通过主图方法确认门禁；

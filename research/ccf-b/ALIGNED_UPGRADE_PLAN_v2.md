@@ -2,6 +2,9 @@
 
 日期：2026-11-18
 
+> 审阅后的收缩执行版见 `ALIGNED_UPGRADE_PLAN_v3.md`。v3 将 collective
+> 降为探索性，增加数值化 Gate 和 EWMA/CUSUM 风险理论。
+
 ## 0. 定位
 
 本方案把研究从“SoftCLT/AdaGraph 的单点方法”升级为导师课题的三层问题：

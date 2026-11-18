@@ -1,7 +1,7 @@
 {
   "target": "CCF-B",
-  "plan_version": "1.2",
-  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.md",
+  "plan_version": "1.2.1",
+  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.1.md",
   "r0_frozen_manuscript": "paper/manuscript.docx",
   "primary_method_candidate": "AdaGraph-SoftCLT",
   "status": "candidate_method_pending_implementation_and_external_data_gates",
@@ -75,6 +75,15 @@
     "noninferiority_p_value": "1_plus_count_delta_at_or_below_absolute_margin_over_B_plus_1",
     "noninferiority_margin": {
       "pr_auc_absolute": -0.0005,
+      "pr_auc_scale_evidence": {
+        "r4_2_A1_native_mask": 0.008922,
+        "r4_2_A1_S2_euclidean": 0.014091,
+        "r5_2_A1_S2_euclidean": 0.007572,
+        "absolute_margin_fraction_of_A1_range": [
+          0.0355,
+          0.0660
+        ]
+      },
       "event_recall_k10_absolute_formula": "-max(0.02, 2 / N_events)",
       "relative_percent_margin": false
     },
@@ -90,22 +99,34 @@
     "unit": "one_user_sequence",
     "official_batch_size": 16,
     "shared_coverage_schedule_for_matched_variants": true,
+    "target_edge_sets": [
+      "A3_soft_edges",
+      "A5b_profile_permutation_edges"
+    ],
     "a0_official_random_reference": true,
     "a0_matched_control": true,
-    "support_edge_coverage_minimum": 0.8,
+    "coverage_A3_minimum": 0.8,
+    "coverage_A5b_minimum": 0.8,
     "zero_realized_edge_users_maximum": 0,
     "median_user_edge_exposures_minimum": 1,
+    "batch_table_sha256_unique_across_seeds": true,
+    "require_seed_dependent_user_pair_sets": true,
     "stage_budget": "max(base_steps, required_coverage_batches)",
     "failure_status": "IMPLEMENTATION_BLOCKED",
     "logged_metrics": [
       "intended_support_edges",
       "realized_support_edges",
       "support_edge_coverage",
-      "active_pair_mass",
+      "coverage_A3",
+      "coverage_A5b",
+      "active_pair_mass_A3",
+      "active_pair_mass_A5b",
       "median_user_edge_exposures",
       "min_user_edge_exposures",
       "fraction_users_with_zero_realized_edge",
-      "teacher_student_cosine_distance"
+      "teacher_student_cosine_distance",
+      "batch_table_sha256",
+      "seed_pair_jaccard"
     ]
   },
   "adagraph": {
@@ -287,6 +308,7 @@
     "implementation_diagnostic": [
       "A0_matched_vs_A0_official"
     ],
+    "pilot_stop_rule": "stop_AdaGraph_if_A1_vs_A0_matched_nonpositive_on_both_primary_endpoints",
     "final_holm_scope": "frozen_after_D_ext_event_count_and_MDE_gate"
   },
   "execution_batches": {
@@ -299,7 +321,6 @@
       "A0_official",
       "A0_matched",
       "A1",
-      "A1_sparse",
       "A1_sparse_EMA",
       "A1_plus",
       "A3",

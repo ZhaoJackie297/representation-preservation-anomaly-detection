@@ -1,4 +1,4 @@
-# 图边落批协议 v1.2
+# 图边落批协议 v1.2.1
 
 日期：2026-11-18。
 
@@ -51,11 +51,15 @@ p_pair = (batch_size / N_users) *
 2. 形成所有非零软边：
 
 ```text
-E_s = {(u,v): v in S_s(u), W_s(u,v) > 0}
+E_A3 = {(u,v): v in S_A3(u), W_A3(u,v) > 0}
+E_A5b = {(u,v): v in S_A5b(u), W_A5b(u,v) > 0}
+E_cov = E_A3 union E_A5b
 ```
 
 3. 按 `sha256(seed, stage, min(u,v), max(u,v))` 排序，消除集合和哈希随机化差异；
 4. 正式主网格先限制 `m in {5,10}`；`m=20/50` 只有在覆盖与算力审计通过后才作为敏感性分析。
+
+参考 A3 边和 A5b 置换边必须进入同一张共同批次表。只覆盖 A3 会让 A5b 的“无差异”无法解释。
 
 ### 3.2 批次打包
 
@@ -67,7 +71,7 @@ E_s = {(u,v): v in S_s(u), W_s(u,v) > 0}
 4. batch 达到 16 个用户或没有可增加目标边的用户时停止；
 5. 不足 16 个用户时，用固定 seed 的随机非重复用户补齐；
 6. 标记该 batch 已覆盖的目标边；
-7. 重复，直到每条目标边至少进入一个 batch；
+7. 重复，直到 `E_A3` 和 `E_A5b` 中每条目标边都至少进入一个 batch；
 8. 若生成批数少于最低训练批数，按软质量加权的已覆盖批表重复；
 9. 最终顺序由固定 seed 决定，不再 shuffle。
 
@@ -78,6 +82,8 @@ E_s = {(u,v): v in S_s(u), W_s(u,v) > 0}
 - 新增 `A0-matched`：相同覆盖批次表 + 原始硬实例对比，用于区分“批次覆盖”与“软图权重”；
 - 保留 `A0-official`：原版随机 shuffle，作为外部参照，不参与主因果对照；
 - 每个 batch 保存用户索引、已实现目标边集合、真实非零权重和 `active_pair_mass`。
+
+每个正式 seed 必须生成自己的批次表，不允许 10 个 seed 共用一个全局表。即使图边相同，`sha256(seed, ...)` 的排序、覆盖起点和补齐顺序也必须给出生效的 seed 差异。
 
 ### 3.4 动态训练预算
 
@@ -103,19 +109,26 @@ B_stage = max(B_base, number_of_required_coverage_batches)
 ```text
 intended_support_edges
 realized_support_edges
-support_edge_coverage = realized / intended
-active_pair_mass = sum of nonzero in-batch W for all batches
+coverage_A3
+coverage_A5b
+active_pair_mass_A3
+active_pair_mass_A5b
 median_user_edge_exposures
 min_user_edge_exposures
 fraction_users_with_zero_realized_edge
 teacher_student_cosine_distance
+batch_table_sha256
+seed_pair_jaccard
 ```
 
 正式门禁：
 
-- `support_edge_coverage >= 0.80`；
+- `coverage_A3 >= 0.80`；
+- `coverage_A5b >= 0.80`；
 - `fraction_users_with_zero_realized_edge = 0`；
 - 每个用户的中位边曝光次数 `>=1`；
+- 10 个正式 seed 的 `batch_table_sha256` 全部唯一；
+- seed 间用户对 Jaccard 不得全部为 1；
 - 所有权重总质量与 A1/A1+ 对照可核对；
 - 未达到时，状态为 `IMPLEMENTATION_BLOCKED`，不得解释为方法失败。
 
@@ -146,12 +159,12 @@ teacher_student_cosine_distance
 
 ## 7. 当前状态
 
-本协议已写入 v1.2，但尚未实现和跑通。
+本协议已写入 v1.2.1，但尚未实现和跑通。
 
 必须先交付：
 
 1. `coverage_sampler.py`；
-2. 单元测试：边覆盖、用户不重复、种子可复现、共同批次表一致；
+2. 单元测试：A3∪A5b 边覆盖、用户不重复、同 seed 可复现、不同 seed 表不同、共同批次表一致；
 3. r4.2 单 seed 的 smoke run；
 4. pair coverage 报告；
 5. 实际 `B_stage` 和 GPU 小时。

@@ -1,9 +1,9 @@
-# 八周执行计划 v1.2
+# 八周执行计划 v1.2.1
 
 前提：
 
 - 团队可轮班推进，主算力为 RTX 5060；
-- v1.2 已修正 r1、非劣界、双层 bootstrap、支撑集端点和硬图权重；
+- v1.2.1 已修正 r1、非劣界、双层 bootstrap、支撑集端点、硬图权重、A1/A0-matched 停止规则和 A5b 覆盖；
 - 外部确认集尚未通过门禁；
 - 图边落批尚未实现；
 - 八周计划以“先过实现和数据门禁，再跑主矩阵”为顺序。
@@ -22,15 +22,17 @@
 - 冻结 R0 的 code、配置、种子、切分和数据哈希；
 - 实现 `CommonCoverageBatchSampler`；
 - 单元测试：
-  - 边覆盖；
+  - A3∪A5b 联合边覆盖；
   - 用户不重复；
   - 同 seed 可复现；
+  - 不同 seed 的批次表不同；
   - 所有变体共享同一批次表；
 - 在 r4.2 跑采样器 smoke run。
 
 ### 协议
 
 - 冻结 A1-sparse-EMA、A3-hard `1/m`、邻居质量 `rho`；
+- 冻结 `A1 vs A0-matched` 双终点停止规则；
 - 冻结事件不足规则、绝对非劣界和双层 bootstrap；
 - 记录实际 `B_stage`；
 - 固定 12 候选表。
@@ -40,7 +42,7 @@
 - 数据门禁报告；
 - pair coverage 报告；
 - sampler 单元测试；
-- v1.2 hash。
+- v1.2.1 hash。
 
 ## 第 2 周：非约束性 pilot
 
@@ -50,7 +52,6 @@
 A0-official
 A0-matched
 A1
-A1-sparse
 A1-sparse-EMA
 A1+
 A3
@@ -68,7 +69,15 @@ A7
 - KL 和 beta 是否有非空变化；
 - 训练损失和显存。
 
+第一比较为 `A1 vs A0-matched`：
+
+- 若 `Delta_PR<=0` 且 `Delta_K10<=0`，停止 AdaGraph；
+- 在 R0 论文中披露共同批次覆盖和图边落批局限；
+- 若只有一个终点为正，标为 `FRAGILE_SINGLE_ENDPOINT`，先在 10-seed r4.2 复验。
+
 Pilot Go/No-Go 明确为**非约束性启动判断**。它只决定是否进入第二批，不作确认性推断。r4.2 测试期结果一旦用于该判断，r4.2 永久标记为已见开发数据。
+
+并行继续审计 ChimeraLog 替代托管，并检查 LANL/OpTC 最小切片；外部数据未到位不阻塞 Phase 0 和 pilot。
 
 交付：
 

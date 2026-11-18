@@ -1,6 +1,6 @@
 # AdaGraph-SoftCLT CCF-B 研究计划审阅包
 
-版本：v1.2
+版本：v1.2.1
 
 冻结日期：2026-11-18
 
@@ -140,19 +140,31 @@ soft_labels_batch = soft_labels[idx][:, idx]
 
 因此原计划可能写出了全局 W，但多数正关系从不进入梯度。
 
-v1.2 的修正是 `CommonCoverageBatchSampler`：
+v1.2.1 的修正是 `CommonCoverageBatchSampler`：
 
-1. 从参考 A3/A4 的目标支撑图形成边集；
+1. 从参考 A3/A4 的目标支撑图和 A5b 置换图形成边集 `E_A3 ∪ E_A5b`；
 2. 按固定 hash 排序；
 3. 用贪心覆盖打包 16 用户 batch；
 4. 同 seed/stage 的所有主对照重放相同批次表；
 5. A0-matched 是同批次 + 硬实例对比；
-6. 目标边覆盖率必须 `>=80%`；
+6. `coverage_A3` 与 `coverage_A5b` 都必须 `>=80%`；
 7. 不允许有用户零边曝光；
 8. 记录 `active_pair_mass`、每用户边曝光和教师-学生距离；
-9. 失败状态为 `IMPLEMENTATION_BLOCKED`，不是方法失败。
+9. 10 个正式 seed 的 `batch_table_sha256` 必须全部唯一；
+10. 报告 seed 间用户对 Jaccard；
+11. 失败状态为 `IMPLEMENTATION_BLOCKED` 或 `INVALID_SEED_RANDOMIZATION`，不是方法失败。
 
 请重点审查：共同的“参考方法边集”批次表是否会引入选择偏差，以及 A0-matched、A5a、A5b 是否足以控制这种偏差。
+
+另有一条预注册停止规则：
+
+```text
+若 mean(PR_AUC_A1 - PR_AUC_A0matched) <= 0
+且 mean(RecallK10_A1 - RecallK10_A0matched) <= 0
+则立即停止 AdaGraph 主实验。
+```
+
+此时在 R0 论文披露共同批次和图边落批局限。只有一个终点为正时，标记为 `FRAGILE_SINGLE_ENDPOINT`，先在 r4.2 10-seed 复验，不得直接进入 r5.2。
 
 ## 4. 数据审计
 
@@ -173,7 +185,7 @@ v1.2 的修正是 `CommonCoverageBatchSampler`：
 
 r1 有约 1,000 个用户和大量日志，但没有官方恶意场景标签。
 
-v1.2 删除其确认集地位，只保留无标签工程诊断。
+v1.2.1 删除其确认集地位，只保留无标签工程诊断。
 
 ### CERT r5.2
 
@@ -183,7 +195,7 @@ v1.2 删除其确认集地位，只保留无标签工程诊断。
 - 99 个事件；
 - 1,307 个恶意账户日。
 
-它用于 v1.2 冻结后的锁定参数复验，但 R0 已见，因此不是盲测。
+它用于 v1.2.1 冻结后的锁定参数复验，但 R0 已见，因此不是盲测。
 
 ### SPEDIA
 
@@ -217,7 +229,8 @@ v1.2 删除其确认集地位，只保留无标签工程诊断。
 - 官方代码：<https://github.com/fish98/Chimera>；
 - 三组织，每组织 20 人；
 - 一个月、15 类攻击、六类日志；
-- 官方页当前仍显示数据正在整理和迁移。
+- 官方页当前仍显示数据正在整理和迁移；
+- 官方 GitHub README 进一步说明：作者毕业后学校 OneDrive 账号受影响，旧 ChimeraLog 下载链接已不可访问，正在寻找新托管。
 
 结论：优先候选，但尚未具备可下载、可审计的确认条件。
 
@@ -278,6 +291,16 @@ K=10 recall: -max(0.02, 2 / N_events)
 ```
 
 不再使用 `-5%` 相对值。
+
+`-0.0005` 的量级依据：
+
+| 现有 A1 附近口径 | PR-AUC | margin / A1 |
+| --- | ---: | ---: |
+| r4.2 instance-soft，原 mask | 0.008922 | 5.60% |
+| r4.2 instance-soft，S2 欧氏库 | 0.014091 | 3.55% |
+| r5.2 S2 欧氏库路径 | 0.007572 | 6.60% |
+
+因此它约等于现有 A1 PR-AUC 的 3.55%–6.60%，不是随极小基线变化的百分比。
 
 `D_ext` 通过数据门禁后，才用其自身事件结构做 80% 功效模拟，冻结最终 MDE 和 Holm 家族。
 
@@ -361,7 +384,7 @@ r5.2 预先冻结三个独立 Holm 家族：
 
 ## 9. 需要审阅 AI 重点回答
 
-1. v1.2 的 `CommonCoverageBatchSampler` 是否足以解决图边未落批，还是仍然把批次选择变成了不可分离的治疗；
+1. v1.2.1 的 `CommonCoverageBatchSampler` 是否足以解决图边未落批，还是仍然把批次选择变成了不可分离的治疗；
 2. A0-matched、A5a、A5b、A3-hard 是否能充分区分“关系信息”“软权重”“批次共现”；
 3. 把 r5.2 定位为已见锁定复验、把真正 B 证据交给 D_ext，统计上是否诚实且可执行；
 4. 事件数 99 的 r5.2、绝对非劣界 `PR=-0.0005` 和 `K10=-max(0.02,2/N)` 是否合理；

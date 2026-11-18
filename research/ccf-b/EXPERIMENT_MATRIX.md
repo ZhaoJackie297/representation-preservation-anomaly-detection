@@ -1,6 +1,6 @@
 # CCF-B 实验矩阵
 
-版本：v1.2
+版本：v1.2.1
 
 日期：2026-11-18。
 
@@ -24,7 +24,7 @@
 | A3-product | 替代乘积融合 | 2B | 融合规则对照 |
 | A3-hard | 邻居权重 `1/m` | 2B | 受控软/硬对照 |
 | A5a | 度保持随机图 | 2B | 随机稀疏图 |
-| A5b | 画像节点置换图 | 2B | 错误画像锚 |
+| A5b | 画像节点置换图，重放共同批次表并单独报告覆盖率 | 2B | 错误画像锚 |
 | A6 | 仅画像中位数维度 | B | 附录画像消融 |
 | A7 | NNCLR 近邻正样本 | B | 近邻对比 |
 | A8a | Incremental False Negative Detection | B | 动态假负检测 |
@@ -50,10 +50,12 @@
 | --- | --- |
 | A0-official vs A0-matched | 测量共同批次本身的影响 |
 | A1 vs A3 vs A4 | 在共同批次暴露下比较图更新 |
-| active_pair_mass | 确认软权重确实进入 `inst_CL_soft` |
-| support_edge_coverage | 目标边至少覆盖 80% |
+| A3∪A5b 联合覆盖 | A5b 不能因未落批而假阴性 |
+| active_pair_mass_A3/A5b | 确认两类软权重确实进入 `inst_CL_soft` |
+| coverage_A3/A5b | 两类目标边均至少覆盖 80% |
 | zero-realized-edge users | 必须为 0 |
 | median edge exposure | 必须 `>=1` |
+| batch-table hash by seed | 10 个 seed 必须全部不同 |
 
 若覆盖失败：
 
@@ -61,6 +63,17 @@
 - 不进入 A3/A4 结论；
 - 先调整批次表、m 或预算；
 - 不把失败 run 解释为方法无效。
+
+### A1 vs A0-matched 停止规则
+
+Pilot 首看：
+
+```text
+Delta_PR = PR_AUC(A1) - PR_AUC(A0-matched)
+Delta_K10 = RecallK10(A1) - RecallK10(A0-matched)
+```
+
+若两个均值都 `<=0`，停止 AdaGraph，在 R0 论文披露批次覆盖局限。若只有一个为正，后续标为 `FRAGILE_SINGLE_ENDPOINT`，必须先在 r4.2 10-seed 稳定复现。
 
 详见 `BATCH_REALIZATION_PROTOCOL_v1.2.md`。
 
@@ -210,6 +223,14 @@ H4 不进入 Gate 1。
 - K=10：`-max(0.02,2/N_events)`；
 - 不使用 `-5%` 相对值。
 
+`-0.0005` 在现有 A1 尺度上约为：
+
+- r4.2 原 mask：5.60%；
+- r4.2 S2 欧氏库：3.55%；
+- r5.2 S2 欧氏库路径：6.60%。
+
+因此它是约 3.55%–6.60% A1 基线的固定绝对容差，不是随极小基线变化的相对百分比。
+
 ### 比较家族
 
 候选固定集：
@@ -260,7 +281,7 @@ r5.2 锁定复验预先使用三个独立 Holm 家族：
 | 批次 | 数据与 seed | 变体 |
 | --- | --- | --- |
 | Phase 0 | smoke | sampler、A0-matched、覆盖报告 |
-| Pilot | r4.2，1–2 seed | A0-official、A0-matched、A1、A1-sparse、A1-sparse-EMA、A1+、A3、A5a、A5b、A7 |
+| Pilot | r4.2，1–2 seed | A0-official、A0-matched、A1、A1-sparse-EMA、A1+、A3、A5a、A5b、A7；先检查 A1 vs A0-matched |
 | 第二批 | r4.2，10 seed | A2、A4、A8a、A8b、A9、A3 机制消融 |
 | 锁定复验 | r5.2，10 seed，超参冻结 | 主比较与机制小家族 |
 | 外部确认 | `D_ext`，10 seed | 门禁通过后冻结 Holm |

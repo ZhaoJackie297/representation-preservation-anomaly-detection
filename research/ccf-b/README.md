@@ -1,18 +1,20 @@
 # CCF-B Research Program
 
-版本：v1.2
+版本：v1.2.1
 状态：研究目标已从“CCF-C 上沿”切换为“冲击 CCF-B”。
 
 v5 冻结为 R0 基线。后续工作只围绕一个可证伪的新方法展开，不再把 SoftCLT、47 维画像、欧氏库和 PAI 继续组合成更大的方法包。
 
 本文件只定义研究问题、方法主线、硬门槛和启动顺序。具体实验变体见 `EXPERIMENT_MATRIX.md`，冻结判据见 `PREREGISTRATION.md`，执行排期见 `WEEKLY_PLAN.md`。
 
-v1.2 的两个硬结论：
+v1.2.1 的两个硬结论：
 
 - CERT r1 没有官方恶意标签，不能作为确认集；现有外部数据也尚未通过主图方法确认门禁；
 - 当前随机 16 用户 batch 会让大多数图边永远不进入 SoftCLT 梯度，必须先冻结共同覆盖批次协议。
 
 因此当前状态是“方法候选 + 可执行门禁”，不是“B 类有效性已证明”。
+
+开跑前的停止规则、A5b 联合覆盖、seed 依赖批次表和 PR-AUC 界值依据见 `PLAN_ERRATA_v1.2.1.md`。
 
 ## 目标定位
 
@@ -135,6 +137,7 @@ AdaGraph 的新颖性必须限定为：
 通过 Gate 1 需要：
 
 - 图边覆盖门禁通过；
+- A1 相对 A0-matched 至少一个主终点有正向效应；若两个主终点均无正向效应，立即停止 AdaGraph 并披露批次覆盖局限；
 - r4.2 pilot 通过，但只作方向性判断；
 - A4 在 r5.2 锁定复验中相对 A1+ 和 A9 的两个共同主终点均优效；
 - A4 相对 A7/A8b 至少一个主终点优效，且两个终点均非劣；
@@ -142,6 +145,8 @@ AdaGraph 的新颖性必须限定为：
 - A4 相对 A5a/A5b 至少一个共同主终点在关系控制家族中通过 Holm 校正，并要求 8/10 seed 方向一致；
 - A3 相对 noAnchor 和 noEMA 的机制家族至少各有一个主终点通过 Holm 校正的单侧效应判据；
 - NCA@10 和 ER_ratio 满足预注册非劣界。
+
+共同覆盖批次表必须同时覆盖参考 A3 图和 A5b 置换图。A5b 覆盖率低于 80% 时，其比较记为 `INVALID_IMPLEMENTATION`，不能解释为“错误画像没有影响”。10 个正式 seed 必须使用 10 张不同的批次表，批次表哈希和用户对 Jaccard 必须报告。
 
 预注册主比较固定为：
 
@@ -187,6 +192,8 @@ A4 vs A1 只表示端到端收益，不能用于组件归因。画像锚与 KL �
 - PSM、SMAP、MSL 只用于评分端和稳健性验证。
 - r6.2 只作五事件压力审计，不进入显著性检验。
 
+数据未到位的准确原因见 `DATASET_AND_POWER_AUDIT_v1.2.md`：r1 有规模但无标签；SPEDIA/TWOS 有标签但协议不适配；ChimeraLog 代码公开，但原始数据因作者学校 OneDrive 链接失效而暂无稳定下载。
+
 ## 标签与调参纪律
 
 - 图更新不使用真实异常标签；
@@ -208,10 +215,10 @@ A4 vs A1 只表示端到端收益，不能用于组件归因。画像锚与 KL �
 ## 启动顺序
 
 1. 冻结 R0 的代码、配置、种子、切分和数据哈希；
-2. 按 `PREREGISTRATION.md` 冻结主比较和当前可冻结阈值；
-3. 完成 `BATCH_REALIZATION_PROTOCOL_v1.2.md` 的采样器、单元测试和覆盖率 smoke run；
+2. 按 `PREREGISTRATION.md` 冻结主比较、A1 vs A0-matched 停止规则和当前可冻结阈值；
+3. 完成 `BATCH_REALIZATION_PROTOCOL_v1.2.md` 的采样器、A3∪A5b 联合边覆盖、seed 差异测试和覆盖率 smoke run；
 4. 审计 ChimeraLog、LANL、OpTC 的访问、许可证、标签、用户日构造和事件数；
-5. 在 r4.2 跑 `A0-matched、A1、A1-sparse、A1-sparse-EMA、A1+、A3、A5a、A5b、A7` 的 1–2 种子非约束性 pilot；
+5. 在 r4.2 跑 `A0-official、A0-matched、A1、A1-sparse-EMA、A1+、A3、A5a、A5b、A7` 的 1–2 种子非约束性 pilot，并先检查 A1 vs A0-matched；
 6. pilot 和覆盖门禁通过后跑 10 种子 r4.2；
 7. 冻结最终超参数，在 r5.2 做一次性锁定复验；
 8. `D_ext` 门禁通过后执行独立外部确认；否则不宣称 B 类外部有效性；

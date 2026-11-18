@@ -1,6 +1,6 @@
 # AdaGraph-SoftCLT 预注册表
 
-版本：v1.2
+版本：v1.2.1
 
 冻结日期：2026-11-18
 
@@ -102,15 +102,17 @@ H2 只研究其他组件存在时的边际贡献和剂量响应，不把画像�
 
 正式 A3/A4 使用 `CommonCoverageBatchSampler`：
 
-1. 在每个 stage 开始时从参考 A3/A4 支撑图形成目标边集合；
+1. 在每个 stage 开始时从参考 A3/A4 支撑图和 A5b 置换图形成联合目标边集合 `E_A3 ∪ E_A5b`；
 2. 用固定 hash 排序，按贪心覆盖打包 16 用户 batch；
 3. 所有主对照重放同一 seed/stage 的用户批次表；
 4. A0-official 保留原版随机 shuffle，A0-matched 使用共同批次表；
-5. 记录 `intended_support_edges`、`realized_support_edges`、`active_pair_mass`、每用户边曝光；
-6. 正式门禁：支撑边覆盖率 `>=80%`，没有用户零曝光，用户中位曝光 `>=1`；
+5. 分别记录 A3 与 A5b 的 `intended_support_edges`、`realized_support_edges`、`active_pair_mass`、每用户边曝光；
+6. 正式门禁：A3 和 A5b 的支撑边覆盖率均 `>=80%`，没有用户零曝光，用户中位曝光 `>=1`；
 7. `B_stage=max(B_base, required_coverage_batches)`，A1+ 与 A9 匹配实际步数。
 
 违反门禁时状态为 `IMPLEMENTATION_BLOCKED`，不得把阴性结果解释为假设失败。
+
+批次表必须随 seed 变化。10 个正式 seed 的 `batch_table_sha256` 必须全部唯一，并报告 seed 间已落批用户对集合的 Jaccard 中位数、最小值和最大值。复用同一 batch 表的 seed 标记为 `INVALID_SEED_RANDOMIZATION`。
 
 详细协议见 `BATCH_REALIZATION_PROTOCOL_v1.2.md`。
 
@@ -229,6 +231,16 @@ J = mean synthetic PR-AUC across 3 mechanisms x 3 strengths
 - 对 r5.2 的 99 个事件，`2/99=0.020202...`，即约两个事件步长；
 - 不使用 `-5%` 相对界。
 
+`delta_margin_PR=-0.0005` 的量级依据：
+
+| 当前 A1 附近口径 | PR-AUC | `0.0005` 占基线 |
+| --- | ---: | ---: |
+| r4.2 instance-soft，原 mask | 0.008922 | 5.60% |
+| r4.2 instance-soft，S2 欧氏库 | 0.014091 | 3.55% |
+| r5.2 S2 欧氏库路径 | 0.007572 | 6.60% |
+
+因此它对应现有 A1 尺度上约 3.55%–6.60% 的 PR-AUC，不用极小基线百分比定义。最终 `D_ext` 冻结后还要检查该绝对界是否仍具有业务意义；若需改变，只能新建勘误。
+
 ### 主比较集
 
 最终候选比较：
@@ -261,15 +273,30 @@ r5.2 仍是已见数据，但为避免看到结果后改变检验范围，预先
 以下条件全部满足才通过方法 Gate：
 
 1. 共同覆盖批次门禁通过；
-2. r4.2 pilot 方向性通过，但 pilot 只作非约束启动判断；
-3. A4 在 r5.2 锁定复验中相对 A1+ 和 A9 在两个主终点均优效；
-4. A4 相对 A7/A8b 至少一个主终点优效，两个主终点均非劣；
-5. A4 相对 A1 有端到端正向收益；
-6. A4 相对 A5a/A5b 至少一个主终点有统计支持的收益；
-7. A3 相对 noAnchor/noEMA 的机制小家族至少各有一个主终点通过 Holm；
-8. NCA@10 的 95% CI 下界不低于 `-0.02`；
-9. ER_ratio 的 95% CI 下界不低于 `0.90`；
-10. 不存在异常用户进入正常核心率持续恶化的事后警示。
+2. A1 相对 A0-matched 至少一个主终点有正向效应；
+3. r4.2 pilot 方向性通过，但 pilot 只作非约束启动判断；
+4. A4 在 r5.2 锁定复验中相对 A1+ 和 A9 在两个主终点均优效；
+5. A4 相对 A7/A8b 至少一个主终点优效，两个主终点均非劣；
+6. A4 相对 A1 有端到端正向收益；
+7. A4 相对 A5a/A5b 至少一个主终点有统计支持的收益；
+8. A3 相对 noAnchor/noEMA 的机制小家族至少各有一个主终点通过 Holm；
+9. NCA@10 的 95% CI 下界不低于 `-0.02`；
+10. ER_ratio 的 95% CI 下界不低于 `0.90`；
+11. 不存在异常用户进入正常核心率持续恶化的事后警示。
+
+### A1 vs A0-matched 停止规则
+
+若在覆盖门禁通过后的 pilot 中：
+
+```text
+mean(PR_AUC_A1 - PR_AUC_A0matched) <= 0
+and
+mean(RecallK10_A1 - RecallK10_A0matched) <= 0
+```
+
+则立即停止 AdaGraph 主实验，不运行 A3/A4 的 10-seed 矩阵，并在 R0 论文中披露共同批次与图边落批的局限。
+
+若只有一个主终点为正，可进入 10-seed r4.2 方向性复验，但标记为 `FRAGILE_SINGLE_ENDPOINT`；10-seed 下仍没有至少一个稳定正向终点时不得进入 r5.2。
 
 外部 B 类 Gate 额外要求：
 
@@ -403,7 +430,8 @@ ER_ratio = ER_method / ER_A1plus
 ### Phase 0：实现门禁
 
 - `CommonCoverageBatchSampler`；
-- 单元测试和 pair coverage smoke run；
+- 单元测试：A3∪A5b 联合边覆盖、同 seed 可复现、不同 seed 表不同、用户不重复；
+- pair coverage smoke run；
 - A0-matched 实现；
 - 画图/统计管线测试。
 
@@ -412,11 +440,18 @@ ER_ratio = ER_method / ER_A1plus
 r4.2，1–2 seed：
 
 ```text
-A0-official, A0-matched, A1, A1-sparse, A1-sparse-EMA,
+A0-official, A0-matched, A1, A1-sparse-EMA,
 A1+, A3, A5a, A5b, A7
 ```
 
-Pilot 只判断方向、覆盖和实现稳定性，不作确认性推断。
+第一优先比较为 `A1 vs A0-matched`。Pilot 只判断方向、覆盖和实现稳定性，不作确认性推断。
+
+### 并行任务
+
+- 继续审计 ChimeraLog 替代下载方式；
+- 检查作者后续 release、联系方式和数据许可；
+- 同时评估 LANL/OpTC 的最小可行切片；
+- 不因外部数据等待而跳过 Phase 0 和 A1/A0-matched pilot。
 
 ### 第二批
 

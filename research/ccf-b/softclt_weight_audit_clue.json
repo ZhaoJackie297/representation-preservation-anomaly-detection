@@ -1,0 +1,76 @@
+{
+  "shape": [
+    838,
+    838
+  ],
+  "weights": {
+    "row_sum_min": 561.4067451953888,
+    "row_sum_mean": 637.9656565459645,
+    "row_sum_max": 838.0000177621841,
+    "diagonal_mass": 838.0000368356705,
+    "off_diagonal_mass": 533777.2201486826,
+    "off_diagonal_fraction": 0.9984325174346049,
+    "off_diagonal_entropy_mean": 6.710552429076448,
+    "off_diagonal_kl_to_uniform_mean": 0.01927164141302803
+  },
+  "toy_losses": {
+    "loss_raw": 11928.894484271703,
+    "loss_row_normalized": 18.69995377540683,
+    "loss_identity": 9.371013605352394,
+    "loss_scaled_2x": 23857.788968543406
+  },
+  "row_normalization_changes_loss": true,
+  "scaling_is_linear": true,
+  "batch_audit": {
+    "batch_count": 2,
+    "batch_size": 16,
+    "aggregate": {
+      "row_sum_min": {
+        "mean": 11.11519929766655,
+        "min": 11.003080010414124,
+        "max": 11.227318584918976
+      },
+      "row_sum_mean": {
+        "mean": 12.377332486212254,
+        "min": 12.159738972783089,
+        "max": 12.594925999641418
+      },
+      "row_sum_max": {
+        "mean": 15.996985793113708,
+        "min": 15.993971586227417,
+        "max": 16.0
+      },
+      "diagonal_mass": {
+        "mean": 16.0,
+        "min": 16.0,
+        "max": 16.0
+      },
+      "off_diagonal_mass": {
+        "mean": 182.03731977939606,
+        "min": 178.55582356452942,
+        "max": 185.5188159942627
+      },
+      "off_diagonal_fraction": {
+        "mean": 0.9191821700610098,
+        "min": 0.9177613925563467,
+        "max": 0.9206029475656728
+      },
+      "off_diagonal_entropy_mean": {
+        "mean": 2.6896238676307447,
+        "min": 2.687353970367829,
+        "max": 2.6918937648936603
+      },
+      "off_diagonal_kl_to_uniform_mean": {
+        "mean": 0.018426333471465405,
+        "min": 0.01615643620854984,
+        "max": 0.02069623073438097
+      }
+    },
+    "first_batch_toy_losses": {
+      "loss_raw": 131.20178814669464,
+      "loss_row_normalized": 10.42832483605573,
+      "loss_identity": 5.3836539723534464,
+      "loss_scaled_2x": 262.4035762933893
+    }
+  }
+}

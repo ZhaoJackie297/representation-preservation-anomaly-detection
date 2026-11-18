@@ -1,0 +1,24 @@
+{
+  "shape": [
+    16,
+    16
+  ],
+  "weights": {
+    "row_sum_min": 8.5,
+    "row_sum_mean": 8.5,
+    "row_sum_max": 8.5,
+    "diagonal_mass": 16.0,
+    "off_diagonal_mass": 120.0,
+    "off_diagonal_fraction": 0.8823529411764706,
+    "off_diagonal_entropy_mean": 2.70805020110221,
+    "off_diagonal_kl_to_uniform_mean": 0.0
+  },
+  "toy_losses": {
+    "loss_raw": 86.86944181359665,
+    "loss_row_normalized": 10.21993436908359,
+    "loss_identity": 5.3836539723534464,
+    "loss_scaled_2x": 173.7388836271933
+  },
+  "row_normalization_changes_loss": true,
+  "scaling_is_linear": true
+}

@@ -16,6 +16,9 @@
 
 面向执行的整合路线见 `CCF_B_UPGRADE_PLAN_v1.md`。
 
+SoftCLT 实例损失的权重尺度审计见 `SOFTCLT_WEIGHT_AUDIT.md`；在归一化/
+质量通道定义冻结前，不运行新的关系通道归因实验。
+
 ## 1. CLUE-LDS 数字对账
 
 ### 1.1 历史记录

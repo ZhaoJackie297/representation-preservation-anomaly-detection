@@ -40,6 +40,34 @@ CCF-B 路线。
 | CERT r5.2 画像先验 | 主/top-kNN/m=5/10 均平坦 | `METHOD_NOT_SUPPORTED` |
 | r5.2 99-event 严格双终点 Gate | 代理 MDE 约 6.7–15.0 pp，取决于相关性和事件簇 | `UNDERPOWERED` |
 
+### Phase 0：软权重理论审计
+
+官方 SoftCLT 的 `inst_CL_soft` 没有对每行权重归一化；v5 的 `densify` 权重
+对角为 1、非对角通常不超过 0.5，`B=16` 时行总权重可以达到约 8.5。数值审计
+表明原始权重、逐行归一化和 hard identity 会给出不同损失水平。详见
+`SOFTCLT_WEIGHT_AUDIT.md`。
+
+因此，后续实验必须先明确：
+
+- self/quality channel 与 off-diagonal/relation channel 的质量占比；
+- 是否逐行归一化；
+- 目标熵和行 KL；
+- 权重尺度是否被 `lambda_` 或学习率吸收。
+
+这是第一步，不需要训练；未完成前不得把软对比收益解释成“关系信息贡献”。
+
+### 与你提出的五步计划整合
+
+| 你的步骤 | 在主计划中的位置 | 产物 |
+| --- | --- | --- |
+| 核实 SoftCLT 权重/理论 | Phase 0 | `SOFTCLT_WEIGHT_AUDIT.md` + toy JSON |
+| 收窄贡献 | 主贡献与写作边界 | 三件事：质量/关系分解、批次覆盖、对照归因 |
+| 无训练量描述统计 | RQ1/Q4 前置审计 | 质量占比、目标熵、行 KL、覆盖率 |
+| 少量 A0/A1/Uniform/A5b pilot | Gate B | 先 r4.2 pilot，再 r5.2 锁定复验 |
+| 按结果写作 | 三种叙事分支 | 关系有效、质量主导、覆盖/负结果三种稿法 |
+
+因此五步计划不是替代 CCF-B 总计划，而是它的入口和判停层。
+
 因此论文的核心主张必须从：
 
 > 画像锚 AdaGraph 一定提升异常检测。

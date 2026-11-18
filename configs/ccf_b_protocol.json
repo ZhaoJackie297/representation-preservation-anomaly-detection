@@ -262,6 +262,26 @@
     "mechanism_non_inferiority": {
       "neighborhood_overlap_ci_lower": -0.02,
       "effective_rank_ratio_ci_lower": 0.9
+    },
+    "r6_2_pressure_audit": {
+      "enabled": true,
+      "user_slices": [
+        2000,
+        4000
+      ],
+      "event_count": 5,
+      "significance_testing": false,
+      "report": [
+        "coverage_rate",
+        "active_pair_mass",
+        "memory",
+        "training_time",
+        "encoding_time",
+        "alerts_per_user",
+        "per_event_hit",
+        "first_hit_latency",
+        "failure_cases"
+      ]
     }
   },
   "batch_realization": {

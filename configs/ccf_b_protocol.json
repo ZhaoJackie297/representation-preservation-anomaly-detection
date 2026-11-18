@@ -17,7 +17,9 @@
     "correction": "Holm",
     "primary_endpoints": ["pr_auc", "event_recall_at_k10"],
     "direction_rule": "positive_mean_and_at_least_4_of_5_seeds_positive",
-    "bootstrap_repetitions": 10000
+    "bootstrap_repetitions": 10000,
+    "bootstrap_primary_unit": "user_cluster",
+    "bootstrap_sensitivity_unit": "event"
   },
   "adagraph": {
     "max_rounds": 2,
@@ -28,17 +30,35 @@
     "graph_top_m_grid": [10, 20, 50],
     "controls": [
       "profile_only",
+      "profile_only_equal_budget",
       "representation_only",
       "one_step_trust_region",
       "two_round_trust_region",
+      "no_anchor_ablation",
+      "no_ema_ablation",
+      "no_trust_region_ablation",
+      "hard_neighbor_ablation",
+      "profile_permutation_graph",
+      "fixed_graph_restart_control",
       "nnclr_nearest_neighbor",
-      "fnc_false_negative_control",
+      "incremental_false_negative_detection",
+      "false_negative_cancellation",
       "degree_preserving_random"
     ],
     "collapse_early_stop": {
       "effective_rank_drop_fraction": 0.2,
       "isotropy_drop_fraction": 0.2,
       "edge_change_rate_max": 0.5
+    },
+    "posthoc_only_metrics": [
+      "anomalous_user_normal_core_rate"
+    ],
+    "real_peer_evaluation": {
+      "source": "CERT LDAP",
+      "labels_used_for_training": false,
+      "primary_reference": "same_department_and_role",
+      "secondary_reference": "same_department",
+      "metric": "top10_reference_agreement"
     }
   },
   "required_baselines": [
@@ -65,6 +85,31 @@
     "CERT r6.2": "five-event pressure audit only",
     "SMD": "cross-type validation for scoring side",
     "PSM/SMAP/MSL": "scoring-side external validation and robustness only"
+  },
+  "training_budget": {
+    "unit": "optimizer_step",
+    "base_budget": "B",
+    "A3_budget": "2B",
+    "A4_budget": "3B",
+    "equal_compute_control": "continuous fixed-profile training to matching B/2B/3B",
+    "restart_control": "three separate B rounds with fixed graph"
+  },
+  "confirmatory_comparisons": [
+    "A4_vs_A1",
+    "A4_vs_A1plus_3B",
+    "A4_vs_A7",
+    "A4_vs_A8b",
+    "A4_vs_A9"
+  ],
+  "execution_batches": {
+    "pilot": ["A1", "A1plus", "A3", "A5a", "A5b", "A7"],
+    "second": ["A2", "A4", "A8a", "A8b", "A9", "A3_noAnchor", "A3_noEMA", "A3_noTrust", "A3_hard"],
+    "third": ["deep_baselines", "SxA_cross", "statistics", "security"]
+  },
+  "exclusions": {
+    "CERT r6.2": "pressure audit only; no significance tests",
+    "CERT r1": "excluded until label and preprocessing audit passes",
+    "SMD": "S series and detection baselines only"
   },
   "label_isolation": {
     "graph_updates_use_labels": false,

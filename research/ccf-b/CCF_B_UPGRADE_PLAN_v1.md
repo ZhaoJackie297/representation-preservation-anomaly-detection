@@ -51,6 +51,10 @@ CCF-B 路线。
 表明原始权重、逐行归一化和 hard identity 会给出不同损失水平。详见
 `SOFTCLT_WEIGHT_AUDIT.md`。
 
+三通道理论进一步把官方损失写成 `W_a`（尺度）、`pi_a`（质量）和 `q_a`
+（关系）三部分；`dup_matrix` 下每个锚点有 `2B-2` 个非对角候选。公式、数值
+恒等式和 P1/P2/P3 对照见 `THREE_CHANNEL_THEORY.md`。
+
 因此，后续实验必须先明确：
 
 - self/quality channel 与 off-diagonal/relation channel 的质量占比；

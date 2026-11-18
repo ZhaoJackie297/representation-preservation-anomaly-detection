@@ -17,6 +17,8 @@
 | A1-Cov | 训练期行为画像软权重、共同覆盖 batch | `B_stage` | 主因果基线 |
 | A1-Cov-A5a | 行为画像软权重、A5a 覆盖 batch | `B_stage` | 分离批次形状 |
 | A1-Cov-uniform | 与 A1-Cov 同批次、支撑集均匀权重 | `B_stage` | 分离关系权重形状 |
+| A1-Cov-rownorm | 保留 `pi,q`、令 `W=1` | `B_stage` | 分离尺度通道 |
+| A1-Cov-permq | 保留 `W,pi`、批内置换 `q` | `B_stage` | 分离关系对齐 |
 | A1-sparse | 按 `P` 选 top-m，权重取 `P_m` | B | 画像稀疏化 |
 | A1-sparse-EMA | 按 `P*exp(-d/tau)` 选 top-m，权重取 `P_m` | B | `epsilon=0` 画像端点 |
 | A1-repSupport-P | 表示 top-m 支撑集、权重取归一化 `P_m` | 2B | 支撑无锚、权重有锚 |

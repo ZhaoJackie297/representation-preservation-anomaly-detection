@@ -1,0 +1,11 @@
+{
+  "algebra": {
+    "identity": 4.263256414560601e-14,
+    "gradient": 3.096068024177612e-08,
+    "diff": 8.881784197001252e-16,
+    "pinsker_violations": 0.0,
+    "trials": 2000.0
+  },
+  "free_logit_max_abs_error": 1.6764367671839864e-14,
+  "candidate_count_for_batch": "2B-2 negative off-diagonal entries; one diagonal positive entry"
+}

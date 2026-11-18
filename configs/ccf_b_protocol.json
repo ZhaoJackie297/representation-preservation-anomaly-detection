@@ -54,6 +54,18 @@
       "trust_region_consequence": "O(sqrt(epsilon))",
       "direction_guaranteed": false,
       "substitute_for_downstream_evidence": false
+    },
+    "softclt_three_channel": {
+      "channels": [
+        "scale_W",
+        "quality_pi",
+        "relation_q"
+      ],
+      "negative_candidate_formula": "2*B-2",
+      "positive_candidate_count": 1,
+      "raw_weight_normalized_by_default": false,
+      "numerical_check": "research/ccf-b/three_channel_check.json",
+      "analysis_tool_not_algorithm_novelty": true
     }
   },
   "data_envelope": {
@@ -432,6 +444,8 @@
       "A1_Cov",
       "A1_Cov_A5a",
       "A1_Cov_uniform",
+      "A1_Cov_rownorm",
+      "A1_Cov_permuq",
       "A1_sparse",
       "A1_sparse_EMA",
       "A1_repSupport_P",
@@ -548,6 +562,8 @@
       "A0_A3batch_vs_A0_matched",
       "A1_Cov_vs_A1_Cov_uniform",
       "A1_Cov_vs_A1_Cov_A5a",
+      "A1_Cov_vs_A1_Cov_rownorm",
+      "A1_Cov_vs_A1_Cov_permuq",
       "A1_sparse_vs_A1_sparse_EMA"
     ],
     "implementation_diagnostic": [

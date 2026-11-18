@@ -2,6 +2,8 @@
 
 日期：2026-11-18。
 
+执行状态更新：CLUE-LDS 已完成全量审计、40 事件注入、用户日/画像图和真实 10-seed 覆盖，详见 `PLAN_ERRATA_v1.2.5.md` 与 `CLUE_LDS_PHASE0_RESULTS.md`。
+
 本勘误新增 CLUE-LDS，作为 ChimeraLog 的直接替代和首要“应用级半合成外部确认”候选。LANL 继续作为真实企业红队事件候选。
 
 ## 1. 结论

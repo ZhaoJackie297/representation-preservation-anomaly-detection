@@ -181,15 +181,15 @@ seed_pair_jaccard
 
 ## 7. 当前状态
 
-本协议已写入 v1.2.2。独立采样器和 10-seed 合成 smoke 已实现；尚未接入真实 A3/A5a/A5b 图与 TS2Vec trainer。
+本协议已写入 v1.2.5。独立采样器、10-seed 合成 smoke、CLUE-LDS 真实 10-seed 覆盖和 soft trainer 单步接线均已完成；完整 stage/EMA 训练入口尚未完成。
 
 当前状态：
 
 1. `phase0/common_coverage_sampler.py`：已完成；
 2. 单元测试：已完成，覆盖 A3∪A5a∪A5b、50% 填充、用户不重复、同 seed 可复现、不同 seed 表不同；
 3. 10-seed synthetic smoke：已完成，见 `PHASE0_SMOKE_RESULTS.md`；
-4. 真实 A3/A5a/A5b 图覆盖：未完成；
-5. TS2Vec trainer 接线和 active pair mass：未完成；
+4. CLUE-LDS 真实 A3/A5a/A5b 图覆盖：已完成；
+5. TS2Vec trainer 接线和 active pair mass：单步 smoke 已完成；
 6. 实际 `B_stage` 和 GPU 小时：未完成。
 
 只有真实图覆盖和 trainer 接线通过，才能把 A3/A4 从“候选实现”升级为“可进入主实验”。

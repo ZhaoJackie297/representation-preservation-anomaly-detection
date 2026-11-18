@@ -12,8 +12,10 @@
 ## 单元测试
 
 ```powershell
-python -m unittest -v test_common_coverage_sampler.py
+python -m unittest -v test_common_coverage_sampler.py test_coverage_soft_ts2vec.py
 ```
+
+`CoverageSoftTS2Vec` 使用显式共同批次表、真实 `active_pair_mass` 日志和逐阶段优化器重置；已通过 CPU 单步训练测试。
 
 ## 合成 smoke
 

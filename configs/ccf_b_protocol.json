@@ -1,11 +1,11 @@
 {
   "target": "CCF-B",
-  "plan_version": "1.2.4",
-  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.4.md",
+  "plan_version": "1.2.5",
+  "plan_errata": "research/ccf-b/PLAN_ERRATA_v1.2.5.md",
   "r0_frozen_manuscript": "paper/manuscript.docx",
   "primary_method_candidate": "AdaGraph-SoftCLT",
-  "status": "candidate_method_pending_implementation_and_external_data_gates",
-  "phase0_status": "standalone_sampler_and_ten_seed_synthetic_smoke_passed_pending_real_graph_and_trainer_integration",
+  "status": "candidate_method_phase0_passed_full_model_and_external_confirmation_pending",
+  "phase0_status": "clue_lds_real_graph_ten_seed_coverage_and_training_step_passed_full_training_integration_pending",
   "seeds": [
     20261116,
     20261117,
@@ -45,14 +45,23 @@
     "PSM/SMAP/MSL": "scoring_side_external_validation_only"
   },
   "external_confirmation": {
-    "status": "pending_data_gate",
+    "status": "clue_lds_core_gate_passed_external_matrix_pending",
     "dataset": null,
     "primary_candidate": "CLUE-LDS_Cloud_User_Entity_Behavior_Analytics_Log_Data_Set",
     "secondary_real_network_candidate": "LANL_Comprehensive_Multi_Source_Cyber_Security_Events",
     "clue_lds_gate": {
       "doi": "10.5281/zenodo.7119953",
       "md5": "9e318370f96b68077667e9cdc05f26a5",
+      "clue_json_sha256": "2CFE6C172104954DB574DD7648186E7A148FA1D553BD9F80212AE3F8C28956C5",
       "license": "CC-BY-4.0",
+      "core_data_audit_passed": true,
+      "processed_user_count": 838,
+      "processed_event_count": 40,
+      "real_graph_coverage_10seed_passed": true,
+      "coverage_batches_range": [
+        948,
+        961
+      ],
       "require_time_restricted_account_hijacking_injection": true,
       "require_fixed_anomaly_seed": true,
       "minimum_switch_pairs": 10,

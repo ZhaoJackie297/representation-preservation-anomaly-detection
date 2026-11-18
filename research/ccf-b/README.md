@@ -1,6 +1,6 @@
 # CCF-B Research Program
 
-版本：v1.2.4
+版本：v1.2.5
 状态：研究目标已从“CCF-C 上沿”切换为“冲击 CCF-B”。
 
 v5 冻结为 R0 基线。后续工作只围绕一个可证伪的新方法展开，不再把 SoftCLT、47 维画像、欧氏库和 PAI 继续组合成更大的方法包。
@@ -14,9 +14,9 @@ v1.2.3 的两个硬结论：
 
 因此当前状态是“方法候选 + 可执行门禁”，不是“B 类有效性已证明”。
 
-Phase 0 规格、A3/A5a/A5b 联合覆盖、A1 版本拆分、pilot 最小效应和边曝光命题见 `PLAN_ERRATA_v1.2.2.md`；LANL 外部候选见 `PLAN_ERRATA_v1.2.3.md`；CLUE-LDS 替代 ChimeraLog 的协议见 `PLAN_ERRATA_v1.2.4.md`。
+Phase 0 规格、A3/A5a/A5b 联合覆盖、A1 版本拆分、pilot 最小效应和边曝光命题见 `PLAN_ERRATA_v1.2.2.md`；LANL 外部候选见 `PLAN_ERRATA_v1.2.3.md`；CLUE-LDS 替代 ChimeraLog 的协议见 `PLAN_ERRATA_v1.2.4.md`；真实数据和覆盖结果见 `PLAN_ERRATA_v1.2.5.md`。
 
-合成 smoke 已表明 80% 三图覆盖可做到，但需约 1,134–1,146 个 stage batch，约 1.83–1.85 倍原 B；详见 `PHASE0_SMOKE_RESULTS.md`。真实图尚未验证。
+CLUE-LDS 真实图 10-seed 已完成 80% 三图覆盖，需要 948–961 个 stage batch；详见 `CLUE_LDS_PHASE0_RESULTS.md`。完整训练和外部确认矩阵尚未完成。
 
 ## 目标定位
 

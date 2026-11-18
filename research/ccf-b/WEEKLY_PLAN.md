@@ -1,11 +1,11 @@
-# 八周执行计划 v1.2.4
+# 八周执行计划 v1.2.5
 
 前提：
 
 - 团队可轮班推进，主算力为 RTX 5060；
-- v1.2.4 已修正 r1、非劣界、双层 bootstrap、支撑集×权重 2×2、硬图权重、A1 版本拆分、批次随机填充、pilot 最小效应、CLUE-LDS 和 LANL 双外部路线；
+- v1.2.5 已完成 CLUE-LDS 全量审计、40 事件注入、用户日/画像图和真实 A3/A5a/A5b 10-seed 覆盖；
 - 外部确认集尚未通过门禁；LANL 是当前首选；
-- 独立采样器和合成 smoke 已实现，真实图覆盖和 trainer 接线尚未完成；
+- CLUE-LDS 真实 10-seed 图覆盖已通过，soft trainer 单步接线 smoke 已完成；完整训练入口尚未完成；
 - 八周计划以“先过实现和数据门禁，再跑主矩阵”为顺序。
 
 ## 第 1 周：门禁、冻结与采样器
@@ -22,7 +22,7 @@
 ### 实现
 
 - 冻结 R0 的 code、配置、种子、切分和数据哈希；
-- 独立采样器与合成 smoke 已完成，见 `PHASE0_SMOKE_RESULTS.md`；
+- 独立采样器、合成 smoke 和 CLUE-LDS 真实覆盖已完成，见 `PHASE0_SMOKE_RESULTS.md` 与 `CLUE_LDS_PHASE0_RESULTS.md`；
 - 实现 `CommonCoverageBatchSampler`；
 - 单元测试：
   - A3∪A5a∪A5b 联合边覆盖；
@@ -46,7 +46,7 @@
 - 数据门禁报告；
 - pair coverage 报告；
 - sampler 单元测试；
-- v1.2.4 hash。
+- v1.2.5 hash。
 
 ## 第 2 周：非约束性 pilot
 

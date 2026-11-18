@@ -315,7 +315,7 @@ iForest
 
 ## 10. 下一步
 
-1. rownorm、permuq 和逐 batch 逐锚点 uniform 已接入；下一步在真实数据上跑控制 smoke；
+1. rownorm、permuq 和逐 batch 逐锚点 uniform 已接入；r4.2 32 用户 5-step 控制 smoke 已跑通；
 2. 生成全部数据的 W/pi/q、熵、KL、覆盖统计；
 3. EWMA/CUSUM 数值脚本和提前量定义已接入；下一步用真实训练分数重标定；
 4. 运行 r4.2 2-seed pilot；

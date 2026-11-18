@@ -57,6 +57,9 @@ A1-Cov-uniform 使用与 A1-Cov 相同批次表但逐锚点均匀化 q；A1-Cov-
 保留 pi/q 并令 W=1；A1-Cov-permq 保留 W/pi 并置换 q；A1-R0 使用相同
 optimizer steps 的随机 shuffle 表；A0-official 使用未覆盖的随机表。
 
+r4.2 的 32 用户、5-step 接线 smoke 已跑通，`A1-Cov`、`rownorm`、`uniform`、
+`permuq` 均使用同一覆盖表；这只是控制接线验证，不是性能实验。
+
 ## 合成 smoke
 
 ```powershell

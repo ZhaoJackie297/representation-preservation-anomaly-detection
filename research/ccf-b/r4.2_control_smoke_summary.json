@@ -1,0 +1,124 @@
+{
+  "dataset": "E:\\MarketRisker\\work\\cert\\processed_r42\\r4.2_sequence_dataset.npz",
+  "user_limit": 32,
+  "base_steps": 1,
+  "seeds": [
+    20261116
+  ],
+  "soft_metadata": {
+    "distance": "user_profile_euclidean",
+    "profile_dimensions": 47,
+    "alpha": 0.5,
+    "minimum_distance": 0.3694041390163295,
+    "maximum_distance": 18.49708847057558,
+    "median_normalized_distance": 0.4354022201956425,
+    "tau_inst": 2.296726919652965,
+    "missing_policy": "profile features are already training-period imputed and standardized"
+  },
+  "runs": {
+    "20261116": {
+      "coverage": {
+        "user_count": 32,
+        "seed": 20261116,
+        "stage": 0,
+        "batch_size": 16,
+        "designed_slots": 8,
+        "filler_slots": 8,
+        "target_coverage": 0.8,
+        "coverage_batch_count": 5,
+        "training_batch_count": 5,
+        "intended_edges": {
+          "A3": 204,
+          "A5a": 204,
+          "A5b": 204
+        },
+        "realized_edges": {
+          "A3": 180,
+          "A5a": 180,
+          "A5b": 178
+        },
+        "coverage": {
+          "A3": 0.8823529411764706,
+          "A5a": 0.8823529411764706,
+          "A5b": 0.8725490196078431
+        },
+        "users_with_zero_exposure": 0,
+        "median_user_exposure": 29.0,
+        "min_user_exposure": 10,
+        "batch_table_sha256": "4e853e166a2b25131932994e5916ab671d6eba0fe2244dca0c69c8032aaec30f",
+        "training_batch_table_sha256": "4e853e166a2b25131932994e5916ab671d6eba0fe2244dca0c69c8032aaec30f",
+        "median_training_edge_exposure": {
+          "A3": 1.0,
+          "A5a": 1.0,
+          "A5b": 1.0
+        }
+      },
+      "a3_coverage": {
+        "user_count": 32,
+        "seed": 20261116,
+        "stage": 0,
+        "batch_size": 16,
+        "designed_slots": 8,
+        "filler_slots": 8,
+        "target_coverage": 0.8,
+        "coverage_batch_count": 4,
+        "training_batch_count": 4,
+        "intended_edges": {
+          "A3": 204
+        },
+        "realized_edges": {
+          "A3": 168
+        },
+        "coverage": {
+          "A3": 0.8235294117647058
+        },
+        "users_with_zero_exposure": 0,
+        "median_user_exposure": 14.0,
+        "min_user_exposure": 5,
+        "batch_table_sha256": "d18a57070b3949bbb85e1057459a1be42fce5600c8a035797d141b2c775ef130",
+        "training_batch_table_sha256": "d18a57070b3949bbb85e1057459a1be42fce5600c8a035797d141b2c775ef130",
+        "median_training_edge_exposure": {
+          "A3": 1.0
+        }
+      },
+      "models": {
+        "A1-Cov-rownorm": {
+          "variant": "A1-Cov-rownorm",
+          "seed": 20261116,
+          "optimizer_steps": 5,
+          "batch_table_sha256": "4e853e166a2b25131932994e5916ab671d6eba0fe2244dca0c69c8032aaec30f",
+          "soft_instance": true,
+          "soft_temporal": false,
+          "loss_first": 3.3032572269439697,
+          "loss_last": 2.896784543991089,
+          "active_pair_mass_mean": 7.644545269012451,
+          "realized_pairs_mean": 240.0
+        },
+        "A1-Cov-uniform": {
+          "variant": "A1-Cov-uniform",
+          "seed": 20261116,
+          "optimizer_steps": 5,
+          "batch_table_sha256": "4e853e166a2b25131932994e5916ab671d6eba0fe2244dca0c69c8032aaec30f",
+          "soft_instance": true,
+          "soft_temporal": false,
+          "loss_first": 62.695987701416016,
+          "loss_last": 42.095211029052734,
+          "active_pair_mass_mean": 172.5826904296875,
+          "realized_pairs_mean": 240.0
+        },
+        "A1-Cov-permq": {
+          "variant": "A1-Cov-permq",
+          "seed": 20261116,
+          "optimizer_steps": 5,
+          "batch_table_sha256": "4e853e166a2b25131932994e5916ab671d6eba0fe2244dca0c69c8032aaec30f",
+          "soft_instance": true,
+          "soft_temporal": false,
+          "loss_first": 62.8581657409668,
+          "loss_last": 42.12446212768555,
+          "active_pair_mass_mean": 172.58269653320312,
+          "realized_pairs_mean": 240.0
+        }
+      }
+    }
+  }
+}

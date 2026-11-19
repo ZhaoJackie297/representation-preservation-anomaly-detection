@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from pathlib import Path
+from shutil import copyfile
 
 from docx import Document
 from docx.enum.table import WD_ALIGN_VERTICAL, WD_TABLE_ALIGNMENT
@@ -14,8 +15,9 @@ from docx.text.paragraph import Paragraph
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "paper" / "manuscript.docx"
-OUTPUT = ROOT / "paper" / "manuscript_v6.docx"
+SOURCE = ROOT / "paper" / "manuscript_v5.docx"
+OUTPUT = ROOT / "paper" / "manuscript.docx"
+VERSIONED_OUTPUT = ROOT / "paper" / "manuscript_v6.docx"
 
 
 def set_run_font(
@@ -998,7 +1000,9 @@ def main() -> None:
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     document.save(OUTPUT)
+    copyfile(OUTPUT, VERSIONED_OUTPUT)
     print(OUTPUT)
+    print(VERSIONED_OUTPUT)
 
 
 def add_table_append(

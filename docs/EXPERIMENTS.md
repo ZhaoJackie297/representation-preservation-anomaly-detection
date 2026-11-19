@@ -1,6 +1,7 @@
 # 实验矩阵
 
-论文实验编号为 E0–E11。表中脚本均位于 `runtime/cert/`。
+论文实验编号为 E0–E14。E0–E11 的脚本位于 `runtime/cert/`，
+E12–E14 的扩展结果和运行入口位于 `research/ccf-b/`。
 
 | 编号 | 目标 | 主要脚本 | 主要数据 |
 | --- | --- | --- | --- |
@@ -16,6 +17,9 @@
 | E9 | magG/T2 单组件消融 | `e9_pai_component_ablation.py` | CERT r4.2、SMD |
 | E10 | 匹配对照与用户规模比较 | `e10_joint_control_comparison.py`、`e10_cert_joint_comparison.py` | CERT、SMD |
 | E11 | iForest 外部基线 | `e11_iforest_baseline.py` | CERT r4.2 |
+| E12 | CERT 固定 10-seed 扩展验证 | `research/ccf-b/r4.2_10seed_paired_tests.csv`、`r5.2_10seed_paired_tests.csv` | CERT r4.2、r5.2 |
+| E13 | CLUE-LDS 外部应用级复验 | `research/ccf-b/clue_lds_10seed_paired_tests.csv` | CLUE-LDS 半合成账号劫持 |
+| E14 | 受控异常形态压力测试 | `research/ccf-b/phase1/controlled_signal_study.py` | CERT r4.2 正常序列 |
 
 ## 固定协议
 
@@ -28,10 +32,14 @@
 - PAI 项目权重：`1.0:0.6:0.4`。
 - PAI 官方敏感性权重：`0.6:0.4:0.2`。
 - SMD：512 点窗口、10 epochs、训练 seed `20261116`。
+- E12：seed `20261116`–`20261125`，固定矩阵不调参。
+- E14：模型 seed `20261116`–`20261118`，标签 seed `20261119`；
+  受控实验不作为外部验证。
 
 ## 结果位置
 
 - 论文统一口径：`results/canonical/`。
 - E0–E11 原始轻量结果：`results/representation_preservation/`。
+- E12–E14 汇总：`research/ccf-b/` 与 `research/ccf-b/phase1/results/`。
 - 历史结果与覆盖情况：对应目录中的 `WARNING_SUPERSEDED.md`、`audit.json` 和 `README.md`。
 

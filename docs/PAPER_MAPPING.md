@@ -13,11 +13,19 @@
 | r6.2 压力审计表 9 | `e4_r62_matched_t0.py`、`e4_r62_joint_analysis.py` | `results/canonical/` |
 | SMD 匹配对照表 10 | `e8_smd_matched_t0.py` | `results/representation_preservation/e8/` |
 | iForest 基线表 11 | `e11_iforest_baseline.py` | `results/representation_preservation/e11_iforest/` |
+| CERT 10-seed 表 12 | `research/ccf-b/r4.2_10seed_paired_tests.csv`、`r5.2_10seed_paired_tests.csv` | `research/ccf-b/` |
+| CLUE-LDS 表 13 | `research/ccf-b/clue_lds_10seed_paired_tests.csv` | `research/ccf-b/phase1/results/clue_coverage_v1/` |
+| 异常形态表 14–15 | `research/ccf-b/phase1/controlled_signal_study.py` | `research/ccf-b/phase1/results/r42_temporal_v1/` |
+| 附录 C 表 17–18 | `research/ccf-b/phase1/controlled_signal_study.py` | `research/ccf-b/phase1/results/` |
+| v6 Word 构建 | `scripts/build_v5_extended.py` | `paper/manuscript_v6.docx` |
 | S3 Top-K 风险队列 | `production_protocol_r42.py`、`risk_topk_r42.py` | 论文作为历史原型 |
 | S4 证据报告 | `s4_risk_reports.py`、`s4_ssl_evidence_reports.py` | 论文明确为历史原型 |
 | S5 评价协议 | `quota_relationship_sim.py`、`s5_evidence_audit.py` | canonical 与各 E 目录 |
 
 ## 论文修正
 
-`paper/manuscript.docx` 是 2026-11-18 修正版。`paper/fact_check_20261118.md` 记录原始事实性核查。`results/canonical/` 优先于任何历史截图、草稿或旧汇总表。
+`paper/manuscript.docx` 是 v5 R0。`paper/manuscript_v6.docx` 是
+2026-11-19 扩展稿，新增 §7.9 和附录 C。`paper/fact_check_20261118.md`
+记录 v5 修正前事实性核查。`results/canonical/` 优先于任何历史截图、
+草稿或旧汇总表。
 

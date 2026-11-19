@@ -57,10 +57,13 @@
 - `e8_smd_softclt.py`、`e8_smd_matched_t0.py`：SMD SoftCLT 与匹配 T0。
 - `e10_joint_control_comparison.py`、`e10_cert_joint_comparison.py`：匹配对照和用户规模控制。
 - `e11_iforest_baseline.py`：27 维用户日 iForest 基线。
+- `research/ccf-b/phase1/controlled_signal_study.py`：E12–E14 扩展验证。
+- `research/ccf-b/phase0/coverage_soft_ts2vec.py`：Coverage 模型编码依赖。
 
 ## S3 风险处理
 
-论文将 S3 定位为历史系统原型，不作为本轮主创新。相关代码：
+论文将 S3 定位为历史系统原型，不作为本轮主创新。v6 补充了风险层
+边界说明，但没有把风险实验纳入主结论。相关代码：
 
 - `production_protocol_r42.py`：生产协议和 Top-K 告警。
 - `risk_topk_r42.py`：风险聚合和冷却。
@@ -85,6 +88,7 @@ S4 尚未与当前 47 维 T4 表示重新连接。相关代码：
 - `build_canonical_audit.py`：D1–D8 口径修正和 canonical 汇总。
 - `build_e11_iforest_comparison.py`：iForest、T0 和 T4+PAI-A1 的统一对照。
 - `build_softclt_geometry_summary.py`：SoftCLT 几何机制汇总。
+- `research/ccf-b/phase1/risk_case_study.py`：S3/S4 扩展分析。
 
 ## 重要共享文件
 
@@ -105,4 +109,5 @@ S4 尚未与当前 47 维 T4 表示重新连接。相关代码：
 6. E7/E8/E9：SMD 和组件消融。
 7. E10/E11：匹配对照、用户规模和 iForest。
 8. `build_canonical_audit.py`：生成最终 canonical 口径。
+9. E12–E14：CERT 10-seed、CLUE-LDS 外部复验和受控异常分析。
 

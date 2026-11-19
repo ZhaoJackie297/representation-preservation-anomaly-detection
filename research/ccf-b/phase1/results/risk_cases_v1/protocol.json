@@ -1,0 +1,25 @@
+{
+  "seeds": [
+    20261116,
+    20261117,
+    20261118,
+    20261119,
+    20261120,
+    20261121,
+    20261122,
+    20261123,
+    20261124,
+    20261125
+  ],
+  "primary_k": 10,
+  "cooldown_days": 7,
+  "ewma_alpha": 0.2,
+  "cusum_drift": 0.5,
+  "propagation_beta": 0.2,
+  "top_m": 10,
+  "horizon_days": 3,
+  "graph_source": "E:\\MarketRisker\\work\\cert\\experiments\\representation_preservation\\e2_instance\\missing_safe_v2_20261117\\soft_instance_labels.npy",
+  "score_source": "E:\\MarketRisker\\work\\cert\\external\\pilot_r42_10seed_scores_v1\\seed_*\\A1-Cov_scores.npz",
+  "risk_labels_used": false,
+  "case_selection_rule": "sort by incident_id; first two hits and first miss under EWMA+propagation for the first configured seed"
+}

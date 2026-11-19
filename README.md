@@ -2,7 +2,9 @@
 
 本仓库整理论文《基于表征信息保全的自监督时序异常识别与风险预警方法研究》对应的代码、实验协议、canonical 结果和修正版论文。
 
-研究对象是以 TS2Vec 为编码器，在 CERT 用户日行为和 SMD 服务器指标上验证训练端 instance-soft SoftCLT 与打分端欧氏表征库的双端优化。仓库不包含原始 CERT/SMD 数据、模型权重和大型中间数组。
+研究对象是以 TS2Vec 为编码器，在 CERT 用户日行为、SMD 服务器指标和
+CLUE-LDS 云存储行为上验证训练端 instance-soft SoftCLT 与打分端欧氏
+表征库的双端优化。仓库不包含原始数据、模型权重和大型中间数组。
 
 ## 仓库内容
 
@@ -12,9 +14,10 @@
 | `runtime/cert/` | 保留原实验导入关系的可运行代码快照 |
 | `results/canonical/` | 论文引用的统一口径结果、逐种子指标和配对比较 |
 | `results/representation_preservation/` | E0–E11 的 CSV、JSON 和轻量审计记录 |
+| `research/ccf-b/phase1/` | E12–E14、10-seed、CLUE-LDS 和受控异常结果 |
 | `data/` | CERT 官方说明、许可证和脱敏字段样本，不含原始数据 |
 | `docs/` | 代码地图、实验矩阵、数据协议、复现步骤和已知边界 |
-| `paper/` | 修正版论文与事实性核查报告 |
+| `paper/` | v5 原稿、v6 扩展稿与事实性核查报告 |
 | `references/ts2vec_official/` | TS2Vec 官方实现快照，保留 MIT 许可证 |
 
 ## 快速开始
@@ -67,6 +70,10 @@ python e2_softclt_instance.py --seeds 20261116 20261117 20261118
 - SMD 的 28/28 只适用于 PR-AUC；ROC-AUC 为 27/28，PA-F1@Top5 为 26/28。
 - 时间特征缺失哨兵 `-1` 必须按缺失处理，不能转换为零点。
 - r6.2 只有 5 个威胁事件，只用于压力审计，不作为强外部确认。
+- v6 的 CLUE-LDS 异常标签由本项目固定 seed 构造，属于外部应用级
+  半合成复验，不是真实攻击标签。
+- 受控异常注入只用于 point/context/temporal-soft 的机制分析，
+  不作为外部数据或方法排名的确认集。
 
 ## 数据与模型
 

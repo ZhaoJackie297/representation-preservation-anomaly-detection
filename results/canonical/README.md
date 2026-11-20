@@ -1,7 +1,7 @@
 # Canonical 数据口径
 
 生成日期：2026-11-17  
-生成脚本：`E:\MarketRisker\work\cert\build_canonical_audit.py`
+生成脚本：`runtime/cert/build_canonical_audit.py`
 
 ## 使用顺序
 
@@ -19,6 +19,10 @@
 12. `e11_iforest_vs_reference.csv`：iForest、T0 与 T4+PAI-A1 的 test 对照；
 13. `data_provenance.json`：输入文件路径与哈希。
 
+逐 seed CSV 和 provenance JSON 中保留的旧 Windows 绝对路径属于实验当时
+的溯源元数据，不是当前仓库的默认路径。当前运行入口使用显式参数或
+`runtime/cert/` 下的数据链接。
+
 ## 关键口径
 
 - 3.8 旧生产协议不能与 E0–E10 原始 S2 混表；
@@ -33,4 +37,4 @@
 
 完整的逐项修正见：
 
-`C:\Users\Lenovo\Downloads\有争议数据清单_修正版_20261117.md`
+`docs/archive/current/有争议数据清单_修正版_20261117.md`

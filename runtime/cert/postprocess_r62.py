@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-PYTHON = Path(r"C:\Users\Lenovo\.conda\envs\ts2vec\python.exe")
+PYTHON = Path(os.environ.get("RPAD_PYTHON", sys.executable))
 ARCHIVE = ROOT / "r6.2.parallel.tar.bz2"
 EXPECTED_SIZE = 23_811_144_737
 MARKER = ROOT / "r6.2_postprocess.complete.json"

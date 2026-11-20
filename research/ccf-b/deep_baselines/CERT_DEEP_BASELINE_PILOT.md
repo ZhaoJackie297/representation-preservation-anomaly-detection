@@ -5,6 +5,9 @@ Date: 2026-11-20.
 Status: exploratory. Seeds `20261201-20261203`. This pilot is not part of the
 confirmatory 20-seed family.
 
+The T0/T4 paired extension is reported separately in
+`CERT_PAIRED_PILOT_RESULTS.md`.
+
 ## Protocol
 
 Both baselines use:

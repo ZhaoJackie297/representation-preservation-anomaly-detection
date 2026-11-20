@@ -32,8 +32,45 @@ REQUIRED_PATHS = [
     "research/ccf-b/UPGRADE_PREREGISTRATION_20261120.json",
     "research/ccf-b/deep_baselines/README.md",
     "research/ccf-b/deep_baselines/CERT_DEEP_BASELINE_PILOT.md",
+    "research/ccf-b/deep_baselines/CERT_PAIRED_PILOT_RESULTS.md",
+    "research/ccf-b/deep_baselines/results/cert_paired_pipeline_protocol.json",
+    "research/ccf-b/deep_baselines/results/README.md",
     "research/ccf-b/official_pai/README.md",
     "research/ccf-b/smd_multiseed/README.md",
+]
+
+TEST_SUITES = [
+    (
+        "tests",
+        ["test_contracts.py"],
+    ),
+    (
+        "research/ccf-b/phase0",
+        ["test_common_coverage_sampler.py"],
+    ),
+    (
+        "research/ccf-b/phase1",
+        ["test_controlled_signal_study.py", "test_risk_case_study.py"],
+    ),
+    (
+        "research/ccf-b/clue_lds",
+        ["test_profile_graphs.py"],
+    ),
+    (
+        "research/ccf-b/deep_baselines",
+        [
+            "test_analyze_official_pai.py",
+            "test_analyze_cert_paired_pilot.py",
+            "test_compare_smd_deep_baselines.py",
+            "test_deep_baselines.py",
+            "test_summarize_cert_baselines.py",
+            "test_summarize_smd_baselines.py",
+        ],
+    ),
+    (
+        "research/ccf-b/smd_multiseed",
+        ["test_analyze_smd_multiseed.py"],
+    ),
 ]
 
 
@@ -62,6 +99,25 @@ def release_files(root: Path) -> list[Path]:
         for relative in result.stdout.split(b"\0")
         if relative
     )
+
+
+def run_tests(root: Path) -> list[str]:
+    errors = []
+    for relative_dir, test_files in TEST_SUITES:
+        cwd = root / relative_dir
+        result = subprocess.run(
+            [sys.executable, "-m", "unittest", "-v", *test_files],
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            timeout=300,
+        )
+        if result.returncode != 0:
+            details = (result.stderr or result.stdout).strip()
+            errors.append(
+                f"test suite failed: {relative_dir}\n{details[-4000:]}"
+            )
+    return errors
 
 
 def main() -> int:
@@ -95,13 +151,19 @@ def main() -> int:
         if path.stat().st_size > 5 * 1024 * 1024:
             errors.append(f"file exceeds 5 MiB: {path.relative_to(root)}")
 
+    errors.extend(run_tests(root))
+
     if errors:
         print("Release validation failed:")
         for error in errors:
             print(f"- {error}")
         return 1
 
-    print(f"Release validation passed: {len(python_files)} Python files checked.")
+    test_count = sum(len(files) for _, files in TEST_SUITES)
+    print(
+        f"Release validation passed: {len(python_files)} Python files "
+        f"and {test_count} test modules checked."
+    )
     return 0
 
 

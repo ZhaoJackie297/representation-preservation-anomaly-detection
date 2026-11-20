@@ -18,8 +18,9 @@
 ```
 
 v6 新增的是证据，不是另起方法：CERT 固定 10-seed、CLUE-LDS 外部半合成复验、
-受控异常形态分析。`paper/manuscript.docx` 保留为 v5/R0。LCTC、AdaGraph 和
-双分数均值都不写成已完成的主创新。
+受控异常形态分析。`paper/manuscript.docx` 与 `paper/manuscript_v6.docx` 是
+同一版 v6 内容；v5/R0 保留为 `paper/manuscript_v5.docx`。LCTC、AdaGraph
+和双分数均值都不写成已完成的主创新。
 
 ## 三项必须确认的事实
 

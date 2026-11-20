@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -17,6 +18,19 @@ from sklearn.metrics import average_precision_score, roc_auc_score
 
 CCF_B = Path(__file__).resolve().parents[1]
 PHASE0 = CCF_B / "phase0"
+REPO = Path(__file__).resolve().parents[3]
+CERT_ROOT = Path(
+    os.environ.get("RPAD_CERT_ROOT", REPO / "runtime" / "cert")
+).resolve()
+EXTERNAL_ROOT = Path(
+    os.environ.get("RPAD_EXTERNAL_ROOT", CERT_ROOT / "external")
+).resolve()
+MODEL_ROOT = Path(
+    os.environ.get(
+        "RPAD_MODEL_ROOT",
+        CERT_ROOT / "experiments" / "representation_preservation",
+    )
+).resolve()
 if str(PHASE0) not in sys.path:
     sys.path.insert(0, str(PHASE0))
 
@@ -50,15 +64,12 @@ class Profile:
 
 PROFILES = {
     "r42-temporal": Profile(
-        data_path=Path(
-            r"E:\MarketRisker\work\cert\processed_r42"
-            r"\r4.2_sequence_dataset.npz"
-        ),
-        model_root=Path(
-            r"E:\MarketRisker\work\cert\experiments"
-            r"\representation_preservation\e2_instance"
-            r"\missing_safe_v2_20261117"
-        ),
+        data_path=CERT_ROOT
+        / "processed_r42"
+        / "r4.2_sequence_dataset.npz",
+        model_root=MODEL_ROOT
+        / "e2_instance"
+        / "missing_safe_v2_20261117",
         model_layout="variant/seed/model",
         train_end_key="train_end_index",
         eval_start_key="test_start_index",
@@ -67,14 +78,10 @@ PROFILES = {
         control="T3_instance_soft",
     ),
     "r42-coverage": Profile(
-        data_path=Path(
-            r"E:\MarketRisker\work\cert\processed_r42"
-            r"\r4.2_sequence_dataset.npz"
-        ),
-        model_root=Path(
-            r"E:\MarketRisker\work\cert\external"
-            r"\pilot_r42_10seed_matrix_v1"
-        ),
+        data_path=CERT_ROOT
+        / "processed_r42"
+        / "r4.2_sequence_dataset.npz",
+        model_root=EXTERNAL_ROOT / "pilot_r42_10seed_matrix_v1",
         model_layout="seed/variant/model",
         train_end_key="train_end_index",
         eval_start_key="test_start_index",
@@ -83,14 +90,11 @@ PROFILES = {
         control="A0-official",
     ),
     "clue-coverage": Profile(
-        data_path=Path(
-            r"E:\MarketRisker\work\cert\external\clue_lds"
-            r"\processed_final\clue_user_day_dataset.npz"
-        ),
-        model_root=Path(
-            r"E:\MarketRisker\work\cert\external"
-            r"\clue_dual_end_cap256_10seed_v1"
-        ),
+        data_path=EXTERNAL_ROOT
+        / "clue_lds"
+        / "processed_final"
+        / "clue_user_day_dataset.npz",
+        model_root=EXTERNAL_ROOT / "clue_dual_end_cap256_10seed_v1",
         model_layout="seed/variant/model",
         train_end_key="train_end_index",
         eval_start_key="eval_start_index",

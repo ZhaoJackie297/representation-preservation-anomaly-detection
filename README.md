@@ -36,14 +36,18 @@ pip install -r requirements.txt
 pwsh .\scripts\setup_third_party.ps1
 
 # 将本地 processed 数据链接到运行时目录
+$ProcessedRoot = "<path-to-cert-processed>"
 pwsh .\scripts\link_data.ps1 `
-  -ProcessedR42 "D:\datasets\cert\processed_r42" `
-  -ProcessedR52 "D:\datasets\cert\processed_r52" `
-  -ProcessedR62 "D:\datasets\cert\processed_r62" `
-  -OmniAnomaly "D:\datasets\omnianomaly"
+  -ProcessedR42 "$ProcessedRoot\processed_r42" `
+  -ProcessedR52 "$ProcessedRoot\processed_r52" `
+  -ProcessedR62 "$ProcessedRoot\processed_r62" `
+  -OmniAnomaly "<path-to-omnianomaly-server-machine-dataset>"
 
 pwsh .\scripts\validate_release.ps1
 ```
+
+发布校验同时运行 CPU 特征契约测试和 `research/ccf-b/` 下的单元测试；
+测试失败会阻止发布校验通过。
 
 实验入口统一位于 `runtime/cert/`：
 
@@ -81,6 +85,9 @@ python e2_softclt_instance.py --seeds 20261116 20261117 20261118
   q99 segment recall 同时下降，必须作为指标冲突报告。
 - SMD OmniAnomaly-adapted 与 T4 的 PR-AUC 区间相交，不能写成已确认胜出；
   ROC-AUC 区间为 T4 正向。
+- CERT 3-seed 配对 pilot 已补齐 T0/T4 与 Anomaly Transformer、t-NNCLR
+  的同 seed 比较。T4 对 T0 的 PR/ROC 区间仍跨零，K=20 召回未提高；
+  对 t-NNCLR 为正但区间跨零，只作为探索性方向。
 
 ## 数据与模型
 

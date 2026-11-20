@@ -85,7 +85,7 @@ combined = 0.5 * point + 0.5 * context
 python research/ccf-b/phase1/controlled_signal_study.py `
   --profile r42-temporal `
   --seeds 20261116 `
-  --output-dir E:\MarketRisker\work\cert\external\phase1_r42_temporal_pilot
+  --output-dir "<path-to-cert-runtime>\external\phase1_r42_temporal_pilot"
 ```
 
 ```powershell
@@ -94,7 +94,7 @@ python research/ccf-b/phase1/controlled_signal_study.py `
   --seeds 20261116 `
   --background-users 96 `
   --event-users 24 `
-  --output-dir E:\MarketRisker\work\cert\external\phase1_clue_coverage_pilot
+  --output-dir "<path-to-cert-runtime>\external\phase1_clue_coverage_pilot"
 ```
 
 每个输出目录必须包含：

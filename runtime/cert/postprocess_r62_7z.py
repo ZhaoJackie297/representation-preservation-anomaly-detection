@@ -3,13 +3,14 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-PYTHON = Path(r"C:\Users\Lenovo\.conda\envs\ts2vec\python.exe")
+PYTHON = Path(os.environ.get("RPAD_PYTHON", sys.executable))
 SOURCE = ROOT / "r6.2_extracted_7z.inprogress"
 OUTPUT = ROOT / "r6.2_extracted"
 EXTRACTION_LOG = ROOT / "r6.2_7z_cmd2.log"

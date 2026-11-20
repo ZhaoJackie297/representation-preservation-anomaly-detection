@@ -55,6 +55,7 @@
 - `e4_r62_matched_t0.py`、`e4_r62_joint_analysis.py`：CERT r6.2 匹配 T0 压力审计。
 - `e7_smd_pai.py`：SMD PAI。
 - `e8_smd_softclt.py`、`e8_smd_matched_t0.py`：SMD SoftCLT 与匹配 T0。
+- `feature_contracts.py`：时间缺失哨兵与严格训练期用户画像的共享合同。
 - `e10_joint_control_comparison.py`、`e10_cert_joint_comparison.py`：匹配对照和用户规模控制。
 - `e11_iforest_baseline.py`：27 维用户日 iForest 基线。
 - `research/ccf-b/phase1/controlled_signal_study.py`：E12–E14 扩展验证。
@@ -66,6 +67,7 @@
 - `research/ccf-b/deep_baselines/omni_anomaly_smd.py`：记录为 OmniAnomaly-adapted 的 PyTorch GRU-VAE 基线。
 - `research/ccf-b/deep_baselines/tnnclr_cert.py`：t-NNCLR 官方组件加固定表征库的 CERT 基线。
 - `research/ccf-b/deep_baselines/analyze_official_pai.py`：项目 PAI-A1 与官方 PAI 权重的同分量比较。
+- `research/ccf-b/deep_baselines/analyze_cert_paired_pilot.py`：CERT T0/T4 与深度基线的同 seed 配对分析。
 - `research/ccf-b/deep_baselines/protocol_utils.py`：合并续跑 seed 范围并保留逐次运行记录。
 
 ## S3 风险处理

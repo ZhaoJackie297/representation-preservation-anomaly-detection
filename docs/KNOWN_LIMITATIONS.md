@@ -25,6 +25,8 @@
 15. CERT 的 Anomaly Transformer 与 t-NNCLR 结果是适配 pilot（3 个
     seed），窗口和官方原生任务不同；低分只能说明当前用户日适配未形成
     可用检测器，不能写成原论文方法在其原生基准上失败。
+    同 seed 的 T0/T4 配对 pilot 已补齐，但 T4 对 T0 的 PR/ROC 区间仍跨零，
+    K=20 召回为 0/3 seed 占优，不能写成确认性端到端提升。
 16. Anomaly Transformer 在 CERT 上即使把训练从 10 epochs 增加到
     30 epochs 仍接近随机点级排序；该敏感性结果必须与主 pilot 一起保留。
 17. SMD 的 OmniAnomaly 是 PyTorch GRU-VAE adaptation；Anomaly

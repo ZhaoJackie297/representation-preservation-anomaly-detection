@@ -34,6 +34,10 @@ from e2_softclt_training import (  # noqa: E402
     build_alerts,
     evaluate_scores,
 )
+from feature_contracts import (  # noqa: E402
+    build_user_profiles,
+    sanitize_user_day_features,
+)
 from quota_relationship_sim import load_r42  # noqa: E402
 
 
@@ -121,55 +125,10 @@ def align_raw(
     values = aligned[PROFILE_FEATURES].to_numpy(
         dtype=np.float64
     ).reshape(len(users), len(dates), len(PROFILE_FEATURES))
-    count_dimensions = len(RAW_FEATURES)
-    counts = values[:, :, :count_dimensions]
-    values[:, :, :count_dimensions] = np.where(
-        np.isfinite(counts),
-        np.log1p(np.maximum(counts, 0.0)),
-        np.nan,
+    return sanitize_user_day_features(
+        values,
+        count_dimensions=len(RAW_FEATURES),
     )
-    timing = values[:, :, count_dimensions:]
-    values[:, :, count_dimensions:] = np.where(
-        np.isfinite(timing) & (timing >= 0.0),
-        timing,
-        np.nan,
-    )
-    return values.astype(np.float32)
-
-
-def user_profiles(
-    raw: np.ndarray,
-    active_mask: np.ndarray,
-    train_end: int,
-) -> np.ndarray:
-    users = raw.shape[0]
-    profiles = []
-    for user_index in range(users):
-        mask = active_mask[user_index, : train_end + 1]
-        values = raw[user_index, : train_end + 1][mask]
-        if len(values) == 0:
-            values = raw[user_index, : train_end + 1]
-        median = np.nanmedian(values, axis=0)
-        q90 = np.nanquantile(values, 0.9, axis=0)
-        active_fraction = np.asarray([mask.mean()])
-        profiles.append(
-            np.concatenate([median, q90, active_fraction])
-        )
-    profile = np.stack(profiles)
-    population_median = np.nanmedian(profile, axis=0)
-    population_median = np.where(
-        np.isfinite(population_median),
-        population_median,
-        0.0,
-    )
-    missing_rows, missing_columns = np.nonzero(~np.isfinite(profile))
-    profile[missing_rows, missing_columns] = population_median[
-        missing_columns
-    ]
-    mean = profile.mean(axis=0)
-    std = profile.std(axis=0)
-    std = np.where(std < 1e-8, 1.0, std)
-    return ((profile - mean) / std).astype(np.float64)
 
 
 def soft_instance_labels(
@@ -314,7 +273,7 @@ def main() -> None:
     train_values = values[:, : train_end + 1]
     data = load_r42()
     raw = align_raw(users, dates)
-    profiles = user_profiles(raw, active, train_end)
+    profiles = build_user_profiles(raw, active, train_end)
     soft_labels, distance_meta = soft_instance_labels(profiles)
     np.save(run_root / "soft_instance_labels.npy", soft_labels)
     (run_root / "distance_metadata.json").write_text(

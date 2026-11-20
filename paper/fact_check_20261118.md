@@ -1,7 +1,7 @@
 # zheng-shi-lun-wen-v2 事实性核查报告
 
 核查日期：2026-11-18  
-被核查文件：`C:\Users\Lenovo\Desktop\zheng-shi-lun-wen-v2.docx`  
+被核查文件：提交时提供的 v2 Word 稿（未纳入仓库）
 核查范围：正文、21 张表、10 幅图、41 条参考文献与 55 页渲染结果  
 核查依据：项目 canonical 结果、原始实验文件、官方 TS2Vec/SoftCLT 代码、PAI/E0–E11 实验报告
 

@@ -1,0 +1,56 @@
+{
+  "status": "exploratory_adaptation_pilot",
+  "dataset": "CERT r4.2",
+  "seeds": [
+    20261201,
+    20261202,
+    20261203
+  ],
+  "features": 27,
+  "train_epochs": 10,
+  "batch_size": 16,
+  "score": "global_z mask residual",
+  "t0": {
+    "lambda": 0.5,
+    "soft_instance": false,
+    "soft_temporal": false,
+    "output_dims": 64,
+    "hidden_dims": 64,
+    "depth": 5,
+    "causal_left_padding_days": 30
+  },
+  "t4": {
+    "lambda": 0.0,
+    "soft_instance": true,
+    "soft_temporal": true,
+    "tau_temp": 1.5,
+    "output_dims": 64,
+    "hidden_dims": 64,
+    "depth": 5,
+    "causal_left_padding_days": 30
+  },
+  "anomaly_transformer": {
+    "window": 64,
+    "d_model": 64,
+    "layers": 3,
+    "batch_size": 32
+  },
+  "t_nnclr": {
+    "window": 96,
+    "embed_dim": 64,
+    "layers": 4,
+    "heads": 4,
+    "batch_size": 64
+  },
+  "evaluation": {
+    "split": "test",
+    "k_values": [
+      5,
+      10,
+      20
+    ],
+    "cooldown_days": 7,
+    "event_horizon_days": 3
+  },
+  "claim_boundary": "Three-seed exploratory pilot; not the confirmatory 20-seed matrix."
+}

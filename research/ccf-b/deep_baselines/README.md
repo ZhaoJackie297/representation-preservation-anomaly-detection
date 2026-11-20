@@ -3,6 +3,9 @@
 These scripts adapt two deep anomaly detectors to the repository's SMD
 protocol.
 
+The CERT 3-seed paired pilot and its claim boundary are documented in
+`CERT_PAIRED_PILOT_RESULTS.md`.
+
 Fetch the pinned external checkouts with:
 
 ```powershell
@@ -44,15 +47,18 @@ added after pretraining.
 ## Commands
 
 ```powershell
+$CertRoot = "<path-to-cert-runtime>"
+$BaselineRoot = (Resolve-Path .\references\external).Path
+
 python anomaly_transformer_smd.py `
-  --repo E:\MarketRisker\references\Anomaly-Transformer `
-  --data-dir E:\MarketRisker\work\cert\OmniAnomaly\ServerMachineDataset `
-  --output-dir E:\MarketRisker\work\cert\external\smd_anomaly_transformer_v1 `
+  --repo "$BaselineRoot\Anomaly-Transformer" `
+  --data-dir "$CertRoot\OmniAnomaly\ServerMachineDataset" `
+  --output-dir "$CertRoot\external\smd_anomaly_transformer_v1" `
   --seeds 20261201 --machines machine-1-1
 
 python omni_anomaly_smd.py `
-  --data-dir E:\MarketRisker\work\cert\OmniAnomaly\ServerMachineDataset `
-  --output-dir E:\MarketRisker\work\cert\external\smd_omnianomaly_adapted_v1 `
+  --data-dir "$CertRoot\OmniAnomaly\ServerMachineDataset" `
+  --output-dir "$CertRoot\external\smd_omnianomaly_adapted_v1" `
   --seeds 20261201 --machines machine-1-1
 ```
 

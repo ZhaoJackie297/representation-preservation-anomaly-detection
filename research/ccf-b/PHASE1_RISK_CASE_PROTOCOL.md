@@ -7,7 +7,7 @@
 只读取已经锁定的 r4.2 10-seed Coverage-PAI 分数：
 
 ```text
-E:\MarketRisker\work\cert\external\
+<path-to-cert-runtime>\external\
   pilot_r42_10seed_scores_v1\seed_*/A1-Cov_scores.npz
 ```
 
@@ -60,7 +60,7 @@ S3 的成功门槛不因本次结果改动。只有：
 
 ```powershell
 python research/ccf-b/phase1/risk_case_study.py `
-  --output-dir E:\MarketRisker\work\cert\external\phase1_risk_cases_v1
+  --output-dir "<path-to-cert-runtime>\external\phase1_risk_cases_v1"
 ```
 
 输出：

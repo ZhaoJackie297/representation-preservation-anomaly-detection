@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -13,6 +14,12 @@ from sklearn.metrics import average_precision_score, roc_auc_score
 
 REPO = Path(__file__).resolve().parents[3]
 RUNTIME = REPO / "runtime" / "cert"
+CERT_ROOT = Path(
+    os.environ.get("RPAD_CERT_ROOT", RUNTIME)
+).resolve()
+EXTERNAL_ROOT = Path(
+    os.environ.get("RPAD_EXTERNAL_ROOT", CERT_ROOT / "external")
+).resolve()
 if str(RUNTIME) not in sys.path:
     sys.path.insert(0, str(RUNTIME))
 
@@ -41,24 +48,22 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--cert-data",
         type=Path,
-        default=Path(r"E:\MarketRisker\work\cert"),
+        default=CERT_ROOT,
     )
     parser.add_argument(
         "--score-root",
         type=Path,
-        default=Path(
-            r"E:\MarketRisker\work\cert\external"
-            r"\pilot_r42_10seed_scores_v1"
-        ),
+        default=EXTERNAL_ROOT / "pilot_r42_10seed_scores_v1",
     )
     parser.add_argument(
         "--graph",
         type=Path,
-        default=Path(
-            r"E:\MarketRisker\work\cert\experiments"
-            r"\representation_preservation\e2_instance"
-            r"\missing_safe_v2_20261117\soft_instance_labels.npy"
-        ),
+        default=CERT_ROOT
+        / "experiments"
+        / "representation_preservation"
+        / "e2_instance"
+        / "missing_safe_v2_20261117"
+        / "soft_instance_labels.npy",
     )
     parser.add_argument(
         "--seeds",

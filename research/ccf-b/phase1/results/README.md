@@ -3,7 +3,7 @@
 Date: 2026-11-19
 
 Only CSV, JSON, and Markdown summaries are stored here. Large `.npz` score
-arrays remain under `E:\MarketRisker\work\cert\external`.
+arrays remain in the external experiment workspace and are not committed.
 
 ## Directories
 

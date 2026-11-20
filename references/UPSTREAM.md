@@ -20,7 +20,7 @@
 - Supplementary baseline commit: `b0ee470c8012bff857fb600462aec6209c4a18d9`
 - License: MIT
 - Local checkout used for adaptation:
-  `E:\MarketRisker\references\Anomaly-Transformer`
+  `references/external/Anomaly-Transformer`
 
 ## OmniAnomaly
 

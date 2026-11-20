@@ -47,7 +47,7 @@ python controlled_signal_study.py `
   --background-users 32 `
   --event-users 8 `
   --device cuda `
-  --output-dir E:\MarketRisker\work\cert\external\phase1_r42_temporal_smoke
+  --output-dir "<path-to-cert-runtime>\external\phase1_r42_temporal_smoke"
 ```
 
 ## Tests

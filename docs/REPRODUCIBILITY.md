@@ -31,17 +31,28 @@ $env:TS2VEC_REPO = (Resolve-Path .\references\ts2vec_official).Path
 
 ## 数据目录
 
-原始数据和模型不进入 Git。将已有 processed 目录链接到运行时根目录：
+原始数据和模型不进入 Git。将已有 processed 目录链接到运行时根目录。
+下面的占位符需要替换为当前机器上的实际目录：
 
 ```powershell
+$ProcessedRoot = "<path-to-cert-processed>"
 pwsh .\scripts\link_data.ps1 `
-  -ProcessedR42 "D:\datasets\cert\processed_r42" `
-  -ProcessedR52 "D:\datasets\cert\processed_r52" `
-  -ProcessedR62 "D:\datasets\cert\processed_r62" `
-  -OmniAnomaly "D:\datasets\omnianomaly"
+  -ProcessedR42 "$ProcessedRoot\processed_r42" `
+  -ProcessedR52 "$ProcessedRoot\processed_r52" `
+  -ProcessedR62 "$ProcessedRoot\processed_r62" `
+  -OmniAnomaly "<path-to-omnianomaly-server-machine-dataset>"
 ```
 
 脚本会拒绝覆盖已存在的链接或目录。
+
+正式发布前运行：
+
+```powershell
+python .\scripts\validate_release.py
+```
+
+该命令会检查路径、语法、大文件和完整单元测试。CPU 契约测试覆盖时间缺失
+`-1 -> NaN`、训练期画像隔离、每日 Top-K 与七天冷却。
 
 ## 运行
 

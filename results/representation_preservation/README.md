@@ -2,7 +2,8 @@
 
 ## E0–E10
 
-以下目录由 `E:\MarketRisker\work\cert\experiments\representation_preservation` 原样复制，仅包含 `.csv` 和 `.json`：
+以下目录由实验工作目录中的 `experiments/representation_preservation`
+原样复制，仅包含 `.csv` 和 `.json`：
 
 | 目录 | 内容 |
 | --- | --- |

@@ -81,9 +81,9 @@ CLUE must not be described as confirming the full dual-end method.
 ## 6. Artifacts
 
 ```text
-E:\MarketRisker\work\cert\external\clue_dual_end_cap256_10seed_v1
-E:\MarketRisker\work\cert\external\clue_dual_end_cap256_10seed_scores_v1
-E:\MarketRisker\work\cert\external\clue_external_analysis_v1
+<external-root>\clue_dual_end_cap256_10seed_v1
+<external-root>\clue_dual_end_cap256_10seed_scores_v1
+<external-root>\clue_external_analysis_v1
 
 research/ccf-b/clue_lds_10seed_metrics_by_seed.csv
 research/ccf-b/clue_lds_10seed_method_summary.csv

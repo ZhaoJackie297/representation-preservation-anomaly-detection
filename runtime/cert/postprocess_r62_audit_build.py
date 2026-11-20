@@ -3,12 +3,13 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-PYTHON = Path(r"C:\Users\Lenovo\.conda\envs\ts2vec\python.exe")
+PYTHON = Path(os.environ.get("RPAD_PYTHON", sys.executable))
 MARKER = ROOT / "r6.2_audit_build.complete.json"
 
 

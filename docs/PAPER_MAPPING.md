@@ -14,6 +14,7 @@
 | SMD 匹配对照表 10 | `e8_smd_matched_t0.py` | `results/representation_preservation/e8/` |
 | iForest 基线表 11 | `e11_iforest_baseline.py` | `results/representation_preservation/e11_iforest/` |
 | CERT 10-seed 表 12 | `research/ccf-b/r4.2_10seed_paired_tests.csv`、`r5.2_10seed_paired_tests.csv` | `research/ccf-b/` |
+| Coverage batch 与 A3/A5a/A5b | `research/ccf-b/phase0/common_coverage_sampler.py`、`research/ccf-b/clue_lds/build_prior_graphs.py`、`build_profile_prior.py` | `research/ccf-b/r4.2_10seed_coverage_summary.csv`、`COVERAGE_BATCH_CONSTRUCTION.md` |
 | CLUE-LDS 表 13 | `research/ccf-b/clue_lds_10seed_paired_tests.csv` | `research/ccf-b/phase1/results/clue_coverage_v1/` |
 | 异常形态表 14–15 | `research/ccf-b/phase1/controlled_signal_study.py` | `research/ccf-b/phase1/results/r42_temporal_v1/` |
 | 附录 C 表 17–18 | `research/ccf-b/phase1/controlled_signal_study.py` | `research/ccf-b/phase1/results/` |
@@ -24,8 +25,9 @@
 
 ## 论文修正
 
-`paper/manuscript.docx` 是 v5 R0。`paper/manuscript_v6.docx` 是
-2026-11-19 扩展稿，新增 §7.9 和附录 C。`paper/fact_check_20261118.md`
+`paper/manuscript.docx` 与 `paper/manuscript_v6.docx` 是当前 v6 扩展稿，
+新增 §7.9 和附录 C；`paper/manuscript_v5.docx` 是归档的 v5 R0。
+`paper/fact_check_20261118.md`
 记录 v5 修正前事实性核查。`results/canonical/` 优先于任何历史截图、
 草稿或旧汇总表。
 

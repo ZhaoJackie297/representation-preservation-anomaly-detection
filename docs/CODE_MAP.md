@@ -59,6 +59,8 @@
 - `e11_iforest_baseline.py`：27 维用户日 iForest 基线。
 - `research/ccf-b/phase1/controlled_signal_study.py`：E12–E14 扩展验证。
 - `research/ccf-b/phase0/coverage_soft_ts2vec.py`：Coverage 模型编码依赖。
+- `research/ccf-b/phase0/common_coverage_sampler.py`：A0-matched/A1-Cov 的共同覆盖批次构造与审计。
+- `research/ccf-b/clue_lds/build_profile_prior.py`、`build_prior_graphs.py`：训练期画像先验、A3/A5a/A5b 关系图构造。
 
 ## S3 风险处理
 

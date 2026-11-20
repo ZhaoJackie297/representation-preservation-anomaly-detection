@@ -457,10 +457,13 @@ def main() -> None:
         "A0-matched 使用与 A1-Cov 相同的覆盖率约束 batch table，但实例目标"
         "仍为硬 0/1，用于消除 batch 组成差异；A1-Cov 保持同一 batch table，"
         "把 47 维训练期画像距离生成的软实例权重作为 instance target，"
-        "并令 soft temporal 关闭、lambda=0.5。覆盖率 batch table 以 A3"
-        "（画像 top-m 边）、A5a（度保持随机边）和 A5b（画像置换边）的并集"
-        "为目标，每个图达到 80% 覆盖；每个 batch 使用 8 个设计槽位和 8 个"
-        "随机填充用户，训练步数取 base steps 与覆盖所需 batch 数的较大值。",
+        "并令 soft temporal 关闭、lambda=0.5。覆盖率表先把画像距离转换为"
+        "行归一化高斯先验 P，带宽取训练期全体非对角距离的中位数；A3 取每个"
+        "用户在该先验中的 top-10 邻边并对称化，A5a 在保持 A3 度数序列的约束下"
+        "随机重连，A5b 在画像先验的行列联合置换后取 top-10 邻边。每个 batch "
+        "使用 8 个设计槽位和 8 个随机填充用户；覆盖目标分别检查 A3、A5a 和 "
+        "A5b，并均要求不低于 80%；训练步数取 base steps 与该表达到覆盖目标"
+        "所需 batch 数的较大值。",
     )
     add_text_paragraph_before(
         discussion_anchor,
@@ -842,7 +845,10 @@ def main() -> None:
         "仓库中，runtime/cert/ 保留原实验导入关系，code/by_layer/ "
         "提供 S1–S5 分层阅读入口，results/representation_preservation/ "
         "保存 E0–E11 的轻量记录；research/ccf-b/ 保存 E12–E14 的"
-        "10-seed、CLUE-LDS 和受控异常汇总。",
+        "10-seed、CLUE-LDS 和受控异常汇总。Coverage 批次构造和 A3/A5a/A5b "
+        "图构造分别位于 phase0/common_coverage_sampler.py 与 "
+        "clue_lds/build_prior_graphs.py，r4.2 的逐 seed 覆盖统计位于 "
+        "r4.2_10seed_coverage_summary.csv。",
     )
     for values in (
         [
@@ -961,9 +967,9 @@ def main() -> None:
         "7.9 扩展验证与异常形态分析\t0": "7.9 扩展验证与异常形态分析\t48",
         "7.9.1 CERT 固定 10-seed 验证\t0": "7.9.1 CERT 固定 10-seed 验证\t49",
         "7.9.2 CLUE-LDS 外部应用级复验\t0": "7.9.2 CLUE-LDS 外部应用级复验\t50",
-        "7.9.3 受控异常形态与评分信号\t0": "7.9.3 受控异常形态与评分信号\t50",
-        "8 讨论\t44": "8 讨论\t51",
-        "8.1 主要发现\t44": "8.1 主要发现\t51",
+        "7.9.3 受控异常形态与评分信号\t0": "7.9.3 受控异常形态与评分信号\t51",
+        "8 讨论\t44": "8 讨论\t52",
+        "8.1 主要发现\t44": "8.1 主要发现\t52",
         "8.2 局限性\t45": "8.2 局限性\t53",
         "8.3 与已有工作的关系及 S3/S4 定位\t45": (
             "8.3 与已有工作的关系及 S3/S4 定位\t53"

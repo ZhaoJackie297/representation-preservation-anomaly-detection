@@ -35,6 +35,19 @@
     20261203
   ],
   "cert_baseline_pilot_status": "exploratory",
+  "route_a_final_scope": {
+    "recorded_date": "2026-11-20",
+    "decision_stage": "post_pilot_scope_decision_not_retroactive_preregistration",
+    "paired_pilot_seeds": [
+      20261201,
+      20261202,
+      20261203
+    ],
+    "paired_pilot_closed": true,
+    "extend_to_20261220": false,
+    "cert_confirmatory_matrix": "existing 20261116-20261125 10-seed matrix",
+    "smd_confirmatory_matrix": "20261201-20261205 5-seed matrix"
+  },
   "optional_stopping": false,
   "report_all_seeds": true,
   "primary_cert_endpoints": [
@@ -52,7 +65,8 @@
     "Anomaly-Transformer": "b0ee470c8012bff857fb600462aec6209c4a18d9",
     "OmniAnomaly": "7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4",
     "t-nnclr": "9c6439991202986a2af108798d5092ea34f0e9ed",
-    "TS-TCC": "15bdfd6eced6aeb6c638839828effe1b4b2ea391"
+    "TS-TCC": "15bdfd6eced6aeb6c638839828effe1b4b2ea391",
+    "PAI": "29cb3bbf8e40b1610be9a3e91f4500c88fd930d3"
   },
   "claim_boundary": "CERT-focused controlled dual-end method, not universal SOTA"
 }

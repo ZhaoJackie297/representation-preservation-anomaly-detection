@@ -68,6 +68,8 @@
 - `research/ccf-b/deep_baselines/tnnclr_cert.py`：t-NNCLR 官方组件加固定表征库的 CERT 基线。
 - `research/ccf-b/deep_baselines/analyze_official_pai.py`：项目 PAI-A1 与官方 PAI 权重的同分量比较。
 - `research/ccf-b/deep_baselines/analyze_cert_paired_pilot.py`：CERT T0/T4 与深度基线的同 seed 配对分析。
+- `research/ccf-b/deep_baselines/compute_cert_joint_pilot.py`：复用 T0/T4 权重计算欧氏库与 PAI-A1。
+- `research/ccf-b/official_pai/verify_official_pai_reference.py`：调用官方 PAI 评分加载器核验权重实现。
 - `research/ccf-b/deep_baselines/protocol_utils.py`：合并续跑 seed 范围并保留逐次运行记录。
 
 ## S3 风险处理

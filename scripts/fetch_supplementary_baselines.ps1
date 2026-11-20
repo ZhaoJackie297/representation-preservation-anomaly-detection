@@ -10,6 +10,11 @@ if (-not $Root) {
 
 $repositories = @(
     @{
+        Name = "PAI"
+        Url = "https://github.com/pantheon5100/PAI.git"
+        Commit = "29cb3bbf8e40b1610be9a3e91f4500c88fd930d3"
+    },
+    @{
         Name = "Anomaly-Transformer"
         Url = "https://github.com/thuml/Anomaly-Transformer.git"
         Commit = "b0ee470c8012bff857fb600462aec6209c4a18d9"

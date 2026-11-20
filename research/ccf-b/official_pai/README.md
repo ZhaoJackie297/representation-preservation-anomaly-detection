@@ -24,8 +24,34 @@ Official scalar weights applied to the same local components:
 score_official = 0.6 * euc_z + 0.4 * mag_g_z + 0.2 * t2_z
 ```
 
-The second score is an official-weight sensitivity analysis, not a
-byte-identical run of the official PAI repository.
+The official scorer was executed separately as a code-level reference on the
+same three normalized components.
+
+## Code-level reference
+
+- official repository: `pantheon5100/PAI`;
+- audited commit: `29cb3bbf8e40b1610be9a3e91f4500c88fd930d3`;
+- official formula:
+  `0.6*z_euc + 0.4*z_magG + 0.2*z_T2`;
+- all six T0/T4 pilot component arrays agree within `9.54e-7`;
+- the official loader converts inactive `NaN` values to zero, while the local
+  evaluator retains `NaN` and filters with the active mask.
+
+This verifies formula and interface compatibility, not a native TSB-AD
+benchmark reproduction. The upstream checkout has no repository-level license
+file and remains outside the release.
+
+On the three-seed pilot, the local implementation of the official formula
+produced:
+
+| Training | PR-AUC | ROC-AUC | K=10 | K=20 |
+| --- | ---: | ---: | ---: | ---: |
+| T0 | 0.010459 | 0.858605 | 0.597222 | 0.791667 |
+| T4 | 0.013234 | 0.870970 | 0.597222 | 0.791667 |
+
+Project PAI-A1 minus official PAI remained positive on PR-AUC and ROC-AUC on
+3/3 seeds for both T0 and T4, while event recall was mixed. These remain
+exploratory pilot observations.
 
 ## Results
 
@@ -59,3 +85,6 @@ Artifacts:
 - `official_pai_10seed_summary.csv`;
 - `official_pai_10seed_paired.csv`;
 - `official_pai_10seed_summary.json`.
+- `code_level_reference_audit.json`;
+- `verify_official_pai_reference.py`.
+- `../deep_baselines/results/cert_paired_official_pai_20261201_03_v1/`.

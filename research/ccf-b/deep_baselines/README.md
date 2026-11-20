@@ -6,6 +6,12 @@ protocol.
 The CERT 3-seed paired pilot and its claim boundary are documented in
 `CERT_PAIRED_PILOT_RESULTS.md`.
 
+`compute_cert_joint_pilot.py` reuses the saved T0/T4 weights to calculate
+training-period Euclidean-bank and PAI-A1 scores without another model run.
+
+`LAN_REPRODUCIBILITY_AUDIT.md` records why LAN remains an explicit
+activity-level protocol gap rather than an unpaired daily-feature result.
+
 Fetch the pinned external checkouts with:
 
 ```powershell

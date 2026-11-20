@@ -1,0 +1,42 @@
+{
+  "status": "exploratory_reuse_of_saved_models",
+  "seeds": [
+    20261201,
+    20261202,
+    20261203
+  ],
+  "training_reused": true,
+  "t0_model_source": "e2/runs/r42_T0_seed<seed>/model.pth",
+  "t4_model_source": "e2_instance/<pilot>/T4_full_soft/seed_<seed>/model.pth",
+  "t4_training": {
+    "lambda": 0.5,
+    "soft_instance": true,
+    "soft_temporal": true,
+    "tau_temp": 1.5,
+    "epochs": 10,
+    "batch_size": 16
+  },
+  "representation_bank": {
+    "fit": "training-period active user-days only",
+    "clusters": "min(500, max(1, round(0.1 * training rows)))",
+    "query": "mean distance to three nearest centers",
+    "euclidean": true
+  },
+  "pai_a1": {
+    "weights": {
+      "euclidean": 1.0,
+      "mag_g": 0.6,
+      "t2": 0.4
+    }
+  },
+  "evaluation": {
+    "k_values": [
+      5,
+      10,
+      20
+    ],
+    "cooldown_days": 7,
+    "event_horizon_days": 3
+  },
+  "claim_boundary": "Three-seed exploratory pilot; not confirmation."
+}

@@ -20,7 +20,7 @@
     "causal_left_padding_days": 30
   },
   "t4": {
-    "lambda": 0.0,
+    "lambda": 0.5,
     "soft_instance": true,
     "soft_temporal": true,
     "tau_temp": 1.5,
@@ -28,6 +28,12 @@
     "hidden_dims": 64,
     "depth": 5,
     "causal_left_padding_days": 30
+  },
+  "lambda_verification": {
+    "source": "runtime/cert/e2_softclt_instance.py",
+    "constructor_value": 0.5,
+    "summary_files_confirm_soft_temporal": true,
+    "retraining_required": false
   },
   "anomaly_transformer": {
     "window": 64,
@@ -52,5 +58,5 @@
     "cooldown_days": 7,
     "event_horizon_days": 3
   },
-  "claim_boundary": "Three-seed exploratory pilot; not the confirmatory 20-seed matrix."
+  "claim_boundary": "Three-seed exploratory pilot; route A closes the extension to 20261220 and does not treat this pilot as confirmation."
 }

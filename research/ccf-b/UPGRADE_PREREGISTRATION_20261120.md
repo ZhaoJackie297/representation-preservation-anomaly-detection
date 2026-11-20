@@ -24,6 +24,22 @@ adaptation pilot. A pilot is excluded from confirmatory claims and must either
 be extended to the frozen range or remain labelled exploratory. The pilot
 cannot decide which of the 20 seeds are reported.
 
+## Route A final scope decision
+
+Recorded on 2026-11-20 after the paired pilot results were inspected.
+
+- `20261201-20261203` is frozen as a three-seed exploratory paired pilot and
+  will not be extended to `20261220`.
+- The CERT 10-seed matrix remains the CERT confirmatory/development matrix.
+- The SMD five-seed matrix remains the SMD confirmatory matrix for its stated
+  scope.
+- The paired pilot does not become confirmatory because the broader range is
+  closed. It is reported with its intervals and adaptation limits.
+
+This is a post-pilot scope decision, not a retrospective preregistration.
+Starting a future CERT 20-seed family would require a new dated protocol and
+cannot reuse this pilot as confirmation.
+
 ## Primary protocol
 
 The existing data splits, features, K grid, seven-day cooldown, robust score
@@ -41,7 +57,9 @@ comparisons are computed on the same seed-machine pair.
 
 ## Baseline adaptations
 
-- `T0_matched`: the existing native TS2Vec 512-point-window control.
+- `T0_matched`: the existing native TS2Vec control. SMD uses a 512-point
+  window; CERT uses the repository's causal user-day transform with 30-day
+  left padding.
 - `T4_full_soft`: the existing full SoftCLT double-end method.
 - `Anomaly Transformer`: official model code, per-machine SMD input with one
   model per machine. CERT adaptation uses one 27-dimensional series per user,
@@ -65,7 +83,10 @@ the appendix.
 
 The project score remains `PAI-A1` with weights `1.0:0.6:0.4`. The official
 PAI scalar weights `0.6:0.4:0.2` are reported separately as a sensitivity
-analysis. Neither is tuned on the test split.
+analysis. The official PAI loader was separately audited at commit
+`29cb3bbf8e40b1610be9a3e91f4500c88fd930d3`; this verifies formula/interface
+equivalence on the same components, not a native TSB-AD benchmark run.
+Neither score is tuned on the test split.
 
 ## Event-count boundary
 

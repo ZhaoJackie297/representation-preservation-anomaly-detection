@@ -21,6 +21,8 @@
 | 项目 PAI-A1 与官方 PAI 权重 | `research/ccf-b/deep_baselines/analyze_official_pai.py` | `research/ccf-b/official_pai/` |
 | E15 SMD 5-seed 新扩展 | `runtime/cert/e8_smd_*.py`、`research/ccf-b/smd_multiseed/` | `research/ccf-b/smd_multiseed/results/`、`research/ccf-b/deep_baselines/SMD_DEEP_BASELINE_RESULTS.md` |
 | E16 CERT 深度基线 pilot | `research/ccf-b/deep_baselines/anomaly_transformer_cert.py`、`tnnclr_cert.py` | `research/ccf-b/deep_baselines/CERT_DEEP_BASELINE_PILOT.md` |
+| CERT 3-seed 同 seed 配对 pilot | `research/ccf-b/deep_baselines/analyze_cert_paired_pilot.py`、`compute_cert_joint_pilot.py` | `research/ccf-b/deep_baselines/CERT_PAIRED_PILOT_RESULTS.md` |
+| 官方 PAI 代码级评分核验 | `research/ccf-b/official_pai/verify_official_pai_reference.py` | `research/ccf-b/official_pai/code_level_reference_audit.json` |
 | CLUE-LDS 表 13 | `research/ccf-b/clue_lds_10seed_paired_tests.csv` | `research/ccf-b/phase1/results/clue_coverage_v1/` |
 | 异常形态表 14–15 | `research/ccf-b/phase1/controlled_signal_study.py` | `research/ccf-b/phase1/results/r42_temporal_v1/` |
 | 附录 C 表 17–18 | `research/ccf-b/phase1/controlled_signal_study.py` | `research/ccf-b/phase1/results/` |

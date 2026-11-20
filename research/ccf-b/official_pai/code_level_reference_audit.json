@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "official_repository": "pantheon5100/PAI",
+  "official_commit": "29cb3bbf8e40b1610be9a3e91f4500c88fd930d3",
+  "official_formula": "0.6 * z_euclidean + 0.4 * z_magG + 0.2 * z_T2",
+  "checks": [
+    {
+      "file": "T0_matched_seed_20261201_scores.npz",
+      "seed": 20261201,
+      "variant": "T0_matched",
+      "max_abs_difference": 4.76837158203125e-07,
+      "inactive_values_zero": true,
+      "match": true
+    },
+    {
+      "file": "T0_matched_seed_20261202_scores.npz",
+      "seed": 20261202,
+      "variant": "T0_matched",
+      "max_abs_difference": 4.76837158203125e-07,
+      "inactive_values_zero": true,
+      "match": true
+    },
+    {
+      "file": "T0_matched_seed_20261203_scores.npz",
+      "seed": 20261203,
+      "variant": "T0_matched",
+      "max_abs_difference": 4.76837158203125e-07,
+      "inactive_values_zero": true,
+      "match": true
+    },
+    {
+      "file": "T4_full_soft_seed_20261201_scores.npz",
+      "seed": 20261201,
+      "variant": "T4_full_soft",
+      "max_abs_difference": 4.76837158203125e-07,
+      "inactive_values_zero": true,
+      "match": true
+    },
+    {
+      "file": "T4_full_soft_seed_20261202_scores.npz",
+      "seed": 20261202,
+      "variant": "T4_full_soft",
+      "max_abs_difference": 4.76837158203125e-07,
+      "inactive_values_zero": true,
+      "match": true
+    },
+    {
+      "file": "T4_full_soft_seed_20261203_scores.npz",
+      "seed": 20261203,
+      "variant": "T4_full_soft",
+      "max_abs_difference": 9.5367431640625e-07,
+      "inactive_values_zero": true,
+      "match": true
+    }
+  ],
+  "tested_arrays": 6,
+  "claim_boundary": "This verifies the official scoring interface on CERT pilot components. It is not a native TSB-AD benchmark run.",
+  "license": "No repository-level license file was found locally."
+}

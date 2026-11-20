@@ -22,6 +22,14 @@
 - Local checkout used for adaptation:
   `references/external/Anomaly-Transformer`
 
+## PAI
+
+- Repository: <https://github.com/pantheon5100/PAI>
+- Inspected commit: `29cb3bbf8e40b1610be9a3e91f4500c88fd930d3`
+- License: no repository-level license file found
+- Local checkout only for code-level scoring audit; it is ignored and not
+  redistributed.
+
 ## OmniAnomaly
 
 - Repository: <https://github.com/NetManAIOps/OmniAnomaly>
@@ -36,7 +44,7 @@
 - Repository: <https://github.com/imics-lab/t-nnclr>
 - Inspected commit: `9c6439991202986a2af108798d5092ea34f0e9ed`
 - License: MIT
-- Candidate representation baseline for a later CERT comparison.
+- Used as a CERT representation baseline.
 
 ## TS-TCC
 

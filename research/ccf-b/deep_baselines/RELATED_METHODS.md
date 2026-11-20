@@ -8,12 +8,13 @@ The following repositories were checked before selecting baselines.
 | --- | --- | --- | --- |
 | TS2Vec | <https://github.com/yuezhihan/ts2vec> | MIT | Primary encoder and native control |
 | SoftCLT | <https://github.com/seunghan96/softclt> | Not declared in the downloaded snapshot | Direct method family |
-| PAI | <https://github.com/pantheon5100/PAI> | Not declared | Amplitude-aware scoring reference |
+| PAI | <https://github.com/pantheon5100/PAI> | Not declared | Amplitude-aware scoring reference; audited at commit `29cb3bbf8e40b1610be9a3e91f4500c88fd930d3` |
 | Anomaly Transformer | <https://github.com/thuml/Anomaly-Transformer> | MIT | Deep multivariate time-series baseline |
 | OmniAnomaly | <https://github.com/NetManAIOps/OmniAnomaly> | MIT | Deep stochastic RNN/VAE baseline; native TensorFlow 1 requires an unavailable legacy environment |
 | t-NNCLR | <https://github.com/imics-lab/t-nnclr> | MIT | Nearest-neighbor contrastive representation baseline |
 | TS-TCC | <https://github.com/emadeldeen24/TS-TCC> | MIT | Temporal/contextual contrastive representation baseline |
 | DCdetector | <https://github.com/ChaoLiZhang/DCdetector> | Not declared | Possible second-wave contrastive deep baseline; audit code before use |
+| LAN | Paper: arXiv:2403.09209 | Not inspected | CERT-native activity-level baseline; no executable implementation was located, so no result is reported |
 
 The GitHub repository search also returns several small CERT projects. They
 were not selected because most have no license, no reproducible split, or

@@ -32,4 +32,6 @@
 17. SMD 的 OmniAnomaly 是 PyTorch GRU-VAE adaptation；Anomaly
     Transformer 使用官方 100 点窗口。两者都是适配结果，不是原论文原生
     基准成绩。
+18. LAN 是 CERT 活动级原生方法。当前仓库没有可执行实现，且直接压成
+    27 维用户日表会改变方法定义；因此保留为未同协议比较的领域边界。
 

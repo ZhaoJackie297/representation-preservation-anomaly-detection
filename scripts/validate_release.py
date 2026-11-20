@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ast
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -33,9 +34,13 @@ REQUIRED_PATHS = [
     "research/ccf-b/deep_baselines/README.md",
     "research/ccf-b/deep_baselines/CERT_DEEP_BASELINE_PILOT.md",
     "research/ccf-b/deep_baselines/CERT_PAIRED_PILOT_RESULTS.md",
+    "research/ccf-b/deep_baselines/LAN_REPRODUCIBILITY_AUDIT.md",
+    "research/ccf-b/deep_baselines/results/cert_paired_dual_end_protocol.json",
     "research/ccf-b/deep_baselines/results/cert_paired_pipeline_protocol.json",
     "research/ccf-b/deep_baselines/results/README.md",
     "research/ccf-b/official_pai/README.md",
+    "research/ccf-b/official_pai/code_level_reference_audit.json",
+    "research/ccf-b/official_pai/verify_official_pai_reference.py",
     "research/ccf-b/smd_multiseed/README.md",
 ]
 
@@ -140,6 +145,14 @@ def main() -> int:
             ast.parse(path.read_text(encoding="utf-8"))
         except Exception as error:
             errors.append(f"Python parse error: {path.relative_to(root)}: {error}")
+
+    for path in files:
+        if path.suffix.lower() != ".json" or not path.is_file():
+            continue
+        try:
+            json.loads(path.read_text(encoding="utf-8"))
+        except Exception as error:
+            errors.append(f"JSON parse error: {path.relative_to(root)}: {error}")
 
     for path in files:
         if not path.is_file():

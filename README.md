@@ -88,6 +88,9 @@ python e2_softclt_instance.py --seeds 20261116 20261117 20261118
 - CERT 3-seed 配对 pilot 已补齐 T0/T4 与 Anomaly Transformer、t-NNCLR
   的同 seed 比较。T4 对 T0 的 PR/ROC 区间仍跨零，K=20 召回未提高；
   对 t-NNCLR 为正但区间跨零，只作为探索性方向。
+- 复用保存的 T0/T4 权重后，T4+PAI-A1 对 T0+PAI-A1 的 PR-AUC 为
+  `+0.002709`，3/3 seed 为正；对 t-NNCLR 的 PR-AUC 为 `+0.009963`。
+  事件级结果仍混合，不能写成全面胜出。
 
 ## 数据与模型
 

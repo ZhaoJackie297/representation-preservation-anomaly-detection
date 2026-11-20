@@ -1,0 +1,16 @@
+method,metric,mean_project_minus_official,positive_seeds,negative_seeds
+A0-official,test_pr_auc,0.000519970494991301,10,0
+A0-official,test_roc_auc,0.006169997238495451,10,0
+A0-official,event_recall_k5,5.551115123125783e-18,4,3
+A0-official,event_recall_k10,-0.020833333333333343,2,4
+A0-official,event_recall_k20,-0.004166666666666663,2,3
+A0-matched,test_pr_auc,0.0004795181076038227,10,0
+A0-matched,test_roc_auc,0.006431969033081219,10,0
+A0-matched,event_recall_k5,-0.008333333333333342,2,4
+A0-matched,event_recall_k10,-0.008333333333333337,1,3
+A0-matched,event_recall_k20,0.016666666666666663,4,1
+A1-Cov,test_pr_auc,0.00044446797794217807,10,0
+A1-Cov,test_roc_auc,0.0061085297921146696,10,0
+A1-Cov,event_recall_k5,-0.016666666666666653,1,5
+A1-Cov,event_recall_k10,0.016666666666666653,5,1
+A1-Cov,event_recall_k20,0.016666666666666663,5,1

@@ -1,0 +1,32 @@
+{
+  "repo": "E:\\MarketRisker\\references\\t-nnclr",
+  "seeds": [
+    20261201,
+    20261202,
+    20261203
+  ],
+  "seed_invocations": [
+    {
+      "seeds": [
+        20261201
+      ],
+      "source": "recovered_from_completed_result_directories"
+    },
+    {
+      "seeds": [
+        20261202,
+        20261203
+      ],
+      "source": "last_persisted_protocol"
+    }
+  ],
+  "protocol_recovery_note": "Completed seed coverage was reconstructed from result directories because resumed runs overwrote the original protocol with the final invocation.",
+  "window": 96,
+  "epochs": 10,
+  "batch_size": 64,
+  "embed_dim": 64,
+  "layers": 4,
+  "heads": 4,
+  "user_limit": null,
+  "adaptation": "t-NNCLR encoder plus fixed representation bank"
+}

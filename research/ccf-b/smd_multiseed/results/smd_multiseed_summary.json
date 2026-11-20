@@ -1,0 +1,300 @@
+{
+  "seeds": [
+    20261201,
+    20261202,
+    20261203,
+    20261204,
+    20261205
+  ],
+  "bootstrap_iterations": 10000,
+  "comparisons": {
+    "pai_t4_vs_t0": {
+      "pr_auc": {
+        "seed_mean_delta": 0.004660500727761435,
+        "seed_std_delta": 0.0017316696419127865,
+        "seed_t_ci95": [
+          0.00251034887661592,
+          0.0068106525789069505
+        ],
+        "machine_cluster_ci95": [
+          0.0018204912447858182,
+          0.007995699762048001
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "roc_auc": {
+        "seed_mean_delta": 0.0023100210298066023,
+        "seed_std_delta": 0.0007940487751685245,
+        "seed_t_ci95": [
+          0.0013240792528620485,
+          0.003295962806751156
+        ],
+        "machine_cluster_ci95": [
+          0.0005979232946500678,
+          0.004132890424954206
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "pa_f1_top5": {
+        "seed_mean_delta": 0.0032494671899769246,
+        "seed_std_delta": 0.00215737277979773,
+        "seed_t_ci95": [
+          0.0005707350785973011,
+          0.005928199301356548
+        ],
+        "machine_cluster_ci95": [
+          0.0008295374724949954,
+          0.006067347057016047
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "f1_q99": {
+        "seed_mean_delta": 0.0046589583661760135,
+        "seed_std_delta": 0.0029344549937307374,
+        "seed_t_ci95": [
+          0.0010153512461112974,
+          0.00830256548624073
+        ],
+        "machine_cluster_ci95": [
+          0.0007864386566332679,
+          0.011257587390106977
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "segment_recall_q99": {
+        "seed_mean_delta": -0.007530088958660387,
+        "seed_std_delta": 0.010862094066339154,
+        "seed_t_ci95": [
+          -0.021017160105936468,
+          0.005956982188615695
+        ],
+        "machine_cluster_ci95": [
+          -0.016779631083202514,
+          -0.0013605442176870732
+        ],
+        "positive_seeds": 1,
+        "negative_seeds": 4
+      }
+    },
+    "pai_official_t4_vs_t0": {
+      "pr_auc": {
+        "seed_mean_delta": 0.00458925170066179,
+        "seed_std_delta": 0.001722374895945389,
+        "seed_t_ci95": [
+          0.002450640800956442,
+          0.006727862600367137
+        ],
+        "machine_cluster_ci95": [
+          0.0018104055830894979,
+          0.007822631900277238
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "roc_auc": {
+        "seed_mean_delta": 0.0023936634591031733,
+        "seed_std_delta": 0.0008017667291373262,
+        "seed_t_ci95": [
+          0.0013981385765757645,
+          0.003389188341630582
+        ],
+        "machine_cluster_ci95": [
+          0.000646892198715965,
+          0.004250081887318653
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "pa_f1_top5": {
+        "seed_mean_delta": 0.0032659682965978467,
+        "seed_std_delta": 0.002056701911459645,
+        "seed_t_ci95": [
+          0.0007122355781015348,
+          0.005819701015094159
+        ],
+        "machine_cluster_ci95": [
+          0.0007343164813804481,
+          0.006071335259595892
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "f1_q99": {
+        "seed_mean_delta": 0.00497960801309953,
+        "seed_std_delta": 0.003087217905035442,
+        "seed_t_ci95": [
+          0.0011463206858069674,
+          0.008812895340392092
+        ],
+        "machine_cluster_ci95": [
+          0.0007935528993681837,
+          0.012096151674153736
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "segment_recall_q99": {
+        "seed_mean_delta": -0.006907378335949764,
+        "seed_std_delta": 0.007506738402074722,
+        "seed_t_ci95": [
+          -0.016228225153739617,
+          0.002413468481840088
+        ],
+        "machine_cluster_ci95": [
+          -0.01588173731030874,
+          -0.0006802721088435366
+        ],
+        "positive_seeds": 1,
+        "negative_seeds": 4
+      }
+    },
+    "euc_t4_vs_t0": {
+      "pr_auc": {
+        "seed_mean_delta": 0.005897638838583648,
+        "seed_std_delta": 0.0015944460395332114,
+        "seed_t_ci95": [
+          0.00391787259421668,
+          0.007877405082950616
+        ],
+        "machine_cluster_ci95": [
+          0.0023118761713717914,
+          0.009641874788668466
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "roc_auc": {
+        "seed_mean_delta": 0.0038234354880759456,
+        "seed_std_delta": 0.0009057144291938804,
+        "seed_t_ci95": [
+          0.00269884248869223,
+          0.004948028487459661
+        ],
+        "machine_cluster_ci95": [
+          0.0014801247334531975,
+          0.0061164287716540975
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "pa_f1_top5": {
+        "seed_mean_delta": 0.0050793021398590045,
+        "seed_std_delta": 0.0031416847197639403,
+        "seed_t_ci95": [
+          0.001178385329621231,
+          0.008980218950096777
+        ],
+        "machine_cluster_ci95": [
+          0.001973539160631988,
+          0.008286754477718488
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "f1_q99": {
+        "seed_mean_delta": 0.0029150210536630556,
+        "seed_std_delta": 0.001206048317067785,
+        "seed_t_ci95": [
+          0.0014175142782657459,
+          0.004412527829060365
+        ],
+        "machine_cluster_ci95": [
+          0.000833920693979271,
+          0.005339560364265391
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "segment_recall_q99": {
+        "seed_mean_delta": 0.0,
+        "seed_std_delta": 0.0,
+        "seed_t_ci95": [
+          0.0,
+          0.0
+        ],
+        "machine_cluster_ci95": [
+          0.0,
+          0.0
+        ],
+        "positive_seeds": 0,
+        "negative_seeds": 0
+      }
+    },
+    "mask_t4_vs_t0": {
+      "pr_auc": {
+        "seed_mean_delta": 0.002631170598398273,
+        "seed_std_delta": 0.0015337987669221014,
+        "seed_t_ci95": [
+          0.0007267078890217697,
+          0.004535633307774777
+        ],
+        "machine_cluster_ci95": [
+          -0.0003502090398951792,
+          0.0056586264572361595
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "roc_auc": {
+        "seed_mean_delta": 0.0026759041071671963,
+        "seed_std_delta": 0.0008244985546791812,
+        "seed_t_ci95": [
+          0.0016521539352510174,
+          0.0036996542790833755
+        ],
+        "machine_cluster_ci95": [
+          6.254282591282023e-05,
+          0.005055431945192084
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "pa_f1_top5": {
+        "seed_mean_delta": 0.002866447522674591,
+        "seed_std_delta": 0.0018579648157429315,
+        "seed_t_ci95": [
+          0.0005594795010372983,
+          0.0051734155443118835
+        ],
+        "machine_cluster_ci95": [
+          -0.00020829269256494615,
+          0.006426660613523133
+        ],
+        "positive_seeds": 4,
+        "negative_seeds": 1
+      },
+      "f1_q99": {
+        "seed_mean_delta": 0.00425557689029839,
+        "seed_std_delta": 0.002735027125722227,
+        "seed_t_ci95": [
+          0.0008595921741783741,
+          0.007651561606418406
+        ],
+        "machine_cluster_ci95": [
+          0.0010742495246988712,
+          0.007394019107296523
+        ],
+        "positive_seeds": 5,
+        "negative_seeds": 0
+      },
+      "segment_recall_q99": {
+        "seed_mean_delta": 0.0017399267399267394,
+        "seed_std_delta": 0.0015910760397338873,
+        "seed_t_ci95": [
+          -0.00023565509701545424,
+          0.003715508576868933
+        ],
+        "machine_cluster_ci95": [
+          0.0,
+          0.004670329670329669
+        ],
+        "positive_seeds": 3,
+        "negative_seeds": 0
+      }
+    }
+  }
+}

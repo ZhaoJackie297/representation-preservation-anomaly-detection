@@ -15,6 +15,12 @@
 | iForest 基线表 11 | `e11_iforest_baseline.py` | `results/representation_preservation/e11_iforest/` |
 | CERT 10-seed 表 12 | `research/ccf-b/r4.2_10seed_paired_tests.csv`、`r5.2_10seed_paired_tests.csv` | `research/ccf-b/` |
 | Coverage batch 与 A3/A5a/A5b | `research/ccf-b/phase0/common_coverage_sampler.py`、`research/ccf-b/clue_lds/build_prior_graphs.py`、`build_profile_prior.py` | `research/ccf-b/r4.2_10seed_coverage_summary.csv`、`COVERAGE_BATCH_CONSTRUCTION.md` |
+| SMD 新 seed 扩展 | `runtime/cert/e8_smd_matched_t0.py`、`e8_smd_softclt.py`、`research/ccf-b/smd_multiseed/analyze_smd_multiseed.py` | `research/ccf-b/smd_multiseed/` |
+| Anomaly Transformer / OmniAnomaly-adapted | `research/ccf-b/deep_baselines/anomaly_transformer_*.py`、`omni_anomaly_smd.py` | `research/ccf-b/deep_baselines/` |
+| t-NNCLR CERT 基线 | `research/ccf-b/deep_baselines/tnnclr_cert.py` | `research/ccf-b/deep_baselines/CERT_DEEP_BASELINE_PILOT.md` |
+| 项目 PAI-A1 与官方 PAI 权重 | `research/ccf-b/deep_baselines/analyze_official_pai.py` | `research/ccf-b/official_pai/` |
+| E15 SMD 5-seed 新扩展 | `runtime/cert/e8_smd_*.py`、`research/ccf-b/smd_multiseed/` | `research/ccf-b/smd_multiseed/results/`、`research/ccf-b/deep_baselines/SMD_DEEP_BASELINE_RESULTS.md` |
+| E16 CERT 深度基线 pilot | `research/ccf-b/deep_baselines/anomaly_transformer_cert.py`、`tnnclr_cert.py` | `research/ccf-b/deep_baselines/CERT_DEEP_BASELINE_PILOT.md` |
 | CLUE-LDS 表 13 | `research/ccf-b/clue_lds_10seed_paired_tests.csv` | `research/ccf-b/phase1/results/clue_coverage_v1/` |
 | 异常形态表 14–15 | `research/ccf-b/phase1/controlled_signal_study.py` | `research/ccf-b/phase1/results/r42_temporal_v1/` |
 | 附录 C 表 17–18 | `research/ccf-b/phase1/controlled_signal_study.py` | `research/ccf-b/phase1/results/` |
@@ -30,4 +36,8 @@
 `paper/fact_check_20261118.md`
 记录 v5 修正前事实性核查。`results/canonical/` 优先于任何历史截图、
 草稿或旧汇总表。
+
+新增实验的种子和判据由
+`research/ccf-b/UPGRADE_PREREGISTRATION_20261120.md` 冻结。旧结果不删除，
+新结果全部报告。
 

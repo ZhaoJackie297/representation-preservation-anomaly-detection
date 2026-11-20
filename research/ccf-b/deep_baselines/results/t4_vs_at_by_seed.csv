@@ -1,0 +1,16 @@
+comparison,seed,metric,mean_delta,positive_machines,negative_machines
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261201,pr_auc,0.4190150624246538,28,0
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261201,roc_auc,0.33585494848863423,28,0
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261201,pa_f1_top5,0.35893021883841403,28,0
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261202,pr_auc,0.4173948152172774,28,0
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261202,roc_auc,0.3257256232778708,26,2
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261202,pa_f1_top5,0.3515304211279937,27,1
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261203,pr_auc,0.41059439734437164,28,0
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261203,roc_auc,0.32478312447712493,26,2
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261203,pa_f1_top5,0.34626679413664274,28,0
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261204,pr_auc,0.4128583627496013,27,1
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261204,roc_auc,0.32050667385410186,27,1
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261204,pa_f1_top5,0.3527186410607655,28,0
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261205,pr_auc,0.41613855068325606,28,0
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261205,roc_auc,0.31850551247237063,27,1
+T4-full-soft + project PAI - Anomaly Transformer-adapted,20261205,pa_f1_top5,0.3582447171459942,28,0

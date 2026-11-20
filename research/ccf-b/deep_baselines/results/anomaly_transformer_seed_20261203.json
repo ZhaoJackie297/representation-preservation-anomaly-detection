@@ -1,0 +1,176 @@
+{
+  "seed": 20261203,
+  "point": {
+    "pr_auc": 0.0023239193890426495,
+    "roc_auc": 0.49975833451714397,
+    "positive_days": 407
+  },
+  "event": {
+    "5": {
+      "method": "anomaly_transformer",
+      "k": 5,
+      "cooldown_days": 7,
+      "splits": {
+        "validation": {
+          "alert_slots": 720,
+          "true_alert_slots": 7,
+          "precision_at_k": 0.009722222222222222,
+          "account_day_recall": 0.012089810017271158,
+          "false_alert_slots": 713,
+          "false_alerts_per_day": 4.951388888888889,
+          "horizons": {
+            "1": {
+              "incidents_hit": 3,
+              "incidents_total": 46,
+              "event_recall": 0.06521739130434782,
+              "median_contact_time_days": -3.0,
+              "pre_event_contacts": 3
+            },
+            "3": {
+              "incidents_hit": 3,
+              "incidents_total": 46,
+              "event_recall": 0.06521739130434782,
+              "median_contact_time_days": -3.0,
+              "pre_event_contacts": 3
+            }
+          }
+        },
+        "test": {
+          "alert_slots": 989,
+          "true_alert_slots": 2,
+          "precision_at_k": 0.0020222446916076846,
+          "account_day_recall": 0.004914004914004914,
+          "false_alert_slots": 987,
+          "false_alerts_per_day": 4.984848484848484,
+          "horizons": {
+            "1": {
+              "incidents_hit": 0,
+              "incidents_total": 24,
+              "event_recall": 0.0,
+              "median_contact_time_days": null,
+              "pre_event_contacts": 0
+            },
+            "3": {
+              "incidents_hit": 0,
+              "incidents_total": 24,
+              "event_recall": 0.0,
+              "median_contact_time_days": null,
+              "pre_event_contacts": 0
+            }
+          }
+        }
+      }
+    },
+    "10": {
+      "method": "anomaly_transformer",
+      "k": 10,
+      "cooldown_days": 7,
+      "splits": {
+        "validation": {
+          "alert_slots": 1440,
+          "true_alert_slots": 12,
+          "precision_at_k": 0.008333333333333333,
+          "account_day_recall": 0.02072538860103627,
+          "false_alert_slots": 1428,
+          "false_alerts_per_day": 9.916666666666666,
+          "horizons": {
+            "1": {
+              "incidents_hit": 5,
+              "incidents_total": 46,
+              "event_recall": 0.10869565217391304,
+              "median_contact_time_days": -4.0,
+              "pre_event_contacts": 5
+            },
+            "3": {
+              "incidents_hit": 5,
+              "incidents_total": 46,
+              "event_recall": 0.10869565217391304,
+              "median_contact_time_days": -4.0,
+              "pre_event_contacts": 5
+            }
+          }
+        },
+        "test": {
+          "alert_slots": 1974,
+          "true_alert_slots": 3,
+          "precision_at_k": 0.001519756838905775,
+          "account_day_recall": 0.007371007371007371,
+          "false_alert_slots": 1971,
+          "false_alerts_per_day": 9.954545454545455,
+          "horizons": {
+            "1": {
+              "incidents_hit": 2,
+              "incidents_total": 24,
+              "event_recall": 0.08333333333333333,
+              "median_contact_time_days": -3.0,
+              "pre_event_contacts": 2
+            },
+            "3": {
+              "incidents_hit": 2,
+              "incidents_total": 24,
+              "event_recall": 0.08333333333333333,
+              "median_contact_time_days": -3.0,
+              "pre_event_contacts": 2
+            }
+          }
+        }
+      }
+    },
+    "20": {
+      "method": "anomaly_transformer",
+      "k": 20,
+      "cooldown_days": 7,
+      "splits": {
+        "validation": {
+          "alert_slots": 2880,
+          "true_alert_slots": 15,
+          "precision_at_k": 0.005208333333333333,
+          "account_day_recall": 0.025906735751295335,
+          "false_alert_slots": 2865,
+          "false_alerts_per_day": 19.895833333333332,
+          "horizons": {
+            "1": {
+              "incidents_hit": 11,
+              "incidents_total": 46,
+              "event_recall": 0.2391304347826087,
+              "median_contact_time_days": -2.0,
+              "pre_event_contacts": 8
+            },
+            "3": {
+              "incidents_hit": 11,
+              "incidents_total": 46,
+              "event_recall": 0.2391304347826087,
+              "median_contact_time_days": -2.0,
+              "pre_event_contacts": 8
+            }
+          }
+        },
+        "test": {
+          "alert_slots": 3944,
+          "true_alert_slots": 4,
+          "precision_at_k": 0.0010141987829614604,
+          "account_day_recall": 0.009828009828009828,
+          "false_alert_slots": 3940,
+          "false_alerts_per_day": 19.8989898989899,
+          "horizons": {
+            "1": {
+              "incidents_hit": 3,
+              "incidents_total": 24,
+              "event_recall": 0.125,
+              "median_contact_time_days": -2.0,
+              "pre_event_contacts": 2
+            },
+            "3": {
+              "incidents_hit": 3,
+              "incidents_total": 24,
+              "event_recall": 0.125,
+              "median_contact_time_days": -2.0,
+              "pre_event_contacts": 2
+            }
+          }
+        }
+      }
+    }
+  },
+  "elapsed_seconds": 59.68896293640137
+}

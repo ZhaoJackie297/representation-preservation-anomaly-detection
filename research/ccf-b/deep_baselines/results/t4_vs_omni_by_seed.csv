@@ -1,0 +1,16 @@
+comparison,seed,metric,mean_delta,positive_machines,negative_machines
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261201,pr_auc,0.02212211713486788,19,9
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261201,roc_auc,0.03773234269317462,23,5
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261201,pa_f1_top5,0.008909311253905247,15,12
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261202,pr_auc,0.016118469621743826,19,9
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261202,roc_auc,0.03176359169674832,22,6
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261202,pa_f1_top5,0.013353423688222562,16,11
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261203,pr_auc,0.019246763436448714,17,11
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261203,roc_auc,0.030687005004921414,21,7
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261203,pa_f1_top5,0.008219573537472566,17,10
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261204,pr_auc,0.022087728092388913,18,10
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261204,roc_auc,0.029720809345734536,23,5
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261204,pa_f1_top5,0.007507198387646212,16,11
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261205,pr_auc,0.019711348018889435,19,9
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261205,roc_auc,0.03677152455896355,23,5
+T4-full-soft + project PAI - OmniAnomaly-adapted,20261205,pa_f1_top5,0.012387351717974874,16,11

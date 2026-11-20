@@ -61,6 +61,12 @@
 - `research/ccf-b/phase0/coverage_soft_ts2vec.py`：Coverage 模型编码依赖。
 - `research/ccf-b/phase0/common_coverage_sampler.py`：A0-matched/A1-Cov 的共同覆盖批次构造与审计。
 - `research/ccf-b/clue_lds/build_profile_prior.py`、`build_prior_graphs.py`：训练期画像先验、A3/A5a/A5b 关系图构造。
+- `research/ccf-b/smd_multiseed/analyze_smd_multiseed.py`：SMD 多种子、机器配对和 machine-cluster bootstrap。
+- `research/ccf-b/deep_baselines/anomaly_transformer_smd.py`、`anomaly_transformer_cert.py`：Anomaly Transformer 的 SMD 与 CERT 适配。
+- `research/ccf-b/deep_baselines/omni_anomaly_smd.py`：记录为 OmniAnomaly-adapted 的 PyTorch GRU-VAE 基线。
+- `research/ccf-b/deep_baselines/tnnclr_cert.py`：t-NNCLR 官方组件加固定表征库的 CERT 基线。
+- `research/ccf-b/deep_baselines/analyze_official_pai.py`：项目 PAI-A1 与官方 PAI 权重的同分量比较。
+- `research/ccf-b/deep_baselines/protocol_utils.py`：合并续跑 seed 范围并保留逐次运行记录。
 
 ## S3 风险处理
 

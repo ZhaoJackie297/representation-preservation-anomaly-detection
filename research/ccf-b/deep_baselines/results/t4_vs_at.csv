@@ -1,0 +1,4 @@
+comparison,metric,seed_mean_delta,positive_seeds,negative_seeds,machine_cluster_ci95_low,machine_cluster_ci95_high
+T4-full-soft + project PAI - Anomaly Transformer-adapted,pr_auc,0.415200237683832,5,0,0.32004211766258656,0.5135686633338319
+T4-full-soft + project PAI - Anomaly Transformer-adapted,roc_auc,0.32507517651402046,5,0,0.2738032728954075,0.3732028272751115
+T4-full-soft + project PAI - Anomaly Transformer-adapted,pa_f1_top5,0.353538158461962,5,0,0.2691930592434107,0.4436528343350896

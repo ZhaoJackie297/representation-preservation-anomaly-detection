@@ -1,0 +1,4 @@
+comparison,metric,seed_mean_delta,positive_seeds,negative_seeds,machine_cluster_ci95_low,machine_cluster_ci95_high
+T4-full-soft + project PAI - OmniAnomaly-adapted,pr_auc,0.019857285260867753,5,0,-0.017736546964733993,0.05634110428376203
+T4-full-soft + project PAI - OmniAnomaly-adapted,roc_auc,0.033335054659908485,5,0,0.010083599344165506,0.05467957663317417
+T4-full-soft + project PAI - OmniAnomaly-adapted,pa_f1_top5,0.010075371717044293,5,0,-0.02156469539197424,0.04246545677117347

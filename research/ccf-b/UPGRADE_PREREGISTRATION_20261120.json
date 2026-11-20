@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-20",
+  "cert_seeds": [
+    20261201,
+    20261202,
+    20261203,
+    20261204,
+    20261205,
+    20261206,
+    20261207,
+    20261208,
+    20261209,
+    20261210,
+    20261211,
+    20261212,
+    20261213,
+    20261214,
+    20261215,
+    20261216,
+    20261217,
+    20261218,
+    20261219,
+    20261220
+  ],
+  "smd_seeds": [
+    20261201,
+    20261202,
+    20261203,
+    20261204,
+    20261205
+  ],
+  "cert_baseline_pilot_seeds": [
+    20261201,
+    20261202,
+    20261203
+  ],
+  "cert_baseline_pilot_status": "exploratory",
+  "optional_stopping": false,
+  "report_all_seeds": true,
+  "primary_cert_endpoints": [
+    "test_pr_auc",
+    "test_roc_auc",
+    "canonical_event_recall_k10"
+  ],
+  "primary_smd_endpoint": "macro_pr_auc",
+  "secondary_smd_endpoints": [
+    "macro_roc_auc",
+    "pa_f1_top5"
+  ],
+  "r6_2_role": "stress_audit_only",
+  "source_commits": {
+    "Anomaly-Transformer": "b0ee470c8012bff857fb600462aec6209c4a18d9",
+    "OmniAnomaly": "7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4",
+    "t-nnclr": "9c6439991202986a2af108798d5092ea34f0e9ed",
+    "TS-TCC": "15bdfd6eced6aeb6c638839828effe1b4b2ea391"
+  },
+  "claim_boundary": "CERT-focused controlled dual-end method, not universal SOTA"
+}

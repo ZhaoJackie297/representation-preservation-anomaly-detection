@@ -15,6 +15,8 @@ CLUE-LDS 云存储行为上验证训练端 instance-soft SoftCLT 与打分端欧
 | `results/canonical/` | 论文引用的统一口径结果、逐种子指标和配对比较 |
 | `results/representation_preservation/` | E0–E11 的 CSV、JSON 和轻量审计记录 |
 | `research/ccf-b/phase1/` | E12–E14、10-seed、CLUE-LDS 和受控异常结果 |
+| `research/ccf-b/smd_multiseed/` | SMD 新 5-seed T0/T4、配对差和 bootstrap 汇总 |
+| `research/ccf-b/deep_baselines/` | Anomaly Transformer、OmniAnomaly-adapted、t-NNCLR 适配代码与轻量结果 |
 | `data/` | CERT 官方说明、许可证和脱敏字段样本，不含原始数据 |
 | `docs/` | 代码地图、实验矩阵、数据协议、复现步骤和已知边界 |
 | `paper/` | v5 原稿、v6 扩展稿与事实性核查报告 |
@@ -74,6 +76,11 @@ python e2_softclt_instance.py --seeds 20261116 20261117 20261118
   半合成复验，不是真实攻击标签。
 - 受控异常注入只用于 point/context/temporal-soft 的机制分析，
   不作为外部数据或方法排名的确认集。
+- SMD 新 5-seed 中，T4 相对 T0 的 PR-AUC 差为 `+0.004661`
+  （5/5 seed，machine-cluster 95% CI `[+0.001820, +0.007996]`）；
+  q99 segment recall 同时下降，必须作为指标冲突报告。
+- SMD OmniAnomaly-adapted 与 T4 的 PR-AUC 区间相交，不能写成已确认胜出；
+  ROC-AUC 区间为 T4 正向。
 
 ## 数据与模型
 
@@ -83,8 +90,14 @@ python e2_softclt_instance.py --seeds 20261116 20261117 20261118
 
 - TS2Vec: <https://github.com/yuezhihan/ts2vec>
 - SoftCLT: <https://github.com/seunghan96/softclt>
+- Anomaly Transformer: <https://github.com/thuml/Anomaly-Transformer>
+- OmniAnomaly: <https://github.com/NetManAIOps/OmniAnomaly>
+- t-NNCLR: <https://github.com/imics-lab/t-nnclr>
+- TS-TCC: <https://github.com/emadeldeen24/TS-TCC>
 
 SoftCLT 通过 `scripts/setup_third_party.ps1` 下载到固定 commit，不直接复制到主仓库。TS2Vec 官方代码以 MIT 许可证随仓库保留。
+补充深度基线通过 `scripts/fetch_supplementary_baselines.ps1` 下载到忽略目录，
+并固定到 `references/UPSTREAM.md` 记录的提交。
 
 ## 许可证
 

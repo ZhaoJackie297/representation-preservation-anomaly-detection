@@ -1,0 +1,29 @@
+[
+  {
+    "comparison": "T4-full-soft + project PAI - OmniAnomaly-adapted",
+    "metric": "pr_auc",
+    "seed_mean_delta": 0.019857285260867753,
+    "positive_seeds": 5,
+    "negative_seeds": 0,
+    "machine_cluster_ci95_low": -0.017736546964733993,
+    "machine_cluster_ci95_high": 0.05634110428376203
+  },
+  {
+    "comparison": "T4-full-soft + project PAI - OmniAnomaly-adapted",
+    "metric": "roc_auc",
+    "seed_mean_delta": 0.033335054659908485,
+    "positive_seeds": 5,
+    "negative_seeds": 0,
+    "machine_cluster_ci95_low": 0.010083599344165506,
+    "machine_cluster_ci95_high": 0.05467957663317417
+  },
+  {
+    "comparison": "T4-full-soft + project PAI - OmniAnomaly-adapted",
+    "metric": "pa_f1_top5",
+    "seed_mean_delta": 0.010075371717044293,
+    "positive_seeds": 5,
+    "negative_seeds": 0,
+    "machine_cluster_ci95_low": -0.02156469539197424,
+    "machine_cluster_ci95_high": 0.04246545677117347
+  }
+]

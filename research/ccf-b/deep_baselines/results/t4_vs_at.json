@@ -1,0 +1,29 @@
+[
+  {
+    "comparison": "T4-full-soft + project PAI - Anomaly Transformer-adapted",
+    "metric": "pr_auc",
+    "seed_mean_delta": 0.415200237683832,
+    "positive_seeds": 5,
+    "negative_seeds": 0,
+    "machine_cluster_ci95_low": 0.32004211766258656,
+    "machine_cluster_ci95_high": 0.5135686633338319
+  },
+  {
+    "comparison": "T4-full-soft + project PAI - Anomaly Transformer-adapted",
+    "metric": "roc_auc",
+    "seed_mean_delta": 0.32507517651402046,
+    "positive_seeds": 5,
+    "negative_seeds": 0,
+    "machine_cluster_ci95_low": 0.2738032728954075,
+    "machine_cluster_ci95_high": 0.3732028272751115
+  },
+  {
+    "comparison": "T4-full-soft + project PAI - Anomaly Transformer-adapted",
+    "metric": "pa_f1_top5",
+    "seed_mean_delta": 0.353538158461962,
+    "positive_seeds": 5,
+    "negative_seeds": 0,
+    "machine_cluster_ci95_low": 0.2691930592434107,
+    "machine_cluster_ci95_high": 0.4436528343350896
+  }
+]

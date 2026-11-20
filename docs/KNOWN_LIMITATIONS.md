@@ -3,7 +3,9 @@
 以下内容来自论文定稿范围，代码使用和结果解释必须保留这些边界。
 
 1. r6.2 只有 5 个威胁实例，只作为压力审计，不构成外部确认。
-2. SMD 只有 1 个训练 seed，16 个指标检验未做完整多重比较校正。
+2. SMD 原结果只有 1 个训练 seed。新增 `20261201-20261205` 五个 seed
+   后，T0/T4 的 PR-AUC、ROC-AUC 与 PA-F1@Top-5 在 5/5 seed 上同向，
+   但 q99 segment recall 下降 4/5 seed，不能写成所有指标全面提升。
 3. CERT 历史 T0–T4 对照只有 3 个训练种子；E12 已将联合矩阵扩展到
    10 seeds，但 r4.2 仍是开发集，r5.2 是已见版本复验。
 4. 47 维用户画像距离是 CERT 适配假设，不等价于 DTW。
@@ -20,4 +22,12 @@
     对中等事件效应功效不足，K=10 已接近饱和。
 14. E14 的高幅度受控异常会偏向幅度大、边界清晰的信号；iForest 在部分
     注入场景中可能更强，不能把结果外推为真实数据排序。
+15. CERT 的 Anomaly Transformer 与 t-NNCLR 结果是适配 pilot（3 个
+    seed），窗口和官方原生任务不同；低分只能说明当前用户日适配未形成
+    可用检测器，不能写成原论文方法在其原生基准上失败。
+16. Anomaly Transformer 在 CERT 上即使把训练从 10 epochs 增加到
+    30 epochs 仍接近随机点级排序；该敏感性结果必须与主 pilot 一起保留。
+17. SMD 的 OmniAnomaly 是 PyTorch GRU-VAE adaptation；Anomaly
+    Transformer 使用官方 100 点窗口。两者都是适配结果，不是原论文原生
+    基准成绩。
 

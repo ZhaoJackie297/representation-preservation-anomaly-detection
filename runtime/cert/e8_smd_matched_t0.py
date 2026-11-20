@@ -20,7 +20,10 @@ OUT = (
     / "smd_matched_t0"
 )
 WINDOW = 512
-SEEDS = [20261116, 20261117, 20261118]
+DEFAULT_SEEDS = list(range(20261201, 20261206))
+PAI_OFFICIAL_W_EU = 0.6
+PAI_OFFICIAL_W_G = 0.4
+PAI_OFFICIAL_W_Q = 0.2
 
 sys.path.insert(0, str(ROOT))
 from e7_smd_pai import (  # noqa: E402
@@ -31,19 +34,27 @@ from e7_smd_pai import (  # noqa: E402
     evaluate_machine,
     z_from_train,
 )
-from smd_pipeline import load_machine, machine_names  # noqa: E402
+import smd_pipeline  # noqa: E402
 from train_r42_ts2vec import TS2Vec  # noqa: E402
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--seed",
+    seed_group = parser.add_mutually_exclusive_group()
+    seed_group.add_argument("--seed", type=int)
+    seed_group.add_argument(
+        "--seeds",
+        nargs="+",
         type=int,
-        choices=SEEDS,
-        default=SEEDS[0],
+        default=DEFAULT_SEEDS,
     )
     parser.add_argument("--machines", nargs="*", default=[])
+    parser.add_argument(
+        "--data-dir",
+        type=Path,
+        default=ROOT / "OmniAnomaly" / "ServerMachineDataset",
+    )
+    parser.add_argument("--output-dir", type=Path, default=OUT)
     parser.add_argument("--force", action="store_true")
     return parser.parse_args()
 
@@ -59,14 +70,21 @@ def make_windows(train: np.ndarray) -> np.ndarray:
     ).astype(np.float32)
 
 
-def run_machine(name: str, seed: int, force: bool) -> dict:
-    output = OUT / f"seed_{seed}" / "machines" / f"{name}.npz"
+def run_machine(
+    name: str,
+    seed: int,
+    force: bool,
+    data_dir: Path,
+    output_root: Path,
+) -> dict:
+    output = output_root / f"seed_{seed}" / "machines" / f"{name}.npz"
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists() and not force:
         with np.load(output, allow_pickle=False) as data:
             return json.loads(str(data["metrics"]))
     start = time.time()
-    train, test, label = load_machine(name)
+    smd_pipeline.DATA = data_dir
+    train, test, label = smd_pipeline.load_machine(name)
     mean = train.mean(axis=0)
     std = np.where(train.std(axis=0) < 1e-8, 1.0, train.std(axis=0))
     train_norm = ((train - mean) / std).astype(np.float32)
@@ -140,11 +158,22 @@ def run_machine(name: str, seed: int, force: bool) -> dict:
     test_pai = (
         test_euc_z + PAI_W_G * test_g_z + PAI_W_Q * test_q_z
     )
+    train_pai_official = (
+        PAI_OFFICIAL_W_EU * train_euc_z
+        + PAI_OFFICIAL_W_G * train_g_z
+        + PAI_OFFICIAL_W_Q * train_q_z
+    )
+    test_pai_official = (
+        PAI_OFFICIAL_W_EU * test_euc_z
+        + PAI_OFFICIAL_W_G * test_g_z
+        + PAI_OFFICIAL_W_Q * test_q_z
+    )
     variants = {
         "original": (train_original, test_original),
         "cos": (train_cos, test_cos),
         "euc": (train_euc, test_euc),
         "pai": (train_pai, test_pai),
+        "pai_official": (train_pai_official, test_pai_official),
     }
     metrics = {
         "machine": name,
@@ -185,16 +214,24 @@ def run_machine(name: str, seed: int, force: bool) -> dict:
 
 def main() -> None:
     args = parse_args()
-    selected = args.machines or machine_names()
-    rows = [
-        run_machine(name, args.seed, args.force)
-        for name in selected
-    ]
-    frame = pd.DataFrame(rows)
-    seed_root = OUT / f"seed_{args.seed}"
-    frame.to_csv(
-        seed_root / "results_by_machine.csv",
-        index=False,
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    smd_pipeline.DATA = args.data_dir
+    selected = args.machines or smd_pipeline.machine_names()
+    seeds = [args.seed] if args.seed is not None else args.seeds
+    (args.output_dir / "protocol.json").write_text(
+        json.dumps(
+            {
+                "seeds": seeds,
+                "machines": selected,
+                "data_dir": str(args.data_dir),
+                "window": WINDOW,
+                "epochs": 10,
+                "batch_size": 16,
+                "variant": "T0_matched",
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
         encoding="utf-8",
     )
     metrics = [
@@ -207,23 +244,47 @@ def main() -> None:
         "segment_recall_q99",
         "pa_f1_top5",
     ]
-    summary = {
-        "machines": int(len(frame)),
-        "seed": args.seed,
-        "window": WINDOW,
-        "macro_mean": {
-            variant: {
-                metric: float(frame[f"{variant}_{metric}"].mean())
-                for metric in metrics
-            }
-            for variant in ("original", "cos", "euc", "pai")
-        },
-    }
-    (seed_root / "summary.json").write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-    print(json.dumps(summary, ensure_ascii=False, indent=2), flush=True)
+    for seed in seeds:
+        rows = [
+            run_machine(
+                name,
+                seed,
+                args.force,
+                args.data_dir,
+                args.output_dir,
+            )
+            for name in selected
+        ]
+        frame = pd.DataFrame(rows)
+        seed_root = args.output_dir / f"seed_{seed}"
+        frame.to_csv(
+            seed_root / "results_by_machine.csv",
+            index=False,
+            encoding="utf-8",
+        )
+        summary = {
+            "machines": int(len(frame)),
+            "seed": seed,
+            "window": WINDOW,
+            "macro_mean": {
+                variant: {
+                    metric: float(frame[f"{variant}_{metric}"].mean())
+                    for metric in metrics
+                }
+                for variant in (
+                    "original",
+                    "cos",
+                    "euc",
+                    "pai",
+                    "pai_official",
+                )
+            },
+        }
+        (seed_root / "summary.json").write_text(
+            json.dumps(summary, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        print(json.dumps(summary, ensure_ascii=False, indent=2), flush=True)
 
 
 if __name__ == "__main__":

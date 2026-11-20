@@ -1,0 +1,32 @@
+{
+  "repo": "E:\\MarketRisker\\references\\Anomaly-Transformer",
+  "dataset": "E:\\MarketRisker\\work\\cert\\processed_r42\\r4.2_sequence_dataset.npz",
+  "seeds": [
+    20261201,
+    20261202,
+    20261203
+  ],
+  "seed_invocations": [
+    {
+      "seeds": [
+        20261201
+      ],
+      "source": "recovered_from_completed_result_directories"
+    },
+    {
+      "seeds": [
+        20261202,
+        20261203
+      ],
+      "source": "last_persisted_protocol"
+    }
+  ],
+  "protocol_recovery_note": "Completed seed coverage was reconstructed from result directories because resumed runs overwrote the original protocol with the final invocation.",
+  "window": 64,
+  "epochs": 10,
+  "batch_size": 32,
+  "d_model": 64,
+  "layers": 3,
+  "user_limit": null,
+  "adaptation": "one model over all user-day windows; block scoring"
+}

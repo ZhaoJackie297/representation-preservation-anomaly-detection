@@ -1,0 +1,22 @@
+[
+  {
+    "method": "Anomaly Transformer",
+    "seeds": 3,
+    "pr_auc_mean": 0.002323780889234133,
+    "pr_auc_std": 2.6776869174702714e-07,
+    "roc_auc_mean": 0.4973319323360203,
+    "roc_auc_std": 0.0037031667128190893,
+    "event_recall_k10_mean": 0.05555555555555555,
+    "event_recall_k10_std": 0.024056261216234408
+  },
+  {
+    "method": "t-NNCLR",
+    "seeds": 3,
+    "pr_auc_mean": 0.003708900995875654,
+    "pr_auc_std": 0.0010032700411269464,
+    "roc_auc_mean": 0.6432311888193644,
+    "roc_auc_std": 0.06629416689805966,
+    "event_recall_k10_mean": 0.3194444444444445,
+    "event_recall_k10_std": 0.20553678592984365
+  }
+]

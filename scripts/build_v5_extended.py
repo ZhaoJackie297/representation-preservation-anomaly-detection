@@ -672,6 +672,49 @@ def main() -> None:
         "temporal-soft 改变了表示排序中的局部时间几何，但没有形成"
         "稳定的端到端固定预算收益。",
     )
+    add_heading_before(
+        discussion_anchor,
+        "7.9.4 SMD 5-seed 与深度基线边界",
+        level=3,
+    )
+    add_text_paragraph_before(
+        discussion_anchor,
+        "为检验原 SMD 单 seed 结论，本文追加连续训练 seed "
+        "20261201–20261205，对 28 台机器分别训练与测试。T4 相对匹配 "
+        "T0 的 PR-AUC 差值为 +0.004661，5/5 seed 同向，machine-cluster "
+        "95% CI 为 [+0.001820, +0.007996]；ROC-AUC 差值为 +0.002310，"
+        "PA-F1@Top-5 差值为 +0.003249，二者也均为 5/5 seed 同向。然而 "
+        "q99 segment recall 差值为 -0.007530，仅 1/5 seed 为正，区间"
+        "不跨零。因此新增证据支持点级排序和 top-fraction 指标，不支持"
+        "“所有指标全面提升”。",
+    )
+    add_text_paragraph_before(
+        discussion_anchor,
+        "深度基线采用同一 28 机器和同 seed 评估。OmniAnomaly-adapted 的 "
+        "PR-AUC/ROC-AUC 为 0.441056/0.813013，T4-full-soft 为 "
+        "0.460913/0.846348；T4 的 PR-AUC 和 PA-F1 差值区间均跨零，只有 "
+        "ROC-AUC 差值区间为正，不能写成对 OmniAnomaly 的全面胜出。"
+        "Anomaly Transformer-adapted 按官方 100 点窗口运行，三项均值为 "
+        "0.045713/0.521273/0.081471，明显低于 T0/T4，但这是 SMD 用户级"
+        "适配结果，不是该模型在原论文基准上的失败。",
+    )
+    add_text_paragraph_before(
+        discussion_anchor,
+        "CERT 深度基线只作为 3-seed 探索性适配：t-NNCLR 的 PR-AUC/"
+        "ROC-AUC/K=10 召回为 0.003709/0.643231/0.319444；Anomaly "
+        "Transformer 为 0.002324/0.497332/0.055556，增加到 30 epochs "
+        "后仍为 0.002344/0.499098/0。它们没有支持深度基线在 CERT "
+        "用户日任务上的迁移。PAI 权重方面，项目权重在 r4.2 10-seed 和 "
+        "SMD 5-seed 的点级排序上均优于官方标量权重，且 CERT 上多为 "
+        "10/10 seed 同向；但事件级差异混合，不能把项目权重描述成"
+        "全面最优。",
+    )
+    add_text_paragraph_before(
+        discussion_anchor,
+        "综合新增结果，本文可支持的定位仍是：在 CERT 上经过固定 10-seed "
+        "和完整对照验证的双端优化方法，外加一套明确的多数据集边界。"
+        "它不构成跨所有数据类型、所有指标和所有深度基线的普适 SOTA。",
+    )
 
     main_findings = next(
         paragraph
@@ -683,8 +726,11 @@ def main() -> None:
         "r5.2 的联合收益；CLUE-LDS 支持 PAI 打分端的有限外部迁移，"
         "但不支持 Coverage 的外部增益；受控异常实验说明 point residual "
         "与时间上下文具有不同适用形态，点级排序改善也不自动转化为"
-        "固定 K 事件召回。iForest 的优势结论限定于 CERT r4.2 的 E11 "
-        "主评价；附录 C 的高幅度受控场景中，iForest 可以强于神经表征。"
+        "固定 K 事件召回。SMD 新增 5-seed 在 PR-AUC、ROC-AUC 和 "
+        "PA-F1 上方向一致，但 q99 segment recall 下降；适配的 "
+        "OmniAnomaly 与 Anomaly Transformer 没有形成更强的统一证据。"
+        "iForest 的优势结论限定于 CERT r4.2 的 E11 主评价；附录 C "
+        "的高幅度受控场景中，iForest 可以强于神经表征。"
     )
     set_run_font(findings_addition, size=12.0)
 
@@ -713,8 +759,9 @@ def main() -> None:
             "（1）统计功效与多重比较：",
             "CERT 历史 T0–T4 对照只有 3 个训练 seed；新增固定矩阵将"
             "r4.2 与 r5.2 扩展到 10 seeds 并采用 Holm 校正，二者仍分别"
-            "属于开发集和已见复验。SMD 目前只有 1 个训练 seed，16 个"
-            "指标检验未做完整多重比较校正，后续仍需扩展。",
+            "属于开发集和已见复验。SMD 已扩展到 5 个新 seed，PR-AUC、"
+            "ROC-AUC 和 PA-F1 方向稳定，但 q99 segment recall 下降，且"
+            "OmniAnomaly 是适配实现，后续仍需原论文代码级复验。",
         ),
         (
             "（2）外部标签与事件功效：",
@@ -727,8 +774,9 @@ def main() -> None:
             "temporal-soft 在当前日粒度设定下没有稳定端到端增量；magG "
             "在点级和事件级上存在分歧。受控异常实验会偏向高幅度、易分"
             "离的表格信号，iForest 在部分注入场景中更强，因此该实验"
-            "不能替代真实外部验证。本文也尚未与 LAN、OmniAnomaly、"
-            "DCdetector 等深度方法开展同协议公平比较。",
+            "不能替代真实外部验证。本文新增了 OmniAnomaly-adapted、"
+            "Anomaly Transformer 和 t-NNCLR 的适配对照，但窗口、实现"
+            "或任务粒度并不完全一致，仍不能替代严格的深度方法同构比较。",
         ),
         (
             "（4）系统集成度：",
@@ -756,9 +804,10 @@ def main() -> None:
         "综合上述局限，本文结论的适用边界如下。双端联合的正向收益在 "
         "r4.2、r5.2 的历史三 seed 实验和固定 10-seed 扩展中均得到"
         "支持；CLUE-LDS 为欧氏与幅度评分端提供了有限的外部应用级"
-        "半合成支持，但没有复现 Coverage 的外部增益。r6.2 事件级、"
-        "SMD 单 seed 与受控异常实验仍需更多证据，结论仅相对于 "
-        "TS2Vec 原版、匹配 T0 与 iForest 经典基线成立。",
+        "半合成支持，但没有复现 Coverage 的外部增益。SMD 新 5-seed "
+        "支持点级与 top-fraction 指标，但 q99 segment recall 下降；"
+        "r6.2 事件级与受控异常实验仍需更多证据。结论仅相对于 TS2Vec "
+        "原版、匹配 T0、iForest 及本文明确标注的深度适配基线成立。",
     )
     boundary_second = find_exact(
         document,
@@ -789,9 +838,10 @@ def main() -> None:
         "系统层面实现固定预算告警、严重度评分与可追溯证据原型。"
         "instance-soft 改善了正常邻域一致率与有效秩；r4.2 与 r5.2 "
         "在三 seed 和固定 10-seed 扩展中支持联合方案的点级及固定 "
-        "K 事件收益；SMD 提供跨数据类型的欧氏增益；CLUE-LDS 为 PAI "
-        "打分端提供有限外部应用级支持；iForest 对照表明联合方案在"
-        "CERT r4.2 主评价上仍具竞争力。",
+        "K 事件收益；SMD 新 5-seed 进一步支持 PR-AUC、ROC-AUC 与 "
+        "PA-F1，但 q99 segment recall 下降；CLUE-LDS 为 PAI 打分端"
+        "提供有限外部应用级支持；iForest 与深度适配基线对照表明联合"
+        "方案在 CERT r4.2 主评价上仍具竞争力，但并非普适 SOTA。",
     )
     conclusion_second = next(
         paragraph
@@ -802,9 +852,9 @@ def main() -> None:
         conclusion_second,
         "后续工作沿三个方向展开。其一，外部证据：获取具备真实事件标签"
         "的独立组织数据，扩大 CLUE-LDS 的事件簇和标签真实性，避免把"
-        "半合成复验写成真实攻击确认。其二，方法与基线：补齐 SMD "
-        "多种子、深度异常检测基线和 VUS-PR、PA%K、Affiliation 等"
-        "更细粒度评价，并将"
+        "半合成复验写成真实攻击确认。其二，方法与基线：把 CERT 的"
+        "20-seed 预注册矩阵补齐，统一深度基线的窗口和实现预算，并加入"
+        "VUS-PR、PA%K、Affiliation 等更细粒度评价；将"
         "temporal-soft 限定在能够被机制实验支持的场景。其三，系统与"
         "运营：推进 S3/S4 与当前 T4 表示的端到端连接，预注册风险阈值、"
         "人工复核成本和失败案例，形成可复核的告警闭环。",
@@ -848,7 +898,9 @@ def main() -> None:
         "10-seed、CLUE-LDS 和受控异常汇总。Coverage 批次构造和 A3/A5a/A5b "
         "图构造分别位于 phase0/common_coverage_sampler.py 与 "
         "clue_lds/build_prior_graphs.py，r4.2 的逐 seed 覆盖统计位于 "
-        "r4.2_10seed_coverage_summary.csv。",
+        "r4.2_10seed_coverage_summary.csv。SMD 新 5-seed 汇总位于 "
+        "smd_multiseed/results/，深度基线与官方 PAI 权重对照位于 "
+        "deep_baselines/results/ 和 official_pai/。",
     )
     for values in (
         [
@@ -858,6 +910,14 @@ def main() -> None:
         [
             "research/ccf-b/phase1",
             "受控异常注入代码、协议、模拟事件和完整结果矩阵",
+        ],
+        [
+            "research/ccf-b/smd_multiseed",
+            "SMD 新 5-seed、机器配对差和 bootstrap 汇总",
+        ],
+        [
+            "research/ccf-b/deep_baselines",
+            "深度基线适配代码、CERT pilot、SMD 5-seed 和官方 PAI 权重对照",
         ],
     ):
         append_cloned_row(directory_table, values)
@@ -952,6 +1012,7 @@ def main() -> None:
         "7.9.1 CERT 固定 10-seed 验证\t0",
         "7.9.2 CLUE-LDS 外部应用级复验\t0",
         "7.9.3 受控异常形态与评分信号\t0",
+        "7.9.4 SMD 5-seed 与深度基线边界\t0",
     ]
     insertion_after = toc_reference._p
     for line in toc_lines:
@@ -962,37 +1023,6 @@ def main() -> None:
         clear_content(paragraph)
         run = paragraph.add_run(line)
         set_run_font(run, size=12.0)
-
-    toc_pages = {
-        "7.9 扩展验证与异常形态分析\t0": "7.9 扩展验证与异常形态分析\t48",
-        "7.9.1 CERT 固定 10-seed 验证\t0": "7.9.1 CERT 固定 10-seed 验证\t49",
-        "7.9.2 CLUE-LDS 外部应用级复验\t0": "7.9.2 CLUE-LDS 外部应用级复验\t50",
-        "7.9.3 受控异常形态与评分信号\t0": "7.9.3 受控异常形态与评分信号\t51",
-        "8 讨论\t44": "8 讨论\t52",
-        "8.1 主要发现\t44": "8.1 主要发现\t52",
-        "8.2 局限性\t45": "8.2 局限性\t53",
-        "8.3 与已有工作的关系及 S3/S4 定位\t45": (
-            "8.3 与已有工作的关系及 S3/S4 定位\t53"
-        ),
-        "8.4 结论边界\t46": "8.4 结论边界\t54",
-        "9 结论与展望\t46": "9 结论与展望\t54",
-        "参考文献\t47": "参考文献\t55",
-        "附录 A 关键代码\t49": "附录 A 关键代码\t58",
-        "附录 B 实验记录与可复现性说明\t55": (
-            "附录 B 实验记录与可复现性说明\t63"
-        ),
-    }
-    for old, new in toc_pages.items():
-        matches = [
-            paragraph
-            for paragraph in document.paragraphs
-            if paragraph.text == old
-        ]
-        if len(matches) != 1:
-            raise RuntimeError(
-                f"Expected one TOC entry {old!r}, got {len(matches)}"
-            )
-        replace_text(matches[0], new)
 
     appendix_toc_matches = [
         paragraph
@@ -1008,8 +1038,94 @@ def main() -> None:
     appendix_toc_reference._p.addnext(appendix_toc)
     paragraph = Paragraph(appendix_toc, appendix_toc_reference._parent)
     clear_content(paragraph)
-    run = paragraph.add_run("附录 C 受控异常实验补充\t65")
+    run = paragraph.add_run("附录 C 受控异常实验补充\t62")
     set_run_font(run, size=12.0)
+
+    # Word is the reference renderer for the delivered DOCX. Keep the static
+    # TOC synchronized with its pagination rather than a LibreOffice render.
+    toc_pages = {
+        "摘要": 4,
+        "1 引言": 4,
+        "术语说明": 6,
+        "2 相关工作": 9,
+        "2.1 异常检测任务与评价": 9,
+        "2.2 自监督时序表示与异常检测": 10,
+        "2.3 软对比学习与假负样本问题": 11,
+        "2.4 表示打分、记忆库与幅度信息": 12,
+        "2.5 内部威胁检测与 CERT 方法": 13,
+        "2.6 图关系与集体异常": 14,
+        "2.7 研究空白": 14,
+        "3 系统总体设计": 14,
+        "4 数据准备与实验设置": 16,
+        "4.1 数据集": 16,
+        "4.2 用户日特征：27 维（S1）": 18,
+        "4.3 标签隔离与评价协议": 20,
+        "4.4 实验流程与演进": 20,
+        "4.4.1 核心算法伪代码": 24,
+        "5 方法：双端优化（S2）": 26,
+        "5.1 问题定义": 26,
+        "5.2 训练端：instance-soft SoftCLT": 27,
+        "5.2.1 软对比权重": 27,
+        "5.2.2 五种训练配置": 27,
+        "5.2.3 训练细节": 27,
+        "5.2.4 加权对比损失的梯度分析": 28,
+        "5.3 47 维用户画像距离": 28,
+        "5.4 打分端：表征库": 29,
+        "5.4.1 表征库构造": 29,
+        "5.4.2 余弦与欧氏对照": 30,
+        "5.5 PAI 幅度评分": 30,
+        "5.6 方法边界": 31,
+        "6 风险处理与证据报告（S3、S4）": 31,
+        "6.1 固定预算 Top-K 告警队列": 31,
+        "6.2 严重度评分及其演变": 32,
+        "6.3 可追溯证据报告": 32,
+        "7 实验结果": 33,
+        "7.1 训练端机制验证": 33,
+        "7.1.1 时间软权重无独立端到端收益": 33,
+        "7.1.2 实例软权重改善": 34,
+        "7.1.3 机制指标": 34,
+        "7.1.4 三组对照的效应量": 35,
+        "7.2 47 维画像构造效度": 36,
+        "7.3 CERT r4.2：双端联合": 37,
+        "7.3.1 联合结果": 37,
+        "7.3.2 结论边界": 38,
+        "7.4 CERT r5.2：外部组织验证": 39,
+        "7.5 CERT r6.2：五事件压力审计": 40,
+        "7.6 SMD：同窗口外部验证": 41,
+        "7.6.1 SoftCLT 轻微增量": 41,
+        "7.6.2 欧氏库最强统计证据": 42,
+        "7.7 magG/T2 组件消融": 43,
+        "7.7.1 SMD 消融": 43,
+        "7.7.2 CERT 消融": 43,
+        "7.7.3 综合结论": 43,
+        "7.8 iForest 外部基线": 44,
+        "7.9 扩展验证与异常形态分析": 45,
+        "7.9.1 CERT 固定 10-seed 验证": 45,
+        "7.9.2 CLUE-LDS 外部应用级复验": 46,
+        "7.9.3 受控异常形态与评分信号": 47,
+        "7.9.4 SMD 5-seed 与深度基线边界": 48,
+        "8 讨论": 49,
+        "8.1 主要发现": 49,
+        "8.2 局限性": 50,
+        "8.3 与已有工作的关系及 S3/S4 定位": 50,
+        "8.4 结论边界": 51,
+        "9 结论与展望": 51,
+        "参考文献": 52,
+        "附录 A 关键代码": 55,
+        "附录 B 实验记录与可复现性说明": 60,
+        "附录 C 受控异常实验补充": 62,
+    }
+    for title, page in toc_pages.items():
+        matches = [
+            paragraph
+            for paragraph in document.paragraphs
+            if paragraph.text.startswith(f"{title}\t")
+        ]
+        if len(matches) != 1:
+            raise RuntimeError(
+                f"Expected one TOC entry {title!r}, got {len(matches)}"
+            )
+        replace_text(matches[0], f"{title}\t{page}")
 
     for paragraph in document.paragraphs:
         text = paragraph.text.strip()

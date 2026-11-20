@@ -41,7 +41,7 @@ SOFTCLT_DIR = (
     / "softclt_ts2vec"
 )
 DATA = ROOT / "OmniAnomaly" / "ServerMachineDataset"
-SEEDS = [20261116, 20261117, 20261118]
+DEFAULT_SEEDS = list(range(20261201, 20261206))
 WINDOW = 512
 TAU_TEMP = 1.5
 ALPHA = 0.5
@@ -50,28 +50,34 @@ TOP_K = 3
 T2_WINDOW = 32
 PAI_W_G = 0.6
 PAI_W_Q = 0.4
+PAI_OFFICIAL_W_EU = 0.6
+PAI_OFFICIAL_W_G = 0.4
+PAI_OFFICIAL_W_Q = 0.2
 
 sys.path.insert(0, str(SOFTCLT_DIR))
 from soft_ts2vec import TS2Vec as SoftTS2Vec  # noqa: E402
 
 
-def machine_names() -> list[str]:
+def machine_names(data_dir: Path = DATA) -> list[str]:
     return sorted(
-        path.stem for path in (DATA / "train").glob("*.txt")
+        path.stem for path in (data_dir / "train").glob("*.txt")
     )
 
 
-def load_machine(name: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+def load_machine(
+    name: str,
+    data_dir: Path = DATA,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     train = pd.read_csv(
-        DATA / "train" / f"{name}.txt",
+        data_dir / "train" / f"{name}.txt",
         header=None,
     ).to_numpy(dtype=np.float64)
     test = pd.read_csv(
-        DATA / "test" / f"{name}.txt",
+        data_dir / "test" / f"{name}.txt",
         header=None,
     ).to_numpy(dtype=np.float64)
     label = pd.read_csv(
-        DATA / "test_label" / f"{name}.txt",
+        data_dir / "test_label" / f"{name}.txt",
         header=None,
     ).iloc[:, 0].to_numpy(dtype=np.uint8)
     if len(test) != len(label):
@@ -295,13 +301,17 @@ def evaluate_machine(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--seed",
+    seed_group = parser.add_mutually_exclusive_group()
+    seed_group.add_argument("--seed", type=int)
+    seed_group.add_argument(
+        "--seeds",
+        nargs="+",
         type=int,
-        choices=SEEDS,
-        default=SEEDS[0],
+        default=DEFAULT_SEEDS,
     )
     parser.add_argument("--machines", nargs="*", default=[])
+    parser.add_argument("--data-dir", type=Path, default=DATA)
+    parser.add_argument("--output-dir", type=Path, default=OUT)
     parser.add_argument("--force", action="store_true")
     return parser.parse_args()
 
@@ -367,8 +377,14 @@ def soft_instance_labels(profile: np.ndarray) -> tuple[np.ndarray, dict]:
     }
 
 
-def run_machine(name: str, seed: int, force: bool) -> dict:
-    seed_root = OUT / f"seed_{seed}"
+def run_machine(
+    name: str,
+    seed: int,
+    force: bool,
+    data_dir: Path,
+    output_root: Path,
+) -> dict:
+    seed_root = output_root / f"seed_{seed}"
     output = seed_root / "machines" / f"{name}.npz"
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists() and not force:
@@ -376,7 +392,7 @@ def run_machine(name: str, seed: int, force: bool) -> dict:
             return json.loads(str(data["metrics"]))
 
     start = time.time()
-    train, test, label = load_machine(name)
+    train, test, label = load_machine(name, data_dir)
     mean = train.mean(axis=0)
     std = np.where(train.std(axis=0) < 1e-8, 1.0, train.std(axis=0))
     train_norm = ((train - mean) / std).astype(np.float32)
@@ -465,11 +481,22 @@ def run_machine(name: str, seed: int, force: bool) -> dict:
     test_pai = (
         test_euc_z + PAI_W_G * test_g_z + PAI_W_Q * test_q_z
     )
+    train_pai_official = (
+        PAI_OFFICIAL_W_EU * train_euc_z
+        + PAI_OFFICIAL_W_G * train_g_z
+        + PAI_OFFICIAL_W_Q * train_q_z
+    )
+    test_pai_official = (
+        PAI_OFFICIAL_W_EU * test_euc_z
+        + PAI_OFFICIAL_W_G * test_g_z
+        + PAI_OFFICIAL_W_Q * test_q_z
+    )
     variants = {
         "original": (train_original, test_original),
         "cos": (train_cos, test_cos),
         "euc": (train_euc, test_euc),
         "pai": (train_pai, test_pai),
+        "pai_official": (train_pai_official, test_pai_official),
     }
     metrics = {
         "machine": name,
@@ -526,9 +553,11 @@ def macro_summary(frame: pd.DataFrame, baseline: pd.DataFrame) -> dict:
                 metric: float(frame[f"{variant}_{metric}"].mean())
                 for metric in metrics
             }
-            for variant in ("original", "cos", "euc", "pai")
+            for variant in ("original", "cos", "euc", "pai", "pai_official")
         },
     }
+    if baseline.empty:
+        return summary
     merged = frame.merge(
         baseline,
         on="machine",
@@ -569,16 +598,23 @@ def macro_summary(frame: pd.DataFrame, baseline: pd.DataFrame) -> dict:
 
 def main() -> None:
     args = parse_args()
-    OUT.mkdir(parents=True, exist_ok=True)
-    selected = args.machines or machine_names()
-    rows = []
-    for name in selected:
-        rows.append(run_machine(name, args.seed, args.force))
-    frame = pd.DataFrame(rows)
-    seed_root = OUT / f"seed_{args.seed}"
-    frame.to_csv(
-        seed_root / "results_by_machine.csv",
-        index=False,
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    selected = args.machines or machine_names(args.data_dir)
+    seeds = [args.seed] if args.seed is not None else args.seeds
+    (args.output_dir / "protocol.json").write_text(
+        json.dumps(
+            {
+                "seeds": seeds,
+                "machines": selected,
+                "data_dir": str(args.data_dir),
+                "window": WINDOW,
+                "epochs": 10,
+                "batch_size": 16,
+                "variant": "T4_full_soft",
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
         encoding="utf-8",
     )
     baseline = (
@@ -586,17 +622,32 @@ def main() -> None:
         if SMD_BASELINE.exists()
         else pd.DataFrame()
     )
-    summary = macro_summary(frame, baseline) if len(baseline) else {
-        "machines": int(len(frame)),
-        "macro_mean": frame.mean(numeric_only=True).to_dict(),
-    }
-    summary["seed"] = args.seed
-    summary["window"] = WINDOW
-    (seed_root / "summary.json").write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-    print(json.dumps(summary, ensure_ascii=False, indent=2), flush=True)
+    for seed in seeds:
+        rows = [
+            run_machine(
+                name,
+                seed,
+                args.force,
+                args.data_dir,
+                args.output_dir,
+            )
+            for name in selected
+        ]
+        frame = pd.DataFrame(rows)
+        seed_root = args.output_dir / f"seed_{seed}"
+        frame.to_csv(
+            seed_root / "results_by_machine.csv",
+            index=False,
+            encoding="utf-8",
+        )
+        summary = macro_summary(frame, baseline)
+        summary["seed"] = seed
+        summary["window"] = WINDOW
+        (seed_root / "summary.json").write_text(
+            json.dumps(summary, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        print(json.dumps(summary, ensure_ascii=False, indent=2), flush=True)
 
 
 if __name__ == "__main__":

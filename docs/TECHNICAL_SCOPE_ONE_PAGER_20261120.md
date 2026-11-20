@@ -20,18 +20,19 @@
 v6 新增的是证据，不是另起方法：CERT 固定 10-seed、CLUE-LDS 外部半合成复验、
 受控异常形态分析。`paper/manuscript.docx` 与 `paper/manuscript_v6.docx` 是
 同一版 v6 内容；v5/R0 保留为 `paper/manuscript_v5.docx`。LCTC、AdaGraph
-和双分数均值都不写成已完成的主创新。
+和旧版两路分数融合都不写成已完成的主创新。
 
 ## 三项必须确认的事实
 
 | 问题 | 结论 | 证据 |
 | --- | --- | --- |
-| 间隔编码/LCTC 有独立结果吗 | **没有** | 仅有数学定义、实验设计和 `lctc_math_sanity.js`；没有训练或基准输出 |
-| 双分数有独立结果吗 | **有旧版事件级预研，但不是主线** | `ts2vec_dual_score_*` 覆盖 r4.2 original/retrained、r5.2；保存固定 K、utility、McNemar，无 PR/ROC 主表 |
+| LCTC 编码有独立结果吗 | **没有** | 仅有数学定义、实验设计和 `lctc_math_sanity.js`；没有训练或基准输出 |
+| 旧版两路分数融合有独立结果吗 | **有旧版事件级预研，但不是主线** | `ts2vec_dual_score_*` 覆盖 r4.2 original/retrained、r5.2；保存固定 K、utility、McNemar，无 PR/ROC 主表 |
 | iForest 是基线还是队列组件 | **v6 主方案中是外部基线** | E11 只用 27 维用户日特征、训练期拟合；旧 `quota_relationship_sim.py` 才把 iForest 当队列补位组件 |
 
-双分数的关键数字：r4.2 original test K=10，双分数组合 `14/24`，iForest 和
-mask-only 均为 `15/24`；r5.2 external K=10，双分数 `43/99`、iForest `35/99`，
+旧版两路分数融合的关键数字：r4.2 original test K=10，融合组合 `14/24`，
+iForest 和 mask-only 均为 `15/24`；r5.2 external K=10，融合组合 `43/99`、
+iForest `35/99`，
 但 McNemar 原始 p≈`0.096`，Holm 后不显著。因此只能算待验证候选。
 
 ## 23 维与 27 维
@@ -58,8 +59,8 @@ mask-only 均为 `15/24`；r5.2 external K=10，双分数 `43/99`、iForest `35/
 | iForest | 已跑通；仅基线 |
 | S3 风险积累 | 部分验证；EWMA/CUSUM 未达到运营门槛 |
 | S4 证据卡 | 有旧版输出；与当前 T4 全链路联调待完成 |
-| 双分数 | 旧版事件级预研，未进入主线 |
-| LCTC / 间隔编码 | 未实现、未验证 |
+| 两路分数融合（旧版） | 事件级预研，未进入主线 |
+| LCTC 编码 | 未实现、未验证 |
 | 前端复核界面 | 客户端外壳已纳入 `runtime/cert/v3_frontend`；API 后端与当前 T4 全链路联调仍待完成 |
 
 ## 摘要和创新点写法
@@ -74,12 +75,12 @@ mask-only 均为 `15/24`；r5.2 external K=10，双分数 `43/99`、iForest `35/
 
 不能写：
 
-- 间隔编码/LCTC 已经有效；
-- 双分数已经独立优于 iForest 或 mask-only；
+- LCTC 编码已经有效；
+- 旧版两路分数融合已经独立优于 iForest 或 mask-only；
 - 完整双端方法已经外部确认；
 - iForest 是 v6 主队列组件；
 - 23 维与 27 维结果可以直接横向比较。
 
 结论：申报书主线锁定 v6，但方法核心仍是 v5 的 instance-soft + 欧氏/PAI +
 固定预算。当前可支撑主线的证据是 CERT 10-seed、CLUE-LDS 的 PAI 外部支持和
-iForest 外部基线；LCTC 和双分数不能充当已完成的核心创新。
+iForest 外部基线；LCTC 和旧版两路分数融合不能充当已完成的核心创新。

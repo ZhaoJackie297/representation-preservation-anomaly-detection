@@ -61,6 +61,14 @@ def replace_text(paragraph: Paragraph, text: str) -> None:
     set_run_font(run, size=size)
 
 
+def iter_all_paragraphs(container):
+    yield from container.paragraphs
+    for table in container.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                yield from iter_all_paragraphs(cell)
+
+
 def add_text_paragraph_before(
     anchor: Paragraph,
     text: str,
@@ -1131,6 +1139,97 @@ def main() -> None:
         text = paragraph.text.strip()
         if text.startswith(("算法 ", "代码 S")):
             paragraph.paragraph_format.keep_with_next = True
+
+    reference_updates = {
+        (
+            "[2] Lee S, Park T, Lee K. Soft Contrastive Learning for "
+            "Time Series[C]//International Conference on Learning "
+            "Representations. 2024. Spotlight. arXiv:2312.16424."
+        ): (
+            "[2] Lee S, Park T, Lee K. Soft Contrastive Learning for "
+            "Time Series[C]//The Twelfth International Conference on "
+            "Learning Representations. 2024. Spotlight. "
+            "OpenReview:pAsQSWlDUf. arXiv:2312.16424. "
+            "DOI:10.48550/arXiv.2312.16424."
+        ),
+        (
+            "[3] Zhang K, Lau W J, Ren S, Lin D, Chung J S, Sun C. "
+            "PAI: Preserving Amplitude Information in Representation-"
+            "Based Time-Series Anomaly Detection[J]. "
+            "arXiv:2606.08935, 2026."
+        ): (
+            "[3] Zhang K, Lau W J, Ren S, et al. PAI: Preserving "
+            "Amplitude Information in Representation-Based Time-Series "
+            "Anomaly Detection[EB/OL]. arXiv preprint arXiv:2606.08935, "
+            "2026: 1-15. DOI:10.48550/arXiv.2606.08935."
+        ),
+    }
+    for old, new in reference_updates.items():
+        matches = [
+            paragraph
+            for paragraph in document.paragraphs
+            if paragraph.text.strip() == old
+        ]
+        if len(matches) != 1:
+            raise RuntimeError(
+                f"Expected one reference entry {old!r}, got {len(matches)}"
+            )
+        replace_text(matches[0], new)
+
+    temporal_phrase = "以时间间隔 |t − t′| 为距离"
+    temporal_matches = [
+        paragraph
+        for paragraph in document.paragraphs
+        if temporal_phrase in paragraph.text
+    ]
+    if len(temporal_matches) != 1:
+        raise RuntimeError(
+            "Expected one temporal-distance sentence, "
+            f"got {len(temporal_matches)}"
+        )
+    replace_text(
+        temporal_matches[0],
+        temporal_matches[0].text.replace(
+            temporal_phrase,
+            "以时间差 |t − t′| 为距离",
+        ),
+    )
+
+    temporal_table_phrase = "按时间间隔给权重"
+    table_matches = [
+        paragraph
+        for table in document.tables
+        for row in table.rows
+        for cell in row.cells
+        for paragraph in cell.paragraphs
+        if temporal_table_phrase in paragraph.text
+    ]
+    if len(table_matches) != 1:
+        raise RuntimeError(
+            "Expected one table temporal-distance phrase, "
+            f"got {len(table_matches)}"
+        )
+    replace_text(
+        table_matches[0],
+        table_matches[0].text.replace(
+            temporal_table_phrase,
+            "按时间差给权重",
+        ),
+    )
+
+    forbidden_terms = ("间隔", "双分数", "隔离森林")
+    all_paragraphs = list(iter_all_paragraphs(document))
+    for section in document.sections:
+        all_paragraphs.extend(iter_all_paragraphs(section.header))
+        all_paragraphs.extend(iter_all_paragraphs(section.footer))
+    remaining = [
+        (term, paragraph.text)
+        for paragraph in all_paragraphs
+        for term in forbidden_terms
+        if term in paragraph.text
+    ]
+    if remaining:
+        raise RuntimeError(f"Deprecated terminology remains: {remaining[:3]}")
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     document.save(OUTPUT)

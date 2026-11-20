@@ -12,6 +12,7 @@ CLUE-LDS 云存储行为上验证训练端 instance-soft SoftCLT 与打分端欧
 | --- | --- |
 | `code/by_layer/` | 按 S1 数据处理、S2 表征检测、S3 风险处理、S4 证据报告、S5 评价验证整理的论文代码 |
 | `runtime/cert/` | 保留原实验导入关系的可运行代码快照 |
+| `runtime/cert/v3_frontend/` | React/TypeScript 风险审查客户端外壳，不含后端、数据或历史告警 |
 | `results/canonical/` | 论文引用的统一口径结果、逐种子指标和配对比较 |
 | `results/representation_preservation/` | E0–E11 的 CSV、JSON 和轻量审计记录 |
 | `research/ccf-b/phase1/` | E12–E14、10-seed、CLUE-LDS 和受控异常结果 |

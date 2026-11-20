@@ -88,6 +88,11 @@
 S4 尚未与当前 47 维 T4 表示重新连接。相关代码：
 
 - `s4_risk_reports.py`
+
+## 客户端外壳
+
+- `runtime/cert/v3_frontend/`：React/Vite 风险审查界面、路由、API 适配和响应式样式。
+- 该目录不包含后端、原始数据、模型权重或历史告警结果。
 - `s4_ssl_evidence_reports.py`
 - `s4_user_timelines.py`
 - `frozen_model_evidence_cards.py`

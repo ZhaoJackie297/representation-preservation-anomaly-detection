@@ -1,15 +1,23 @@
 # Exp S5 lightweight delivery
 
-Archive:
+Archives:
 
-```text
-supplement_s5_results_light.zip
-SHA256 B979503713E14C77ADB7EC40BBA05716B648FE745936D0231CFB459666C01FBF
-```
+| File | Size | SHA256 |
+| --- | ---: | --- |
+| `supplement_s5_results_light.zip` | 151,286 bytes | `B979503713E14C77ADB7EC40BBA05716B648FE745936D0231CFB459666C01FBF` |
+| `supplement_task_package_s5_20261122.zip` | 23,892 bytes | `535EB978EACAF3C5EC46846AD952010C61BEF53FE8CA69CF8CB46128C2A3D4FD` |
 
-The archive contains 29 lightweight CSV/JSON files plus `RUN_LOG_S5.md`.
+The results archive contains 29 lightweight CSV/JSON files plus `RUN_LOG_S5.md`.
 It intentionally excludes model weights (`.pth`), score arrays (`.npz`), and
 training temporary files.
+
+The task-package archive preserves the four original files from the desktop
+S5 handoff directory:
+
+- `AGENT_HANDOFF_S5.md`
+- `exp_s5a_norm_intervention.py`
+- `exp_s5b_symmetry_norms_audit.py`
+- `exp_s5c_norm_corr_3seed.py`
 
 Contents:
 

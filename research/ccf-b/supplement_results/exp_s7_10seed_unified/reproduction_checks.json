@@ -1,0 +1,177 @@
+{
+  "generated_with_seeds": [
+    20261116,
+    20261117,
+    20261118,
+    20261119,
+    20261120,
+    20261121,
+    20261122,
+    20261123,
+    20261124,
+    20261125
+  ],
+  "t3_retraining_first_three": {
+    "status": "compared",
+    "overlap_seeds": [
+      20261116,
+      20261117,
+      20261118
+    ],
+    "rows_compared": 72,
+    "exact_within_1e-12": false,
+    "max_abs_delta": {
+      "pr_auc": 0.005715344907474697,
+      "roc_auc": 0.011434976655292473,
+      "event_recall_3d": 0.08695652173913049
+    },
+    "mean_abs_delta": {
+      "pr_auc": 0.0009601406179100504,
+      "roc_auc": 0.004301122848115328,
+      "event_recall_3d": 0.03228160225442834
+    },
+    "test_only": {
+      "status": "compared",
+      "overlap_seeds": [
+        20261116,
+        20261117,
+        20261118
+      ],
+      "rows_compared": 36,
+      "exact_within_1e-12": false,
+      "max_abs_delta": {
+        "pr_auc": 0.0026701925414598024,
+        "roc_auc": 0.011434976655292473,
+        "event_recall_3d": 0.08333333333333337
+      },
+      "mean_abs_delta": {
+        "pr_auc": 0.0007505876934213005,
+        "roc_auc": 0.004269324394775935,
+        "event_recall_3d": 0.02893518518518519
+      }
+    },
+    "sources": {
+      "existing_reference": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\representation-preservation-anomaly-detection\\research\\ccf-b\\supplement_results\\exp_s1_r4.2\\metrics_by_seed.csv",
+      "retrained_unified": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\representation-preservation-anomaly-detection\\research\\ccf-b\\supplement_results\\exp_s7_10seed_unified\\t4_10seed_by_seed.csv",
+      "retrained_methods": "T3_instance_soft__*"
+    },
+    "note": "The unified e2 trainer is not bitwise identical to the historical S1 batch-table training implementation; preserve the measured differences."
+  },
+  "old_s4_ae_first_three": {
+    "r4.2": {
+      "status": "compared",
+      "overlap_seeds": [
+        20261116,
+        20261117,
+        20261118
+      ],
+      "rows_compared": 36,
+      "exact_within_1e-12": true,
+      "max_abs_delta": {
+        "pr_auc": 0.0,
+        "roc_auc": 0.0,
+        "event_recall_3d": 0.0
+      },
+      "mean_abs_delta": {
+        "pr_auc": 0.0,
+        "roc_auc": 0.0,
+        "event_recall_3d": 0.0
+      },
+      "old_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\representation-preservation-anomaly-detection\\research\\ccf-b\\supplement_results\\exp_s4_baselines_hp\\ae_r4.2\\ae_baselines_by_seed.csv",
+      "new_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\representation-preservation-anomaly-detection\\research\\ccf-b\\supplement_results\\exp_s7_10seed_unified\\ae_r4.2\\ae_baselines_by_seed.csv",
+      "test_only": {
+        "status": "compared",
+        "overlap_seeds": [
+          20261116,
+          20261117,
+          20261118
+        ],
+        "rows_compared": 18,
+        "exact_within_1e-12": true,
+        "max_abs_delta": {
+          "pr_auc": 0.0,
+          "roc_auc": 0.0,
+          "event_recall_3d": 0.0
+        },
+        "mean_abs_delta": {
+          "pr_auc": 0.0,
+          "roc_auc": 0.0,
+          "event_recall_3d": 0.0
+        }
+      }
+    },
+    "r5.2": {
+      "status": "compared",
+      "overlap_seeds": [
+        20261116,
+        20261117,
+        20261118
+      ],
+      "rows_compared": 18,
+      "exact_within_1e-12": true,
+      "max_abs_delta": {
+        "pr_auc": 0.0,
+        "roc_auc": 0.0,
+        "event_recall_3d": 0.0
+      },
+      "mean_abs_delta": {
+        "pr_auc": 0.0,
+        "roc_auc": 0.0,
+        "event_recall_3d": 0.0
+      },
+      "old_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\representation-preservation-anomaly-detection\\research\\ccf-b\\supplement_results\\exp_s4_baselines_hp\\ae_r5.2\\ae_baselines_by_seed.csv",
+      "new_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\representation-preservation-anomaly-detection\\research\\ccf-b\\supplement_results\\exp_s7_10seed_unified\\ae_r5.2\\ae_baselines_by_seed.csv",
+      "test_only": {
+        "status": "compared",
+        "overlap_seeds": [
+          20261116,
+          20261117,
+          20261118
+        ],
+        "rows_compared": 18,
+        "exact_within_1e-12": true,
+        "max_abs_delta": {
+          "pr_auc": 0.0,
+          "roc_auc": 0.0,
+          "event_recall_3d": 0.0
+        },
+        "mean_abs_delta": {
+          "pr_auc": 0.0,
+          "roc_auc": 0.0,
+          "event_recall_3d": 0.0
+        }
+      }
+    }
+  },
+  "old_t4_archive": {
+    "status": "not_comparable",
+    "path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\representation-preservation-anomaly-detection\\runtime\\cert\\experiments\\representation_preservation\\e4_joint\\paired_pilot_20261201_03_v1\\metrics_by_seed.csv",
+    "historical_seeds": [
+      20261201,
+      20261202,
+      20261203
+    ],
+    "requested_overlap_seeds": [
+      20261116,
+      20261117,
+      20261118
+    ],
+    "overlap_seeds": [],
+    "note": "The historical T4 archive contains 20261201-20261203, so it has no seed overlap with the locked S7 seeds."
+  },
+  "old_deep_baseline_archives": {
+    "status": "not_comparable_on_first_three",
+    "historical_seeds": [
+      20261201,
+      20261202,
+      20261203
+    ],
+    "requested_overlap_seeds": [
+      20261116,
+      20261117,
+      20261118
+    ],
+    "overlap_seeds": [],
+    "note": "The historical Anomaly Transformer and t-NNCLR archives use 20261201-20261203; exact first-three reproduction against the S7 seeds is impossible."
+  }
+}

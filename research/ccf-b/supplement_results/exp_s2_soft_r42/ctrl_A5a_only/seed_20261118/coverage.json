@@ -1,0 +1,10 @@
+{
+  "objective": "soft",
+  "arm": "ctrl_A5a_only",
+  "seed": 20261118,
+  "total_steps": 700,
+  "realized_A3_cov": 0.14466546112115733,
+  "realized_A5a_cov": 0.8004822182037372,
+  "realized_A5b_cov": 0.14180229053646776,
+  "elapsed_sec": 40.53
+}

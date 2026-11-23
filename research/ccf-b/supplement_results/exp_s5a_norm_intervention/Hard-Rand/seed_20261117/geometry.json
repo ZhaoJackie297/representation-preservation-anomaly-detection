@@ -1,0 +1,21 @@
+{
+  "arm": "Hard-Rand",
+  "seed": 20261117,
+  "n_steps": 620,
+  "hook_calls": 0,
+  "final_loss": 1.0863001346588135,
+  "mean_norm_active": 3.4870824813842773,
+  "std_norm_active": 0.2853828966617584,
+  "cv_norm_active": 0.08184001594781876,
+  "mean_norm_test_normal": 3.4914181232452393,
+  "mean_norm_test_anom": 3.692159414291382,
+  "effective_rank_active": 9.486253159825804,
+  "effective_rank_val": 9.371144868189763,
+  "spearman_norm_vs_xnorm": -0.10867110715283758,
+  "spearman_norm_vs_magG": -0.4963734329208338,
+  "radial_energy_share_normal": 0.028398284688591957,
+  "radial_energy_share_anom": 0.03338198736310005,
+  "val_knn10_agreement": 0.5954685890834192,
+  "val_local_dist_spearman": 0.7230645823558263,
+  "elapsed_sec": 34.67
+}

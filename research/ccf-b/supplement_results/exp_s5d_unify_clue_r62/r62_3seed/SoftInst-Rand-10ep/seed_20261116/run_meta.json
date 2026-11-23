@@ -1,0 +1,13 @@
+{
+  "dataset": "r62",
+  "arm": "SoftInst-Rand-10ep",
+  "seed": 20261116,
+  "train_users": 1000,
+  "epochs": 10,
+  "nominal_steps": 620,
+  "model_impl": "upstream SoftTS2Vec",
+  "training_chunk_length": 256,
+  "training_instances": 1000,
+  "final_loss": 16.506154152654833,
+  "elapsed_sec": 50.35
+}

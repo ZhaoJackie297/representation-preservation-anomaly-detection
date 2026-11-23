@@ -1,0 +1,10 @@
+{
+  "objective": "hard",
+  "arm": "dose_A3_80",
+  "seed": 20261116,
+  "total_steps": 700,
+  "realized_A3_cov": 0.8003315250150693,
+  "realized_A5a_cov": 0.06223628691983123,
+  "realized_A5b_cov": 0.060126582278481014,
+  "elapsed_sec": 34.9
+}

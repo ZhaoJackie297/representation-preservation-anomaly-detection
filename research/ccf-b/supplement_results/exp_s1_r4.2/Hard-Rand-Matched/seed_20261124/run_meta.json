@@ -1,0 +1,10 @@
+{
+  "dataset": "r4.2",
+  "arm": "Hard-Rand-Matched",
+  "seed": 20261124,
+  "soft_instance": false,
+  "n_steps": 1146,
+  "final_loss": 0.893917441368103,
+  "mean_repr_norm_active": 3.646273374557495,
+  "elapsed_sec": 43.0
+}

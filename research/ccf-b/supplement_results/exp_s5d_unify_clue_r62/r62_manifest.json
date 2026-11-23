@@ -1,0 +1,34 @@
+{
+  "dataset": "r62",
+  "seeds": [
+    20261116,
+    20261117,
+    20261118
+  ],
+  "train_users": 1000,
+  "evaluation_users": 4000,
+  "train_end": 221,
+  "test_start": 222,
+  "test_end": 515,
+  "batch_size": 16,
+  "epochs": 10,
+  "nominal_steps": 620,
+  "model_impl": "upstream SoftTS2Vec",
+  "training_chunk_length": 256,
+  "training_instances": 1000,
+  "arms": [
+    "Hard-Rand-10ep",
+    "SoftInst-Rand-10ep"
+  ],
+  "scorers": [
+    "plain_l1",
+    "bank_cosine",
+    "bank_euclidean"
+  ],
+  "distance_metadata": {
+    "alpha": 0.5,
+    "median_normalized_distance": 0.2366100615537392,
+    "tau": 4.226362959518011
+  },
+  "labels_used_in_training": false
+}

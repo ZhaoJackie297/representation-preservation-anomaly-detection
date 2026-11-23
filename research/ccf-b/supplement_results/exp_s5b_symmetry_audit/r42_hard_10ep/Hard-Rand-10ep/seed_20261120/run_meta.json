@@ -1,0 +1,11 @@
+{
+  "dataset": "r4.2",
+  "arm": "Hard-Rand-10ep",
+  "seed": 20261120,
+  "n_steps": 620,
+  "final_loss": 1.0105345249176025,
+  "mean_repr_norm_active": 3.5099241733551025,
+  "std_repr_norm_active": 0.26560401916503906,
+  "effective_rank_active": 9.271382003709968,
+  "elapsed_sec": 33.84
+}

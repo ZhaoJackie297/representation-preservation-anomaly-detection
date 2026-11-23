@@ -1,0 +1,21 @@
+{
+  "arm": "PermSoft-Rand",
+  "seed": 20261120,
+  "n_steps": 620,
+  "hook_calls": 0,
+  "final_loss": 18.906452178955078,
+  "mean_norm_active": 1.2692785263061523,
+  "std_norm_active": 0.2182151824235916,
+  "cv_norm_active": 0.17192064225673676,
+  "mean_norm_test_normal": 1.2701468467712402,
+  "mean_norm_test_anom": 1.4732072353363037,
+  "effective_rank_active": 15.517000256977706,
+  "effective_rank_val": 15.355784877965085,
+  "spearman_norm_vs_xnorm": 0.07022421026265535,
+  "spearman_norm_vs_magG": -0.3536964904518034,
+  "radial_energy_share_normal": 0.04569496959447861,
+  "radial_energy_share_anom": 0.05708698183298111,
+  "val_knn10_agreement": 0.631513903192585,
+  "val_local_dist_spearman": 0.8177555777291959,
+  "elapsed_sec": 35.04
+}

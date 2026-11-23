@@ -1,0 +1,13 @@
+{
+  "dataset": "clue",
+  "arm": "Hard-Rand-10ep",
+  "seed": 20261119,
+  "train_users": 838,
+  "epochs": 10,
+  "nominal_steps": 3140,
+  "model_impl": "upstream SoftTS2Vec",
+  "training_chunk_length": 256,
+  "training_instances": 5028,
+  "final_loss": 2.575465874794202,
+  "elapsed_sec": 59.55
+}

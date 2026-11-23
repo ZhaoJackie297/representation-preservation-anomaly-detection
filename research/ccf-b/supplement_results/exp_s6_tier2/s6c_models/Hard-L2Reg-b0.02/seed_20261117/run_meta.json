@@ -1,0 +1,8 @@
+{
+  "arm": "Hard-L2Reg-b0.02",
+  "seed": 20261117,
+  "n_steps": 1250,
+  "hook_calls": 1250,
+  "final_loss": 0.9429705739021301,
+  "elapsed_sec": 69.05
+}

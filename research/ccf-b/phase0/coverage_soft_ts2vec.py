@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 from pathlib import Path
 import sys
@@ -13,11 +14,41 @@ from torch.utils.data import DataLoader, TensorDataset
 
 ROOT = Path(__file__).resolve().parents[3]
 SOFTCLT_REPO = ROOT / "references" / "softclt_repo" / "softclt_ts2vec"
+
+# Keep SoftCLT's ``models`` package isolated from the official TS2Vec package,
+# which uses the same import name.
+SOFT_MODELS_NAME = "rpad_softclt_models"
+if SOFT_MODELS_NAME not in sys.modules:
+    models_dir = SOFTCLT_REPO / "models"
+    spec = importlib.util.spec_from_file_location(
+        SOFT_MODELS_NAME,
+        models_dir / "__init__.py",
+        submodule_search_locations=[str(models_dir)],
+    )
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load SoftCLT models from {models_dir}")
+    soft_models = importlib.util.module_from_spec(spec)
+    sys.modules[SOFT_MODELS_NAME] = soft_models
+    spec.loader.exec_module(soft_models)
+    saved_models = {
+        name: module
+        for name, module in sys.modules.items()
+        if name == "models" or name.startswith("models.")
+    }
+    try:
+        sys.modules["models"] = soft_models
+        importlib.import_module(f"{SOFT_MODELS_NAME}.soft_losses")
+    finally:
+        for name in list(sys.modules):
+            if name == "models" or name.startswith("models."):
+                del sys.modules[name]
+        sys.modules.update(saved_models)
+
+from rpad_softclt_models.soft_losses import hier_CL_soft  # noqa: E402
+from rpad_softclt_models import TSEncoder  # noqa: E402
+
 if str(SOFTCLT_REPO) not in sys.path:
     sys.path.insert(0, str(SOFTCLT_REPO))
-
-from models.soft_losses import hier_CL_soft  # noqa: E402
-from models import TSEncoder  # noqa: E402
 from utils import (  # noqa: E402
     centerize_vary_length_series,
     take_per_row,

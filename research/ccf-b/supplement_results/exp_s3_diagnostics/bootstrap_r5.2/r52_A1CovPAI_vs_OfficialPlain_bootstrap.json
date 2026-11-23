@@ -1,0 +1,32 @@
+{
+  "dataset": "r5.2",
+  "n_common_seeds": 10,
+  "n_events": 99,
+  "k": 10,
+  "event_level": {
+    "mean_recall_A": 0.3282828282828283,
+    "mean_recall_B": 0.19696969696969696,
+    "delta_recall_A_minus_B": 0.13131313131313133,
+    "boot_95ci": [
+      0.08080808080808081,
+      0.18888888888888888
+    ],
+    "events_improved": 27,
+    "events_worsened": 4,
+    "events_tied": 68,
+    "wilcoxon_p_across_events": 1.3241088253130744e-05
+  },
+  "user_cluster_bootstrap": {
+    "n_valid_resamples": 1000,
+    "obs_delta_pr_auc": 0.002041686811475407,
+    "delta_pr_auc_95ci": [
+      0.0011896972573080702,
+      0.003132618456265138
+    ],
+    "obs_delta_roc_auc": 0.05191705776845601,
+    "delta_roc_auc_95ci": [
+      0.0362205165134319,
+      0.06542200409098772
+    ]
+  }
+}

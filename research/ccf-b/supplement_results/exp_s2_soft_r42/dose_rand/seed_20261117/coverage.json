@@ -1,0 +1,10 @@
+{
+  "objective": "soft",
+  "arm": "dose_rand",
+  "seed": 20261117,
+  "total_steps": 700,
+  "realized_A3_cov": 0.14828209764918626,
+  "realized_A5a_cov": 0.1546112115732369,
+  "realized_A5b_cov": 0.15280289330922242,
+  "elapsed_sec": 29.85
+}

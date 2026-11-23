@@ -29,7 +29,6 @@ SOFTCLT_DIR = (
     / "softclt_ts2vec"
 )
 sys.path.insert(0, str(SOFTCLT_DIR))
-from soft_ts2vec import TS2Vec as SoftTS2Vec  # noqa: E402
 
 sys.path.insert(0, str(ROOT))
 from quota_relationship_sim import (  # noqa: E402
@@ -234,6 +233,8 @@ def train_variant(
     batch_size: int,
     epochs: int,
 ) -> tuple[np.ndarray, dict]:
+    from soft_ts2vec import TS2Vec as SoftTS2Vec
+
     torch.manual_seed(seed)
     np.random.seed(seed)
     if torch.cuda.is_available():

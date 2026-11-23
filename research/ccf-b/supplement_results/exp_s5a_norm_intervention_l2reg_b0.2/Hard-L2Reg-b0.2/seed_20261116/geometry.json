@@ -1,0 +1,21 @@
+{
+  "arm": "Hard-L2Reg-b0.2",
+  "seed": 20261116,
+  "n_steps": 620,
+  "hook_calls": 620,
+  "final_loss": 2.312100887298584,
+  "mean_norm_active": 1.410186767578125,
+  "std_norm_active": 0.3011477589607239,
+  "cv_norm_active": 0.21355168521404266,
+  "mean_norm_test_normal": 1.408813238143921,
+  "mean_norm_test_anom": 1.6829931735992432,
+  "effective_rank_active": 14.79245184606889,
+  "effective_rank_val": 14.553838590540673,
+  "spearman_norm_vs_xnorm": -0.07729797428069271,
+  "spearman_norm_vs_magG": -0.5154338054088791,
+  "radial_energy_share_normal": 0.0671391636133194,
+  "radial_energy_share_anom": 0.06840723752975464,
+  "val_knn10_agreement": 0.6367662203913491,
+  "val_local_dist_spearman": 0.7998561876360537,
+  "elapsed_sec": 38.98
+}

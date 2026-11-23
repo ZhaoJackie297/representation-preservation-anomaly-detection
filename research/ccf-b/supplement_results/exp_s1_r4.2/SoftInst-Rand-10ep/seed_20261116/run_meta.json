@@ -1,0 +1,10 @@
+{
+  "dataset": "r4.2",
+  "arm": "SoftInst-Rand-10ep",
+  "seed": 20261116,
+  "soft_instance": true,
+  "n_steps": 620,
+  "final_loss": 16.08144760131836,
+  "mean_repr_norm_active": 1.3690884113311768,
+  "elapsed_sec": 35.06
+}

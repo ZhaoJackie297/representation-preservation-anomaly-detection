@@ -1,0 +1,21 @@
+{
+  "arm": "Hard-Sphere-t0.5",
+  "seed": 20261120,
+  "n_steps": 620,
+  "hook_calls": 620,
+  "final_loss": 2.3369076251983643,
+  "mean_norm_active": 13.257366180419922,
+  "std_norm_active": 7.518002986907959,
+  "cv_norm_active": 0.5670812129974365,
+  "mean_norm_test_normal": 13.181081771850586,
+  "mean_norm_test_anom": 18.17006492614746,
+  "effective_rank_active": 8.255973752274,
+  "effective_rank_val": 8.238896371413228,
+  "spearman_norm_vs_xnorm": -0.03962761442427794,
+  "spearman_norm_vs_magG": -0.36037778756556454,
+  "radial_energy_share_normal": 0.2611619830131531,
+  "radial_energy_share_anom": 0.2028437852859497,
+  "val_knn10_agreement": 0.5423274974253346,
+  "val_local_dist_spearman": 0.7674767479376166,
+  "elapsed_sec": 39.38
+}

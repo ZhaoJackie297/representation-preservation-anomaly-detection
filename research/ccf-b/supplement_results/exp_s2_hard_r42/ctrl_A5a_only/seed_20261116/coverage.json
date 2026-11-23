@@ -1,0 +1,10 @@
+{
+  "objective": "hard",
+  "arm": "ctrl_A5a_only",
+  "seed": 20261116,
+  "total_steps": 700,
+  "realized_A3_cov": 0.14345991561181434,
+  "realized_A5a_cov": 0.8001808318264014,
+  "realized_A5b_cov": 0.12854128993369499,
+  "elapsed_sec": 35.07
+}

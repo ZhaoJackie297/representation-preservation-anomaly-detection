@@ -1,0 +1,21 @@
+{
+  "arm": "SoftInst-Rand",
+  "seed": 20261117,
+  "n_steps": 620,
+  "hook_calls": 0,
+  "final_loss": 18.317237854003906,
+  "mean_norm_active": 1.3912121057510376,
+  "std_norm_active": 0.2445155531167984,
+  "cv_norm_active": 0.17575719952583313,
+  "mean_norm_test_normal": 1.391991376876831,
+  "mean_norm_test_anom": 1.6622854471206665,
+  "effective_rank_active": 14.958275824206602,
+  "effective_rank_val": 14.762789964145606,
+  "spearman_norm_vs_xnorm": 0.03989783651201338,
+  "spearman_norm_vs_magG": -0.378175331604499,
+  "radial_energy_share_normal": 0.05187935009598732,
+  "radial_energy_share_anom": 0.0803748369216919,
+  "val_knn10_agreement": 0.668898043254377,
+  "val_local_dist_spearman": 0.9381421010389991,
+  "elapsed_sec": 34.34
+}

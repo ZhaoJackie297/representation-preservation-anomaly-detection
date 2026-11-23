@@ -1,0 +1,41 @@
+{
+  "dataset": "clue",
+  "seeds": [
+    20261116,
+    20261117,
+    20261118,
+    20261119,
+    20261120,
+    20261121,
+    20261122,
+    20261123,
+    20261124,
+    20261125
+  ],
+  "train_users": 838,
+  "evaluation_users": 838,
+  "train_end": 1697,
+  "test_start": 1698,
+  "test_end": 1910,
+  "batch_size": 16,
+  "epochs": 10,
+  "nominal_steps": 3140,
+  "model_impl": "upstream SoftTS2Vec",
+  "training_chunk_length": 256,
+  "training_instances": 5028,
+  "arms": [
+    "Hard-Rand-10ep",
+    "SoftInst-Rand-10ep"
+  ],
+  "scorers": [
+    "plain_l1",
+    "bank_cosine",
+    "bank_euclidean"
+  ],
+  "distance_metadata": {
+    "alpha": 0.5,
+    "median_normalized_distance": 0.028439221237521264,
+    "tau": 35.162706870490915
+  },
+  "labels_used_in_training": false
+}

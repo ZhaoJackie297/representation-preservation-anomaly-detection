@@ -27,7 +27,6 @@ SOFTCLT_DIR = (
     / "softclt_ts2vec"
 )
 sys.path.insert(0, str(SOFTCLT_DIR))
-from soft_ts2vec import TS2Vec as SoftTS2Vec  # noqa: E402
 
 sys.path.insert(0, str(ROOT))
 from e2_softclt_training import (  # noqa: E402
@@ -179,6 +178,8 @@ def train_and_evaluate(
     data: dict,
     out_root: Path,
 ) -> pd.DataFrame:
+    from soft_ts2vec import TS2Vec as SoftTS2Vec
+
     torch.manual_seed(seed)
     np.random.seed(seed)
     if torch.cuda.is_available():

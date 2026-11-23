@@ -1,0 +1,21 @@
+{
+  "arm": "UniformSoft-Rand",
+  "seed": 20261118,
+  "n_steps": 620,
+  "hook_calls": 0,
+  "final_loss": 16.896556854248047,
+  "mean_norm_active": 1.3150806427001953,
+  "std_norm_active": 0.24555489420890808,
+  "cv_norm_active": 0.1867223083972931,
+  "mean_norm_test_normal": 1.315251111984253,
+  "mean_norm_test_anom": 1.534656286239624,
+  "effective_rank_active": 15.236981878152253,
+  "effective_rank_val": 15.098318107476965,
+  "spearman_norm_vs_xnorm": 0.12607427006188973,
+  "spearman_norm_vs_magG": -0.3437092570713583,
+  "radial_energy_share_normal": 0.046205777674913406,
+  "radial_energy_share_anom": 0.05706476792693138,
+  "val_knn10_agreement": 0.6491246138002059,
+  "val_local_dist_spearman": 0.8407867455067553,
+  "elapsed_sec": 33.97
+}

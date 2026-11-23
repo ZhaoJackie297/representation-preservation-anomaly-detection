@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-11-23T15:35:40+08:00",
+  "seeds": [
+    20261116,
+    20261117,
+    20261118,
+    20261119,
+    20261120
+  ],
+  "scripts": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-07\\files-pasted-by-the-user-2026\\representation-preservation-anomaly-detection\\research\\ccf-b\\supplement\\exp_s8_necessity_and_dynamics.py",
+  "primary_full_matrix_wall_seconds": 2357.4,
+  "cpu_snapshot_correction_rerun_wall_seconds_approx": 2100.0,
+  "final_artifact_run_time_seconds": 2960.36,
+  "wall_seconds": 4457.4,
+  "commands": [
+    "python research\\ccf-b\\supplement\\exp_s8_necessity_and_dynamics.py --experiments all",
+    "python research\\ccf-b\\supplement\\exp_s8_necessity_and_dynamics.py --experiments s8a s8b --force",
+    "python research\\ccf-b\\supplement\\exp_s8_necessity_and_dynamics.py --experiments cross finalize"
+  ],
+  "note": "The correction rerun moved trajectory snapshot encoding from the live CUDA model to a CPU state clone."
+}
